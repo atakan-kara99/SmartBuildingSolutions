@@ -1,0 +1,10 @@
+Informationen zum Zoom Meeting
+------------------------------
+
+Für eure Gruppe ist für die gesamte Laufzeit des Softwareprojekts ein Zoom-Meeting angelegt - da man Meetings in Zoom nicht für länger als 24 Stunden planen kann, ist dies als wiederkehrendes Meeting jeweils von 0:00 bis 23:45 geplant. Zusätzlich zur Meeting URL findet ihr noch den Host-Key, mit dem ihr Host-Rechte für euer Meeting erhalten könnt. Dadurch könnt ihr beispielsweise selbst Breakout-Räume etc anlegen. Eine Anleitung dazu findet ihr unter https://support.zoom.us/hc/en-us/articles/205172555-Using-your-host-key.
+
+Hier nun die Daten für euren Account:
+
+  meeting URL: https://uni-kiel.zoom.us/j/68256132170?pwd=RnBEYi84V1Y2V1p5SzUxZ2R0bmhoQT09
+  host-key   : 646645 
+
