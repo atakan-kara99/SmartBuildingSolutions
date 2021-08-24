@@ -123,10 +123,10 @@
       ><path d="M0 0 L0 38 L195 38 L195 0 Z"
       /></clipPath
       ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath40"
-      ><path d="M0 0 L0 14 L155 14 L155 0 Z"
+      ><path d="M0 0 L0 14 L159 14 L159 0 Z"
       /></clipPath
       ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath41"
-      ><path d="M0 0 L0 18 L155 18 L155 0 Z"
+      ><path d="M0 0 L0 18 L159 18 L159 0 Z"
       /></clipPath
       ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath42"
       ><path d="M0 0 L0 32 L195 32 L195 0 Z"
@@ -467,7 +467,7 @@
     /></g
     ><g font-size="11px" transform="translate(836,187)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="black" stroke-opacity="1"
     ><text x="5" xml:space="preserve" y="24" clip-path="url(#clipPath26)" stroke="none"
-      >Warn: Privilege level too low</text
+      >Error: Privilege level too low</text
     ></g
     ><g font-size="11px" transform="translate(472,387)" fill-opacity="1" fill="rgb(122,207,245)" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="rgb(122,207,245)" stroke-opacity="1"
     ><ellipse rx="157" ry="26" clip-path="url(#clipPath27)" cx="157" cy="26" stroke="none"
@@ -497,8 +497,8 @@
     ><ellipse rx="89.5" fill="none" ry="20" clip-path="url(#clipPath32)" cx="89.5" cy="20"
     /></g
     ><g font-size="11px" transform="translate(911,387)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="black" stroke-opacity="1"
-    ><text x="5" xml:space="preserve" y="24" clip-path="url(#clipPath33)" stroke="none"
-      >Warn: User not in organization</text
+    ><text x="6" xml:space="preserve" y="24" clip-path="url(#clipPath33)" stroke="none"
+      >Error: User not in organization</text
     ></g
     ><g transform="translate(574,71)" fill-opacity="1" fill="rgb(122,207,245)" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="rgb(122,207,245)" stroke-opacity="1"
     ><polygon points=" 0 0 329 0 344 15 329 15 329 0 344 15 344 95 0 95" stroke="none" clip-path="url(#clipPath34)"
@@ -533,12 +533,12 @@
     ><g stroke-linecap="butt" font-size="11px" transform="translate(1422,491)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke-linejoin="round" stroke="black" stroke-opacity="1" stroke-miterlimit="0"
     ><line y2="0" fill="none" x1="0" clip-path="url(#clipPath39)" x2="193" y1="0"
     /></g
-    ><g font-size="11px" transform="translate(1442,509)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="black" stroke-opacity="1"
-    ><text x="28" xml:space="preserve" y="11" clip-path="url(#clipPath40)" stroke="none"
-      >Login data invalid</text
+    ><g font-size="11px" transform="translate(1440,509)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="black" stroke-opacity="1"
+    ><text x="24" xml:space="preserve" y="11" clip-path="url(#clipPath40)" stroke="none"
+      >Login data not valid</text
     ></g
-    ><g font-size="11px" transform="translate(1442,491)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="black" font-weight="bold" stroke-opacity="1"
-    ><text x="24" xml:space="preserve" y="15" clip-path="url(#clipPath41)" stroke="none"
+    ><g font-size="11px" transform="translate(1440,491)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="black" font-weight="bold" stroke-opacity="1"
+    ><text x="26" xml:space="preserve" y="15" clip-path="url(#clipPath41)" stroke="none"
       >extension points</text
     ></g
     ><g font-size="11px" transform="translate(1422,459)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="black" stroke-opacity="1"
@@ -552,8 +552,8 @@
     ><ellipse rx="78" fill="none" ry="20" clip-path="url(#clipPath43)" cx="78" cy="20"
     /></g
     ><g font-size="11px" transform="translate(1441,193)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="black" stroke-opacity="1"
-    ><text x="5" xml:space="preserve" y="24" clip-path="url(#clipPath44)" stroke="none"
-      >Warn: Login data not valid</text
+    ><text x="6" xml:space="preserve" y="24" clip-path="url(#clipPath44)" stroke="none"
+      >Error: Login data not valid</text
     ></g
     ><g transform="translate(1316,305)" fill-opacity="1" fill="rgb(122,207,245)" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="rgb(122,207,245)" stroke-opacity="1"
     ><polygon points=" 0 0 157 0 172 15 157 15 157 0 172 15 172 81 0 81" stroke="none" clip-path="url(#clipPath45)"
