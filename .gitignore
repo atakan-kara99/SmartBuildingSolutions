@@ -1,5 +1,12 @@
 .DS_Store
 
+##VP
+*.bak_*
+*.vpp.lck
+
+##VSCode
+.vscode
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
