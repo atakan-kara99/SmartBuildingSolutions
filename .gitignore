@@ -1,5 +1,6 @@
 .DS_Store
 *.bak*
+*.lck
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
