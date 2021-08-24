@@ -1,0 +1,174 @@
+\documentclass{report}
+
+\usepackage[utf8]{inputenc} % Charakter-Kodierung
+\usepackage[german]{babel} % Sprache
+
+\usepackage[table,xcdraw]{xcolor} % Tabellen Farben
+\usepackage{tabularx} % Dynamische Tabellenbreite
+\usepackage{tcolorbox} % Graue Boxen
+\usepackage{hyperref} % url Umgebung
+\usepackage{todonotes} % Notizen
+\usepackage{natbib} % Bibliographie
+\usepackage{fancyhdr} % Header und Footer
+\usepackage{multirow} % Multizeile
+\usepackage{geometry} % Page layout
+\usepackage{color} % Text Farben
+
+% Page layout
+\geometry{
+	bottom=3.5cm,
+	headheight=180pt
+}
+
+% Nummerierung der ersten Seiten verhindern
+\pagenumbering{gobble}
+
+% Bibstyle
+\bibliographystyle{plain}
+
+% Header / Footer
+\fancypagestyle{plain}{
+	\fancyhf{}% Clear header/footer
+	\fancyhead[R]{\includegraphics[width=4cm]{img/cau-logo-2017}} % Rechter header
+	\fancyhead[L]{\leftmark} % Linker header
+	\fancyfoot[R]{\thepage} % Rechter footer
+	\fancyfoot[L]{\includegraphics[width=1cm]{img/se-logo}} % Linker footer	
+}
+\pagestyle{plain}
+
+\renewcommand{\headrulewidth}{0.5pt} % Unnötige Informationen der Kapitelangabe
+\renewcommand{\footrulewidth}{0.2pt} % entfernen
+\renewcommand{\chaptermark}[1]{\markboth{{#1}}{}}
+
+
+
+
+% Zahlen für Fußnoten
+\renewcommand{\thefootnote}{\arabic{footnote}}
+\renewcommand{\thempfootnote}{\arabic{mpfootnote}}
+
+%%%%% Ausfüllen %%%%%
+
+% Gruppenname
+\newcommand{\gruppenname}{Gruppe X}
+
+% Projektname
+\newcommand{\projektname}{Projektname}
+
+% Semester
+\newcommand{\semester}{Sommer 2021}
+
+
+
+% Titelseite
+
+\title{
+	\vspace*{-3cm}
+	Pflichtenheft\\
+	\projektname\\
+	-\\
+	\color{gray}
+	Softwareprojekt \semester\\
+	\gruppenname\\
+	\vspace*{5mm}
+	\includegraphics[width=\textwidth]{img/logo}
+}
+
+\author{
+	\begin{tabular}{r l@{\hspace{8\tabcolsep}} r} 
+		Eddy & Wu & \multirow{8}{*}{ \includegraphics{img/se-logo} } \\
+		Julius & Daum \\
+		Luca Anthony & Schwarz \\
+		Till & Kurzenberger \\
+		Philipp & Wieck \\
+		Natalie & Kaufhold \\
+		Yilmaz Atakan & Kara \\
+		Lea Marie & Sch\"umann \\
+	\end{tabular}
+}
+
+\date{\today}
+
+
+
+
+
+% Dokument
+
+\begin{document}
+	\maketitle
+	
+	%%%% Bitte löschen oder auskommentieren %%%%
+	%%%%%%%%% Dient nur als Hilfe %%%%%%%%%%
+	
+	\chapter*{Tipps und Hilfen}\label{chp:tipps}
+	\vspace*{-1cm}
+	\begin{tcolorbox}
+		\textbf{Information:} Dieses Kapitel und alle folgenden grauen Boxen dienen als Hilfestellungen und sollen im fertigen Dokument nicht enthalten sein. 
+		%
+		\\\\
+		%
+		Zur Versionsverwaltung während des Softwareprojekts muss \textit{Git} genutzt werden.
+		Git führt Textdokumente mit unterschiedlichen Zeilenbearbeitungen automatisch zusammen.
+		Wir empfehlen den Einsatz von \LaTeX~für alle Textdokumente.
+		Um das Auto-Merging zu unterstützen, sollte nach jedem Satzende eine neue Zeile im Quelltext begonnen werden.
+		Die .tex-Datei dieser PDF verdeutlicht dies.
+		Erkennt Git, dass eine gleiche Zeile bearbeitet wurde, wird ein Konflikt auftreten.
+		Dieser kann in der entsprechenden Datei von Hand mittels eines Texteditors behoben werden.
+		%
+		\\\\
+		%
+		Fußnoten\footnote{\url{https://www.se.informatik.uni-kiel.de/en}} werden für Homepages genutzt.
+		Zitierungen können mittels eines \textit{cite}-Befehls gesetzt, z.B. \textit{citep}~\citep{Shaw2003WritingGoodSoftwareEngineeringesearchPapersMinitutorial}.
+		%
+		\\\\
+		%
+		Tipps zur UML-Modellierung können im SE-Wiki\footnote{\url{https://git.informatik.uni-kiel.de/ag-se/teaching-public/wikis/home}} nachgelesen werden.
+		Achtet darauf, dass eure Diagramme stets lesbar (Vektor-Grafiken!) und gut strukturiert sind.
+		Oftmals ist es sinnvoll ein bis zwei Sätze zusätzlich für Diagrammelemente zu formulieren.
+		So können Missverständnisse ausgeschlossen werden, was einen Einfluss auf die Korrektur haben kann.
+		Diagramme für unwichtige Tätigkeiten (z.B. Login / Logout, User erstellen / löschen, Passwort ändern etc.) sind nicht erforderlich.	
+	\end{tcolorbox}
+	
+	\todo[inline]{So kann eine TODO-Notiz erzeugt werden}
+	
+	\begin{figure}[h]
+		\centering
+		\missingfigure{So kann eine Placeholder-Grafik beispielsweise in den Text eingefügt werden.}		
+		\caption{Beschreibung}
+		\label{fig:x}
+	\end{figure}
+		
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\tableofcontents
+	
+	\chapter{Lizenz}\label{chp:lizenz}
+	\pagenumbering{arabic} % Nummerierung starten
+	\input{kapitel/lizenz}
+	
+	\chapter{Zielbestimmungen}\label{chp:zielbestimmungen}
+	\input{kapitel/zielbestimmungen}
+	
+	\chapter{Produkteinsatz}\label{chp:produkteinsatz}
+	\input{kapitel/produkteinsatz}
+
+	\chapter{Produktfunktionen}\label{chp:produktfunktionen}
+	\input{kapitel/produktfunktionen}
+
+	\chapter{Testfälle}\label{chp:testfaelle}
+	\input{kapitel/testfaelle}
+	
+	\chapter{Produktdaten}\label{chp:produktdaten}
+	\input{kapitel/produktdaten}
+	
+	\chapter{Benutzeroberfläche}\label{chp:benutzeroberflaeche}
+	\input{kapitel/benutzeroberflaeche}
+	
+	\chapter{Glossar}\label{chp:glossar}
+	\input{kapitel/glossar}
+	
+	\bibliography{references}
+	\pagenumbering{gobble} % Nummerierung deaktivieren
+	
+\end{document}
