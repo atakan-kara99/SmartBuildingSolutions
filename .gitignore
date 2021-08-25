@@ -3,6 +3,7 @@
 *.lck
 
 ##VP
+*.vbak
 *.bak_*
 *.vpp.lck
 
