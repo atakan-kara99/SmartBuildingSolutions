@@ -22,10 +22,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 	\label{fig:akteur-tabelle}
 \end{figure}
 
-
-%%%%%%%%%%%%%%%
-%% Anwendungsfall 1 %%
-%%%%%%%%%%%%%%%
+\newpage
 
 \section{Anwendungsfalldiagramm - App}
 
@@ -41,7 +38,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 \begin{figure}[h]
 	\centering
 	\begin{tabularx}{\textwidth}{ X | X }
-		\textbf{Anwendungsfall ID} & XX-1 \\ \hline
+		\textbf{Anwendungsfall ID} & XX-100 \\ \hline
 		\textbf{Anwendungsfallname} & Hier steht ein Name. \\ \hline
 		\textbf{Initiierender Akteur} & Informatiker \\ \hline
 		\textbf{Weitere Akteure} & Designer, Techniker  \\ \hline
@@ -71,20 +68,63 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 	\label{fig:anwendungsfall-app-tabelle-xx-1}
 \end{figure}
 
-\newpage
-
-
-%%%%%%%%%%%%%%%
-%% Anwendungsfall 2 %%
-%%%%%%%%%%%%%%%
+\clearpage
 
 \section{Anwendungsfalldiagramme - Server}
 
+\subsection{Account-Management}
+
 \begin{figure}[h]
 	\centering
-	\includesvg[inkscapelatex=false, width=\linewidth]{diagrams/Acc_Management_Web}	
-	\caption{Anwendungsfalldiagramm - Account Management Webserver}
-	\label{fig:anwendungsfalldiagramm-server}
+	\includegraphics[width=\linewidth]{diagrams/Acc_Management_Web.pdf}
+	\caption{Anwendungsfalldiagramm - Account-Management Webserver}
+	\label{fig:anwendungsfalldiagramm-acc}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{ X | X }
+		\textbf{Anwendungsfall ID} & XX-1 \\ \hline
+		\textbf{Anwendungsfallname} & Hier steht ein Name. \\ \hline
+		\textbf{Initiierender Akteur} & Informatiker \\ \hline
+		\textbf{Weitere Akteure} & Designer, Techniker  \\ \hline
+		\textbf{Kurzbeschreibung} & Hier steht eine Kurzbeschreibung.  \\ \hline
+		\textbf{Vorbedingungen} & -  \\ \hline
+		\textbf{Nachbedingungen} & Y trifft zu.  \\ \hline
+		\textbf{Ablauf} &
+		\begin{enumerate}
+			\item Erster ganzer Satz.
+			\item Zweiter ganzer Satz.
+		\end{enumerate} \\ \hline
+		\textbf{Alternative} &
+		\begin{enumerate}
+			\item Erster ganzer Satz.
+			\item Zweiter ganzer Satz.
+		\end{enumerate}  \\ \hline
+		\textbf{Ausnahme} &
+		\begin{enumerate}
+			\item Erster ganzer Satz.
+			\item Zweiter ganzer Satz.
+		\end{enumerate}  \\ \hline
+		\textbf{Benutzte Anwendungsfälle} & YY-1 (oder Name) \\ \hline
+		\textbf{Spezielle Anforderungen} & - \\ \hline
+		\textbf{Annahmen} & -
+	\end{tabularx}
+	\caption{Anwendungsfall XX-1}
+	\label{fig:anwendungsfall-server-tabelle-xx-1}
+\end{figure}
+
+\clearpage
+
+\subsection{Diagrammdarstellung}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{diagrams/Diagram_Display_Management_Web.pdf}
+	\caption{Anwendungsfalldiagramm - Diagrammdarstellung}
+	\label{fig:anwendungsfalldiagramm-dia-management}
 \end{figure}
 
 \newpage
