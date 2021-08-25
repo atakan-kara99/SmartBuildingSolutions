@@ -1,4 +1,6 @@
 .DS_Store
+*.bak*
+*.lck
 
 ##VP
 *.bak_*
