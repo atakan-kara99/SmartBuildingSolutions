@@ -1,5 +1,5 @@
 
-\graphicspath{{img}}
+%\graphicspath{{img}}
 \begin{tcolorbox}
 Die Produktfunktionen beschreiben jede einzelne Funktion des Produkts mittels Anwendungsfalldiagrammen und Anwendungsfalltabellen.
 Diese sollen möglichst ausschlaggebend für das zu entwickelnde System sein und nicht simple Produktfunktionen wie z.B. Login, Account erstellen, Gruppe beitreten, Passwort ändern oder ähnliches zeigen.
@@ -78,7 +78,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 %% Anwendungsfall 2 %%
 %%%%%%%%%%%%%%%
 
-\section{Anwendungsfalldiagramme - Server}
+\section{Anwendungsfalldiagramme - Web}
 
 \begin{figure}[h]
 	\centering
@@ -120,4 +120,58 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 	\end{tabularx}
 	\caption{Anwendungsfall XX-1}
 	\label{fig:anwendungsfall-server-tabelle-xx-1}
+\end{figure}
+
+%%%%%%%%%%%%%%%
+%% Anwendungsfall 3 %%
+%%%%%%%%%%%%%%%
+
+\section{Anwendungsfalldiagramme - Diagrammverwaltung (Web)}
+
+\begin{figure}[h]
+	\centering
+	\includesvg[inkscapelatex=false, width=\linewidth]{diagrams/Acc_Management_Web}	
+	\caption{Anwendungsfalldiagramm - Diagrammverwaltung}
+	\label{fig:anwendungsfalldiagramm-diagrammverwaltung}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{ X | X }
+		\textbf{Anwendungsfall ID} & XX-1 \\ \hline
+		\textbf{Anwendungsfallname} & Diagrammverwaltung von Diagrammen. \\ \hline
+		\textbf{Initiierender Akteur} & Systemadministrator \\ \hline
+		\textbf{Weitere Akteure} & Organisationsadministrator, Mitarbeiter \\ \hline
+		\textbf{Kurzbeschreibung} & Darstellung und mögliche Filterung der vom Server automatisch erzeugten Diagramme innerhalb der Webapplikation.  \\ \hline
+		\textbf{Vorbedingungen} & Funktionierende Internetverbindung, bestätigte Berechtigungen (Authentifiziert)  \\ \hline
+		\textbf{Nachbedingungen} &  -  \\ \hline
+		\textbf{Ablauf} &
+		\begin{enumerate}
+			\item Authentifizieren.
+			\item Darstellen eines allgemeinen (alle Leistungspunkte umfassend) Diagrammes zu einem oder mehreren Verträgen.
+		\end{enumerate} \\ \hline
+		\textbf{Alternative} &
+		\begin{enumerate}
+			\item Authentifizieren.
+			\item Filtern nach bestimmten Kriterien.
+			\item Darstellen eines Diagrammes zu einem oder mehreren Verträgen.
+		\end{enumerate}  \\ \hline
+		\begin{enumerate}
+			\item Authentifizieren.
+			\item Diagramm zum Baufortschritt eines Projektes anzeigen.
+		\end{enumerate}  \\ \hline
+		\textbf{Ausnahme} &
+		\begin{enumerate}
+			\item Keine erfolgreiche Authentifizierung.
+			\item Keine ausreichenden Berechtigungen.
+			\item Vertrag/Projekt nicht vorhanden.
+		\end{enumerate}  \\ \hline
+		\textbf{Benutzte Anwendungsfälle} & Benutzerverwaltung (YY-1) \\ \hline
+		\textbf{Spezielle Anforderungen} & Besitz einer Rolle mit entsprechenden Berechtigungen. \\ \hline
+		\textbf{Annahmen} & -
+	\end{tabularx}
+	\caption{Anwendungsfall XX-1}
+	\label{fig:anwendungsfall-diagrammverwaltung-tabelle-xx-1}
 \end{figure}
