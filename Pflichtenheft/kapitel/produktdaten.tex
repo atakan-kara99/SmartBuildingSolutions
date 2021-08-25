@@ -1,7 +1,50 @@
-\begin{tcolorbox}
-Die Produktdaten beschreiben die gespeicherten Daten des Produkts. 
-Hier werden alle verarbeiteten Daten mit allen Attributen so genau wie jetzt schon möglich aufgeschrieben.
-So kann etwa ein Auto mit Hersteller, Modell, Farbe, Hubraum usw. langfristig gespeichert werden.
-Wichtig ist, dass nur tatsächlich benötigte Daten gespeichert werden, und dass Redundanzen vermieden werden.
-Form und Stil des Aufschrieb sind variabel, sollten jedoch sehr klar strukturiert sein.
-\end{tcolorbox}
+Es sind folgende Daten persistent gespeichert:\\\\\\
+\linebreak
+\textbf{Benutzerdaten}: \\ Alle Informationen zu einem Benutzer.  Diese Daten sind nur f\"ur den Benutzer selbst und f\"ur Administratoren einsehbar.\\
+\begin{itemize}
+\item BenutzerID (eindeutig)
+\item Kennung
+	\begin{itemize}
+	\item Benutzername (eindeutig)
+	\item Passwort (verschl\"usselt)
+  	\end{itemize}
+\item Pers\"onliche daten (optional)
+  		\begin{itemize}
+	\item Vorname
+	\item Nachname
+	\item Organisation
+\end{itemize}
+\item Sonstige Daten (Verpflichtend anzugeben bei der Registrierung eines neuen Benutzers):
+\begin{itemize}
+	\item Status (Administrator,  Benutzerrolle)\\
+	\end{itemize}
+\end{itemize}
+\textbf{Projektdaten}:\\
+Gesammelte Daten zu einem konkreten Projekt mit mehreren potentiell zugeh\"origen Vertr\"agen.
+ \begin{itemize}
+\item ProjektID (eindeutig)
+\item Projektname 
+\item Projektende (Datum)
+\item Adresse
+	\begin{itemize}
+	\item Straße
+	\item Hausnummer
+	\item Postleitzahl
+	\end{itemize}
+\end{itemize}
+\textbf{Vertragsdaten}: \\ Alle Informationen zu einem Vertrag bestehend aus einer oder mehreren Leistungspositionen.
+ \begin{itemize}
+\item VertragsID (eindeutig)
+\item Auftraggeber (Organisation)
+\item Auftragsbeginn (Datum)
+\item Voraussichtliches Auftragsende (Datum)
+\item Auftragsstatus  (wartend,  in Bearbeitung,  abgeschlossen)
+\item Sonstige Daten
+	 \begin{itemize}
+ 	\item Fotos zur Qualit\"atssicherung 
+ 	\item Bildunterschriften in Form eines textuellen Kommentars
+ 	\item sonstige Kommentare
+ 	\end{itemize}
+\end{itemize}
+
+
