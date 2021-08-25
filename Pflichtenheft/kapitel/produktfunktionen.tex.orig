@@ -1,5 +1,8 @@
-
+<<<<<<< HEAD
+=======
 \graphicspath{{img}}
+
+>>>>>>> 2-lizenz
 \begin{tcolorbox}
 Die Produktfunktionen beschreiben jede einzelne Funktion des Produkts mittels Anwendungsfalldiagrammen und Anwendungsfalltabellen.
 Diese sollen möglichst ausschlaggebend für das zu entwickelnde System sein und nicht simple Produktfunktionen wie z.B. Login, Account erstellen, Gruppe beitreten, Passwort ändern oder ähnliches zeigen.
@@ -78,12 +81,21 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 %% Anwendungsfall 2 %%
 %%%%%%%%%%%%%%%
 
+<<<<<<< HEAD
+\section{Anwendungsfalldiagramm - Server}
+
+\begin{figure}[h]
+	\centering
+	\missingfigure{Anwendungsfalldiagramm - Server}		
+	\caption{Anwendungsfalldiagramm - Server}
+=======
 \section{Anwendungsfalldiagramme - Server}
 
 \begin{figure}[h]
 	\centering
 	\includesvg[inkscapelatex=false, width=\linewidth]{diagrams/Acc_Management_Web}	
 	\caption{Anwendungsfalldiagramm - Account Management Webserver}
+>>>>>>> 2-lizenz
 	\label{fig:anwendungsfalldiagramm-server}
 \end{figure}
 
