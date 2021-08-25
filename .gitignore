@@ -9,8 +9,8 @@
 ##VSCode
 .vscode
 
-##Inkscape
-svg-inkscape
+##TemporaryPDFs
+*/pflichtenheft*.pdf
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
