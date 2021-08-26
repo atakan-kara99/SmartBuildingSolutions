@@ -216,4 +216,75 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 	\end{tabularx}
 	\caption{Anwendungsfall XX-1}
 	\label{fig:anwendungsfall-diagrammverwaltung-tabelle-xx-1}
+	
+		
+\end{figure}
+
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{ X | X }
+		\textbf{Anwendungsfall ID} & Diagramm-1 \\ \hline
+		\textbf{Anwendungsfallname} & Diagrammerstellung\\ \hline
+		\textbf{Initiierender Akteur} & Mitarbeiter, Org-Admin, Sys-Admin \\ \hline
+%		\textbf{Weitere Akteure} & Organisationsadministrator, Mitarbeiter \\ \hline
+		\textbf{Kurzbeschreibung} & Nutzer der Weboberfläche können aus den für sie lesbaren Daten auf dem Server, aus den Bereichen Leistungsposition, Vertrag und Projekt, Diagramme in unterschiedlichen Darstellungen erstellen.  \\ \hline
+		\textbf{Vorbedingungen} & Der Nutzer hat Zugriffsrechte auf die zu visualisierenden Daten.  \\ \hline
+		\textbf{Nachbedingungen} &  Dem Nutzer wird das angefragte Diagramm angezeigt.  \\ \hline
+		\textbf{Ablauf} &
+		\begin{enumerate}
+			\item Der Benutzer loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
+			\item Der Benutzer wählt eine Diagramm-Darstellung .
+			\item Der Benutzer wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
+			\item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
+			\item Das Diagramm wird dem Benutzer angezeigt.
+		\end{enumerate} \\ \hline
+
+		\textbf{Alternative} & - \\ \hline
+		%%\textbf{Ausnahme} &
+		\multirow{2}{*}{\textbf{Ausnahme}} &
+		\begin{enumerate} % Nutzer wählt Daten aus ohne Zugriffsrecht / während der Diagrammabfrage wurden die Rechte entfernt
+			\item Nutzer wählt Daten aus auf die er keinen Zugriff hat.
+			\item Authentifizierung schlägt fehl
+			\item Fehlermeldung
+		\end{enumerate} \\\cline{2-2} &
+		\begin{enumerate} % Fehlende Berechtigungen.
+			\item Authentifizieren.
+			\item Diagramm ohne passende Rolle anzeigen lassen.
+			\item Fehlermeldung/Zugriffsverweigerung
+		\end{enumerate}  \\ \hline
+		\textbf{Benutzte Anwendungsfälle} & - \\ \hline
+		\textbf{Spezielle Anforderungen} & - \\ \hline
+		\textbf{Annahmen} & -
+	\end{tabularx}
+	\caption{Anwendungsfall XX-1}
+	\label{fig:anwendungsfall-Diagrammerstellung-tabelle-xx-1}
+	
+	
+\end{figure}
+
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{ X | X }
+		\multirow{2}{*}{\textbf{Ausnahme}} &
+		\begin{enumerate} % Verbindungsfehler
+			\item Der Benutzer loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
+			\item Der Benutzer wählt eine Diagramm-Darstellung .
+			\item Der Benutzer wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
+			\item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
+			\item Verbindungsfehler
+		\end{enumerate}  \\ \hline&
+		\textbf{Benutzte Anwendungsfälle} & - \\ \hline
+		\textbf{Spezielle Anforderungen} & - \\ \hline
+		\textbf{Annahmen} & -
+	\end{tabularx}
+	\caption{Anwendungsfall XX-1}
+	\label{fig:anwendungsfall-Diagrammerstellung-tabelle-xx-1}
+	
+	
 \end{figure}
