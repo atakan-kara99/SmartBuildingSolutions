@@ -208,14 +208,20 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 			\item Authentifizieren.
 			\item Diagramm zum Baufortschritt eines Projektes anzeigen.
 		\end{enumerate}  \\ \hline
-		\textbf{Ausnahme} &
-		\begin{enumerate}
+		%%\textbf{Ausnahme} &
+		\multirow{2}{*}{\textbf{Ausnahme}} &
+		\begin{enumerate} % Projekt/Vertrag nicht vorhanden.
 			\item Authentifizieren.
 			\item Diagramm zum Baufortschritt eines nicht-existenten Projektes anzeigen.
 			\item Fehlermeldung!
+		\end{enumerate} \\\cline{2-2} &
+		\begin{enumerate} % Fehlende Berechtigungen.
+			\item Authentifizieren.
+			\item Diagramm ohne passende Rolle anzeigen lassen.
+			\item Fehlermeldung!
 		\end{enumerate}  \\ \hline
 		\textbf{Benutzte Anwendungsfälle} & Benutzerverwaltung (YY-1) \\ \hline
-		\textbf{Spezielle Anforderungen} & Besitz einer Rolle mit entsprechenden Berechtigungen. \\ \hline
+		\textbf{Spezielle Anforderungen} & - \\ \hline
 		\textbf{Annahmen} & -
 	\end{tabularx}
 	\caption{Anwendungsfall XX-1}
