@@ -1,50 +1,101 @@
-Es sind folgende Daten persistent gespeichert:\\\\\\
-\linebreak
-\textbf{Benutzerdaten}: \\ Alle Informationen zu einem Benutzer.  Diese Daten sind nur f\"ur den Benutzer selbst und f\"ur Administratoren einsehbar.\\
-\begin{itemize}
-\item BenutzerID (eindeutig)
-\item Kennung
-	\begin{itemize}
-	\item Benutzername (eindeutig)
-	\item Passwort (verschl\"usselt)
-  	\end{itemize}
-\item Pers\"onliche daten (optional)
-  		\begin{itemize}
-	\item Vorname
-	\item Nachname
-	\item Organisation
-\end{itemize}
-\item Sonstige Daten (Verpflichtend anzugeben bei der Registrierung eines neuen Benutzers):
-\begin{itemize}
-	\item Status (Administrator,  Benutzerrolle)\\
-	\end{itemize}
-\end{itemize}
-\textbf{Projektdaten}:\\
-Gesammelte Daten zu einem konkreten Projekt mit mehreren potentiell zugeh\"origen Vertr\"agen.
- \begin{itemize}
-\item ProjektID (eindeutig)
-\item Projektname 
-\item Projektende (Datum)
-\item Adresse
-	\begin{itemize}
-	\item Straße
-	\item Hausnummer
-	\item Postleitzahl
-	\end{itemize}
-\end{itemize}
-\textbf{Vertragsdaten}: \\ Alle Informationen zu einem Vertrag bestehend aus einer oder mehreren Leistungspositionen.
- \begin{itemize}
-\item VertragsID (eindeutig)
-\item Auftraggeber (Organisation)
-\item Auftragsbeginn (Datum)
-\item Voraussichtliches Auftragsende (Datum)
-\item Auftragsstatus  (wartend,  in Bearbeitung,  abgeschlossen)
-\item Sonstige Daten
-	 \begin{itemize}
- 	\item Fotos zur Qualit\"atssicherung 
- 	\item Bildunterschriften in Form eines textuellen Kommentars
- 	\item sonstige Kommentare
- 	\end{itemize}
-\end{itemize}
+\section{Webserver}
 
+Referenzielle Daten werden nicht explizit gelistet, wenn sie ohnehin schon in der Applikation an anderer Stelle gespeicher, bwz. genutzt werden.
+Ein Beispiel hierfür sind Projekte und dazugehörige Leistungspositionen. Für die Projektdaten werden hier also keine IDs von zugehörigen Leistungspositionen
+als Produkdaten aufgeführt, das diese IDs nur als Referenz genutzt werden und bereits in den Leistungspositionsdaten aufgeführt werden.
 
+\subsection{Übersicht Benutzerrollen}
+
+\begin{figure}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{| X | X |}
+        \hline
+		\textbf{Benutzerrolle} & \textbf{ID} \\ \hline \hline
+		\textbf{Systemadministrator} & SysAdmin \\ \hline
+		\textbf{Organisationsadministrator} & OrgAdmin \\ \hline
+        \textbf{Allgemeiner Nutzer der Webapplikation} & User \\ \hline
+		\textbf{Andere Nutzerrolle innerhalb einer Organisation} & OrgUser \\ \hline
+	\end{tabularx}
+	\caption{Benutzerrollen}
+	\label{fig:Benutzerrollen}
+\end{figure}
+
+\begin{flushleft}
+Es werden nur allgemeine Rollen beschrieben. Organisationsadministratoren können eigene Rollen beschreiben und zuweisen. Diese verhalten sich allgemein wie die Rolle \textbf{OrgUser}.
+Ein \textbf{OrgUser} kann z.Bsp. nur Daten einer Leistungsposition einsehen, sofern seine Rolle innerhalb seiner Organisation dies zulässt. Ebenso können \textbf{OrgAdmin} beispielsweise nur Verträge und
+Positionen ihrer jeweiligen Organisation einsehen.
+\end{flushleft}
+
+\subsection{Benutzerdaten}
+
+Die Benutzerdaten umfassen alle Informationen zu einem registrierten Benutzer der Webanwendung. Diese Daten sind nur f\"ur den Benutzer selbst und f\"ur Systemadministratoren einsehbar.
+
+\begin{figure}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{| X || X | X |}
+        \hline
+		\textbf{Art der Daten} & \textbf{Beschreibung der Daten} & \textbf{Zugriffsberechtigung} \\ \hline \hline
+		\textbf{Benutzerkennung} & Eindeutiger Benutzername und ein Passwort(Hash) & SysAdmin, zugehöriger User (nur Benutzername) \\ \hline
+		\textbf{Persönliche Daten} & Name, Nachname und Organisation & SysAdmin, zugehöriger OrgAdmin, zugehöriger User \\ \hline
+		\textbf{Benutzerrolle} & Rolle des Benutzers & SysAdmin, zugehöriger OrgAdmin, zugehöriger User \\ \hline
+	\end{tabularx}
+	\caption{Benutzerdaten}
+	\label{fig:Benutzerdaten}
+\end{figure}
+
+\newpage
+
+\subsection{Projektdaten}
+
+Die Projektdaten setzen sich aus den Daten der zur Verf\"ugung gestellten REST-API zusammen.
+
+\begin{figure}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{| X || X | X |}
+        \hline
+		\textbf{Art der Daten} & \textbf{Beschreibung der Daten} & \textbf{Zugriffsberechtigung} \\ \hline \hline
+        \textbf{ID} & ID des Projekts & SysAdmin \\ \hline
+		\textbf{Projektname} & Name des Projekts & SysAdmin, zugehöriger OrgAdmin, zugehöriger OrgUser \\ \hline
+		\textbf{Projektbeschreibung} & Projektbeschreibungg & SysAdmin, zugehöriger OrgAdmin, zugehöriger OrgUser \\ \hline
+		\textbf{Fertigstellungsdatum} & Datum der geplanten Fertigstellung & SysAdmin, zugehöriger OrgAdmin, zugehöriger OrgUser \\ \hline
+        \textbf{Adresse} & Adresse/Ort des Projekts & SysAdmin, zugehöriger OrgAdmin, zugehöriger OrgUser \\ \hline
+	\end{tabularx}
+	\caption{Projektdaten}
+	\label{fig:Projektdaten}
+\end{figure}
+
+\subsection{Vertragsdaten}
+
+Die Vertragsdaten setzen sich aus den Daten der zur Verf\"ugung gestellten REST-API zusammen. Vertragsdaten werden pro Vertrag gespeichert.
+
+\begin{figure}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{| X || X | X |}
+        \hline
+		\textbf{Art der Daten} & \textbf{Beschreibung der Daten} & \textbf{Zugriffsberechtigung} \\ \hline \hline
+		\textbf{VertragsID} & ID des Vertrages & SysAdmin \\ \hline
+		\textbf{Vertragsname} & Name des Vertrages & SysAdmin, zugehöriger OrgAdmin \\ \hline
+	\end{tabularx}
+	\caption{Vertragsdaten}
+	\label{fig:Vertragsdaten}
+\end{figure}
+
+\newpage
+
+\subsection{Leistungspositionsdaten}
+
+Die Leistungspositionsdaten setzen sich aus den Daten der zur Verf\"ugung gestellten REST-API zusammen und aus dem Status einer jeweiligen Position, welcher über die mobile Applikation geändert werden kann.
+Sie werden pro Leistungsposition gespeichert.
+
+\begin{figure}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{| X || X | X |}
+        \hline
+		\textbf{Art der Daten} & \textbf{Beschreibung der Daten} & \textbf{Zugriffsberechtigung} \\ \hline \hline
+		\textbf{PositionsID} & ID des Vertrages & SysAdmin \\ \hline
+		\textbf{Status} & Name des Vertrages & SysAdmin, zugehöriger OrgAdmin, zugehöriger OrgUser \\ \hline
+		\textbf{Qualitätsicherungsdaten} & Fotos und dazugehörige Kommentare & SysAdmin, zugehöriger OrgAdmin, zugehöriger OrgUser \\ \hline
+	\end{tabularx}
+	\caption{Leistungspositionsdaten}
+	\label{fig:Leistungspositionsdaten}
+\end{figure}
