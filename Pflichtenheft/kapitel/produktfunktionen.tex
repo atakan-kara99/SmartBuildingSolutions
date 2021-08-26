@@ -28,7 +28,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 
 \begin{figure}[h]
 	\centering
-    \includegraphics[width=\linewidth]{diagrams/Mobile_Application.pdf}
+    \includegraphics[width=\linewidth]{img/diagrams/Mobile_Application.pdf}
 	\caption{Anwendungsfalldiagramm - App}
 	\label{fig:anwendungsfalldiagramm-app}
 \end{figure}
@@ -39,33 +39,91 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 	\centering
 	\begin{tabularx}{\textwidth}{ X | X }
 		\textbf{Anwendungsfall ID} & XX-100 \\ \hline
-		\textbf{Anwendungsfallname} & Hier steht ein Name. \\ \hline
-		\textbf{Initiierender Akteur} & Informatiker \\ \hline
-		\textbf{Weitere Akteure} & Designer, Techniker  \\ \hline
-		\textbf{Kurzbeschreibung} & Hier steht eine Kurzbeschreibung.  \\ \hline
-		\textbf{Vorbedingungen} & -  \\ \hline
-		\textbf{Nachbedingungen} & Y trifft zu.  \\ \hline
+		\textbf{Anwendungsfallname} & Push local changes to webserver\\ \hline
+		\textbf{Initiierender Akteur} & AppUser \\ \hline
+		\textbf{Weitere Akteure} & Webserver  \\ \hline
+		\textbf{Kurzbeschreibung} & Der Benutzer der Applikation kann lokale \"Anderungen wie beispielsweise \"Anderungen zum Baustatus einzelner Leistungspositionen oder sonstige Kommentare,  sowie Fotos von der Baustelle an den Webserver schicken.  Diese Kommentare k\"onnen dann selbstst\"andig oder gemeinsam mit dem Foto von einem zust\"andigen Mitarbeiter \"uber die Webanwendung eingesehen werden.  \\ \hline
+		\textbf{Vorbedingungen} & Der AppUser ist eingeloggt und hat die notwendigen Rechte Daten an den Webserver zu schicken, die Identifikationsnummer der betroffenen Leistungsposition ist g\"ultig,  es besteht eine Internetverbindung   \\ \hline
+		\textbf{Nachbedingungen} & Die lokalen Daten wurden an den Webserver geschickt\\ \hline
 		\textbf{Ablauf} &
 			\begin{enumerate}
-				\item Erster ganzer Satz.
-				\item Zweiter ganzer Satz.
-			\end{enumerate} \\ \hline
-		\textbf{Alternative} &
+				\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
+				\item Der AppUser hat den Status einer oder mehrerer Leistungspositionen rechtm\"a{\ss}ig ge\"andert.
+				\item Der Benutzer verwendet die Funktion der App seine lokalen \"Anderungen am Status einer Leistungsposition an den Webserver zu \"ubertragen.
+				\item Es besteht eine Internetverbindung und der AppUser erh\"alt die R\"uckmeldung,  dass das Vorhaben erfolgreich ausgef\"uhrt wurde.  
+				\item Die \"Anderungen befinden sich nun auf dem Webserver.
+			\end{enumerate}
+			\end{tabularx}
+	\caption{Anwendungsfall XX-1}
+	\label{fig:anwendungsfall-app-tabelle-xx-1}
+\end{figure}
+			\begin{figure}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{ X | X }
+		\textbf{Alternative} & 
 				\begin{enumerate}
-					\item Erster ganzer Satz.
-					\item Zweiter ganzer Satz.
+					\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
+					 \item Der AppUser hat seinen Benutzerrechten entsprechend ein Foto zur Dokumentation einer Leistungsposition angefertigt.
+					 \item Das Foto soll nun mit der entsprechenden Funktion der mobilen Applikation auf den Webserver hochgeladen werden.
+					 \item Es besteht eine Internetverbindung und der AppUser erh\"alt eine entsprechende Meldung,  dass der Upload erfolgt.
+					 \item Das Foto wird an den Webserver \"ubertragen und kann nun dort eingesehen werden.
 				\end{enumerate}  \\ \hline
 		\textbf{Ausnahme} &
 				\begin{enumerate}
-					\item Erster ganzer Satz.
-					\item Zweiter ganzer Satz.
+					\item Der Benutzer versucht sich innerhalb der App mit Benutzerdaten,  bestehend aus Benutzername und Passwort,  einzuloggen.  
+					\item Der Login schl\"agt fehl,  da die Login-Daten nicht g\"ultig sind. 
+					\item Der AppUser erh\"alt eine Fehlermeldung, dass die angegebenen Daten nicht g\"ultig sind und befindet sich weiterhin auf der Login Seite der Applikation.
+				\end{enumerate} 
+	\end{tabularx}
+	\caption{Anwendungsfall XX-1}
+	\label{fig:anwendungsfall-app-tabelle-xx-2}
+\end{figure}
+			\begin{figure}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{ X | X }
+		\textbf{Ausnahme} &
+				\begin{enumerate}
+				\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
+					 \item Der AppUser m\"ochte eine \"Anderung an dem Status einer Leistungsposition oder ein Foto zur Dokumentation an den Webserver \"ubertragen und verwendet die enstprechende Funktionalit\"at der Applikation.
+					 \item Der User erh\"alt eine Fehlermeldung, da seine Rechte nicht ausreichen um diese Aktion durchzuf\"uhren.
+					 \item Die \"Anderungen am Status der Leistungsposition und/oder das Foto werden nicht an den Webserver \"ubertragen.
+					 \end{enumerate} \\ \hline
+					 	\textbf{Ausnahme} &
+				\begin{enumerate}
+					\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
+					\item Die lokalen \"Anderungen sollen an den Webserver \"ubertragen werden.
+					\item Der AppUser erh\"alt eine Fehlermeldung,  da zur Zeit f\"ur das verwendetete Ger\"at keine (ausreichende) Internetverbindung besteht. 
+					\item Der Benutzer erh\"alt eine R\"uckmeldung,  dass zur Zeit keine Internetverbindung besteht und lokale \"Anderungen zwischengespeichert werden.
+					\item Sobald eine ausreichende Internetverbindung besteht,  werden die entsprechenden Daten an den Webserver \"ubertragen.
+				\end{enumerate} 
+				 	\end{tabularx}
+	\caption{Anwendungsfall XX-1}
+	\label{fig:anwendungsfall-app-tabelle-xx-3}
+\end{figure}
+			\begin{figure}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{ X | X }
+		\textbf{Ausnahme} &
+				\begin{enumerate}
+				\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
+					 \item Der AppUser m\"ochte eine \"Anderung an dem Status einer Leistungsposition an den Webserver \"ubertragen und verwendet die entsprechende Funktion in der Applikation. 
+					 \item Die Identifikationsnummer der betroffenen Leistungsposition ist nicht g\"ultig.
+					 \item Der User erh\"alt eine Fehlermeldung.
+					 \item Die \"Anderungen am Status der Leistungsposition werden nicht an den Webserver \"ubertragen.
+				\end{enumerate} \\ \hline
+						\textbf{Ausnahme} &
+				\begin{enumerate}
+				\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
+					 \item Der AppUser m\"ochte den Status einer Leistungsposition an den Webserver \"ubertragen aber die Identifikationsnummer der betroffenen Leistungsposition ist nicht g\"ultig.
+					 \item Der User erh\"alt eine Fehlermeldung.
+					 \item Die \"Anderungen am Status der Leistungsposition werden nicht an den Webserver \"ubertragen.
 				\end{enumerate}  \\ \hline
-		\textbf{Benutzte Anwendungsfälle} & YY-1 (oder Name) \\ \hline
+		\textbf{Benutzte Anwendungsfälle} & Authenticate,  Check BillingItemIDs for validity\\ \hline
 		\textbf{Spezielle Anforderungen} & - \\ \hline
 		\textbf{Annahmen} & -
 	\end{tabularx}
 	\caption{Anwendungsfall XX-1}
-	\label{fig:anwendungsfall-app-tabelle-xx-1}
+	\label{fig:anwendungsfall-app-tabelle-xx-4}
 \end{figure}
 
 \clearpage
@@ -76,7 +134,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\linewidth]{diagrams/Acc_Management_Web.pdf}
+	\includegraphics[width=\linewidth]{img/diagrams/Acc_Management_Web.pdf}
 	\caption{Anwendungsfalldiagramm - Account-Management Webserver}
 	\label{fig:anwendungsfalldiagramm-acc}
 \end{figure}
@@ -123,7 +181,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\linewidth]{diagrams/Diagram_Display_Management_Web.pdf}
+	\includegraphics[width=\linewidth]{img/diagrams/Diagram_Display_Management_Web.pdf}
 	\caption{Anwendungsfalldiagramm - Diagrammdarstellung}
 	\label{fig:anwendungsfalldiagramm-dia-management}
 \end{figure}
