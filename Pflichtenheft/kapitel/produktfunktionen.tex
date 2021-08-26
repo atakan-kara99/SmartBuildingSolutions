@@ -40,16 +40,15 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 		\textbf{Anwendungsfallname} & Push local changes to webserver\\ \hline
 		\textbf{Initiierender Akteur} & AppUser \\ \hline
 		\textbf{Weitere Akteure} & Webserver  \\ \hline
-		\textbf{Kurzbeschreibung} & Der Benutzer der Applikation kann lokale \"Anderungen wie beispielsweise \"Anderungen zum Baustatus einzelner Leistungspositionen oder sonstige Kommentare,  sowie Fotos von der Baustelle an den Webserver schicken.  Diese Kommentare k\"onnen dann selbstst\"andig oder gemeinsam mit dem Foto von einem zust\"andigen Mitarbeiter \"uber die Webanwendung eingesehen werden.  \\ \hline
-		\textbf{Vorbedingungen} & Der AppUser ist eingeloggt und hat die notwendigen Rechte Daten an den Webserver zu schicken, die Identifikationsnummer der betroffenen Leistungsposition ist g\"ultig,  es besteht eine Internetverbindung   \\ \hline
+		\textbf{Kurzbeschreibung} & Der Benutzer der Applikation kann lokale \"Anderungen,  bspw. \"Anderungen zum Baustatus einzelner Leistungspositionen oder Fotos mit Kommentar von der Baustelle,  an den Webserver schicken.  Diese \"Anderungen und Fotos mit Kommentar k\"onnen dann enstprechend  \"uber die Webanwendung eingesehen werden.  \\ \hline
+		\textbf{Vorbedingungen} & Der AppUser ist registriert und entsprechend eingeloggt \\ \hline
 		\textbf{Nachbedingungen} & Die lokalen Daten wurden an den Webserver geschickt\\ \hline
 		\textbf{Ablauf} &
 			\begin{enumerate}
-				\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
-				\item Der AppUser hat den Status einer oder mehrerer Leistungspositionen rechtm\"a{\ss}ig ge\"andert.
-				\item Der Benutzer verwendet die Funktion der App seine lokalen \"Anderungen am Status einer Leistungsposition an den Webserver zu \"ubertragen.
+				\item Der AppUser hat den Status einer Leistungspositionen  lokal ge\"andert.
+				\item Der Benutzer verwendet die Funktion der App,  um seine lokale \"Anderung an den Webserver zu \"ubertragen.
 				\item Es besteht eine Internetverbindung und der AppUser erh\"alt die R\"uckmeldung,  dass das Vorhaben erfolgreich ausgef\"uhrt wurde.  
-				\item Die \"Anderungen befinden sich nun auf dem Webserver.
+				\item Die \"Anderung befindet sich nun auf dem Webserver.
 			\end{enumerate}
 			\end{tabularx}
 	\caption{Anwendungsfall XX-1}
@@ -60,18 +59,17 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 	\begin{tabularx}{\textwidth}{ X | X }
 		\textbf{Alternative} & 
 				\begin{enumerate}
-					\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
 					 \item Der AppUser hat seinen Benutzerrechten entsprechend ein Foto zur Dokumentation einer Leistungsposition angefertigt.
-					 \item Das Foto soll nun mit der entsprechenden Funktion der mobilen Applikation auf den Webserver hochgeladen werden.
+					 \item Das Foto soll nun durch Bet\"atigen der entsprechenden Funktion der mobilen Applikation auf den Webserver hochgeladen werden.
 					 \item Es besteht eine Internetverbindung und der AppUser erh\"alt eine entsprechende Meldung,  dass der Upload erfolgt.
-					 \item Das Foto wird an den Webserver \"ubertragen und kann nun dort eingesehen werden.
+					 \item Das Foto wird an den Webserver \"ubertragen.
 				\end{enumerate}  \\ \hline
-		\textbf{Ausnahme} &
+						\textbf{Ausnahme} &
 				\begin{enumerate}
-					\item Der Benutzer versucht sich innerhalb der App mit Benutzerdaten,  bestehend aus Benutzername und Passwort,  einzuloggen.  
-					\item Der Login schl\"agt fehl,  da die Login-Daten nicht g\"ultig sind. 
-					\item Der AppUser erh\"alt eine Fehlermeldung, dass die angegebenen Daten nicht g\"ultig sind und befindet sich weiterhin auf der Login Seite der Applikation.
-				\end{enumerate} 
+					 \item Der AppUser m\"ochte eine \"Anderung an dem Status einer Leistungsposition oder ein Foto zur Dokumentation mit Kommentar an den Webserver \"ubertragen und verwendet die enstprechende Funktionalit\"at der Applikation.
+					 \item Der User erh\"alt eine Fehlermeldung, da seine Rechte nicht ausreichen um diese Aktion durchzuf\"uhren.
+					 \item Die \"Anderungen am Status der Leistungsposition und/oder das Foto mit Kommentar werden nicht an den Webserver \"ubertragen.
+					 \end{enumerate} \\ \hline
 	\end{tabularx}
 	\caption{Anwendungsfall XX-1}
 	\label{fig:anwendungsfall-app-tabelle-xx-2}
@@ -79,43 +77,20 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 			\begin{figure}[h]
 	\centering
 	\begin{tabularx}{\textwidth}{ X | X }
-		\textbf{Ausnahme} &
-				\begin{enumerate}
-				\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
-					 \item Der AppUser m\"ochte eine \"Anderung an dem Status einer Leistungsposition oder ein Foto zur Dokumentation an den Webserver \"ubertragen und verwendet die enstprechende Funktionalit\"at der Applikation.
-					 \item Der User erh\"alt eine Fehlermeldung, da seine Rechte nicht ausreichen um diese Aktion durchzuf\"uhren.
-					 \item Die \"Anderungen am Status der Leistungsposition und/oder das Foto werden nicht an den Webserver \"ubertragen.
-					 \end{enumerate} \\ \hline
 					 	\textbf{Ausnahme} &
 				\begin{enumerate}
-					\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
-					\item Die lokalen \"Anderungen sollen an den Webserver \"ubertragen werden.
+					\item Die lokalen \"Anderungen durch den Benutzer sollen durch Bet\"atigung der entsprechenden Funktion in der App an den Webserver \"ubertragen werden.
 					\item Der AppUser erh\"alt eine Fehlermeldung,  da zur Zeit f\"ur das verwendetete Ger\"at keine (ausreichende) Internetverbindung besteht. 
 					\item Der Benutzer erh\"alt eine R\"uckmeldung,  dass zur Zeit keine Internetverbindung besteht und lokale \"Anderungen zwischengespeichert werden.
 					\item Sobald eine ausreichende Internetverbindung besteht,  werden die entsprechenden Daten an den Webserver \"ubertragen.
-				\end{enumerate} 
-				 	\end{tabularx}
-	\caption{Anwendungsfall XX-1}
-	\label{fig:anwendungsfall-app-tabelle-xx-3}
-\end{figure}
-			\begin{figure}[h]
-	\centering
-	\begin{tabularx}{\textwidth}{ X | X }
-		\textbf{Ausnahme} &
-				\begin{enumerate}
-				\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
-					 \item Der AppUser m\"ochte eine \"Anderung an dem Status einer Leistungsposition an den Webserver \"ubertragen und verwendet die entsprechende Funktion in der Applikation. 
-					 \item Die Identifikationsnummer der betroffenen Leistungsposition ist nicht g\"ultig.
-					 \item Der User erh\"alt eine Fehlermeldung.
-					 \item Die \"Anderungen am Status der Leistungsposition werden nicht an den Webserver \"ubertragen.
 				\end{enumerate} \\ \hline
 						\textbf{Ausnahme} &
 				\begin{enumerate}
-				\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
-					 \item Der AppUser m\"ochte den Status einer Leistungsposition an den Webserver \"ubertragen aber die Identifikationsnummer der betroffenen Leistungsposition ist nicht g\"ultig.
+					 \item Der AppUser m\"ochte eine lokale \"Anderung an dem Status einer Leistungsposition oder ein Foto mit Kommentar an den Webserver \"ubertragen und verwendet die entsprechende Funktion in der Applikation. 
+					 \item Die Identifikationsnummer der betroffenen Leistungsposition ist nicht g\"ultig.
 					 \item Der User erh\"alt eine Fehlermeldung.
-					 \item Die \"Anderungen am Status der Leistungsposition werden nicht an den Webserver \"ubertragen.
-				\end{enumerate}  \\ \hline
+					 \item Die \"Anderungen am Status der Leistungsposition oder das Foto mit Kommentar werden nicht an den Webserver \"ubertragen.
+				\end{enumerate} \\ \hline
 		\textbf{Benutzte Anwendungsfälle} & Authenticate,  Check BillingItemIDs for validity\\ \hline
 		\textbf{Spezielle Anforderungen} & - \\ \hline
 		\textbf{Annahmen} & -
