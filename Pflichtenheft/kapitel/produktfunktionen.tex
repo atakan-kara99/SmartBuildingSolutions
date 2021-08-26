@@ -126,7 +126,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 
 \clearpage
 
-\section{Anwendungsfalldiagramme - Server}
+\section{Anwendungsfalldiagramme - Webserver}
 
 \subsection{Account-Management}
 
@@ -186,31 +186,38 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 	\centering
 	\begin{tabularx}{\textwidth}{ X | X }
 		\textbf{Anwendungsfall ID} & XX-1 \\ \hline
-		\textbf{Anwendungsfallname} & Hier steht ein Name. \\ \hline
-		\textbf{Initiierender Akteur} & Informatiker \\ \hline
-		\textbf{Weitere Akteure} & Designer, Techniker  \\ \hline
-		\textbf{Kurzbeschreibung} & Hier steht eine Kurzbeschreibung.  \\ \hline
-		\textbf{Vorbedingungen} & -  \\ \hline
-		\textbf{Nachbedingungen} & Y trifft zu.  \\ \hline
+		\textbf{Anwendungsfallname} & Diagrammverwaltung von Diagrammen. \\ \hline
+		\textbf{Initiierender Akteur} & Systemadministrator \\ \hline
+		\textbf{Weitere Akteure} & Organisationsadministrator, Mitarbeiter \\ \hline
+		\textbf{Kurzbeschreibung} & Darstellung und mögliche Filterung der vom Server automatisch erzeugten Diagramme innerhalb der Webapplikation.  \\ \hline
+		\textbf{Vorbedingungen} & Funktionierende Internetverbindung, bestätigte Berechtigungen (Authentifiziert)  \\ \hline
+		\textbf{Nachbedingungen} &  -  \\ \hline
 		\textbf{Ablauf} &
 		\begin{enumerate}
-			\item Erster ganzer Satz.
-			\item Zweiter ganzer Satz.
+			\item Authentifizieren.
+			\item Darstellen eines allgemeinen (alle Leistungspunkte umfassend) Diagramms zu einem oder mehreren Verträgen.
 		\end{enumerate} \\ \hline
-		\textbf{Alternative} &
+		\multirow{2}{*}{\textbf{Alternativen}} &
+		%%\textbf{Alternative} &
 		\begin{enumerate}
-			\item Erster ganzer Satz.
-			\item Zweiter ganzer Satz.
+			\item Authentifizieren.
+			\item Filtern nach bestimmten Kriterien.
+			\item Darstellen eines Diagramms zu einem oder mehreren Verträgen.
+		\end{enumerate} \\\cline{2-2} &
+		\begin{enumerate}
+			\item Authentifizieren.
+			\item Diagramm zum Baufortschritt eines Projektes anzeigen.
 		\end{enumerate}  \\ \hline
 		\textbf{Ausnahme} &
 		\begin{enumerate}
-			\item Erster ganzer Satz.
-			\item Zweiter ganzer Satz.
+			\item Authentifizieren.
+			\item Diagramm zum Baufortschritt eines nicht-existenten Projektes anzeigen.
+			\item Fehlermeldung!
 		\end{enumerate}  \\ \hline
-		\textbf{Benutzte Anwendungsfälle} & YY-1 (oder Name) \\ \hline
-		\textbf{Spezielle Anforderungen} & - \\ \hline
+		\textbf{Benutzte Anwendungsfälle} & Benutzerverwaltung (YY-1) \\ \hline
+		\textbf{Spezielle Anforderungen} & Besitz einer Rolle mit entsprechenden Berechtigungen. \\ \hline
 		\textbf{Annahmen} & -
 	\end{tabularx}
 	\caption{Anwendungsfall XX-1}
-	\label{fig:anwendungsfall-server-tabelle-xx-1}
+	\label{fig:anwendungsfall-diagrammverwaltung-tabelle-xx-1}
 \end{figure}
