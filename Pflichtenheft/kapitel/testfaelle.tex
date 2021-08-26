@@ -10,8 +10,13 @@ Stil und Formatierung sind variabel.
 	\begin{center}
 		\begin{tabularx}{\textwidth}{ p{.05\textwidth} | p{.25\textwidth} | p{.2\textwidth} | X }
 			\textbf{Nr.} & \textbf{Anwendungsfall ID} & \textbf{Szenario} & \textbf{Erwartetes Verhalten} \\ \hline
-			1 & XX-1 & Der Informatiker programmiert ... & Der Quellcode ist schön.\\ \hline
-			2 & XX-2 & Der Informatiker trinkt Kaffee ... & Die Arbeitsleistung steigt.
+			1 & mapp-1 & Der Benutzer loggt sich in die Applikation mit Username, Passwort und Server-URL ein. & Bei erfolgreichem Login erhält der Benutzer eine Übersicht über alle mit ihm verbunden Projekte. Bei Misserfolg wird eine Fehlermeldung beim Login-Screen angezeigt. \\ \hline
+			2 & mapp-2 & Der Benutzer klickt auf ein Projekt X. & Der Nutzer erhält die Übersicht über das Projekt X. \\ \hline
+			3 & mapp-3 & Der Benutzer klickt auf eine Leistungsposition Y von Projekt X. & Der Benutzer erhält eine Übersicht über die spezielle Leistungsposition. \\ \hline
+			4 & mapp-4 & Bei der Leistungsposition wird ein Bild hinzugefügt. & Das Bild wird bei einer vorhanden Internet-Verbindung zum Server gesendet. Falls noch keine Verbindung vorhanden ist: das Bild wird bis zur erneuten Verbindung zwischengespeichert. \\ \hline
+			5 & mapp-5 & Benutzer klickt auf das WLAN-Symbol & Es erscheint ein Fenster, bei dem ein neuer Server eingetragen werden kann. \\ \hline
+			6 & mapp-6 & Der Nutzer trägt einen neuen Server ein. & Der Verbindung soll zum neuen Server während der Laufzeit der App hergestellt werden. \\ \hline
+			7 & mapp-7 & Klicken auf das Logout-Symbol. & Der Benutzer loggt sich erfolgreich aus der App aus. \\ \hline
 		\end{tabularx}	
 	\end{center}
 	\caption{Beschreibung der Testfälle}
