@@ -51,7 +51,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 				\item Die \"Anderung befindet sich nun auf dem Webserver.
 			\end{enumerate}
 			\end{tabularx}
-	\caption{Anwendungsfall XX-1}
+	\caption{Anwendungsfall XX-100}
 	\label{fig:anwendungsfall-app-tabelle-xx-1}
 \end{figure}
 			\begin{figure}[h]
@@ -71,7 +71,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 					 \item Die \"Anderungen am Status der Leistungsposition und/oder das Foto mit Kommentar werden nicht an den Webserver \"ubertragen.
 					 \end{enumerate} \\ \hline
 	\end{tabularx}
-	\caption{Anwendungsfall XX-1}
+	\caption{Anwendungsfall XX-100}
 	\label{fig:anwendungsfall-app-tabelle-xx-2}
 \end{figure}
 			\begin{figure}[h]
@@ -83,6 +83,21 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 					\item Der AppUser erh\"alt eine Fehlermeldung,  da zur Zeit f\"ur das verwendetete Ger\"at keine (ausreichende) Internetverbindung besteht. 
 					\item Der Benutzer erh\"alt eine R\"uckmeldung,  dass zur Zeit keine Internetverbindung besteht und lokale \"Anderungen zwischengespeichert werden.
 					\item Sobald eine ausreichende Internetverbindung besteht,  werden die entsprechenden Daten an den Webserver \"ubertragen.
+				\end{enumerate} 
+				 	\end{tabularx}
+	\caption{Anwendungsfall XX-100}
+	\label{fig:anwendungsfall-app-tabelle-xx-3}
+\end{figure}
+			\begin{figure}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{ X | X }
+		\textbf{Ausnahme} &
+				\begin{enumerate}
+				\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
+					 \item Der AppUser m\"ochte eine \"Anderung an dem Status einer Leistungsposition an den Webserver \"ubertragen und verwendet die entsprechende Funktion in der Applikation. 
+					 \item Die Identifikationsnummer der betroffenen Leistungsposition ist nicht g\"ultig.
+					 \item Der User erh\"alt eine Fehlermeldung.
+					 \item Die \"Anderungen am Status der Leistungsposition werden nicht an den Webserver \"ubertragen.
 				\end{enumerate} \\ \hline
 						\textbf{Ausnahme} &
 				\begin{enumerate}
@@ -95,13 +110,13 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 		\textbf{Spezielle Anforderungen} & - \\ \hline
 		\textbf{Annahmen} & -
 	\end{tabularx}
-	\caption{Anwendungsfall XX-1}
+	\caption{Anwendungsfall XX-100}
 	\label{fig:anwendungsfall-app-tabelle-xx-4}
 \end{figure}
 
 \clearpage
 
-\section{Anwendungsfalldiagramme - Server}
+\section{Anwendungsfalldiagramme - Webserver}
 
 \subsection{Account-Management}
 
@@ -117,34 +132,31 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 \begin{figure}[h]
 	\centering
 	\begin{tabularx}{\textwidth}{ X | X }
-		\textbf{Anwendungsfall ID} & XX-1 \\ \hline
-		\textbf{Anwendungsfallname} & Hier steht ein Name. \\ \hline
-		\textbf{Initiierender Akteur} & Informatiker \\ \hline
-		\textbf{Weitere Akteure} & Designer, Techniker  \\ \hline
-		\textbf{Kurzbeschreibung} & Hier steht eine Kurzbeschreibung.  \\ \hline
-		\textbf{Vorbedingungen} & -  \\ \hline
-		\textbf{Nachbedingungen} & Y trifft zu.  \\ \hline
+		\textbf{Anwendungsfall ID} & XX-210 \\ \hline
+		\textbf{Anwendungsfallname} & Change status of position\\ \hline
+		\textbf{Initiierender Akteur} & User \\ \hline
+		\textbf{Weitere Akteure} & -  \\ \hline
+		\textbf{Kurzbeschreibung} & Der User kann den Satus von Leistungspositionen ver\"andern \\ \hline
+		\textbf{Vorbedingungen} & User ist entsprechend eingeloggt, Rechte des Users sind ausreichend f\"ur diese Operation \\ \hline
+		\textbf{Nachbedingungen} & Status wurde ver\"andert \\ \hline
 		\textbf{Ablauf} &
 		\begin{enumerate}
-			\item Erster ganzer Satz.
-			\item Zweiter ganzer Satz.
+			\item Der User \"andert den Status einer Leistungsposition und w\"ahlt die entsprechende Funktion der Weboberfl\"ache, dass diese \"Anderung \"ubernommen werden sollen.
+			\item Die Aktion war erfolgreich und die \"Anderung wurde \"ubernommen.  Der User erh\"alt eine R\"uckmeldung \"uber den Erfolg der Aktion.
 		\end{enumerate} \\ \hline
-		\textbf{Alternative} &
-		\begin{enumerate}
-			\item Erster ganzer Satz.
-			\item Zweiter ganzer Satz.
-		\end{enumerate}  \\ \hline
+		\textbf{Alternative} & -
+		\\ \hline
 		\textbf{Ausnahme} &
 		\begin{enumerate}
-			\item Erster ganzer Satz.
-			\item Zweiter ganzer Satz.
+			\item Der User \"andert den Status einer Leistungsposition und w\"ahlt die entsprechende Funktion der Weboberfl\"ache,  dass diese \"Anderung \"ubernommen werden sollen.
+			\item Der User verf\"ugt nicht \"uber die entsprechenden Rechte die Aktion durchzuf\"uhren und erh\"alt eine Fehlermeldung. Der bisherige Status der Leistungsposition bleibt bestehen.
 		\end{enumerate}  \\ \hline
-		\textbf{Benutzte Anwendungsfälle} & YY-1 (oder Name) \\ \hline
+		\textbf{Benutzte Anwendungsfälle} & Authenticate \\ \hline
 		\textbf{Spezielle Anforderungen} & - \\ \hline
 		\textbf{Annahmen} & -
 	\end{tabularx}
-	\caption{Anwendungsfall XX-1}
-	\label{fig:anwendungsfall-server-tabelle-xx-1}
+	\caption{Anwendungsfall XX-210}
+	\label{fig:anwendungsfall-server-tabelle-xx-5}
 \end{figure}
 
 \clearpage
@@ -164,31 +176,44 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 	\centering
 	\begin{tabularx}{\textwidth}{ X | X }
 		\textbf{Anwendungsfall ID} & XX-1 \\ \hline
-		\textbf{Anwendungsfallname} & Hier steht ein Name. \\ \hline
-		\textbf{Initiierender Akteur} & Informatiker \\ \hline
-		\textbf{Weitere Akteure} & Designer, Techniker  \\ \hline
-		\textbf{Kurzbeschreibung} & Hier steht eine Kurzbeschreibung.  \\ \hline
-		\textbf{Vorbedingungen} & -  \\ \hline
-		\textbf{Nachbedingungen} & Y trifft zu.  \\ \hline
+		\textbf{Anwendungsfallname} & Diagrammverwaltung \\ \hline
+		\textbf{Initiierender Akteur} & Systemadministrator \\ \hline
+		\textbf{Weitere Akteure} & Organisationsadministrator, Mitarbeiter \\ \hline
+		\textbf{Kurzbeschreibung} & Darstellung und mögliche Filterung der vom Server automatisch erzeugten Diagramme innerhalb der Webapplikation.  \\ \hline
+		\textbf{Vorbedingungen} & Funktionierende Internetverbindung, bestätigte Berechtigungen (Authentifiziert)  \\ \hline
+		\textbf{Nachbedingungen} &  -  \\ \hline
 		\textbf{Ablauf} &
 		\begin{enumerate}
-			\item Erster ganzer Satz.
-			\item Zweiter ganzer Satz.
+			\item Authentifizieren.
+			\item Darstellen eines allgemeinen (alle Leistungspunkte umfassend) Diagramms zu einem oder mehreren Verträgen.
 		\end{enumerate} \\ \hline
-		\textbf{Alternative} &
+		\multirow{2}{*}{\textbf{Alternativen}} &
+		%%\textbf{Alternative} &
 		\begin{enumerate}
-			\item Erster ganzer Satz.
-			\item Zweiter ganzer Satz.
-		\end{enumerate}  \\ \hline
-		\textbf{Ausnahme} &
+			\item Authentifizieren.
+			\item Filtern nach bestimmten Kriterien.
+			\item Darstellen eines Diagramms zu einem oder mehreren Verträgen.
+		\end{enumerate} \\\cline{2-2} &
 		\begin{enumerate}
-			\item Erster ganzer Satz.
-			\item Zweiter ganzer Satz.
+			\item Authentifizieren.
+			\item Diagramm zum Baufortschritt eines Projektes anzeigen.
 		\end{enumerate}  \\ \hline
-		\textbf{Benutzte Anwendungsfälle} & YY-1 (oder Name) \\ \hline
+		%%\textbf{Ausnahme} &
+		\multirow{2}{*}{\textbf{Ausnahme}} &
+		\begin{enumerate} % Projekt/Vertrag nicht vorhanden.
+			\item Authentifizieren.
+			\item Diagramm zum Baufortschritt eines nicht-existenten Projektes anzeigen.
+			\item Fehlermeldung!
+		\end{enumerate} \\\cline{2-2} &
+		\begin{enumerate} % Fehlende Berechtigungen.
+			\item Authentifizieren.
+			\item Diagramm ohne passende Rolle anzeigen lassen.
+			\item Fehlermeldung!
+		\end{enumerate}  \\ \hline
+		\textbf{Benutzte Anwendungsfälle} & Benutzerverwaltung (YY-1) \\ \hline
 		\textbf{Spezielle Anforderungen} & - \\ \hline
 		\textbf{Annahmen} & -
 	\end{tabularx}
 	\caption{Anwendungsfall XX-1}
-	\label{fig:anwendungsfall-server-tabelle-xx-1}
+	\label{fig:anwendungsfall-diagrammverwaltung-tabelle-xx-1}
 \end{figure}
