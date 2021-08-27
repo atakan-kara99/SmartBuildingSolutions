@@ -217,3 +217,64 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 	\caption{Anwendungsfall DIA-1}
 	\label{fig:anwendungsfall-diagrammverwaltung-tabelle-DIA-1}
 \end{figure}
+
+
+
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{ X | X }
+		\textbf{Anwendungsfall ID} & DIA-2 \\ \hline
+		\textbf{Anwendungsfallname} & Diagrammerstellung\\ \hline
+		\textbf{Initiierender Akteur} & Mitarbeiter, Org-Admin, Sys-Admin \\ \hline
+%		\textbf{Weitere Akteure} & Organisationsadministrator, Mitarbeiter \\ \hline
+		\textbf{Kurzbeschreibung} & Nutzer der Weboberfläche können aus den für sie lesbaren Daten auf dem Server, aus den Bereichen Leistungsposition, Vertrag und Projekt, Diagramme in unterschiedlichen Darstellungen erstellen.  \\ \hline
+		\textbf{Vorbedingungen} & Der Nutzer hat Zugriffsrechte auf die zu visualisierenden Daten.  \\ \hline
+		\textbf{Nachbedingungen} &  Dem Nutzer wird das angefragte Diagramm angezeigt.  \\ \hline
+		\textbf{Ablauf} &
+		\begin{enumerate}
+			\item Der Benutzer loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
+			\item Der Benutzer wählt eine Diagramm-Darstellung .
+			\item Der Benutzer wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
+			\item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
+			\item Das Diagramm wird dem Benutzer angezeigt.
+		\end{enumerate} \\ \hline
+
+		\textbf{Alternative} & - \\ \hline
+	\end{tabularx}
+	\caption{Anwendungsfall DIA-2}
+	\label{fig:anwendungsfall-DIA-2}
+	
+	
+\end{figure}
+
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{ X | X }
+		\multirow{2}{*}{\textbf{Ausnahmen}} &
+		\begin{enumerate} % Nutzer wählt Daten aus ohne Zugriffsrecht / während der Bereich-auswahl
+			\item Der Benutzer loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
+			\item Der Benutzer wählt eine Diagramm-Darstellung .
+			\item Der Benutzer wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
+			\item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
+			\item Der Server verweigert den Zugriff auf die Daten durch fehlende Zugriffsrechte.
+		\end{enumerate} \\\cline{2-2} &
+		\begin{enumerate} % Verbindungsfehler
+			\item Der Benutzer loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
+			\item Der Benutzer wählt eine Diagramm-Darstellung .
+			\item Der Benutzer wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
+			\item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
+			\item Verbindungsfehler
+		\end{enumerate}  \\ \hline
+		\textbf{Benutzte Anwendungsfälle} & Authenticate, Diagrammverwaltung (DIA-1)\\ \hline
+		\textbf{Spezielle Anforderungen} & - \\ \hline
+		\textbf{Annahmen} & -
+	\end{tabularx}
+	\caption{Anwendungsfall DIA-2}
+	\label{fig:anwendungsfall-DIA-2}
+\end{figure}
