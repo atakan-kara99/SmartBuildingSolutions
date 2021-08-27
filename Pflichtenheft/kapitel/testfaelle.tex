@@ -10,24 +10,36 @@ Stil und Formatierung sind variabel.
 	\begin{center}
 		\begin{tabularx}{\textwidth}{ p{.05\textwidth} | p{.25\textwidth} | p{.2\textwidth} | X }
 			\textbf{Nr.} & \textbf{Anwendungsfall ID} & \textbf{Szenario} & \textbf{Erwartetes Verhalten} \\ \hline
-			%%---- Following the mobile app test cases ----%%
-			1 & mapp-1 & Der Benutzer loggt sich in die Applikation mit Username, Passwort und Server-URL ein. & Bei erfolgreichem Login erhält der Benutzer eine Übersicht über alle mit ihm verbunden Projekte. Bei Misserfolg wird eine Fehlermeldung beim Login-Screen angezeigt. \\ \hline
-			2 & mapp-2 & Der Benutzer klickt auf ein Projekt X. & Der Nutzer erhält die Übersicht über das Projekt X. \\ \hline
-			3 & mapp-3 & Der Benutzer klickt auf eine Leistungsposition Y von Projekt X. & Der Benutzer erhält eine Übersicht über die spezielle Leistungsposition. \\ \hline
-			4 & mapp-4 & Bei der Leistungsposition wird ein Bild hinzugefügt. & Das Bild wird bei einer vorhanden Internet-Verbindung zum Server gesendet. Falls noch keine Verbindung vorhanden ist: das Bild wird bis zur erneuten Verbindung zwischengespeichert. \\ \hline
-			5 & mapp-5 & Der Nutzer trägt einen neuen Server ein. & Eine neue Verbindung zu einem anderen Server wird hergestellt. \\ \hline
-			7 & mapp-7 & Klicken auf das Logout-Symbol. & Der Benutzer loggt sich erfolgreich aus der App aus. \\ \hline
+			%%---- General test cases ----%%
+			1 & bapp-1 & Der Benutzer loggt sich in die Applikation mit seinen Daten ein. & App:\r -> Der Benutzer erhält eine Überischt über seine Projekte.\r Web: \r -> Sys-Admin erhält eine Übersicht über die Organisationen. \r -> Orga-Admin und B.m.b.R erhalten eine Übersicht der Verträge. \\ \hline
+			2 & bapp-2 & B.m.b.R wählt ein Projekt X aus. & Es erscheint eine Übersicht der Leistungspositionen des Projektes X. \\ \hline
+			3 & bapp-3 & B.m.b.R klickt auf eine Leisungsposition Y. & Detailierte Informationen über die Leistungsposition Y werden bereitgestellt. \\ \hline
+			4 & bapp-4 & B.m-b.R betätigt das "bearbeiten"-Symbol. & Daten der Leistungsposition können modifiziert werden. \\ \hline
+			5 & bapp-5 & Der Benutzer drückt auf den Link zum Ausloggen. & Der Benutzer wird erfolgreich ausgeloggt. \\ \hline
 		\end{tabularx}	
 	\end{center}
 	\caption{Beschreibung der Testfälle}
-	\label{fig:testfaelle-tabelle}
+	\label{fig:testfaelle-beide-anwendungen-tabelle}
 \end{figure}
 
 \begin{figure}[!h]
 	\begin{center}
 		\begin{tabularx}{\textwidth}{ p{.05\textwidth} | p{.25\textwidth} | p{.2\textwidth} | X }
 			\textbf{Nr.} & \textbf{Anwendungsfall ID} & \textbf{Szenario} & \textbf{Erwartetes Verhalten} \\ \hline
-			%%---- The web-app test cases are following.. ----%%
+			%%---- Mobile app test cases ----%%
+			4 & mapp-4 & Bei der Leistungsposition wird ein Bild hinzugefügt. & Das Bild wird bei einer vorhanden Internet-Verbindung zum Server gesendet. Falls noch keine Verbindung vorhanden ist: das Bild wird bis zur erneuten Verbindung zwischengespeichert. \\ \hline
+			5 & mapp-5 & Der Nutzer trägt einen neuen Server ein. & Eine neue Verbindung zu einem anderen Server wird hergestellt. \\ \hline
+		\end{tabularx}	
+	\end{center}
+	\caption{Beschreibung der Testfälle}
+	\label{fig:testfaelle-mobile-app-tabelle}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\begin{tabularx}{\textwidth}{ p{.05\textwidth} | p{.25\textwidth} | p{.2\textwidth} | X }
+			\textbf{Nr.} & \textbf{Anwendungsfall ID} & \textbf{Szenario} & \textbf{Erwartetes Verhalten} \\ \hline
+			%%---- Web app test cases ----%%
 			8 & wapp-1 & Der Benutzer loggt sich in die Webanwendung ein & Der System-Admin erhält eine Übersicht über die Organisationen. \r Der Orga-Admin und alle weiteren Befugten erhalten eine Übersicht über die einzusehenden Verträge. \\ \hline
 			9 & wapp-2 & Der Systemadmin klickt auf Organisation hinzufügen. & Es wird eine neue Organisation erstellt, in der Admins hinzugefügt, bearbeitet und gelöscht werden können. \\ \hline
 			10 & wapp-3 & Der Systemadmin klickt auf Admin hinzufügen. & Es erscheint ein Fenster, in der ein Admin zu der ausgewählten Organisation hinzugefügt werden kann. \\ \hline
@@ -49,5 +61,5 @@ Stil und Formatierung sind variabel.
 		\end{tabularx}	
 	\end{center}
 	\caption{Beschreibung der Testfälle}
-	\label{fig:testfaelle-tabelle}
+	\label{fig:testfaelle-web-app-tabelle}
 \end{figure}
