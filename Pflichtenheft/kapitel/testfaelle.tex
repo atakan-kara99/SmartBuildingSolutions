@@ -10,13 +10,17 @@ Stil und Formatierung sind variabel.
 	\begin{center}
 		\begin{tabularx}{\textwidth}{ p{.05\textwidth} | p{.25\textwidth} | p{.2\textwidth} | X }
 			\textbf{Nr.} & \textbf{Anwendungsfall ID} & \textbf{Szenario} & \textbf{Erwartetes Verhalten} \\ \hline
+			%%---- comment section ----%%
 			1 & mapp-1 & Der Benutzer loggt sich in die Applikation mit Username, Passwort und Server-URL ein. & Bei erfolgreichem Login erhält der Benutzer eine Übersicht über alle mit ihm verbunden Projekte. Bei Misserfolg wird eine Fehlermeldung beim Login-Screen angezeigt. \\ \hline
 			2 & mapp-2 & Der Benutzer klickt auf ein Projekt X. & Der Nutzer erhält die Übersicht über das Projekt X. \\ \hline
 			3 & mapp-3 & Der Benutzer klickt auf eine Leistungsposition Y von Projekt X. & Der Benutzer erhält eine Übersicht über die spezielle Leistungsposition. \\ \hline
 			4 & mapp-4 & Bei der Leistungsposition wird ein Bild hinzugefügt. & Das Bild wird bei einer vorhanden Internet-Verbindung zum Server gesendet. Falls noch keine Verbindung vorhanden ist: das Bild wird bis zur erneuten Verbindung zwischengespeichert. \\ \hline
-			5 & mapp-5 & Benutzer klickt auf das WLAN-Symbol & Es erscheint ein Fenster, bei dem ein neuer Server eingetragen werden kann. \\ \hline
-			6 & mapp-6 & Der Nutzer trägt einen neuen Server ein. & Der Verbindung soll zum neuen Server während der Laufzeit der App hergestellt werden. \\ \hline
+			5 & mapp-5 & Der Nutzer trägt einen neuen Server ein. & Eine neue Verbindung zu einem anderen Server wird hergestellt. \\ \hline
 			7 & mapp-7 & Klicken auf das Logout-Symbol. & Der Benutzer loggt sich erfolgreich aus der App aus. \\ \hline
+			%%---- The web-app test cases are following.. ----%%
+			8 & wapp-1 & Der Benutzer loggt sich in die Webanwendung ein & Der System-Admin erhält eine Übersicht über die Organisationen. \r Der Orga-Admin und alle weiteren Befugten erhalten eine Übersicht über die einzusehenden Verträge. \\ \hline
+			9 & wapp-2 & Der Systemadmin klickt auf Organisation hinzufügen. & Es wird eine neue Organisation erstellt, in der Admins hinzugefügt, bearbeitet und gelöscht werden können. \\ \hline
+			10 & wapp-3 & Der Systemadmin klickt auf Admin hinzufügen. & Es erscheint ein Fenster, in der ein Admin zu der ausgewählten Organisation hinzugefügt werden kann. \\ \hline
 		\end{tabularx}	
 	\end{center}
 	\caption{Beschreibung der Testfälle}
