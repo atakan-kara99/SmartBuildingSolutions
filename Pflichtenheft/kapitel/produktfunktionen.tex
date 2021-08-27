@@ -27,6 +27,8 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 \begin{figure}[h]
 	\centering
     \includegraphics[width=\linewidth]{img/diagrams/Mobile_Application.pdf}
+     %\includegraphics[width=\linewidth]{img/diagrams/Mobile_Application.svg}
+     %\includesvg{img/diagrams/Mobile_Application.svg}
 	\caption{Anwendungsfalldiagramm - App}
 	\label{fig:anwendungsfalldiagramm-app}
 \end{figure}
@@ -38,7 +40,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 	\begin{tabularx}{\textwidth}{ X | X }
 		\textbf{Anwendungsfall ID} & APP-1 \\ \hline
 		\textbf{Anwendungsfallname} & Push local changes to webserver\\ \hline
-		\textbf{Initiierender Akteur} & AppUser \\ \hline
+		\textbf{Initiierender Akteur} & Nutzer der App \\ \hline
 		\textbf{Weitere Akteure} & Webserver  \\ \hline
 		\textbf{Kurzbeschreibung} & Der Benutzer der Applikation kann lokale \"Anderungen,  bspw. \"Anderungen zum Baustatus einzelner Leistungspositionen oder Fotos mit Kommentar von der Baustelle,  an den Webserver schicken.  Diese \"Anderungen und Fotos mit Kommentar k\"onnen dann entsprechend  \"uber die Webanwendung eingesehen werden.  \\ \hline
 		\textbf{Vorbedingungen} & Der AppUser ist registriert und entsprechend eingeloggt \\ \hline
@@ -106,7 +108,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 					 \item Der User erh\"alt eine Fehlermeldung.
 					 \item Die \"Anderungen am Status der Leistungsposition oder das Foto mit Kommentar werden nicht an den Webserver \"ubertragen.
 				\end{enumerate} \\ \hline
-		\textbf{Benutzte Anwendungsfälle} & Authenticate,  Check billing item IDs for validity\\ \hline
+		\textbf{Benutzte Anwendungsfälle} & Benutzerverwaltung (ACC-1) \\ \hline
 		\textbf{Spezielle Anforderungen} & - \\ \hline
 		\textbf{Annahmen} & -
 	\end{tabularx}
@@ -123,6 +125,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\linewidth]{img/diagrams/Acc_Management_Web.pdf}
+	%\includegraphics[width=\linewidth]{img/diagrams/Acc_Management_Web.svg}
 	\caption{Anwendungsfalldiagramm - Account-Management Webserver}
 	\label{fig:anwendungsfalldiagramm-acc}
 \end{figure}
@@ -133,8 +136,9 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 	\centering
 	\begin{tabularx}{\textwidth}{ X | X }
 		\textbf{Anwendungsfall ID} & ACC-1 \\ \hline
-		\textbf{Anwendungsfallname} & Change status of position\\ \hline
-		\textbf{Initiierender Akteur} & User \\ \hline
+		%\textbf{Anwendungsfallname} & Change status of position\\ \hline
+		\textbf{Anwendungsfallname} & Modifizieren des Status einer Leistungsposition \\ \hline
+		\textbf{Initiierender Akteur} & Nutzer \\ \hline
 		\textbf{Weitere Akteure} & -  \\ \hline
 		\textbf{Kurzbeschreibung} & Der User kann den Status von Leistungspositionen ver\"andern \\ \hline
 		\textbf{Vorbedingungen} & User ist entsprechend eingeloggt, Rechte des Users sind ausreichend f\"ur diese Operation \\ \hline
@@ -151,7 +155,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 			\item Der User \"andert den Status einer Leistungsposition und w\"ahlt die entsprechende Funktion der Weboberfl\"ache,  dass diese \"Anderung \"ubernommen werden soll.
 			\item Der User verf\"ugt nicht \"uber die entsprechenden Rechte die Aktion durchzuf\"uhren und erh\"alt eine Fehlermeldung. Der bisherige Status der Leistungsposition bleibt bestehen.
 		\end{enumerate}  \\ \hline
-		\textbf{Benutzte Anwendungsfälle} & Authenticate \\ \hline
+		\textbf{Benutzte Anwendungsfälle} & Benutzerverwaltung (ACC-1) \\ \hline
 		\textbf{Spezielle Anforderungen} & - \\ \hline
 		\textbf{Annahmen} & -
 	\end{tabularx}
@@ -166,8 +170,9 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\linewidth]{img/diagrams/Diagram_Display_Management_Web.pdf}
+	%\includegraphics[width=\linewidth]{img/diagrams/Diagram_Display_Management_Web.svg}
 	\caption{Anwendungsfalldiagramm - Diagrammdarstellung}
-	\label{fig:anwendungsfalldiagramm-dia-management}
+	\label{fig:anwendungsfalldiagramm-dia-verwaltung}
 \end{figure}
 
 \newpage
@@ -176,7 +181,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 	\centering
 	\begin{tabularx}{\textwidth}{ X | X }
 		\textbf{Anwendungsfall ID} & DIA-1 \\ \hline
-		\textbf{Anwendungsfallname} & Diagrammverwaltung \\ \hline
+		\textbf{Anwendungsfallname} & Diagrammdarstellung \\ \hline
 		\textbf{Initiierender Akteur} & Systemadministrator \\ \hline
 		\textbf{Weitere Akteure} & Organisationsadministrator, Mitarbeiter \\ \hline
 		\textbf{Kurzbeschreibung} & Darstellung und mögliche Filterung der vom Server automatisch erzeugten Diagramme innerhalb der Webapplikation.  \\ \hline
@@ -184,30 +189,70 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 		\textbf{Nachbedingungen} &  -  \\ \hline
 		\textbf{Ablauf} &
 		\begin{enumerate}
-			\item Authentifizieren.
-			\item Darstellen eines allgemeinen (alle Leistungspunkte umfassenden) Diagramms zu einem oder mehreren Verträgen.
+			%\item Erfolgreich authentifizieren (passende Rolle).
+			\item Authentifizieren (passende Rolle).
+			\item Der Nutzer wechselt in den Reiter der Diagramme.
+			%\item Darstellen eines allgemeinen (alle Leistungspunkte umfassend) Diagramms zu einem oder mehreren Verträgen.
+			\item Der Nutzer wählt ein alle Leistungspunkte umfassendes Diagramm eines oder mehrere Verträge zur Darstellung.
+			\item Das Diagramm wird angezeigt.
 		\end{enumerate} \\ \hline
 		\multirow{2}{*}{\textbf{Alternativen}} &
 		%%\textbf{Alternative} &
 		\begin{enumerate}
-			\item Authentifizieren.
-			\item Filtern nach bestimmten Kriterien.
-			\item Darstellen eines Diagramms zu einem oder mehreren Verträgen.
+			%\item Erfolgreich authentifizieren (passende Rolle).
+			\item Authentifizieren (passende Rolle).
+			\item Der Nutzer wechselt in den Reiter der Diagramme.
+			\item Der Nutzer filtert nach bestimmten Kriterien.
+			%\item Darstellen eines Diagramms zu einem oder mehreren Verträgen.
+			\item Das Diagramm wird angezeigt.
 		\end{enumerate} \\\cline{2-2} &
 		\begin{enumerate}
-			\item Authentifizieren.
-			\item Diagramm zum Baufortschritt eines Projektes anzeigen.
+			%\item Erfolgreich authentifizieren (passende Rolle).
+			\item Authentifizieren (passende Rolle).
+			\item Der Nutzer wechselt in den Reiter der Diagramme.
+			\item Der Nutzer wählt das Diagramm zum Baufortschritt eines Projektes.
+			\item Das Diagramm wird angezeigt.
 		\end{enumerate}  \\ \hline
+		\end{tabularx}
+	\caption{Anwendungsfall DIA-1}
+	\label{fig:anwendungsfall-diagrammdarstellung-tabelle-DIA-1}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{ X | X }		
 		%%\textbf{Ausnahme} &
 		\multirow{2}{*}{\textbf{Ausnahme}} &
 		\begin{enumerate} % Projekt/Vertrag nicht vorhanden.
-			\item Authentifizieren.
-			\item Diagramm zum Baufortschritt eines nicht-existenten Projektes anzeigen.
+			%\item Erfolgreich authentifizieren (passende Rolle).
+			\item Authentifizieren (passende Rolle).
+			\item Der Nutzer wechselt in den Reiter der Diagramme.
+			\item Der Nutzer wählt ein nicht-existentes Projekt aus.
 			\item Fehlermeldung!
 		\end{enumerate} \\\cline{2-2} &
+		\begin{enumerate} % Kriterien werden nicht erfüllt.
+			\item Authentifizieren (passende Rolle).
+			\item Der Nutzer wechselt in den Reiter der Diagramme.
+			\item Der Nutzer filtert nach bestimmten Kriterien.
+			\item Die Kriterien werden von keinem Diagramm erfüllt.
+			\item Fehlermeldung!
+		\end{enumerate}  \\\cline{2-2} &
 		\begin{enumerate} % Fehlende Berechtigungen.
-			\item Authentifizieren.
-			\item Diagramm ohne passende Rolle anzeigen lassen.
+			%\item Erfolgreich authentifizieren (\textbf{keine} passende Rolle).
+			\item Authentifizieren (\textbf{keine} passende Rolle).
+			\item Der Nutzer wechselt in den Reiter der Diagramme.
+			%\item Diagramm ohne passende Rolle anzeigen lassen.
+			\item Der Nutzer wählt ein Diagramm, für welches er keine Rechte hat.
+			\item Fehlermeldung!
+		\end{enumerate}  \\\cline{2-2} &
+		\begin{enumerate} % Fehlende Berechtigungen für einzelne LPs.
+			%\item Erfolgreich authentifizieren (\textbf{keine} passende Rolle).
+			\item Authentifizieren (\textbf{keine} passende Rolle).
+			\item Der Nutzer wechselt in den Reiter der Diagramme.
+			%\item Diagramm ohne passende Rolle anzeigen lassen.
+			\item Der Nutzer filtert nach bestimmten Kriterien, wofür er keine Rechte hat.
 			\item Fehlermeldung!
 		\end{enumerate}  \\ \hline
 		\textbf{Benutzte Anwendungsfälle} & Benutzerverwaltung (ACC-1) \\ \hline
@@ -215,11 +260,21 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 		\textbf{Annahmen} & -
 	\end{tabularx}
 	\caption{Anwendungsfall DIA-1}
-	\label{fig:anwendungsfall-diagrammverwaltung-tabelle-DIA-1}
+	\label{fig:anwendungsfall-diagrammdarstellung-tabelle-DIA-1}
 \end{figure}
 
+%\newpage
+\clearpage
 
+\subsection{Diagrammerstellung}
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{img/diagrams/Create_Custom_Diagram.pdf}
+	%\includegraphics[width=\linewidth]{img/diagrams/Create_Custom_Diagram.pdf.svg}
+	\caption{Anwendungsfalldiagramm - Diagrammerstellung}
+	\label{fig:anwendungsfalldiagramm-dia-erstellung}
+\end{figure}
 
 \newpage
 
@@ -271,7 +326,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 			\item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
 			\item Verbindungsfehler
 		\end{enumerate}  \\ \hline
-		\textbf{Benutzte Anwendungsfälle} & Authenticate, Diagrammverwaltung (DIA-1)\\ \hline
+		\textbf{Benutzte Anwendungsfälle} & Benutzerverwaltung (ACC-1), Diagrammverwaltung (DIA-1)\\ \hline
 		\textbf{Spezielle Anforderungen} & - \\ \hline
 		\textbf{Annahmen} & -
 	\end{tabularx}
