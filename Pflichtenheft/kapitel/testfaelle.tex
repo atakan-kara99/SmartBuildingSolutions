@@ -10,17 +10,42 @@ Stil und Formatierung sind variabel.
 	\begin{center}
 		\begin{tabularx}{\textwidth}{ p{.05\textwidth} | p{.25\textwidth} | p{.2\textwidth} | X }
 			\textbf{Nr.} & \textbf{Anwendungsfall ID} & \textbf{Szenario} & \textbf{Erwartetes Verhalten} \\ \hline
-			%%---- comment section ----%%
+			%%---- Following the mobile app test cases ----%%
 			1 & mapp-1 & Der Benutzer loggt sich in die Applikation mit Username, Passwort und Server-URL ein. & Bei erfolgreichem Login erhält der Benutzer eine Übersicht über alle mit ihm verbunden Projekte. Bei Misserfolg wird eine Fehlermeldung beim Login-Screen angezeigt. \\ \hline
 			2 & mapp-2 & Der Benutzer klickt auf ein Projekt X. & Der Nutzer erhält die Übersicht über das Projekt X. \\ \hline
 			3 & mapp-3 & Der Benutzer klickt auf eine Leistungsposition Y von Projekt X. & Der Benutzer erhält eine Übersicht über die spezielle Leistungsposition. \\ \hline
 			4 & mapp-4 & Bei der Leistungsposition wird ein Bild hinzugefügt. & Das Bild wird bei einer vorhanden Internet-Verbindung zum Server gesendet. Falls noch keine Verbindung vorhanden ist: das Bild wird bis zur erneuten Verbindung zwischengespeichert. \\ \hline
 			5 & mapp-5 & Der Nutzer trägt einen neuen Server ein. & Eine neue Verbindung zu einem anderen Server wird hergestellt. \\ \hline
 			7 & mapp-7 & Klicken auf das Logout-Symbol. & Der Benutzer loggt sich erfolgreich aus der App aus. \\ \hline
+		\end{tabularx}	
+	\end{center}
+	\caption{Beschreibung der Testfälle}
+	\label{fig:testfaelle-tabelle}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\begin{tabularx}{\textwidth}{ p{.05\textwidth} | p{.25\textwidth} | p{.2\textwidth} | X }
+			\textbf{Nr.} & \textbf{Anwendungsfall ID} & \textbf{Szenario} & \textbf{Erwartetes Verhalten} \\ \hline
 			%%---- The web-app test cases are following.. ----%%
 			8 & wapp-1 & Der Benutzer loggt sich in die Webanwendung ein & Der System-Admin erhält eine Übersicht über die Organisationen. \r Der Orga-Admin und alle weiteren Befugten erhalten eine Übersicht über die einzusehenden Verträge. \\ \hline
 			9 & wapp-2 & Der Systemadmin klickt auf Organisation hinzufügen. & Es wird eine neue Organisation erstellt, in der Admins hinzugefügt, bearbeitet und gelöscht werden können. \\ \hline
 			10 & wapp-3 & Der Systemadmin klickt auf Admin hinzufügen. & Es erscheint ein Fenster, in der ein Admin zu der ausgewählten Organisation hinzugefügt werden kann. \\ \hline
+			11 & wapp-4 & Benutzer mit bestimmten Rechten sucht nach einem Vertrag & Es erscheint ein Vertrag, der zur Suche passt \\ \hline
+			12 & wapp-5 & Benutzer mit bestimmten Rechten filtern die Verträge & Es werden nur Verträge angezeigt, die das Kriterium erfüllen \\ \hline
+			13 & wapp-6 & Benutzer mit bestimmten Rechten drücken auf "Diagramme erstellen" & Zu jedem Vertrag wird ein passendes Diagramm erstellt \\ \hline
+			14 & wapp-7 & Benutzer mit bestimmten Rechten sucht nach einem Projekt & Es erscheint ein Projekt, welches zur Suche passt! \\ \hline
+			15 & wapp-8 & Benutzer mit bestimmten Rechten filtert alle Projekte & Es werden nur Projekte angezeigt, die das Kriterium erfüllen \\ \hline
+			16 & wapp-9 & Benutzer mit bestimmten Rechten klickt auf ein Projekt & Es werden die Leistungspositionen zu diesem Projekt angezeigt \\ \hline
+			17 & wapp-10 & Benutzer mit bestimmten Rechten sucht nach einer Leistungsposition & Es erscheint eine Leistungsposition, die zur Suche passt. \\ \hline
+			18 & wapp-11 & Benutzer mit bestimmten Rechten filtert alle Leistungspositionen & Es werden nur die Leistungspositionen angezeigt, die das Kriterium erfüllen \\ \hline
+			19 & wapp-12 & Benutzer mit bestimmten Rechten drückt auf eine Leistungsposition & Es werden alle Informationen zu dieser Leistungspositionen angezeigt \\ \hline
+			20 & wapp-14 & Benutzer mit bestimmten Rechten drückt auf Leistungsposition bearbeiten & Leistungsposition kann bearbeitet und reviewt werden \\ \hline
+			21 & wapp-15 & Benutzer mit bestimmten Rechten setzt einen Haken beim Nutzer und drückt anschließend auf ausgewählte(n) Nutzer löschen. & Der ausgewählte Nutzer wird dauerhaft gelöscht \\ \hline
+			22 & wapp-16 & Benutzer mit bestimmten Rechten drückt auf Benutzer hinzufügen. & Ein Formular erscheint, indem ein weiterer Benutzer hinzugefügt werden. \\ \hline
+			23 & wapp-17 & Benutzer mit bestimmten Rechten drückt auf "Rollen verwalten". & Er erhält eine Übersicht über alle Rollen, mit deren Rechten und kann diese Rollen ebenfalls bearbeiten. \\ \hline
+			24 & wapp-18 & Benutzer mit bestimmten Rechten drückt auf "Rolle erstellen". & Ein Formular erscheint, bei dem eine Rolle erstellt werden kann und dessen Rechte zugewiesen werden können. \\ \hline
+			25 && wapp-19 & (System-)Admins und Benutzer drücken auf Logout & Der (System-)Admin/Benutzer wird erfolgreich ausgeloggt.
 		\end{tabularx}	
 	\end{center}
 	\caption{Beschreibung der Testfälle}
