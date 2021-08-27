@@ -144,13 +144,13 @@
       ><path d="M0 0 L0 82 L158 82 L158 0 Z"
       /></clipPath
       ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath47"
-      ><path d="M-44 -14 L88 -14 L88 28 L-44 28 L-44 -14 Z"
-      /></clipPath
-      ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath48"
       ><path d="M-81 -14 L162 -14 L162 28 L-81 28 L-81 -14 Z"
       /></clipPath
-      ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath49"
+      ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath48"
       ><path d="M-78 -14 L156 -14 L156 28 L-78 28 L-78 -14 Z"
+      /></clipPath
+      ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath49"
+      ><path d="M-44 -14 L88 -14 L88 28 L-44 28 L-44 -14 Z"
       /></clipPath
       ><clipPath clipPathUnits="userSpaceOnUse" id="clipPath50"
       ><path d="M0 0 L964 0 L964 273 L0 273 L0 0 Z"
@@ -567,17 +567,17 @@
       /><line y2="60" fill="none" x1="15" clip-path="url(#clipPath5)" x2="0" y1="40"
       /><line y2="60" fill="none" x1="15" clip-path="url(#clipPath5)" x2="30" y1="40"
     /></g
-    ><g font-size="11px" transform="translate(20,181)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="black" stroke-opacity="1"
-    ><text x="10" xml:space="preserve" y="11" clip-path="url(#clipPath47)" stroke="none"
-      >User</text
-    ></g
     ><g font-size="11px" transform="translate(2,360)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="black" stroke-opacity="1"
-    ><text x="10" xml:space="preserve" y="11" clip-path="url(#clipPath48)" stroke="none"
+    ><text x="10" xml:space="preserve" y="11" clip-path="url(#clipPath47)" stroke="none"
       >Org_Admin</text
     ></g
     ><g font-size="11px" transform="translate(3,807)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="black" stroke-opacity="1"
-    ><text x="10" xml:space="preserve" y="11" clip-path="url(#clipPath49)" stroke="none"
+    ><text x="10" xml:space="preserve" y="11" clip-path="url(#clipPath48)" stroke="none"
       >Sys_Admin</text
+    ></g
+    ><g font-size="11px" transform="translate(20,181)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="black" stroke-opacity="1"
+    ><text x="10" xml:space="preserve" y="11" clip-path="url(#clipPath49)" stroke="none"
+      >User</text
     ></g
     ><g stroke-linecap="butt" font-size="11px" transform="translate(353,246)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke-linejoin="round" stroke-dasharray="4" stroke="black" stroke-opacity="1"
     ><line y2="41" fill="none" x1="918" clip-path="url(#clipPath51)" x2="918" y1="227"
@@ -752,7 +752,7 @@
     ></g
     ><g font-size="8px" fill-opacity="1" fill="rgb(120,120,120)" text-rendering="geometricPrecision" image-rendering="optimizeQuality" stroke="rgb(120,120,120)" stroke-opacity="1"
     ><text x="0" xml:space="preserve" y="10" stroke="none"
-      >Visual Paradigm Standard(Eddy Wu(University of Kiel))</text
+      >Visual Paradigm Standard(Natalie Kaufhold(University of Kiel))</text
     ></g
   ></g
 ></svg
