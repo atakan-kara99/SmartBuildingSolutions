@@ -232,12 +232,27 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 			\item Der Nutzer wählt ein nicht-existentes Projekt aus.
 			\item Fehlermeldung!
 		\end{enumerate} \\\cline{2-2} &
+		\begin{enumerate} % Kriterien werden nicht erfüllt.
+			\item Authentifizieren (passende Rolle).
+			\item Der Nutzer wechselt in den Reiter der Diagramme.
+			\item Der Nutzer filtert nach bestimmten Kriterien.
+			\item Die Kriterien werden von keinem Diagramm erfüllt.
+			\item Fehlermeldung!
+		\end{enumerate}  \\\cline{2-2} &
 		\begin{enumerate} % Fehlende Berechtigungen.
 			%\item Erfolgreich authentifizieren (\textbf{keine} passende Rolle).
 			\item Authentifizieren (\textbf{keine} passende Rolle).
 			\item Der Nutzer wechselt in den Reiter der Diagramme.
 			%\item Diagramm ohne passende Rolle anzeigen lassen.
 			\item Der Nutzer wählt ein Diagramm, für welches er keine Rechte hat.
+			\item Fehlermeldung!
+		\end{enumerate}  \\\cline{2-2} &
+		\begin{enumerate} % Fehlende Berechtigungen für einzelne LPs.
+			%\item Erfolgreich authentifizieren (\textbf{keine} passende Rolle).
+			\item Authentifizieren (\textbf{keine} passende Rolle).
+			\item Der Nutzer wechselt in den Reiter der Diagramme.
+			%\item Diagramm ohne passende Rolle anzeigen lassen.
+			\item Der Nutzer filtert nach bestimmten Kriterien, wofür er keine Rechte hat.
 			\item Fehlermeldung!
 		\end{enumerate}  \\ \hline
 		\textbf{Benutzte Anwendungsfälle} & Benutzerverwaltung (ACC-1) \\ \hline
