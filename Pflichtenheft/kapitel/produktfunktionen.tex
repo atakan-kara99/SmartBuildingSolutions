@@ -20,8 +20,6 @@
 \begin{figure}[h]
 	\centering
     \includegraphics[width=\linewidth]{img/diagrams/Mobile_Application.pdf}
-     %\includegraphics[width=\linewidth]{img/diagrams/Mobile_Application.svg}
-     %\includesvg{img/diagrams/Mobile_Application.svg}
 	\caption{Anwendungsfalldiagramm - App}
 	\label{fig:anwendungsfalldiagramm-app}
 \end{figure}
@@ -30,7 +28,8 @@
 
 \begin{figure}[h]
 	\centering
-	\begin{tabularx}{\textwidth}{ X | X }
+	\begin{longtable}[c]{|p{4cm}|p{10cm}|}
+        \hline
 		\textbf{Anwendungsfall ID} & APP-1 \\ \hline
 		\textbf{Anwendungsfallname} & Push local changes to webserver\\ \hline
 		\textbf{Initiierender Akteur} & Nutzer der App \\ \hline
@@ -44,14 +43,7 @@
 				\item Der Benutzer verwendet die Funktion der App,  um seine lokale \"Anderung an den Webserver zu \"ubertragen.
 				\item Es besteht eine Internetverbindung und der AppUser erh\"alt die R\"uckmeldung, dass das Vorhaben erfolgreich ausgef\"uhrt wurde.  
 				\item Die \"Anderung befindet sich nun auf dem Webserver.
-			\end{enumerate}
-			\end{tabularx}
-	\caption{Anwendungsfall APP-1}
-	\label{fig:anwendungsfall-app-tabelle-APP-1-1}
-\end{figure}
-			\begin{figure}[h]
-	\centering
-	\begin{tabularx}{\textwidth}{ X | X }
+			\end{enumerate} \\ \hline
 		\textbf{Alternative} & 
 				\begin{enumerate}
 					 \item Der AppUser hat seinen Benutzerrechten entsprechend ein Foto zur Dokumentation einer Leistungsposition angefertigt.
@@ -65,7 +57,7 @@
 					 \item Der User erh\"alt eine Fehlermeldung, da seine Rechte nicht ausreichen, um diese Aktion durchzuf\"uhren.
 					 \item Die \"Anderungen am Status der Leistungsposition und/oder das Foto mit Kommentar werden nicht an den Webserver \"ubertragen.
 					 \end{enumerate} \\ \hline
-	\end{tabularx}
+	\end{longtable}
 	\caption{Anwendungsfall APP-1}
 	\label{fig:anwendungsfall-app-tabelle-APP-1-2}
 \end{figure}
@@ -110,7 +102,6 @@
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\linewidth]{img/diagrams/Acc_Management_Web.pdf}
-	%\includegraphics[width=\linewidth]{img/diagrams/Acc_Management_Web.svg}
 	\caption{Anwendungsfalldiagramm - Account-Management Webserver}
 	\label{fig:anwendungsfalldiagramm-acc}
 \end{figure}
@@ -121,7 +112,6 @@
 	\centering
 	\begin{tabularx}{\textwidth}{ X | X }
 		\textbf{Anwendungsfall ID} & ACC-1 \\ \hline
-		%\textbf{Anwendungsfallname} & Change status of position\\ \hline
 		\textbf{Anwendungsfallname} & Modifizieren des Status einer Leistungsposition \\ \hline
 		\textbf{Initiierender Akteur} & Nutzer \\ \hline
 		\textbf{Weitere Akteure} & -  \\ \hline
@@ -155,7 +145,6 @@
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\linewidth]{img/diagrams/diagramme_verwalten.pdf}
-	%\includegraphics[width=\linewidth]{img/diagrams/Diagram_Display_Management_Web.svg}
 	\caption{Anwendungsfalldiagramm - Diagrammdarstellung}
 	\label{fig:anwendungsfalldiagramm-dia-verwaltung}
 \end{figure}
@@ -256,7 +245,6 @@
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\linewidth]{img/diagrams/Create_Custom_Diagram.pdf}
-	%\includegraphics[width=\linewidth]{img/diagrams/Create_Custom_Diagram.pdf.svg}
 	\caption{Anwendungsfalldiagramm - Diagrammerstellung}
 	\label{fig:anwendungsfalldiagramm-dia-erstellung}
 \end{figure}
@@ -269,7 +257,6 @@
 		\textbf{Anwendungsfall ID} & DIA-2 \\ \hline
 		\textbf{Anwendungsfallname} & Diagrammerstellung\\ \hline
 		\textbf{Initiierender Akteur} & Mitarbeiter, Org-Admin, Sys-Admin \\ \hline
-%		\textbf{Weitere Akteure} & Organisationsadministrator, Mitarbeiter \\ \hline
 		\textbf{Kurzbeschreibung} & Nutzer der Weboberfläche können aus den für sie lesbaren Daten auf dem Server, aus den Bereichen Leistungsposition, Vertrag und Projekt, Diagramme in unterschiedlichen Darstellungen erstellen.  \\ \hline
 		\textbf{Vorbedingungen} & Der Nutzer hat Zugriffsrechte auf die zu visualisierenden Daten.  \\ \hline
 		\textbf{Nachbedingungen} &  Dem Nutzer wird das angefragte Diagramm angezeigt.  \\ \hline
