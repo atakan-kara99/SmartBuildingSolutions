@@ -36,67 +36,57 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 \begin{figure}[h]
 	\centering
 	\begin{tabularx}{\textwidth}{ X | X }
-		\textbf{Anwendungsfall ID} & XX-100 \\ \hline
+		\textbf{Anwendungsfall ID} & APP-1 \\ \hline
 		\textbf{Anwendungsfallname} & Push local changes to webserver\\ \hline
 		\textbf{Initiierender Akteur} & AppUser \\ \hline
 		\textbf{Weitere Akteure} & Webserver  \\ \hline
-		\textbf{Kurzbeschreibung} & Der Benutzer der Applikation kann lokale \"Anderungen wie beispielsweise \"Anderungen zum Baustatus einzelner Leistungspositionen oder sonstige Kommentare,  sowie Fotos von der Baustelle an den Webserver schicken.  Diese Kommentare k\"onnen dann selbstst\"andig oder gemeinsam mit dem Foto von einem zust\"andigen Mitarbeiter \"uber die Webanwendung eingesehen werden.  \\ \hline
-		\textbf{Vorbedingungen} & Der AppUser ist eingeloggt und hat die notwendigen Rechte Daten an den Webserver zu schicken, die Identifikationsnummer der betroffenen Leistungsposition ist g\"ultig,  es besteht eine Internetverbindung   \\ \hline
+		\textbf{Kurzbeschreibung} & Der Benutzer der Applikation kann lokale \"Anderungen,  bspw. \"Anderungen zum Baustatus einzelner Leistungspositionen oder Fotos mit Kommentar von der Baustelle,  an den Webserver schicken.  Diese \"Anderungen und Fotos mit Kommentar k\"onnen dann enstprechend  \"uber die Webanwendung eingesehen werden.  \\ \hline
+		\textbf{Vorbedingungen} & Der AppUser ist registriert und entsprechend eingeloggt \\ \hline
 		\textbf{Nachbedingungen} & Die lokalen Daten wurden an den Webserver geschickt\\ \hline
 		\textbf{Ablauf} &
 			\begin{enumerate}
-				\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
-				\item Der AppUser hat den Status einer oder mehrerer Leistungspositionen rechtm\"a{\ss}ig ge\"andert.
-				\item Der Benutzer verwendet die Funktion der App seine lokalen \"Anderungen am Status einer Leistungsposition an den Webserver zu \"ubertragen.
+				\item Der AppUser hat den Status einer Leistungspositionen  lokal ge\"andert.
+				\item Der Benutzer verwendet die Funktion der App,  um seine lokale \"Anderung an den Webserver zu \"ubertragen.
 				\item Es besteht eine Internetverbindung und der AppUser erh\"alt die R\"uckmeldung,  dass das Vorhaben erfolgreich ausgef\"uhrt wurde.  
-				\item Die \"Anderungen befinden sich nun auf dem Webserver.
+				\item Die \"Anderung befindet sich nun auf dem Webserver.
 			\end{enumerate}
 			\end{tabularx}
-	\caption{Anwendungsfall XX-100}
-	\label{fig:anwendungsfall-app-tabelle-xx-1}
+	\caption{Anwendungsfall APP-1}
+	\label{fig:anwendungsfall-app-tabelle-APP-1-1}
 \end{figure}
 			\begin{figure}[h]
 	\centering
 	\begin{tabularx}{\textwidth}{ X | X }
 		\textbf{Alternative} & 
 				\begin{enumerate}
-					\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
 					 \item Der AppUser hat seinen Benutzerrechten entsprechend ein Foto zur Dokumentation einer Leistungsposition angefertigt.
-					 \item Das Foto soll nun mit der entsprechenden Funktion der mobilen Applikation auf den Webserver hochgeladen werden.
+					 \item Das Foto soll nun durch Bet\"atigen der entsprechenden Funktion der mobilen Applikation auf den Webserver hochgeladen werden.
 					 \item Es besteht eine Internetverbindung und der AppUser erh\"alt eine entsprechende Meldung,  dass der Upload erfolgt.
-					 \item Das Foto wird an den Webserver \"ubertragen und kann nun dort eingesehen werden.
+					 \item Das Foto wird an den Webserver \"ubertragen.
 				\end{enumerate}  \\ \hline
-		\textbf{Ausnahme} &
+						\textbf{Ausnahme} &
 				\begin{enumerate}
-					\item Der Benutzer versucht sich innerhalb der App mit Benutzerdaten,  bestehend aus Benutzername und Passwort,  einzuloggen.  
-					\item Der Login schl\"agt fehl,  da die Login-Daten nicht g\"ultig sind. 
-					\item Der AppUser erh\"alt eine Fehlermeldung, dass die angegebenen Daten nicht g\"ultig sind und befindet sich weiterhin auf der Login Seite der Applikation.
-				\end{enumerate} 
+					 \item Der AppUser m\"ochte eine \"Anderung an dem Status einer Leistungsposition oder ein Foto zur Dokumentation mit Kommentar an den Webserver \"ubertragen und verwendet die enstprechende Funktionalit\"at der Applikation.
+					 \item Der User erh\"alt eine Fehlermeldung, da seine Rechte nicht ausreichen um diese Aktion durchzuf\"uhren.
+					 \item Die \"Anderungen am Status der Leistungsposition und/oder das Foto mit Kommentar werden nicht an den Webserver \"ubertragen.
+					 \end{enumerate} \\ \hline
 	\end{tabularx}
-	\caption{Anwendungsfall XX-100}
-	\label{fig:anwendungsfall-app-tabelle-xx-2}
+	\caption{Anwendungsfall APP-1}
+	\label{fig:anwendungsfall-app-tabelle-APP-1-2}
 \end{figure}
 			\begin{figure}[h]
 	\centering
 	\begin{tabularx}{\textwidth}{ X | X }
-		\textbf{Ausnahme} &
-				\begin{enumerate}
-				\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
-					 \item Der AppUser m\"ochte eine \"Anderung an dem Status einer Leistungsposition oder ein Foto zur Dokumentation an den Webserver \"ubertragen und verwendet die enstprechende Funktionalit\"at der Applikation.
-					 \item Der User erh\"alt eine Fehlermeldung, da seine Rechte nicht ausreichen um diese Aktion durchzuf\"uhren.
-					 \item Die \"Anderungen am Status der Leistungsposition und/oder das Foto werden nicht an den Webserver \"ubertragen.
-					 \end{enumerate} \\ \hline
 					 	\textbf{Ausnahme} &
 				\begin{enumerate}
-					\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
-					\item Die lokalen \"Anderungen sollen an den Webserver \"ubertragen werden.
+					\item Die lokalen \"Anderungen durch den Benutzer sollen durch Bet\"atigung der entsprechenden Funktion in der App an den Webserver \"ubertragen werden.
 					\item Der AppUser erh\"alt eine Fehlermeldung,  da zur Zeit f\"ur das verwendetete Ger\"at keine (ausreichende) Internetverbindung besteht. 
 					\item Der Benutzer erh\"alt eine R\"uckmeldung,  dass zur Zeit keine Internetverbindung besteht und lokale \"Anderungen zwischengespeichert werden.
 					\item Sobald eine ausreichende Internetverbindung besteht,  werden die entsprechenden Daten an den Webserver \"ubertragen.
 				\end{enumerate} 
 				 	\end{tabularx}
-	\caption{Anwendungsfall XX-100}
-	\label{fig:anwendungsfall-app-tabelle-xx-3}
+	\caption{Anwendungsfall APP-1}
+	\label{fig:anwendungsfall-app-tabelle-APP-1-3}
 \end{figure}
 			\begin{figure}[h]
 	\centering
@@ -111,22 +101,22 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 				\end{enumerate} \\ \hline
 						\textbf{Ausnahme} &
 				\begin{enumerate}
-				\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
-					 \item Der AppUser m\"ochte den Status einer Leistungsposition an den Webserver \"ubertragen aber die Identifikationsnummer der betroffenen Leistungsposition ist nicht g\"ultig.
+					 \item Der AppUser m\"ochte eine lokale \"Anderung an dem Status einer Leistungsposition oder ein Foto mit Kommentar an den Webserver \"ubertragen und verwendet die entsprechende Funktion in der Applikation. 
+					 \item Die Identifikationsnummer der betroffenen Leistungsposition ist nicht g\"ultig.
 					 \item Der User erh\"alt eine Fehlermeldung.
-					 \item Die \"Anderungen am Status der Leistungsposition werden nicht an den Webserver \"ubertragen.
-				\end{enumerate}  \\ \hline
+					 \item Die \"Anderungen am Status der Leistungsposition oder das Foto mit Kommentar werden nicht an den Webserver \"ubertragen.
+				\end{enumerate} \\ \hline
 		\textbf{Benutzte Anwendungsfälle} & Authenticate,  Check BillingItemIDs for validity\\ \hline
 		\textbf{Spezielle Anforderungen} & - \\ \hline
 		\textbf{Annahmen} & -
 	\end{tabularx}
-	\caption{Anwendungsfall XX-100}
-	\label{fig:anwendungsfall-app-tabelle-xx-4}
+	\caption{Anwendungsfall APP-1}
+	\label{fig:anwendungsfall-app-tabelle-APP-1-4}
 \end{figure}
 
 \clearpage
 
-\section{Anwendungsfalldiagramme - Server}
+\section{Anwendungsfalldiagramme - Webserver}
 
 \subsection{Account-Management}
 
@@ -142,7 +132,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 \begin{figure}[h]
 	\centering
 	\begin{tabularx}{\textwidth}{ X | X }
-		\textbf{Anwendungsfall ID} & XX-210 \\ \hline
+		\textbf{Anwendungsfall ID} & ACC-1 \\ \hline
 		\textbf{Anwendungsfallname} & Change status of position\\ \hline
 		\textbf{Initiierender Akteur} & User \\ \hline
 		\textbf{Weitere Akteure} & -  \\ \hline
@@ -165,8 +155,8 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 		\textbf{Spezielle Anforderungen} & - \\ \hline
 		\textbf{Annahmen} & -
 	\end{tabularx}
-	\caption{Anwendungsfall XX-210}
-	\label{fig:anwendungsfall-server-tabelle-xx-5}
+	\caption{Anwendungsfall ACC-1}
+	\label{fig:anwendungsfall-server-tabelle-ACC-1}
 \end{figure}
 
 \clearpage
@@ -185,32 +175,106 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 \begin{figure}[h]
 	\centering
 	\begin{tabularx}{\textwidth}{ X | X }
-		\textbf{Anwendungsfall ID} & XX-1 \\ \hline
-		\textbf{Anwendungsfallname} & Hier steht ein Name. \\ \hline
-		\textbf{Initiierender Akteur} & Informatiker \\ \hline
-		\textbf{Weitere Akteure} & Designer, Techniker  \\ \hline
-		\textbf{Kurzbeschreibung} & Hier steht eine Kurzbeschreibung.  \\ \hline
-		\textbf{Vorbedingungen} & -  \\ \hline
-		\textbf{Nachbedingungen} & Y trifft zu.  \\ \hline
+		\textbf{Anwendungsfall ID} & DIA-1 \\ \hline
+		\textbf{Anwendungsfallname} & Diagrammverwaltung \\ \hline
+		\textbf{Initiierender Akteur} & Systemadministrator \\ \hline
+		\textbf{Weitere Akteure} & Organisationsadministrator, Mitarbeiter \\ \hline
+		\textbf{Kurzbeschreibung} & Darstellung und mögliche Filterung der vom Server automatisch erzeugten Diagramme innerhalb der Webapplikation.  \\ \hline
+		\textbf{Vorbedingungen} & Funktionierende Internetverbindung, bestätigte Berechtigungen (Authentifiziert)  \\ \hline
+		\textbf{Nachbedingungen} &  -  \\ \hline
 		\textbf{Ablauf} &
 		\begin{enumerate}
-			\item Erster ganzer Satz.
-			\item Zweiter ganzer Satz.
+			\item Authentifizieren.
+			\item Darstellen eines allgemeinen (alle Leistungspunkte umfassend) Diagramms zu einem oder mehreren Verträgen.
 		\end{enumerate} \\ \hline
-		\textbf{Alternative} &
+		\multirow{2}{*}{\textbf{Alternativen}} &
+		%%\textbf{Alternative} &
 		\begin{enumerate}
-			\item Erster ganzer Satz.
-			\item Zweiter ganzer Satz.
-		\end{enumerate}  \\ \hline
-		\textbf{Ausnahme} &
+			\item Authentifizieren.
+			\item Filtern nach bestimmten Kriterien.
+			\item Darstellen eines Diagramms zu einem oder mehreren Verträgen.
+		\end{enumerate} \\\cline{2-2} &
 		\begin{enumerate}
-			\item Erster ganzer Satz.
-			\item Zweiter ganzer Satz.
+			\item Authentifizieren.
+			\item Diagramm zum Baufortschritt eines Projektes anzeigen.
 		\end{enumerate}  \\ \hline
-		\textbf{Benutzte Anwendungsfälle} & YY-1 (oder Name) \\ \hline
+		%%\textbf{Ausnahme} &
+		\multirow{2}{*}{\textbf{Ausnahme}} &
+		\begin{enumerate} % Projekt/Vertrag nicht vorhanden.
+			\item Authentifizieren.
+			\item Diagramm zum Baufortschritt eines nicht-existenten Projektes anzeigen.
+			\item Fehlermeldung!
+		\end{enumerate} \\\cline{2-2} &
+		\begin{enumerate} % Fehlende Berechtigungen.
+			\item Authentifizieren.
+			\item Diagramm ohne passende Rolle anzeigen lassen.
+			\item Fehlermeldung!
+		\end{enumerate}  \\ \hline
+		\textbf{Benutzte Anwendungsfälle} & Benutzerverwaltung (ACC-1) \\ \hline
 		\textbf{Spezielle Anforderungen} & - \\ \hline
 		\textbf{Annahmen} & -
 	\end{tabularx}
-	\caption{Anwendungsfall XX-1}
-	\label{fig:anwendungsfall-server-tabelle-xx-1}
+	\caption{Anwendungsfall DIA-1}
+	\label{fig:anwendungsfall-diagrammverwaltung-tabelle-DIA-1}
+\end{figure}
+
+
+
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{ X | X }
+		\textbf{Anwendungsfall ID} & DIA-2 \\ \hline
+		\textbf{Anwendungsfallname} & Diagrammerstellung\\ \hline
+		\textbf{Initiierender Akteur} & Mitarbeiter, Org-Admin, Sys-Admin \\ \hline
+%		\textbf{Weitere Akteure} & Organisationsadministrator, Mitarbeiter \\ \hline
+		\textbf{Kurzbeschreibung} & Nutzer der Weboberfläche können aus den für sie lesbaren Daten auf dem Server, aus den Bereichen Leistungsposition, Vertrag und Projekt, Diagramme in unterschiedlichen Darstellungen erstellen.  \\ \hline
+		\textbf{Vorbedingungen} & Der Nutzer hat Zugriffsrechte auf die zu visualisierenden Daten.  \\ \hline
+		\textbf{Nachbedingungen} &  Dem Nutzer wird das angefragte Diagramm angezeigt.  \\ \hline
+		\textbf{Ablauf} &
+		\begin{enumerate}
+			\item Der Benutzer loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
+			\item Der Benutzer wählt eine Diagramm-Darstellung .
+			\item Der Benutzer wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
+			\item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
+			\item Das Diagramm wird dem Benutzer angezeigt.
+		\end{enumerate} \\ \hline
+
+		\textbf{Alternative} & - \\ \hline
+	\end{tabularx}
+	\caption{Anwendungsfall DIA-2}
+	\label{fig:anwendungsfall-DIA-2}
+	
+	
+\end{figure}
+
+
+\newpage
+
+\begin{figure}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{ X | X }
+		\multirow{2}{*}{\textbf{Ausnahmen}} &
+		\begin{enumerate} % Nutzer wählt Daten aus ohne Zugriffsrecht / während der Bereich-auswahl
+			\item Der Benutzer loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
+			\item Der Benutzer wählt eine Diagramm-Darstellung .
+			\item Der Benutzer wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
+			\item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
+			\item Der Server verweigert den Zugriff auf die Daten durch fehlende Zugriffsrechte.
+		\end{enumerate} \\\cline{2-2} &
+		\begin{enumerate} % Verbindungsfehler
+			\item Der Benutzer loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
+			\item Der Benutzer wählt eine Diagramm-Darstellung .
+			\item Der Benutzer wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
+			\item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
+			\item Verbindungsfehler
+		\end{enumerate}  \\ \hline
+		\textbf{Benutzte Anwendungsfälle} & Authenticate, Diagrammverwaltung (DIA-1)\\ \hline
+		\textbf{Spezielle Anforderungen} & - \\ \hline
+		\textbf{Annahmen} & -
+	\end{tabularx}
+	\caption{Anwendungsfall DIA-2}
+	\label{fig:anwendungsfall-DIA-2}
 \end{figure}
