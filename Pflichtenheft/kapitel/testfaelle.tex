@@ -1,69 +1,25 @@
 
-%%%%---- test cases for the mobile/web application ----%%%%
-\section{Testfälle für Mobile-/Webapp}
-\begin{figure}[!h]
-	\begin{center}
-		\begin{tabularx}{\textwidth}{ p{.05\textwidth} | p{.25\textwidth} | p{.2\textwidth} | X }
-			\textbf{Nr.} & \textbf{Anwendungsfall ID} & \textbf{Szenario} & \textbf{Erwartetes Verhalten} \\ \hline
-			01 & LOG-1 & Der Benutzer loggt sich in die Applikation mit seinen Daten ein. &
-			\begin{itemize}
-				\item[App:] Der Benutzer erhält eine Übersicht über seine Projekte.
-				\item[Web:] Sys-Admin erhält eine Übersicht über die Organisationen.
-				\item[Web:] Org-Admin und B.m.b.R erhalten eine Übersicht der Verträge.
-			\end{itemize} \\ \hline
-			02 & PRO-1 & B.m.b.R. wählt ein Projekt X aus. & Es erscheint eine Übersicht der Leistungspositionen des Projektes X. \\ \hline
-			03 & LEI-1 & B.m.b.R. klickt auf eine Leisungsposition Y. & Detailierte Informationen über die Leistungsposition Y werden bereitgestellt. \\ \hline
-			%%---- Anwendungsfall Change status of position ----%%
-			04 & ACC-1 & B.m.b.R. betätigt das ''bearbeiten''-Symbol. & Daten der Leistungsposition können modifiziert werden. \\ \hline
-			05 & LOG-2 & Der Benutzer drückt auf den Link zum Ausloggen. & Der Benutzer wird erfolgreich ausgeloggt. \\ \hline
-		\end{tabularx}	
-	\end{center}
-	\caption{Beschreibung der Testfälle}
-	\label{fig:testfaelle-beide-anwendungen-tabelle}
-\end{figure}
-
-%%%%---- test cases for the web application ----%%%%
-\newpage
-\section{Testfälle für Webapp}
-\begin{figure}[!h]
-	\begin{center}
-		\begin{tabularx}{\textwidth}{ p{.05\textwidth} | p{.25\textwidth} | p{.2\textwidth} | X }
-			\textbf{Nr.} & \textbf{Anwendungsfall ID} & \textbf{Szenario} & \textbf{Erwartetes Verhalten} \\ \hline
-			%%---- Web app test cases ----%%
-			01 & ORG-1 & Der Sys-Admin klickt auf Organisation hinzufügen. & Es wird eine neue Organisation erstellt, in der Admins hinzugefügt, bearbeitet und gelöscht werden können. \\ \hline
-			02 & ORG-2 & Der Sys-Admin klickt auf Admin hinzufügen. & Es erscheint ein Fenster, in der ein Admin zu der ausgewählten Organisation hinzugefügt werden kann. \\ \hline
-			%%---- Anwendungsfall Diagrammverwaltung ----%%
-			03 & DIA-1 & B.m.b.R. sucht nach einem Vertrag/einem Projekt/einer Leistungsposition. & Es erscheint ein Vertrag/ein Projekt/eine Leistungsposition, der/die zur Suche passt. \\ \hline
-			%%---- Anwendungsfall Diagrammverwaltung ----%%
-			04 & DIA-1 & B.m.b.R. filtern die Verträge/die Projekte/ die Leistungspositionen. & Es werden nur Verträge/Projekte/Leistungspositionen angezeigt, die das Kriterium erfüllen. \\ \hline
-			%%---- Anwendungsfall Diagrammverwaltung ----%%
-			05 & DIA-1 & B.m.b.R. drücken auf ''Diagramme erstellen''. & Zu jedem Vertrag wird ein passendes Diagramm erstellt. \\ \hline
-			06 & VER-1 & B.m.b.R. drücken auf Vertragsdaten. & Zu jedem Vertrag werden die Daten im Textformat angezeigt. \\ \hline 
-			07 & ADM-1 & Org-Admin setzt einen Haken beim Nutzer und drückt anschließend auf ausgewählte(n) Nutzer löschen. & Der ausgewählte Nutzer wird dauerhaft gelöscht. \\ \hline
-			08 & ADM-2 & Org-Admin drückt auf Benutzer hinzufügen. & Ein Formular erscheint, indem ein weiterer Benutzer hinzugefügt werden. \\ \hline
-			09 & ADM-3 & Org-Admin drückt auf ''Rollen verwalten''. & Er erhält eine Übersicht über alle Rollen, mit deren Rechten und kann diese Rollen ebenfalls bearbeiten. \\ \hline
-			10 & ADM-4 & Org-Admin drückt auf ''Rolle erstellen''. & Ein Formular erscheint, bei dem eine Rolle erstellt werden kann und dessen Rechte zugewiesen werden können. \\ \hline
-		\end{tabularx}	
-	\end{center}
-	\caption{Beschreibung der Testfälle}
-	\label{fig:testfaelle-web-app-tabelle}
-\end{figure}
-
-%%%%---- test cases for the mobile application ----%%%%
-\newpage
-
-\section{Testfälle für Mobileapp}
-
 \begin{figure}[!h]
 	\begin{center}
 		\begin{tabularx}{\textwidth}{ p{.05\textwidth} | p{.25\textwidth} | p{.2\textwidth} | X }
 			\textbf{Nr.} & \textbf{Anwendungsfall ID} & \textbf{Szenario} & \textbf{Erwartetes Verhalten} \\ \hline
 			%%---- Mobile app test cases ----%%
             %%---- Anwendungsfall Push local changes to webserver ----%%
+			01 & APP-1 & Der Benutzer loggt sich in die Applikation mit seinen Daten ein. &
+			\begin{itemize}
+				\item[App:] Der Benutzer erhält eine Übersicht über seine Projekte.
+				\item[Web:] Sys-Admin erhält eine Übersicht über die Organisationen.
+				\item[Web:] Org-Admin und B.m.b.R erhalten eine Übersicht der Verträge.
+			\end{itemize} \\ \hline
 			01 & APP-1 & Ein Bild wird einer Leistungsposition vom Nutzer zugeordnet. & Das Bild wird als Review auf den Server geladen und ist für einen Befugten sichtbar. Falls keine Verbindung zum Server besteht, wird das Bild lokal zwischengespeichert. \\ \hline
-			02 & APP-2 & Der Nutzer weist einer Leistungsposition einen neuen Status zu. & Der neue Status wird dem Server mitgeteilt und ist für befugte Nutzer sichtbar. Falls keine Verbindung zum Server besteht, wird der neue Status lokal zwischengespeichert. \\ \hline
-            03 & APP-3 & Der befugte Nutzer will denn aktuellen Status einer Leistungsposition einsehen & Es wird der aktuelle Status der gewählten Leistungsposition angezeigt. \\ \hline
-            04 & SER-1 & Der Nutzer trägt seinen Nutzernamen, sein Passwort und die gültige URL des Webservers ein & Eine neue Verbindung Webserver wird hergestellt. \\ \hline
+			02 & APP-1 & Der Nutzer weist einer Leistungsposition einen neuen Status zu. & Der neue Status wird dem Server mitgeteilt und ist für befugte Nutzer sichtbar. Falls keine Verbindung zum Server besteht, wird der neue Status lokal zwischengespeichert. \\ \hline
+            03 & APP-1 & Der befugte Nutzer will denn aktuellen Status einer Leistungsposition einsehen & Es wird der aktuelle Status der gewählten Leistungsposition angezeigt. \\ \hline
+            04 & APP-1 & Der Nutzer trägt seinen Nutzernamen, sein Passwort und die gültige URL des Webservers ein & Eine neue Verbindung Webserver wird hergestellt. \\ \hline
+			05 & ACC-1 & B.m.b.R. betätigt das ''bearbeiten''-Symbol bei den Leistungspositionen. & Daten der Leistungsposition können modifiziert werden und werden dauerhaft gespeichert. \\ \hline
+			06 & DIA-1 & B.m.b.R lädt die Vertragsdaten mit den Diagrammen oder die Leistungspositionen. & Es werden automatisch passende Diagramme erzeugt. \\ \hline
+			07 & DIA-1 & B.m.b.R nutzt die Filterfunktion bei den Vertragsdaten, Projekten und Leistungspositionen. & Die Ergebnisse werden nach dem entsprechenden Kriterium sortiert. \\ \hline
+			%%---- missing test case ----%%
+			08 & DIA-2 & missing trigger & triggered action \\ \hline 
 		\end{tabularx}	
 	\end{center}
 	\caption{Beschreibung der Testfälle}
