@@ -1,4 +1,18 @@
 .DS_Store
+*.bak*
+*.lck
+*pflichtenheft_*.pdf
+
+##VP
+*.vbak
+*.bak_*
+*.vpp.lck
+
+##VSCode
+.vscode
+
+##TemporaryPDFs
+*/pflichtenheft*.pdf
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
@@ -13,6 +27,7 @@
 *.cb
 *.cb2
 .*.lb
+*.text.orig
 
 ## Intermediate documents:
 *.dvi
