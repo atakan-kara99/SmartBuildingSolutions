@@ -1,19 +1,12 @@
-\begin{tcolorbox}
-Die Produktfunktionen beschreiben jede einzelne Funktion des Produkts mittels Anwendungsfalldiagrammen und Anwendungsfalltabellen.
-Diese sollen möglichst ausschlaggebend für das zu entwickelnde System sein und nicht simple Produktfunktionen wie z.B. Login, Account erstellen, Gruppe beitreten, Passwort ändern oder ähnliches zeigen.
-\autoref{fig:anwendungsfall-app-tabelle-xx-1} stellt eine exemplarische Tabelle für die Beschreibung eines Anwendungsfalls dar. Stil und Formatierung sind variabel. Nicht jede Zelle muss immer gefüllt sein.
-\\\\
-In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschrieben.
-
-
-\end{tcolorbox}
-
 \begin{figure}[h]
 	\centering
-	
-	\begin{tabularx}{\textwidth}{ p{.2\textwidth} | p{.2\textwidth} | X }
+	\begin{tabularx}{\textwidth}{ p{.2\textwidth} | X | X }
 		\textbf{Akteur} & \textbf{Beschreibung} & \textbf{Verwendet in Anwendungsfall} \\ \hline
-		Informatiker & Programmiert tolle Sachen & Programmieren, Kaffee trinken, Schlafen
+		AppUser & Greift auf Funktionen der App mit seinem Benutzer-Account zu und gibt R\"uckmeldungen zu aktuellen Leistungspositionen &  Add documenting photo,  Change billing item status,  Display billing item status, Push local changes to web server  \\ \hline
+		WebServer & Hauptzugriffsstelle f\"r alle Vetrags- und Projektrelevanten Daten &  Push local changes to web server,  Authenticate\\ \hline
+		OrgAdmin & Registriert Benutzer und legt Benutzerrollen fest & Remove org user,  Change role of org user,  Add org user, Diagram: Plot states of billing items from one contract,  Configure diagrams,  Diagram: Plot construction progress\\ \hline
+		SysAdmin & F\"ugt Organisationen hinzu und bestimmt den Organisations-Admin & Add organization, Assign org admin,  Configure diagrams, Diagram: Plot construction progress,  Diagram: Plot states of billing items from one contract,  Diagram: Plot states of billing items from many contracts \\ \hline
+		User & Verwendet die Nutzeroberfl\"ache des Webservers um Daten einzusehen,  Status\"anderungen einzelner Leistungspositionen durchzuf\"uhren und Diagramme zu erstellen & Change status of position,  View organization's contracts, Diagram: Plot states of billing items from one contract,  Diagram: Plot construction progress 
 	\end{tabularx}
 	
 	\caption{Beschreibung der Akteure}
@@ -83,7 +76,14 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 					\item Der AppUser erh\"alt eine Fehlermeldung,  da zur Zeit f\"ur das verwendetete Ger\"at keine (ausreichende) Internetverbindung besteht. 
 					\item Der Benutzer erh\"alt eine R\"uckmeldung,  dass zur Zeit keine Internetverbindung besteht und lokale \"Anderungen zwischengespeichert werden.
 					\item Sobald eine ausreichende Internetverbindung besteht,  werden die entsprechenden Daten an den Webserver \"ubertragen.
-				\end{enumerate} 
+				\end{enumerate} \\ \hline
+						\textbf{Ausnahme} &
+				\begin{enumerate}
+					 \item Der AppUser m\"ochte eine \"Anderung an dem Status einer Leistungsposition an den Webserver \"ubertragen und verwendet die entsprechende Funktion in der Applikation. 
+					 \item Die Identifikationsnummer der betroffenen Leistungsposition ist nicht g\"ultig.
+					 \item Der User erh\"alt eine Fehlermeldung.
+					 \item Die \"Anderungen am Status der Leistungsposition werden nicht an den Webserver \"ubertragen.
+				\end{enumerate}
 				 	\end{tabularx}
 	\caption{Anwendungsfall APP-1}
 	\label{fig:anwendungsfall-app-tabelle-APP-1-3}
@@ -91,14 +91,6 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 			\begin{figure}[h]
 	\centering
 	\begin{tabularx}{\textwidth}{ X | X }
-		\textbf{Ausnahme} &
-				\begin{enumerate}
-				\item Der Benutzer loggt sich innerhalb der App mit seinen registrierten Benutzerdaten, bestehend aus Benutzername und Passwort,  ein.  
-					 \item Der AppUser m\"ochte eine \"Anderung an dem Status einer Leistungsposition an den Webserver \"ubertragen und verwendet die entsprechende Funktion in der Applikation. 
-					 \item Die Identifikationsnummer der betroffenen Leistungsposition ist nicht g\"ultig.
-					 \item Der User erh\"alt eine Fehlermeldung.
-					 \item Die \"Anderungen am Status der Leistungsposition werden nicht an den Webserver \"ubertragen.
-				\end{enumerate} \\ \hline
 						\textbf{Ausnahme} &
 				\begin{enumerate}
 					 \item Der AppUser m\"ochte eine lokale \"Anderung an dem Status einer Leistungsposition oder ein Foto mit Kommentar an den Webserver \"ubertragen und verwendet die entsprechende Funktion in der Applikation. 
@@ -277,4 +269,6 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 	\end{tabularx}
 	\caption{Anwendungsfall DIA-2}
 	\label{fig:anwendungsfall-DIA-2}
+
+	
 \end{figure}
