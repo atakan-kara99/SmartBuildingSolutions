@@ -40,14 +40,14 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 		\textbf{Anwendungsfallname} & Push local changes to webserver\\ \hline
 		\textbf{Initiierender Akteur} & AppUser \\ \hline
 		\textbf{Weitere Akteure} & Webserver  \\ \hline
-		\textbf{Kurzbeschreibung} & Der Benutzer der Applikation kann lokale \"Anderungen,  bspw. \"Anderungen zum Baustatus einzelner Leistungspositionen oder Fotos mit Kommentar von der Baustelle,  an den Webserver schicken.  Diese \"Anderungen und Fotos mit Kommentar k\"onnen dann enstprechend  \"uber die Webanwendung eingesehen werden.  \\ \hline
+		\textbf{Kurzbeschreibung} & Der Benutzer der Applikation kann lokale \"Anderungen,  bspw. \"Anderungen zum Baustatus einzelner Leistungspositionen oder Fotos mit Kommentar von der Baustelle,  an den Webserver schicken.  Diese \"Anderungen und Fotos mit Kommentar k\"onnen dann entsprechend  \"uber die Webanwendung eingesehen werden.  \\ \hline
 		\textbf{Vorbedingungen} & Der AppUser ist registriert und entsprechend eingeloggt \\ \hline
 		\textbf{Nachbedingungen} & Die lokalen Daten wurden an den Webserver geschickt\\ \hline
 		\textbf{Ablauf} &
 			\begin{enumerate}
-				\item Der AppUser hat den Status einer Leistungspositionen  lokal ge\"andert.
+				\item Der AppUser hat den Status einer Leistungsposition lokal ge\"andert.
 				\item Der Benutzer verwendet die Funktion der App,  um seine lokale \"Anderung an den Webserver zu \"ubertragen.
-				\item Es besteht eine Internetverbindung und der AppUser erh\"alt die R\"uckmeldung,  dass das Vorhaben erfolgreich ausgef\"uhrt wurde.  
+				\item Es besteht eine Internetverbindung und der AppUser erh\"alt die R\"uckmeldung, dass das Vorhaben erfolgreich ausgef\"uhrt wurde.  
 				\item Die \"Anderung befindet sich nun auf dem Webserver.
 			\end{enumerate}
 			\end{tabularx}
@@ -66,8 +66,8 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 				\end{enumerate}  \\ \hline
 						\textbf{Ausnahme} &
 				\begin{enumerate}
-					 \item Der AppUser m\"ochte eine \"Anderung an dem Status einer Leistungsposition oder ein Foto zur Dokumentation mit Kommentar an den Webserver \"ubertragen und verwendet die enstprechende Funktionalit\"at der Applikation.
-					 \item Der User erh\"alt eine Fehlermeldung, da seine Rechte nicht ausreichen um diese Aktion durchzuf\"uhren.
+					 \item Der AppUser m\"ochte eine \"Anderung an dem Status einer Leistungsposition oder ein Foto zur Dokumentation mit Kommentar an den Webserver \"ubertragen und verwendet die entsprechende Funktionalit\"at der Applikation.
+					 \item Der User erh\"alt eine Fehlermeldung, da seine Rechte nicht ausreichen, um diese Aktion durchzuf\"uhren.
 					 \item Die \"Anderungen am Status der Leistungsposition und/oder das Foto mit Kommentar werden nicht an den Webserver \"ubertragen.
 					 \end{enumerate} \\ \hline
 	\end{tabularx}
@@ -80,9 +80,9 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 					 	\textbf{Ausnahme} &
 				\begin{enumerate}
 					\item Die lokalen \"Anderungen durch den Benutzer sollen durch Bet\"atigung der entsprechenden Funktion in der App an den Webserver \"ubertragen werden.
-					\item Der AppUser erh\"alt eine Fehlermeldung,  da zur Zeit f\"ur das verwendetete Ger\"at keine (ausreichende) Internetverbindung besteht. 
-					\item Der Benutzer erh\"alt eine R\"uckmeldung,  dass zur Zeit keine Internetverbindung besteht und lokale \"Anderungen zwischengespeichert werden.
-					\item Sobald eine ausreichende Internetverbindung besteht,  werden die entsprechenden Daten an den Webserver \"ubertragen.
+					\item Der AppUser erh\"alt eine Fehlermeldung, da zur Zeit f\"ur das verwendete Ger\"at keine (ausreichende) Internetverbindung besteht. 
+					\item Der Benutzer erh\"alt eine R\"uckmeldung, dass zur Zeit keine Internetverbindung besteht und lokale \"Anderungen zwischengespeichert werden.
+					\item Sobald eine ausreichende Internetverbindung besteht, werden die entsprechenden Daten an den Webserver \"ubertragen.
 				\end{enumerate} 
 				 	\end{tabularx}
 	\caption{Anwendungsfall APP-1}
@@ -106,7 +106,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 					 \item Der User erh\"alt eine Fehlermeldung.
 					 \item Die \"Anderungen am Status der Leistungsposition oder das Foto mit Kommentar werden nicht an den Webserver \"ubertragen.
 				\end{enumerate} \\ \hline
-		\textbf{Benutzte Anwendungsfälle} & Authenticate,  Check BillingItemIDs for validity\\ \hline
+		\textbf{Benutzte Anwendungsfälle} & Authenticate,  Check billing item IDs for validity\\ \hline
 		\textbf{Spezielle Anforderungen} & - \\ \hline
 		\textbf{Annahmen} & -
 	\end{tabularx}
