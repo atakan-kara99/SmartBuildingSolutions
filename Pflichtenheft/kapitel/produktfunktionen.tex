@@ -26,8 +26,9 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 
 \begin{figure}[h]
 	\centering
-    %\includegraphics[width=\linewidth]{img/diagrams/Mobile_Application.pdf}
-     \includegraphics[width=\linewidth]{img/diagrams/Mobile_Application.svg}
+    \includegraphics[width=\linewidth]{img/diagrams/Mobile_Application.pdf}
+     %\includegraphics[width=\linewidth]{img/diagrams/Mobile_Application.svg}
+     %\includesvg{img/diagrams/Mobile_Application.svg}
 	\caption{Anwendungsfalldiagramm - App}
 	\label{fig:anwendungsfalldiagramm-app}
 \end{figure}
@@ -107,7 +108,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 					 \item Der User erh\"alt eine Fehlermeldung.
 					 \item Die \"Anderungen am Status der Leistungsposition oder das Foto mit Kommentar werden nicht an den Webserver \"ubertragen.
 				\end{enumerate} \\ \hline
-		\textbf{Benutzte Anwendungsfälle} & Authenticate,  Check BillingItemIDs for validity\\ \hline
+		\textbf{Benutzte Anwendungsfälle} & Benutzerverwaltung (ACC-1) \\ \hline
 		\textbf{Spezielle Anforderungen} & - \\ \hline
 		\textbf{Annahmen} & -
 	\end{tabularx}
@@ -123,8 +124,8 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 
 \begin{figure}[h]
 	\centering
-	%\includegraphics[width=\linewidth]{img/diagrams/Acc_Management_Web.pdf}
-	\includegraphics[width=\linewidth]{img/diagrams/Acc_Management_Web.svg}
+	\includegraphics[width=\linewidth]{img/diagrams/Acc_Management_Web.pdf}
+	%\includegraphics[width=\linewidth]{img/diagrams/Acc_Management_Web.svg}
 	\caption{Anwendungsfalldiagramm - Account-Management Webserver}
 	\label{fig:anwendungsfalldiagramm-acc}
 \end{figure}
@@ -153,7 +154,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 			\item Der User \"andert den Status einer Leistungsposition und w\"ahlt die entsprechende Funktion der Weboberfl\"ache,  dass diese \"Anderung \"ubernommen werden sollen.
 			\item Der User verf\"ugt nicht \"uber die entsprechenden Rechte die Aktion durchzuf\"uhren und erh\"alt eine Fehlermeldung. Der bisherige Status der Leistungsposition bleibt bestehen.
 		\end{enumerate}  \\ \hline
-		\textbf{Benutzte Anwendungsfälle} & Authenticate \\ \hline
+		\textbf{Benutzte Anwendungsfälle} & Benutzerverwaltung (ACC-1) \\ \hline
 		\textbf{Spezielle Anforderungen} & - \\ \hline
 		\textbf{Annahmen} & -
 	\end{tabularx}
@@ -167,8 +168,8 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 
 \begin{figure}[h]
 	\centering
-	%\includegraphics[width=\linewidth]{img/diagrams/Diagram_Display_Management_Web.pdf}
-	\includegraphics[width=\linewidth]{img/diagrams/Diagram_Display_Management_Web.svg}
+	\includegraphics[width=\linewidth]{img/diagrams/Diagram_Display_Management_Web.pdf}
+	%\includegraphics[width=\linewidth]{img/diagrams/Diagram_Display_Management_Web.svg}
 	\caption{Anwendungsfalldiagramm - Diagrammdarstellung}
 	\label{fig:anwendungsfalldiagramm-dia-verwaltung}
 \end{figure}
@@ -225,7 +226,8 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\linewidth]{img/diagrams/Create_Custom_Diagram.pdf.svg}
+	\includegraphics[width=\linewidth]{img/diagrams/Create_Custom_Diagram.pdf}
+	%\includegraphics[width=\linewidth]{img/diagrams/Create_Custom_Diagram.pdf.svg}
 	\caption{Anwendungsfalldiagramm - Diagrammerstellung}
 	\label{fig:anwendungsfalldiagramm-dia-erstellung}
 \end{figure}
@@ -280,7 +282,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 			\item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
 			\item Verbindungsfehler
 		\end{enumerate}  \\ \hline
-		\textbf{Benutzte Anwendungsfälle} & Authenticate, Diagrammverwaltung (DIA-1)\\ \hline
+		\textbf{Benutzte Anwendungsfälle} & Benutzerverwaltung (ACC-1), Diagrammverwaltung (DIA-1)\\ \hline
 		\textbf{Spezielle Anforderungen} & - \\ \hline
 		\textbf{Annahmen} & -
 	\end{tabularx}
