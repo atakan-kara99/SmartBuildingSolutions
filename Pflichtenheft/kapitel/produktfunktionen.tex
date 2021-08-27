@@ -40,14 +40,14 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 		\textbf{Anwendungsfallname} & Push local changes to webserver\\ \hline
 		\textbf{Initiierender Akteur} & AppUser \\ \hline
 		\textbf{Weitere Akteure} & Webserver  \\ \hline
-		\textbf{Kurzbeschreibung} & Der Benutzer der Applikation kann lokale \"Anderungen,  bspw. \"Anderungen zum Baustatus einzelner Leistungspositionen oder Fotos mit Kommentar von der Baustelle,  an den Webserver schicken.  Diese \"Anderungen und Fotos mit Kommentar k\"onnen dann enstprechend  \"uber die Webanwendung eingesehen werden.  \\ \hline
+		\textbf{Kurzbeschreibung} & Der Benutzer der Applikation kann lokale \"Anderungen,  bspw. \"Anderungen zum Baustatus einzelner Leistungspositionen oder Fotos mit Kommentar von der Baustelle,  an den Webserver schicken.  Diese \"Anderungen und Fotos mit Kommentar k\"onnen dann entsprechend  \"uber die Webanwendung eingesehen werden.  \\ \hline
 		\textbf{Vorbedingungen} & Der AppUser ist registriert und entsprechend eingeloggt \\ \hline
 		\textbf{Nachbedingungen} & Die lokalen Daten wurden an den Webserver geschickt\\ \hline
 		\textbf{Ablauf} &
 			\begin{enumerate}
-				\item Der AppUser hat den Status einer Leistungspositionen  lokal ge\"andert.
+				\item Der AppUser hat den Status einer Leistungsposition lokal ge\"andert.
 				\item Der Benutzer verwendet die Funktion der App,  um seine lokale \"Anderung an den Webserver zu \"ubertragen.
-				\item Es besteht eine Internetverbindung und der AppUser erh\"alt die R\"uckmeldung,  dass das Vorhaben erfolgreich ausgef\"uhrt wurde.  
+				\item Es besteht eine Internetverbindung und der AppUser erh\"alt die R\"uckmeldung, dass das Vorhaben erfolgreich ausgef\"uhrt wurde.  
 				\item Die \"Anderung befindet sich nun auf dem Webserver.
 			\end{enumerate}
 			\end{tabularx}
@@ -66,8 +66,8 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 				\end{enumerate}  \\ \hline
 						\textbf{Ausnahme} &
 				\begin{enumerate}
-					 \item Der AppUser m\"ochte eine \"Anderung an dem Status einer Leistungsposition oder ein Foto zur Dokumentation mit Kommentar an den Webserver \"ubertragen und verwendet die enstprechende Funktionalit\"at der Applikation.
-					 \item Der User erh\"alt eine Fehlermeldung, da seine Rechte nicht ausreichen um diese Aktion durchzuf\"uhren.
+					 \item Der AppUser m\"ochte eine \"Anderung an dem Status einer Leistungsposition oder ein Foto zur Dokumentation mit Kommentar an den Webserver \"ubertragen und verwendet die entsprechende Funktionalit\"at der Applikation.
+					 \item Der User erh\"alt eine Fehlermeldung, da seine Rechte nicht ausreichen, um diese Aktion durchzuf\"uhren.
 					 \item Die \"Anderungen am Status der Leistungsposition und/oder das Foto mit Kommentar werden nicht an den Webserver \"ubertragen.
 					 \end{enumerate} \\ \hline
 	\end{tabularx}
@@ -80,9 +80,9 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 					 	\textbf{Ausnahme} &
 				\begin{enumerate}
 					\item Die lokalen \"Anderungen durch den Benutzer sollen durch Bet\"atigung der entsprechenden Funktion in der App an den Webserver \"ubertragen werden.
-					\item Der AppUser erh\"alt eine Fehlermeldung,  da zur Zeit f\"ur das verwendetete Ger\"at keine (ausreichende) Internetverbindung besteht. 
-					\item Der Benutzer erh\"alt eine R\"uckmeldung,  dass zur Zeit keine Internetverbindung besteht und lokale \"Anderungen zwischengespeichert werden.
-					\item Sobald eine ausreichende Internetverbindung besteht,  werden die entsprechenden Daten an den Webserver \"ubertragen.
+					\item Der AppUser erh\"alt eine Fehlermeldung, da zur Zeit f\"ur das verwendete Ger\"at keine (ausreichende) Internetverbindung besteht. 
+					\item Der Benutzer erh\"alt eine R\"uckmeldung, dass zur Zeit keine Internetverbindung besteht und lokale \"Anderungen zwischengespeichert werden.
+					\item Sobald eine ausreichende Internetverbindung besteht, werden die entsprechenden Daten an den Webserver \"ubertragen.
 				\end{enumerate} 
 				 	\end{tabularx}
 	\caption{Anwendungsfall APP-1}
@@ -106,7 +106,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 					 \item Der User erh\"alt eine Fehlermeldung.
 					 \item Die \"Anderungen am Status der Leistungsposition oder das Foto mit Kommentar werden nicht an den Webserver \"ubertragen.
 				\end{enumerate} \\ \hline
-		\textbf{Benutzte Anwendungsfälle} & Authenticate,  Check BillingItemIDs for validity\\ \hline
+		\textbf{Benutzte Anwendungsfälle} & Authenticate,  Check billing item IDs for validity\\ \hline
 		\textbf{Spezielle Anforderungen} & - \\ \hline
 		\textbf{Annahmen} & -
 	\end{tabularx}
@@ -136,19 +136,19 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 		\textbf{Anwendungsfallname} & Change status of position\\ \hline
 		\textbf{Initiierender Akteur} & User \\ \hline
 		\textbf{Weitere Akteure} & -  \\ \hline
-		\textbf{Kurzbeschreibung} & Der User kann den Satus von Leistungspositionen ver\"andern \\ \hline
+		\textbf{Kurzbeschreibung} & Der User kann den Status von Leistungspositionen ver\"andern \\ \hline
 		\textbf{Vorbedingungen} & User ist entsprechend eingeloggt, Rechte des Users sind ausreichend f\"ur diese Operation \\ \hline
 		\textbf{Nachbedingungen} & Status wurde ver\"andert \\ \hline
 		\textbf{Ablauf} &
 		\begin{enumerate}
-			\item Der User \"andert den Status einer Leistungsposition und w\"ahlt die entsprechende Funktion der Weboberfl\"ache, dass diese \"Anderung \"ubernommen werden sollen.
+			\item Der User \"andert den Status einer Leistungsposition und w\"ahlt die entsprechende Funktion der Weboberfl\"ache, dass diese \"Anderung \"ubernommen werden soll.
 			\item Die Aktion war erfolgreich und die \"Anderung wurde \"ubernommen.  Der User erh\"alt eine R\"uckmeldung \"uber den Erfolg der Aktion.
 		\end{enumerate} \\ \hline
 		\textbf{Alternative} & -
 		\\ \hline
 		\textbf{Ausnahme} &
 		\begin{enumerate}
-			\item Der User \"andert den Status einer Leistungsposition und w\"ahlt die entsprechende Funktion der Weboberfl\"ache,  dass diese \"Anderung \"ubernommen werden sollen.
+			\item Der User \"andert den Status einer Leistungsposition und w\"ahlt die entsprechende Funktion der Weboberfl\"ache,  dass diese \"Anderung \"ubernommen werden soll.
 			\item Der User verf\"ugt nicht \"uber die entsprechenden Rechte die Aktion durchzuf\"uhren und erh\"alt eine Fehlermeldung. Der bisherige Status der Leistungsposition bleibt bestehen.
 		\end{enumerate}  \\ \hline
 		\textbf{Benutzte Anwendungsfälle} & Authenticate \\ \hline
@@ -185,7 +185,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 		\textbf{Ablauf} &
 		\begin{enumerate}
 			\item Authentifizieren.
-			\item Darstellen eines allgemeinen (alle Leistungspunkte umfassend) Diagramms zu einem oder mehreren Verträgen.
+			\item Darstellen eines allgemeinen (alle Leistungspunkte umfassenden) Diagramms zu einem oder mehreren Verträgen.
 		\end{enumerate} \\ \hline
 		\multirow{2}{*}{\textbf{Alternativen}} &
 		%%\textbf{Alternative} &
@@ -237,7 +237,7 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 		\begin{enumerate}
 			\item Der Benutzer loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
 			\item Der Benutzer wählt eine Diagramm-Darstellung .
-			\item Der Benutzer wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
+			\item Der Benutzer wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus, auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
 			\item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
 			\item Das Diagramm wird dem Benutzer angezeigt.
 		\end{enumerate} \\ \hline
@@ -259,15 +259,15 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 		\multirow{2}{*}{\textbf{Ausnahmen}} &
 		\begin{enumerate} % Nutzer wählt Daten aus ohne Zugriffsrecht / während der Bereich-auswahl
 			\item Der Benutzer loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
-			\item Der Benutzer wählt eine Diagramm-Darstellung .
-			\item Der Benutzer wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
+			\item Der Benutzer wählt eine Diagramm-Darstellung.
+			\item Der Benutzer wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus, auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
 			\item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
 			\item Der Server verweigert den Zugriff auf die Daten durch fehlende Zugriffsrechte.
 		\end{enumerate} \\\cline{2-2} &
 		\begin{enumerate} % Verbindungsfehler
 			\item Der Benutzer loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
 			\item Der Benutzer wählt eine Diagramm-Darstellung .
-			\item Der Benutzer wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
+			\item Der Benutzer wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus, auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
 			\item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
 			\item Verbindungsfehler
 		\end{enumerate}  \\ \hline
