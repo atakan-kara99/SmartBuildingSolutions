@@ -243,8 +243,6 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 		\end{enumerate} \\ \hline
 
 		\textbf{Alternative} & - \\ \hline
-		%%\textbf{Ausnahme} &
-		\multirow{2}{*}{\textbf{Ausnahme}} &
 	\end{tabularx}
 	\caption{Anwendungsfall DIA-2}
 	\label{fig:anwendungsfall-DIA-2}
@@ -258,14 +256,14 @@ In  Tabelle~\autoref{fig:akteur-tabelle} werden alle auftretenden Akteure beschr
 \begin{figure}[h]
 	\centering
 	\begin{tabularx}{\textwidth}{ X | X }
-		\multirow{2}{*}{\textbf{Ausnahme}} &
+		\multirow{2}{*}{\textbf{Ausnahmen}} &
 		\begin{enumerate} % Nutzer wählt Daten aus ohne Zugriffsrecht / während der Bereich-auswahl
 			\item Der Benutzer loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
 			\item Der Benutzer wählt eine Diagramm-Darstellung .
 			\item Der Benutzer wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
 			\item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
 			\item Der Server verweigert den Zugriff auf die Daten durch fehlende Zugriffsrechte.
-		\end{enumerate} \\ \hline&
+		\end{enumerate} \\\cline{2-2} &
 		\begin{enumerate} % Verbindungsfehler
 			\item Der Benutzer loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
 			\item Der Benutzer wählt eine Diagramm-Darstellung .
