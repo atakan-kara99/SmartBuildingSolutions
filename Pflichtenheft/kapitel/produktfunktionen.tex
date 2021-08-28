@@ -20,32 +20,32 @@
     \end{enumerate}                                                                                                                                                                                                                        \\ \hline
     WebServer       & Hauptzugriffsstelle f\"ur alle vertrags- und projektrelevanten Daten. Dies ist kein menschlicher Akteur, sondern die Applikation, die die Funktionalität des Webservers bietet          &
     \begin{enumerate}
-        \item Push local changes to web server 
+        \item Push local changes to web server
         \item Authenticate
     \end{enumerate}                                                                                                                                                                                                                        \\ \hline
     OrgAdmin        & Registriert Benutzer und legt Benutzerrollen fest für seine jeweilige Organisation                                                                                                      &
     \begin{enumerate}
-        \item Remove org user 
-        \item Change role of org user 
-        \item Add org user 
-        \item Diagram: Plot states of billing items from one contract 
-        \item Configure diagrams 
+        \item Remove org user
+        \item Change role of org user
+        \item Add org user
+        \item Diagram: Plot states of billing items from one contract
+        \item Configure diagrams
         \item Diagram: Plot construction progress
     \end{enumerate}                                                                                                                                                                                                                        \\ \hline
     SysAdmin        & F\"ugt Organisationen hinzu und bestimmt den Organisations-Admin einer Organisation                                                                                                     &
     \begin{enumerate}
-        \item Add organization 
-        \item Assign org admin 
-        \item Configure diagrams 
-        \item Diagram: Plot construction progress 
-        \item Diagram: Plot states of billing items from one contract 
+        \item Add organization
+        \item Assign org admin
+        \item Configure diagrams
+        \item Diagram: Plot construction progress
+        \item Diagram: Plot states of billing items from one contract
         \item Diagram: Plot states of billing items from many contracts
     \end{enumerate}                                                                                                                                                                                                                        \\ \hline
-    WebUser            & Verwendet die Nutzeroberfl\"ache des Webservers um Daten (auch Diagramme) einzusehen,  Status\"anderungen einzelner Leistungspositionen durchzuf\"uhren und Diagramme zu erstellen      &
+    WebUser         & Verwendet die Nutzeroberfl\"ache des Webservers um Daten (auch Diagramme) einzusehen,  Status\"anderungen einzelner Leistungspositionen durchzuf\"uhren und Diagramme zu erstellen      &
     \begin{enumerate}
-        \item Change status of position 
-        \item View organization's contracts 
-        \item Diagram: Plot states of billing items from one contract 
+        \item Change status of position
+        \item View organization's contracts
+        \item Diagram: Plot states of billing items from one contract
         \item Diagram: Plot construction progress
     \end{enumerate}                                                                                                                                                                                                                        \\\hline
 \end{longtable}
@@ -65,32 +65,32 @@
     \caption{Anwendungsfall APP-1}
     \label{fig:anwendungsfall-app-tabelle-APP-1-4}
     \endlastfoot
-    \hline \multicolumn{2}{|r|}{{Weitergeführt auf der folgenden Seite}}                                                                                                                                                                                                                                                                                    \\ \hline
+    \hline \multicolumn{2}{|r|}{{Weitergeführt auf der folgenden Seite}}                                                                                                                                                                                                                                                                                           \\ \hline
     \endfoot
     \hline
     \endhead
     \hline
-    \textbf{Anwendungsfall ID}          & APP-1                                                                                                                                                                                                                                                                                                             \\ \hline
-    \textbf{Anwendungsfallname}         & Hochladen von Bildern und Anpsassung des Status von Leistungspositionen                                                                                                                                                                                                                                                                                  \\ \hline
-    \textbf{Initiierender Akteur}       & AppUser                                                                                                                                                                                                                                                                                                    \\ \hline
-    \textbf{Weitere Akteure}            & WebServer                                                                                                                                                                                                                                                                                                         \\ \hline
+    \textbf{Anwendungsfall ID}          & APP-1                                                                                                                                                                                                                                                                                                                    \\ \hline
+    \textbf{Anwendungsfallnamen}        & Change billing item status, Add documenting photo                                                                                                                                                                                                                                                                        \\ \hline
+    \textbf{Initiierender Akteur}       & AppUser                                                                                                                                                                                                                                                                                                                  \\ \hline
+    \textbf{Weitere Akteure}            & WebServer                                                                                                                                                                                                                                                                                                                \\ \hline
     \textbf{Kurzbeschreibung}           & Der Benutzer (AppUser) der Applikation kann lokale \"Anderungen,  bspw. \"Anderungen zum Baustatus einzelner Leistungspositionen oder Fotos mit Kommentar von der Baustelle, an den Webserver schicken. Diese \"Anderungen und Fotos mit Kommentar k\"onnen dann entsprechend \"uber die Webanwendung eingesehen werden. \\ \hline
-    \textbf{Vorbedingungen}             & Der AppUser ist registriert und entsprechend eingeloggt                                                                                                                                                                                                                                                           \\ \hline
-    \textbf{Nachbedingungen}            & Die lokalen Daten wurden an den Webserver geschickt                                                                                                                                                                                                                                                               \\ \hline
+    \textbf{Vorbedingungen}             & Der AppUser ist registriert und entsprechend eingeloggt                                                                                                                                                                                                                                                                  \\ \hline
+    \textbf{Nachbedingungen}            & Die lokalen Daten wurden an den Webserver geschickt                                                                                                                                                                                                                                                                      \\ \hline
     \textbf{Ablauf}                     &
     \begin{enumerate}
         \item Der AppUser hat den Status einer Leistungsposition lokal ge\"andert.
         \item Der AppUser verwendet die Funktion der App,  um seine lokale \"Anderung an den Webserver zu \"ubertragen.
         \item Es besteht eine Internetverbindung und der AppUser erh\"alt die R\"uckmeldung, dass das Vorhaben erfolgreich ausgef\"uhrt wurde.
         \item Die \"Anderung befindet sich nun auf dem Webserver.
-    \end{enumerate}                                                                                                                                                                                                                                                                                                                               \\ \hline
+    \end{enumerate}                                                                                                                                                                                                                                                                                                                                      \\ \hline
     \textbf{Alternative}                &
     \begin{enumerate}
         \item Der AppUser hat seinen Benutzerrechten entsprechend ein Foto zur Dokumentation einer Leistungsposition angefertigt.
         \item Das Foto soll nun durch Bet\"atigen der entsprechenden Funktion der mobilen Applikation auf den Webserver hochgeladen werden.
         \item Es besteht eine Internetverbindung und der AppUser erh\"alt eine entsprechende Meldung,  dass der Upload erfolgt.
         \item Das Foto wird an den Webserver \"ubertragen.
-    \end{enumerate}                                                                                                                                                                                                                                                                                                                               \\ \hline
+    \end{enumerate}                                                                                                                                                                                                                                                                                                                                      \\ \hline
     \multirow{2}{*}{\textbf{Ausnahmen}} &
     \begin{enumerate}
         \item Der AppUser m\"ochte eine \"Anderung an dem Status einer Leistungsposition oder ein Foto zur Dokumentation mit Kommentar an den Webserver \"ubertragen und verwendet die entsprechende Funktionalit\"at der Applikation.
@@ -110,10 +110,10 @@
         \item Die Identifikationsnummer der betroffenen Leistungsposition ist nicht g\"ultig.
         \item Der AppUser erh\"alt eine Fehlermeldung.
         \item Die \"Anderungen am Status der Leistungsposition oder das Foto mit Kommentar werden nicht an den Webserver \"ubertragen.
-    \end{enumerate}                                                                                                                                                                                                                                                                                                                              \\ \hline
-    \textbf{Benutzte Anwendungsfälle}   & Benutzerverwaltung (ACC-1)                                                                                                                                                                                                                                                                                        \\ \hline
-    \textbf{Spezielle Anforderungen}    & -                                                                                                                                                                                                                                                                                                                 \\ \hline
-    \textbf{Annahmen}                   & -                                                                                                                                                                                                                                                                                                                 \\ \hline
+    \end{enumerate}                                                                                                                                                                                                                                                                                                                                     \\ \hline
+    \textbf{Benutzte Anwendungsfälle}   & Benutzerverwaltung (ACC-1)                                                                                                                                                                                                                                                                                               \\ \hline
+    \textbf{Spezielle Anforderungen}    & -                                                                                                                                                                                                                                                                                                                        \\ \hline
+    \textbf{Annahmen}                   & -                                                                                                                                                                                                                                                                                                                        \\ \hline
 \end{longtable}
 
 \clearpage
@@ -136,33 +136,33 @@ Das Hinzufügen, Editieren und Löschen von Nutzern sowie Organisationen wird al
     \caption{Anwendungsfall ACC-1}
     \label{fig:anwendungsfall-server-tabelle-ACC-1}
     \endlastfoot
-    \hline \multicolumn{2}{|r|}{{Weitergeführt auf der folgenden Seite}}                                                          \\ \hline
+    \hline \multicolumn{2}{|r|}{{Weitergeführt auf der folgenden Seite}}                                                                   \\ \hline
     \endfoot
     \hline
     \endhead
     \hline
-    \textbf{Anwendungsfall ID}        & ACC-1                                                                                     \\ \hline
-    \textbf{Anwendungsfallname}       & Modifizieren des Status einer Leistungsposition                                           \\ \hline
-    \textbf{Initiierender Akteur}     & WebUser                                                                                    \\ \hline
-    \textbf{Weitere Akteure}          & -                                                                                         \\ \hline
-    \textbf{Kurzbeschreibung}         & Der WebUser kann den Status von Leistungspositionen ver\"andern                              \\ \hline
+    \textbf{Anwendungsfall ID}        & ACC-1                                                                                              \\ \hline
+    \textbf{Anwendungsfallname}       & Change status of position                                                                          \\ \hline
+    \textbf{Initiierender Akteur}     & WebUser                                                                                            \\ \hline
+    \textbf{Weitere Akteure}          & -                                                                                                  \\ \hline
+    \textbf{Kurzbeschreibung}         & Der WebUser kann den Status von Leistungspositionen ver\"andern                                    \\ \hline
     \textbf{Vorbedingungen}           & Der WebUser ist entsprechend eingeloggt, Rechte des WebUser sind ausreichend f\"ur diese Operation \\ \hline
-    \textbf{Nachbedingungen}          & Status wurde ver\"andert                                                                  \\ \hline
+    \textbf{Nachbedingungen}          & Status wurde ver\"andert                                                                           \\ \hline
     \textbf{Ablauf}                   &
     \begin{enumerate}
         \item Der WebUser \"andert den Status einer Leistungsposition und w\"ahlt die entsprechende Funktion der Weboberfl\"ache, dass diese \"Anderung \"ubernommen werden soll.
         \item Die Aktion war erfolgreich und die \"Anderung wurde \"ubernommen.  Der User erh\"alt eine R\"uckmeldung \"uber den Erfolg der Aktion.
-    \end{enumerate}                                                                                                    \\ \hline
+    \end{enumerate}                                                                                                             \\ \hline
     \textbf{Alternative}              & -
     \\ \hline
     \textbf{Ausnahme}                 &
     \begin{enumerate}
         \item Der WebUser \"andert den Status einer Leistungsposition und w\"ahlt die entsprechende Funktion der Weboberfl\"ache,  dass diese \"Anderung \"ubernommen werden soll.
         \item Der WebUser verf\"ugt nicht \"uber die entsprechenden Rechte die Aktion durchzuf\"uhren und erh\"alt eine Fehlermeldung. Der bisherige Status der Leistungsposition bleibt bestehen.
-    \end{enumerate}                                                                                                    \\ \hline
-    \textbf{Benutzte Anwendungsfälle} & Benutzerverwaltung (ACC-1)                                                                \\ \hline
-    \textbf{Spezielle Anforderungen}  & -                                                                                         \\ \hline
-    \textbf{Annahmen}                 & -                                                                                         \\ \hline
+    \end{enumerate}                                                                                                             \\ \hline
+    \textbf{Benutzte Anwendungsfälle} & Benutzerverwaltung (ACC-1)                                                                         \\ \hline
+    \textbf{Spezielle Anforderungen}  & -                                                                                                  \\ \hline
+    \textbf{Annahmen}                 & -                                                                                                  \\ \hline
 \end{longtable}
 
 \clearpage
@@ -187,9 +187,9 @@ Das Hinzufügen, Editieren und Löschen von Nutzern sowie Organisationen wird al
     \endhead
     \hline
     \textbf{Anwendungsfall ID}             & DIA-1                                                                                                           \\ \hline
-    \textbf{Anwendungsfallname}            & Diagrammdarstellung                                                                                             \\ \hline
-    \textbf{Initiierender Akteur}          & WebUser                                                                                             \\ \hline
-    \textbf{Weitere Akteure}               & SysAdmin, OrgAdmin                                                                         \\ \hline
+    \textbf{Anwendungsfallnamen}           & Diagramm: Plot construction progress, Diagram: Plot states of billing items from one contract                   \\ \hline
+    \textbf{Initiierender Akteur}          & WebUser                                                                                                         \\ \hline
+    \textbf{Weitere Akteure}               & SysAdmin, OrgAdmin                                                                                              \\ \hline
     \textbf{Kurzbeschreibung}              & Darstellung und mögliche Filterung der vom Server automatisch erzeugten Diagramme innerhalb der Webapplikation. \\ \hline
     \textbf{Vorbedingungen}                & Funktionierende Internetverbindung, bestätigte Berechtigungen (Authentifiziert)                                 \\ \hline
     \textbf{Nachbedingungen}               & -                                                                                                               \\ \hline
@@ -271,17 +271,17 @@ Das Hinzufügen, Editieren und Löschen von Nutzern sowie Organisationen wird al
     \caption{Anwendungsfall DIA-2}
     \label{fig:anwendungsfall-DIA-2}
     \endlastfoot
-    \hline \multicolumn{2}{|r|}{{Weitergeführt auf der folgenden Seite}}                                                                                                                                                                   \\ \hline
+    \hline \multicolumn{2}{|r|}{{Weitergeführt auf der folgenden Seite}}                                                                                                                                                                                       \\ \hline
     \endfoot
     \hline
     \endhead
     \hline
-    \textbf{Anwendungsfall ID}          & DIA-2                                                                                                                                                                                            \\ \hline
-    \textbf{Anwendungsfallname}         & Diagrammerstellung                                                                                                                                                                               \\ \hline
-    \textbf{Initiierender Akteur}       & WebUser, SysAdmin, OrgAdmin                                                                                                                                                              \\ \hline
+    \textbf{Anwendungsfall ID}          & DIA-2                                                                                                                                                                                                                \\ \hline
+    \textbf{Anwendungsfallname}         & Create diagram                                                                                                                                                                                                       \\ \hline
+    \textbf{Initiierender Akteur}       & WebUser, SysAdmin, OrgAdmin                                                                                                                                                                                          \\ \hline
     \textbf{Kurzbeschreibung}           & Nutzer der Weboberfläche (allgemein WebUser) können aus den für sie lesbaren Daten auf dem Server, aus den Bereichen Leistungsposition, Vertrag und Projekt, Diagramme in unterschiedlichen Darstellungen erstellen. \\ \hline
-    \textbf{Vorbedingungen}             & Der WebUser hat Zugriffsrechte auf die zu visualisierenden Daten.                                                                                                                                 \\ \hline
-    \textbf{Nachbedingungen}            & Dem WebUser wird das angefragte Diagramm angezeigt.                                                                                                                                               \\ \hline
+    \textbf{Vorbedingungen}             & Der WebUser hat Zugriffsrechte auf die zu visualisierenden Daten.                                                                                                                                                    \\ \hline
+    \textbf{Nachbedingungen}            & Dem WebUser wird das angefragte Diagramm angezeigt.                                                                                                                                                                  \\ \hline
     \textbf{Ablauf}                     &
     \begin{enumerate}
         \item Der WebUser loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
@@ -289,9 +289,9 @@ Das Hinzufügen, Editieren und Löschen von Nutzern sowie Organisationen wird al
         \item Der WebUser wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus, auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
         \item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
         \item Das Diagramm wird dem WebUser angezeigt.
-    \end{enumerate}                                                                                                                                                                                                             \\ \hline
+    \end{enumerate}                                                                                                                                                                                                                                 \\ \hline
 
-    \textbf{Alternative}                & -                                                                                                                                                                                                \\ \hline
+    \textbf{Alternative}                & -                                                                                                                                                                                                                    \\ \hline
 
     \multirow{2}{*}{\textbf{Ausnahmen}} &
     \begin{enumerate} % Nutzer wählt Daten aus ohne Zugriffsrecht / während der Bereich-auswahl
@@ -300,15 +300,15 @@ Das Hinzufügen, Editieren und Löschen von Nutzern sowie Organisationen wird al
         \item Der WebUser wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus, auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
         \item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
         \item Der Server verweigert den Zugriff auf die Daten durch fehlende Zugriffsrechte.
-    \end{enumerate}                                                                                                                                                                                                             \\\cline{2-2} &
+    \end{enumerate}                                                                                                                                                                                                                                 \\\cline{2-2} &
     \begin{enumerate} % Verbindungsfehler
         \item Der WebUser loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
         \item Der WebUser wählt eine Diagramm-Darstellung .
         \item Der WebUser wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus, auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
         \item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
         \item Verbindungsfehler
-    \end{enumerate}                                                                                                                                                                                                             \\ \hline
-    \textbf{Benutzte Anwendungsfälle}   & Benutzerverwaltung (ACC-1), Diagrammverwaltung (DIA-1)                                                                                                                                           \\ \hline
-    \textbf{Spezielle Anforderungen}    & -                                                                                                                                                                                                \\ \hline
-    \textbf{Annahmen}                   & -                                                                                                                                                                                                \\ \hline
+    \end{enumerate}                                                                                                                                                                                                                                 \\ \hline
+    \textbf{Benutzte Anwendungsfälle}   & Benutzerverwaltung (ACC-1), Diagrammverwaltung (DIA-1)                                                                                                                                                               \\ \hline
+    \textbf{Spezielle Anforderungen}    & -                                                                                                                                                                                                                    \\ \hline
+    \textbf{Annahmen}                   & -                                                                                                                                                                                                                    \\ \hline
 \end{longtable}
