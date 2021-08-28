@@ -20,14 +20,14 @@
     \end{enumerate}                                                                                                                                                                                                                        \\ \hline
     WebServer       & Hauptzugriffsstelle f\"ur alle vertrags- und projektrelevanten Daten. Dies ist kein menschlicher Akteur, sondern die Applikation, die die Funktionalität des Webservers bietet          &
     \begin{enumerate}
-        \item Push local changes to web server
+        \item Push local changes to WebServer
         \item Authenticate
     \end{enumerate}                                                                                                                                                                                                                        \\ \hline
     OrgAdmin        & Registriert Benutzer und legt Benutzerrollen fest für seine jeweilige Organisation                                                                                                      &
     \begin{enumerate}
-        \item Remove org user
-        \item Change role of org user
-        \item Add org user
+        \item Remove WebUser
+        \item Change role of WebUser
+        \item Add WebUser
         \item Diagram: Plot states of billing items from one contract
         \item Configure diagrams
         \item Diagram: Plot construction progress
@@ -35,7 +35,7 @@
     SysAdmin        & F\"ugt Organisationen hinzu und bestimmt den Organisations-Admin einer Organisation                                                                                                     &
     \begin{enumerate}
         \item Add organization
-        \item Assign org admin
+        \item Assign OrgAdmin
         \item Configure diagrams
         \item Diagram: Plot construction progress
         \item Diagram: Plot states of billing items from one contract
@@ -111,7 +111,7 @@
         \item Der AppUser erh\"alt eine Fehlermeldung.
         \item Die \"Anderungen am Status der Leistungsposition oder das Foto mit Kommentar werden nicht an den Webserver \"ubertragen.
     \end{enumerate}                                                                                                                                                                                                                                                                                                                                     \\ \hline
-    \textbf{Benutzte Anwendungsfälle}   & Benutzerverwaltung (ACC-1)                                                                                                                                                                                                                                                                                               \\ \hline
+    \textbf{Benutzte Anwendungsfälle}   & Change status of position (ACC-1)                                                                                                                                                                                                                                                                                               \\ \hline
     \textbf{Spezielle Anforderungen}    & -                                                                                                                                                                                                                                                                                                                        \\ \hline
     \textbf{Annahmen}                   & -                                                                                                                                                                                                                                                                                                                        \\ \hline
 \end{longtable}
@@ -160,7 +160,7 @@ Das Hinzufügen, Editieren und Löschen von Nutzern sowie Organisationen wird al
         \item Der WebUser \"andert den Status einer Leistungsposition und w\"ahlt die entsprechende Funktion der Weboberfl\"ache,  dass diese \"Anderung \"ubernommen werden soll.
         \item Der WebUser verf\"ugt nicht \"uber die entsprechenden Rechte die Aktion durchzuf\"uhren und erh\"alt eine Fehlermeldung. Der bisherige Status der Leistungsposition bleibt bestehen.
     \end{enumerate}                                                                                                             \\ \hline
-    \textbf{Benutzte Anwendungsfälle} & Benutzerverwaltung (ACC-1)                                                                         \\ \hline
+    \textbf{Benutzte Anwendungsfälle} & -                                                                         \\ \hline
     \textbf{Spezielle Anforderungen}  & -                                                                                                  \\ \hline
     \textbf{Annahmen}                 & -                                                                                                  \\ \hline
 \end{longtable}
@@ -226,14 +226,14 @@ Das Hinzufügen, Editieren und Löschen von Nutzern sowie Organisationen wird al
         \item Der WebUser authentifiziert sich (passende Rolle).
         \item Der WebUser wechselt in den Reiter der Diagramme.
         \item Der WebUser wählt ein nicht-existentes Projekt aus.
-        \item Fehlermeldung!
+        \item Fehlermeldung wird angezeigt!
     \end{enumerate}                                                                                                                               \\\cline{2-2} &
     \begin{enumerate} % Kriterien werden nicht erfüllt.
         \item Der WebUser authentifiziert sich (passende Rolle).
         \item Der WebUser wechselt in den Reiter der Diagramme.
         \item Der WebUser filtert nach bestimmten Kriterien.
         \item Die Kriterien werden von keinem Diagramm erfüllt.
-        \item Fehlermeldung!
+        \item Fehlermeldung wird angezeigt!
     \end{enumerate}                                                                                                                               \\\cline{2-2} &
     \begin{enumerate} % Fehlende Berechtigungen.
         %\item Erfolgreich authentifizieren (\textbf{keine} passende Rolle).
@@ -249,9 +249,9 @@ Das Hinzufügen, Editieren und Löschen von Nutzern sowie Organisationen wird al
         \item Der WebUser wechselt in den Reiter der Diagramme.
               %\item Diagramm ohne passende Rolle anzeigen lassen.
         \item Der WebUser filtert nach bestimmten Kriterien, wofür er keine Rechte hat.
-        \item Fehlermeldung!
+        \item Fehlermeldung wird angezeigt!
     \end{enumerate}                                                                                                                               \\ \hline
-    \textbf{Benutzte Anwendungsfälle}      & Benutzerverwaltung (ACC-1)                                                                                      \\ \hline
+    \textbf{Benutzte Anwendungsfälle}      & Change status of position (ACC-1)                                                                                      \\ \hline
     \textbf{Spezielle Anforderungen}       & -                                                                                                               \\ \hline
     \textbf{Annahmen}                      & -                                                                                                               \\ \hline
 \end{longtable}
@@ -282,7 +282,7 @@ Das Hinzufügen, Editieren und Löschen von Nutzern sowie Organisationen wird al
     \textbf{Initiierender Akteur}       & WebUser, SysAdmin, OrgAdmin                                                                                                                                                                                          \\ \hline
     \textbf{Kurzbeschreibung}           & Nutzer der Weboberfläche (allgemein WebUser) können aus den für sie lesbaren Daten auf dem Server, aus den Bereichen Leistungsposition, Vertrag und Projekt, Diagramme in unterschiedlichen Darstellungen erstellen. \\ \hline
     \textbf{Vorbedingungen}             & Der WebUser hat Zugriffsrechte auf die zu visualisierenden Daten.                                                                                                                                                    \\ \hline
-    \textbf{Nachbedingungen}            & Dem WebUser wird das angefragte Diagramm angezeigt.                                                                                                                                                                  \\ \hline
+    \textbf{Nachbedingungen}            & Dem WebUser wird das abgefragte Diagramm angezeigt.                                                                                                                                                                  \\ \hline
     \textbf{Ablauf}                     &
     \begin{enumerate}
         \item Der WebUser loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
@@ -309,7 +309,7 @@ Das Hinzufügen, Editieren und Löschen von Nutzern sowie Organisationen wird al
         \item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
         \item Verbindungsfehler
     \end{enumerate}                                                                                                                                                                                                                                 \\ \hline
-    \textbf{Benutzte Anwendungsfälle}   & Benutzerverwaltung (ACC-1), Diagrammverwaltung (DIA-1)                                                                                                                                                               \\ \hline
+    \textbf{Benutzte Anwendungsfälle}   & Change status of position (ACC-1), Diagramm: Plot construction progress, Diagram: Plot states of billing items from one contract (DIA-1)                                                                                                                                                               \\ \hline
     \textbf{Spezielle Anforderungen}    & -                                                                                                                                                                                                                    \\ \hline
     \textbf{Annahmen}                   & -                                                                                                                                                                                                                    \\ \hline
 \end{longtable}
