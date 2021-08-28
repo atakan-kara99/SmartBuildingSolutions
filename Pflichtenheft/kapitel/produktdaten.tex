@@ -1,8 +1,9 @@
-\section{Webserver}
+\section{Allgemeine Hinweise zu Produktdaten}
 
-Referenzielle Daten werden nicht explizit gelistet, wenn sie ohnehin schon in der Applikation an anderer Stelle gespeichert, bzw. genutzt werden.
+Referenzielle Daten werden nicht explizit gelistet, wenn sie ohnehin schon in der jeweiligen Applikation an anderer Stelle gespeichert, bzw. genutzt werden.
 Ein Beispiel hierfür sind Projekte und dazugehörige Leistungspositionen. Für die Projektdaten werden hier also keine IDs von zugehörigen Leistungspositionen
 als Produktdaten aufgeführt, da diese IDs nur als Referenz genutzt werden und bereits in den Leistungspositionsdaten aufgeführt werden.
+Die folgenden Daten können ausdrücklich im vollen Umfang innherhalb beider Applikationen (Webserver und App) gespeichert werden. Der Umfang der gespeicherten Daten in der App wird aber vermutlich geringer ausfallen können.
 
 \subsection{Übersicht Benutzerrollen}
 
@@ -13,16 +14,15 @@ als Produktdaten aufgeführt, da diese IDs nur als Referenz genutzt werden und b
 		\textbf{Benutzerrolle} & \textbf{ID} \\ \hline \hline
 		\textbf{Systemadministrator} & SysAdmin \\ \hline
 		\textbf{Organisationsadministrator} & OrgAdmin \\ \hline
-        \textbf{Allgemeiner Nutzer der Webapplikation} & User \\ \hline
-		\textbf{Andere Nutzerrolle innerhalb einer Organisation} & OrgUser \\ \hline
+        \textbf{Allgemeiner Nutzer der Webapplikation ohne Administrationsfunktion} & WebUser \\ \hline
 	\end{tabularx}
 	\caption{Benutzerrollen}
 	\label{fig:Benutzerrollen}
 \end{figure}
 
 \begin{flushleft}
-Es werden nur allgemeine Rollen beschrieben. Organisationsadministratoren können eigene Rollen beschreiben und zuweisen. Diese verhalten sich allgemein wie die Rolle \textbf{OrgUser}.
-Ein \textbf{OrgUser} kann z. Bsp. nur Daten einer Leistungsposition einsehen, sofern seine Rolle innerhalb seiner Organisation dies zulässt. Ebenso können \textbf{OrgAdmin}s beispielsweise nur Verträge und
+Es werden nur allgemeine Rollen beschrieben. Organisationsadministratoren können eigene Rollen beschreiben und zuweisen. Diese verhalten sich allgemein wie die Rolle \textbf{WebUser}.
+Ein \textbf{WebUser} kann z. Bsp. nur Daten einer Leistungsposition einsehen, sofern seine Rolle innerhalb seiner Organisation dies zulässt. Ebenso können \textbf{OrgAdmin}s beispielsweise nur Verträge und
 Positionen ihrer jeweiligen Organisation einsehen.
 \end{flushleft}
 
@@ -35,9 +35,9 @@ Die Benutzerdaten umfassen alle Informationen zu einem registrierten Benutzer de
 	\begin{tabularx}{\textwidth}{| X || X | X |}
         \hline
 		\textbf{Art der Daten} & \textbf{Beschreibung der Daten} & \textbf{Zugriffsberechtigung} \\ \hline \hline
-		\textbf{Benutzerkennung} & Eindeutiger Benutzername und ein Passwort (Hash) & SysAdmin, zugehöriger User (nur Benutzername) \\ \hline
-		\textbf{Persönliche Daten} & Name, Nachname und Organisation & SysAdmin, zugehöriger OrgAdmin, zugehöriger User \\ \hline
-		\textbf{Benutzerrolle} & Rolle des Benutzers & SysAdmin, zugehöriger OrgAdmin, zugehöriger User \\ \hline
+		\textbf{Benutzerkennung} & Eindeutiger Benutzername und ein Passwort (Hash) & SysAdmin (Nur Benutzername), zugehöriger OrgAdmin und WebUse (Nur Benutzername) \\ \hline
+		\textbf{Persönliche Daten} & Name, Nachname und Organisation & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
+		\textbf{Benutzerrolle} & Rolle des Benutzers & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
 	\end{tabularx}
 	\caption{Benutzerdaten}
 	\label{fig:Benutzerdaten}
@@ -54,11 +54,14 @@ Die Projektdaten setzen sich aus den Daten der zur Verf\"ugung gestellten REST-A
 	\begin{tabularx}{\textwidth}{| X || X | X |}
         \hline
 		\textbf{Art der Daten} & \textbf{Beschreibung der Daten} & \textbf{Zugriffsberechtigung} \\ \hline \hline
-        \textbf{ID} & ID des Projekts & SysAdmin \\ \hline
-		\textbf{Projektname} & Name des Projekts & SysAdmin, zugehöriger OrgAdmin, zugehöriger OrgUser \\ \hline
-		\textbf{Projektbeschreibung} & Projektbeschreibung & SysAdmin, zugehöriger OrgAdmin, zugehöriger OrgUser \\ \hline
-		\textbf{Fertigstellungsdatum} & Datum der geplanten Fertigstellung & SysAdmin, zugehöriger OrgAdmin, zugehöriger OrgUser \\ \hline
-        \textbf{Adresse} & Adresse/Ort des Projekts & SysAdmin, zugehöriger OrgAdmin, zugehöriger OrgUser \\ \hline
+        \textbf{Projekt-ID} & ID des Projekts & SysAdmin \\ \hline
+		\textbf{Projektname} & Name des Projekts & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
+		\textbf{Projektbeschreibung} & Projektbeschreibung & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
+		\textbf{Fertigstellungsdatum} & Datum der geplanten Fertigstellung & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
+        \textbf{Erstellungsdatum} & Datum der Anlegung des Projekts & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
+        \textbf{Gruppe} & Zum Projekt gehörende Gruppierung & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
+        \textbf{Status} & Status des Projekts & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
+        \textbf{Adresse} & Adresse/Ort des Projekts & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
 	\end{tabularx}
 	\caption{Projektdaten}
 	\label{fig:Projektdaten}
@@ -73,8 +76,12 @@ Die Vertragsdaten setzen sich aus den Daten der zur Verf\"ugung gestellten REST-
 	\begin{tabularx}{\textwidth}{| X || X | X |}
         \hline
 		\textbf{Art der Daten} & \textbf{Beschreibung der Daten} & \textbf{Zugriffsberechtigung} \\ \hline \hline
-		\textbf{Vertrags ID} & ID des Vertrages & SysAdmin \\ \hline
-		\textbf{Vertragsname} & Name des Vertrages & SysAdmin, zugehöriger OrgAdmin \\ \hline
+		\textbf{Vertrags-ID} & ID des Vertrags & SysAdmin \\ \hline
+		\textbf{Vertragsname} & Name des Vertrags & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
+        \textbf{Vertragsbeschreibung} & Beschreibung des Vertrags & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
+        \textbf{Baupartner} & Name des Baupartners & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
+        \textbf{Baupartnerrolle} & Rolle des Baupartners im Vertrag & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
+        \textbf{Status} & Status des Vertrags & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
 	\end{tabularx}
 	\caption{Vertragsdaten}
 	\label{fig:Vertragsdaten}
@@ -92,9 +99,13 @@ Sie werden pro Leistungsposition gespeichert.
 	\begin{tabularx}{\textwidth}{| X || X | X |}
         \hline
 		\textbf{Art der Daten} & \textbf{Beschreibung der Daten} & \textbf{Zugriffsberechtigung} \\ \hline \hline
-		\textbf{PositionsID} & ID des Vertrages & SysAdmin \\ \hline
-		\textbf{Status} & Name des Vertrages & SysAdmin, zugehöriger OrgAdmin, zugehöriger OrgUser \\ \hline
-		\textbf{Qualitätssicherungsdaten} & Fotos und dazugehörige Kommentare & SysAdmin, zugehöriger OrgAdmin, zugehöriger OrgUser \\ \hline
+		\textbf{Positions-ID} & ID des Vertrags & SysAdmin \\ \hline
+        \textbf{Kurzbeschreibung} & Kurze beschreibung der Position & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
+        \textbf{Langbeschreibung} & Lange Beschreibung der Position & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
+        \textbf{Fertigstellungsdatum} & Datum der Fertigstellung der Position & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
+        \textbf{Preis} & Preis der Positioon mit Einheit & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
+		\textbf{Status} & Name des Vertrags & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
+		\textbf{Qualitätssicherungsdaten} & Fotos und dazugehörige Kommentare & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
 	\end{tabularx}
 	\caption{Leistungspositionsdaten}
 	\label{fig:Leistungspositionsdaten}
