@@ -3,9 +3,9 @@
 	\begin{center}
 		\begin{tabularx}{\textwidth}{ p{.05\textwidth} | p{.25\textwidth} | p{.2\textwidth} | X }
 			\textbf{Nr.} & \textbf{Anwendungsfall ID} & \textbf{Szenario} & \textbf{Erwartetes Verhalten} \\ \hline
-			01 & APP-1 & Der Benutzer loggt sich in die Applikation mit seinen Daten ein. &
+			01 & APP-1 & Der User loggt sich in die Applikation mit seinen Daten ein. &
 			\begin{itemize}
-				\item[App:] Der Benutzer erhält eine Übersicht über seine Projekte.
+				\item[App:] Der AppUser erhält eine Übersicht über seine Projekte.
 				\item[Web:] SysAdmin erhält eine Übersicht über die Organisationen.
 				\item[Web:] OrgAdmin und B.m.b.R erhalten eine Übersicht der Verträge.
 			\end{itemize} \\ \hline
@@ -14,8 +14,8 @@
 			%%---- APP-1: Alternative 1 ----%%
 			03 & APP-1 & Ein Bild wird einer Leistungsposition vom Nutzer zugeordnet. & Das Bild wird als Review auf den Server geladen und ist für einen Befugten sichtbar. Falls keine Verbindung zum Server besteht, wird das Bild lokal zwischengespeichert. \\ \hline
 			04 & APP-1 & Der befugte Nutzer will den aktuellen Status einer Leistungsposition einsehen. & Es wird der aktuelle Status der gewählten Leistungsposition angezeigt. \\ \hline
-			05 & APP-1 & Der Nutzer trägt seinen Nutzernamen, sein Passwort und die gültige URL des Webservers ein. & Eine neue Verbindung zu einem Webserver wird hergestellt. \\ \hline
-			06 & ACC-1 & Der OrgAdmin erstellt eine neue Rolle. & Die neue Rolle erhält Rechte für bestimmte Bereiche auf dem Webserver. \\ \hline
+			05 & APP-1 & Der AppUser trägt seinen Nutzernamen, sein Passwort und die gültige URL des WebServers ein. & Eine neue Verbindung zu einem WebServer wird hergestellt. \\ \hline
+			06 & ACC-1 & Der OrgAdmin erstellt eine neue Rolle. & Die neue Rolle erhält Rechte für bestimmte Bereiche auf dem WebServer. \\ \hline
 			07 & ACC-1 & Der OrgAdmin fügt neue Nutzer hinzu oder löscht bestehende. & Neue Nutzer werden dauerhaft Organisationen mit einer Rolle zugewiesen. Ausgewählte Nutzer werden dauerhaft aus der Organisation gelöscht. \\ \hline
 		\end{tabularx}	
 	\end{center}
@@ -34,7 +34,7 @@
 			09 & ACC-1 & B.m.b.R. bearbeitet Leistungspositionen. & Daten der Leistungsposition können modifiziert und dauerhaft gespeichert werden. \\ \hline
 			10 & ACC-1 & B.m.b.R. hat Einsicht in die Vertragsdaten. & Aus dieser Übersicht können Diagramme erstellt und Vertragsdaten geändert werden. \\ \hline
 			%%---- DIA-1: Ablauf ----%%
-			11 & DIA-1 & B.m.b.R wählt ein alle Leistungspunkte umfassendes Diagramm eines oder mehrere Verträge zur Darstellung. & Das passende Diagramm wird angezeigt. \\ \hline 
+			11 & DIA-1 & B.m.b.R wählt ein alle Leistungspunkte umfassendes Diagramm eines oder mehrerer Verträge zur Darstellung. & Das passende Diagramm wird angezeigt. \\ \hline 
 			12 & DIA-1 & B.m.b.R lädt die Vertragsdaten mit den Diagrammen oder die Leistungspositionen. & Es werden automatisch passende Diagramme erzeugt. \\ \hline
 			%%---- DIA-1: Alternative 1 ----%%
 			13 & DIA-1 & B.m.b.R nutzt die Filterfunktion bei den Vertragsdaten, Projekten und Leistungspositionen. & Die Ergebnisse werden nach dem entsprechenden Kriterium sortiert. \\ \hline
