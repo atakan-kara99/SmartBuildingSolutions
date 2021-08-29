@@ -1,16 +1,18 @@
 .DS_Store
 *.bak*
 *.lck
+*pflichtenheft_*.pdf
 
 ##VP
+*.vbak
 *.bak_*
 *.vpp.lck
 
 ##VSCode
 .vscode
 
-##Inkscape
-svg-inkscape
+##TemporaryPDFs
+Pflichtenheft/*pflichtenheft*.pdf
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
@@ -25,6 +27,7 @@ svg-inkscape
 *.cb
 *.cb2
 .*.lb
+*.text.orig
 
 ## Intermediate documents:
 *.dvi
@@ -300,4 +303,3 @@ TSWLatexianTemp*
 # option is specified. Footnotes are the stored in a file with suffix Notes.bib.
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
-
