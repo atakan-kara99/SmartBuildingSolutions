@@ -197,7 +197,6 @@ Das Hinzufügen, Editieren und Löschen von WebUsern sowie Organisationen wird a
     \textbf{Ablauf}                        &
     \begin{enumerate}
         %\item Erfolgreich authentifizieren (passende Rolle).
-        \item Der WebUser authentifiziert sich (passende Rolle).
         \item Der WebUser wechselt in den Reiter der Diagramme.
               %\item Darstellen eines allgemeinen (alle Leistungspunkte umfassend) Diagramms zu einem oder mehreren Verträgen.
         \item Der WebUser wählt ein alle Leistungspunkte umfassendes Diagramm eines oder mehrere Verträge zur Darstellung.
@@ -207,7 +206,6 @@ Das Hinzufügen, Editieren und Löschen von WebUsern sowie Organisationen wird a
     %%\textbf{Alternative} &
     \begin{enumerate}
         %\item Erfolgreich authentifizieren (passende Rolle).
-        \item Der WebUser authentifiziert sich (passende Rolle).
         \item Der WebUser wechselt in den Reiter der Diagramme.
         \item Der WebUser filtert nach bestimmten Kriterien.
               %\item Darstellen eines Diagramms zu einem oder mehreren Verträgen.
@@ -215,7 +213,6 @@ Das Hinzufügen, Editieren und Löschen von WebUsern sowie Organisationen wird a
     \end{enumerate}                                                                                                                               \\\cline{2-2} &
     \begin{enumerate}
         %\item Erfolgreich authentifizieren (passende Rolle).
-        \item Der WebUser authentifiziert sich (passende Rolle).
         \item Der WebUser wechselt in den Reiter der Diagramme.
         \item Der WebUser wählt das Diagramm zum Baufortschritt eines Projektes.
         \item Das Diagramm wird angezeigt.
@@ -223,13 +220,11 @@ Das Hinzufügen, Editieren und Löschen von WebUsern sowie Organisationen wird a
     \multirow{2}{*}{\textbf{Ausnahmen}}    &
     \begin{enumerate} % Projekt/Vertrag nicht vorhanden.
         %\item Erfolgreich authentifizieren (passende Rolle).
-        \item Der WebUser authentifiziert sich (passende Rolle).
         \item Der WebUser wechselt in den Reiter der Diagramme.
         \item Der WebUser wählt ein nicht-existentes Projekt aus.
         \item Fehlermeldung wird angezeigt!
     \end{enumerate}                                                                                                                               \\\cline{2-2} &
     \begin{enumerate} % Kriterien werden nicht erfüllt.
-        \item Der WebUser authentifiziert sich (passende Rolle).
         \item Der WebUser wechselt in den Reiter der Diagramme.
         \item Der WebUser filtert nach bestimmten Kriterien.
         \item Die Kriterien werden von keinem Diagramm erfüllt.
@@ -237,7 +232,6 @@ Das Hinzufügen, Editieren und Löschen von WebUsern sowie Organisationen wird a
     \end{enumerate}                                                                                                                               \\\cline{2-2} &
     \begin{enumerate} % Fehlende Berechtigungen.
         %\item Erfolgreich authentifizieren (\textbf{keine} passende Rolle).
-        \item Der WebUser authentifiziert sich (\textbf{keine} passende Rolle).
         \item Der WebUser wechselt in den Reiter der Diagramme.
               %\item Diagramm ohne passende Rolle anzeigen lassen.
         \item Der WebUser wählt ein Diagramm, für welches er keine Rechte hat.
@@ -245,7 +239,6 @@ Das Hinzufügen, Editieren und Löschen von WebUsern sowie Organisationen wird a
     \end{enumerate}                                                                                                                               \\\cline{2-2} &
     \begin{enumerate} % Fehlende Berechtigungen für einzelne LPs.
         %\item Erfolgreich authentifizieren (\textbf{keine} passende Rolle).
-        \item Der WebUser authentifiziert sich (\textbf{keine} passende Rolle).
         \item Der WebUser wechselt in den Reiter der Diagramme.
               %\item Diagramm ohne passende Rolle anzeigen lassen.
         \item Der WebUser filtert nach bestimmten Kriterien, wofür er keine Rechte hat.
@@ -281,11 +274,10 @@ Das Hinzufügen, Editieren und Löschen von WebUsern sowie Organisationen wird a
     \textbf{Anwendungsfallname}         & Create diagram                                                                                                                                                                                                       \\ \hline
     \textbf{Initiierender Akteur}       & WebUser, SysAdmin, OrgAdmin                                                                                                                                                                                          \\ \hline
     \textbf{Kurzbeschreibung}           & Nutzer der Weboberfläche (allgemein WebUser) können aus den für sie lesbaren Daten auf dem Server, aus den Bereichen Leistungsposition, Vertrag und Projekt, Diagramme in unterschiedlichen Darstellungen erstellen. \\ \hline
-    \textbf{Vorbedingungen}             & Der WebUser hat Zugriffsrechte auf die zu visualisierenden Daten.                                                                                                                                                    \\ \hline
+    \textbf{Vorbedingungen}             & Der WebUser ist entsprechend eingeloggt, Rechte des WebUsers sind ausreichend f\"ur diese Operation                                                                                                                                                    \\ \hline
     \textbf{Nachbedingungen}            & Dem WebUser wird das abgefragte Diagramm angezeigt.                                                                                                                                                                  \\ \hline
     \textbf{Ablauf}                     &
     \begin{enumerate}
-        \item Der WebUser loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
         \item Der WebUser wählt eine Diagramm-Darstellung .
         \item Der WebUser wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus, auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
         \item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
@@ -296,14 +288,12 @@ Das Hinzufügen, Editieren und Löschen von WebUsern sowie Organisationen wird a
 
     \multirow{2}{*}{\textbf{Ausnahmen}} &
     \begin{enumerate} % Nutzer wählt Daten aus ohne Zugriffsrecht / während der Bereich-auswahl
-        \item Der WebUser loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
         \item Der WebUser wählt eine Diagramm-Darstellung.
         \item Der WebUser wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus, auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
         \item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
         \item Der Server verweigert den Zugriff auf die Daten durch fehlende Zugriffsrechte.
     \end{enumerate}                                                                                                                                                                                                                                 \\\cline{2-2} &
     \begin{enumerate} % Verbindungsfehler
-        \item Der WebUser loggt sich in der Weboberfläche mit den Benutzerdaten, bestehend aus Benutzername und Passwort, ein.
         \item Der WebUser wählt eine Diagramm-Darstellung .
         \item Der WebUser wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus, auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
         \item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
