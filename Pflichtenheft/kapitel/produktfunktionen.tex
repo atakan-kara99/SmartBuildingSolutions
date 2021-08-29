@@ -12,42 +12,42 @@
     \hline
     \textbf{Akteur} & \textbf{Beschreibung}                                                                                                                                                                   & \textbf{Verwendet in Anwendungsfall} \\ \hline
     AppUser         & Greift auf Funktionen der App mit seinem Benutzer-Account zu. Je nach Rolle kann er den Status sowie dokumentierende Fotos und Kommentare von Leistungspositionen einsehen und \"andern &
-    \begin{enumerate}
+    \begin{itemize}
         \item Add documenting photo
         \item Change billing item status
         \item Display billing item status
         \item Push local changes to WebServer
-    \end{enumerate}                                                                                                                                                                                                                        \\ \hline
+    \end{itemize}                                                                                                                                                                                                                        \\ \hline
     WebServer       & Hauptzugriffsstelle f\"ur alle vertrags- und projektrelevanten Daten. Dies ist kein menschlicher Akteur, sondern die Applikation, die die Funktionalität des WebServers bietet          &
-    \begin{enumerate}
+    \begin{itemize}
         \item Push local changes to WebServer
         \item Authenticate
-    \end{enumerate}                                                                                                                                                                                                                        \\ \hline
-    OrgAdmin        & Registriert Benutzer und legt Benutzerrollen fest für seine jeweilige Organisation                                                                                                      &
-    \begin{enumerate}
+    \end{itemize}                                                                                                                                                                                                                        \\ \hline
+    OrgAdmin        & Registriert Benutzer und legt Benutzerrollen für seine jeweilige Organisation fest                                                                                                      &
+    \begin{itemize}
         \item Remove WebUser
         \item Change role of WebUser
         \item Add WebUser
         \item Diagram: Plot states of billing items from one contract
         \item Configure diagrams
         \item Diagram: Plot construction progress
-    \end{enumerate}                                                                                                                                                                                                                        \\ \hline
+    \end{itemize}                                                                                                                                                                                                                        \\ \hline
     SysAdmin        & F\"ugt Organisationen hinzu und bestimmt den OrgAdmin einer Organisation                                                                                                     &
-    \begin{enumerate}
+    \begin{itemize}
         \item Add organization
         \item Assign OrgAdmin
         \item Configure diagrams
         \item Diagram: Plot construction progress
         \item Diagram: Plot states of billing items from one contract
         \item Diagram: Plot states of billing items from many contracts
-    \end{enumerate}                                                                                                                                                                                                                        \\ \hline
+    \end{itemize}                                                                                                                                                                                                                        \\ \hline
     WebUser         & Verwendet die Nutzeroberfl\"ache des WebServers um Daten (auch Diagramme) einzusehen,  Status\"anderungen einzelner Leistungspositionen durchzuf\"uhren und Diagramme zu erstellen      &
-    \begin{enumerate}
+    \begin{itemize}
         \item Change status of position
         \item View organization's contracts
         \item Diagram: Plot states of billing items from one contract
         \item Diagram: Plot construction progress
-    \end{enumerate}                                                                                                                                                                                                                        \\\hline
+    \end{itemize}                                                                                                                                                                                                                        \\\hline
 \end{longtable}
 
 \newpage
@@ -146,7 +146,7 @@ Das Hinzufügen, Editieren und Löschen von WebUsern sowie Organisationen wird a
     \textbf{Initiierender Akteur}     & WebUser                                                                                            \\ \hline
     \textbf{Weitere Akteure}          & -                                                                                                  \\ \hline
     \textbf{Kurzbeschreibung}         & Der WebUser kann den Status von Leistungspositionen ver\"andern                                    \\ \hline
-    \textbf{Vorbedingungen}           & Der WebUser ist entsprechend eingeloggt, Rechte des WebUser sind ausreichend f\"ur diese Operation \\ \hline
+    \textbf{Vorbedingungen}           & Der WebUser ist entsprechend eingeloggt, Rechte des WebUsers sind ausreichend f\"ur diese Operation \\ \hline
     \textbf{Nachbedingungen}          & Status wurde ver\"andert                                                                           \\ \hline
     \textbf{Ablauf}                   &
     \begin{enumerate}
@@ -241,7 +241,7 @@ Das Hinzufügen, Editieren und Löschen von WebUsern sowie Organisationen wird a
         \item Der WebUser wechselt in den Reiter der Diagramme.
               %\item Diagramm ohne passende Rolle anzeigen lassen.
         \item Der WebUser wählt ein Diagramm, für welches er keine Rechte hat.
-        \item Fehlermeldung!
+        \item Fehlermeldung wird angezeigt!
     \end{enumerate}                                                                                                                               \\\cline{2-2} &
     \begin{enumerate} % Fehlende Berechtigungen für einzelne LPs.
         %\item Erfolgreich authentifizieren (\textbf{keine} passende Rolle).
@@ -307,9 +307,9 @@ Das Hinzufügen, Editieren und Löschen von WebUsern sowie Organisationen wird a
         \item Der WebUser wählt eine Diagramm-Darstellung .
         \item Der WebUser wählt aus einer Liste Leistungspositionen, Verträge und Projekte aus, auf die er Zugriff hat und die er im Diagramm visualisieren möchte.
         \item Es wird eine Anfrage an den Server bezüglich der Übermittlung der Daten geschickt.
-        \item Verbindungsfehler
+        \item Es kommt zum Verbindungsfehler, die Fehlermeldung wird angezeigt.
     \end{enumerate}                                                                                                                                                                                                                                 \\ \hline
-    \textbf{Benutzte Anwendungsfälle}   & Change status of position (ACC-1), Diagramm: Plot construction progress, Diagram: Plot states of billing items from one contract (DIA-1)                                                                                                                                                               \\ \hline
+    \textbf{Benutzte Anwendungsfälle}   & Change status of position (ACC-1), Diagram: Plot construction progress, Diagram: Plot states of billing items from one contract (DIA-1)                                                                                                                                                               \\ \hline
     \textbf{Spezielle Anforderungen}    & -                                                                                                                                                                                                                    \\ \hline
     \textbf{Annahmen}                   & -                                                                                                                                                                                                                    \\ \hline
 \end{longtable}
