@@ -14,21 +14,21 @@ Die folgenden Daten können ausdrücklich im vollen Umfang innherhalb beider App
 		\textbf{Benutzerrolle} & \textbf{ID} \\ \hline \hline
 		\textbf{Systemadministrator} & SysAdmin \\ \hline
 		\textbf{Organisationsadministrator} & OrgAdmin \\ \hline
-        \textbf{Allgemeiner Nutzer der Webapplikation ohne Administrationsfunktion} & WebUser \\ \hline
+        \textbf{Allgemeiner Nutzer der Webapplikation/Mobile App ohne Administrationsfunktion} & WebUser/AppUser \\ \hline
 	\end{tabularx}
 	\caption{Benutzerrollen}
 	\label{fig:Benutzerrollen}
 \end{figure}
 
 \begin{flushleft}
-Es werden nur allgemeine Rollen beschrieben. Organisationsadministratoren können eigene Rollen beschreiben und zuweisen. Diese verhalten sich allgemein wie die Rolle \textbf{WebUser}.
+Es werden nur allgemeine Rollen beschrieben. \textbf{OrgAdmin}s können eigene Rollen beschreiben und zuweisen. Diese verhalten sich allgemein wie die Rolle \textbf{WebUser}.
 Ein \textbf{WebUser} kann z. Bsp. nur Daten einer Leistungsposition einsehen, sofern seine Rolle innerhalb seiner Organisation dies zulässt. Ebenso können \textbf{OrgAdmin}s beispielsweise nur Verträge und
 Positionen ihrer jeweiligen Organisation einsehen.
 \end{flushleft}
 
 \subsection{Benutzerdaten}
 
-Die Benutzerdaten umfassen alle Informationen zu einem registrierten Benutzer der Webanwendung. Diese Daten sind nur f\"ur den Benutzer selbst und f\"ur Systemadministratoren einsehbar.
+Die Benutzerdaten umfassen alle Informationen zu einem registrierten \textbf{WebUser}. Diese Daten sind nur f\"ur den Benutzer selbst und f\"ur \textbf{SysAdmin}s einsehbar.
 
 \begin{figure}[h]
 	\centering
