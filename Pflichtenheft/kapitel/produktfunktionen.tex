@@ -16,9 +16,9 @@
         \item Add documenting photo
         \item Change billing item status
         \item Display billing item status
-        \item Push local changes to web server
+        \item Push local changes to WebServer
     \end{enumerate}                                                                                                                                                                                                                        \\ \hline
-    WebServer       & Hauptzugriffsstelle f\"ur alle vertrags- und projektrelevanten Daten. Dies ist kein menschlicher Akteur, sondern die Applikation, die die Funktionalität des Webservers bietet          &
+    WebServer       & Hauptzugriffsstelle f\"ur alle vertrags- und projektrelevanten Daten. Dies ist kein menschlicher Akteur, sondern die Applikation, die die Funktionalität des WebServers bietet          &
     \begin{enumerate}
         \item Push local changes to WebServer
         \item Authenticate
@@ -32,7 +32,7 @@
         \item Configure diagrams
         \item Diagram: Plot construction progress
     \end{enumerate}                                                                                                                                                                                                                        \\ \hline
-    SysAdmin        & F\"ugt Organisationen hinzu und bestimmt den Organisations-Admin einer Organisation                                                                                                     &
+    SysAdmin        & F\"ugt Organisationen hinzu und bestimmt den OrgAdmin einer Organisation                                                                                                     &
     \begin{enumerate}
         \item Add organization
         \item Assign OrgAdmin
@@ -41,7 +41,7 @@
         \item Diagram: Plot states of billing items from one contract
         \item Diagram: Plot states of billing items from many contracts
     \end{enumerate}                                                                                                                                                                                                                        \\ \hline
-    WebUser         & Verwendet die Nutzeroberfl\"ache des Webservers um Daten (auch Diagramme) einzusehen,  Status\"anderungen einzelner Leistungspositionen durchzuf\"uhren und Diagramme zu erstellen      &
+    WebUser         & Verwendet die Nutzeroberfl\"ache des WebServers um Daten (auch Diagramme) einzusehen,  Status\"anderungen einzelner Leistungspositionen durchzuf\"uhren und Diagramme zu erstellen      &
     \begin{enumerate}
         \item Change status of position
         \item View organization's contracts
@@ -74,42 +74,42 @@
     \textbf{Anwendungsfallnamen}        & Change billing item status, Add documenting photo                                                                                                                                                                                                                                                                        \\ \hline
     \textbf{Initiierender Akteur}       & AppUser                                                                                                                                                                                                                                                                                                                  \\ \hline
     \textbf{Weitere Akteure}            & WebServer                                                                                                                                                                                                                                                                                                                \\ \hline
-    \textbf{Kurzbeschreibung}           & Der Benutzer (AppUser) der Applikation kann lokale \"Anderungen,  bspw. \"Anderungen zum Baustatus einzelner Leistungspositionen oder Fotos mit Kommentar von der Baustelle, an den Webserver schicken. Diese \"Anderungen und Fotos mit Kommentar k\"onnen dann entsprechend \"uber die Webanwendung eingesehen werden. \\ \hline
+    \textbf{Kurzbeschreibung}           & Der Benutzer (AppUser) der Applikation kann lokale \"Anderungen,  bspw. \"Anderungen zum Baustatus einzelner Leistungspositionen oder Fotos mit Kommentar von der Baustelle, an den WebServer schicken. Diese \"Anderungen und Fotos mit Kommentar k\"onnen dann entsprechend \"uber die Webanwendung eingesehen werden. \\ \hline
     \textbf{Vorbedingungen}             & Der AppUser ist registriert und entsprechend eingeloggt                                                                                                                                                                                                                                                                  \\ \hline
-    \textbf{Nachbedingungen}            & Die lokalen Daten wurden an den Webserver geschickt                                                                                                                                                                                                                                                                      \\ \hline
+    \textbf{Nachbedingungen}            & Die lokalen Daten wurden an den WebServer geschickt                                                                                                                                                                                                                                                                      \\ \hline
     \textbf{Ablauf}                     &
     \begin{enumerate}
         \item Der AppUser hat den Status einer Leistungsposition lokal ge\"andert.
-        \item Der AppUser verwendet die Funktion der App,  um seine lokale \"Anderung an den Webserver zu \"ubertragen.
+        \item Der AppUser verwendet die Funktion der App,  um seine lokale \"Anderung an den WebServer zu \"ubertragen.
         \item Es besteht eine Internetverbindung und der AppUser erh\"alt die R\"uckmeldung, dass das Vorhaben erfolgreich ausgef\"uhrt wurde.
-        \item Die \"Anderung befindet sich nun auf dem Webserver.
+        \item Die \"Anderung befindet sich nun auf dem WebServer.
     \end{enumerate}                                                                                                                                                                                                                                                                                                                                      \\ \hline
     \textbf{Alternative}                &
     \begin{enumerate}
         \item Der AppUser hat seinen Benutzerrechten entsprechend ein Foto zur Dokumentation einer Leistungsposition angefertigt.
-        \item Das Foto soll nun durch Bet\"atigen der entsprechenden Funktion der mobilen Applikation auf den Webserver hochgeladen werden.
+        \item Das Foto soll nun durch Bet\"atigen der entsprechenden Funktion der mobilen Applikation auf den WebServer hochgeladen werden.
         \item Es besteht eine Internetverbindung und der AppUser erh\"alt eine entsprechende Meldung,  dass der Upload erfolgt.
-        \item Das Foto wird an den Webserver \"ubertragen.
+        \item Das Foto wird an den WebServer \"ubertragen.
     \end{enumerate}                                                                                                                                                                                                                                                                                                                                      \\ \hline
     \multirow{2}{*}{\textbf{Ausnahmen}} &
     \begin{enumerate}
-        \item Der AppUser m\"ochte eine \"Anderung an dem Status einer Leistungsposition oder ein Foto zur Dokumentation mit Kommentar an den Webserver \"ubertragen und verwendet die entsprechende Funktionalit\"at der Applikation.
+        \item Der AppUser m\"ochte eine \"Anderung an dem Status einer Leistungsposition oder ein Foto zur Dokumentation mit Kommentar an den WebServer \"ubertragen und verwendet die entsprechende Funktionalit\"at der Applikation.
         \item Der AppUser erh\"alt eine Fehlermeldung, da seine Rechte nicht ausreichen, um diese Aktion durchzuf\"uhren.
-        \item Die \"Anderungen am Status der Leistungsposition und/oder das Foto mit Kommentar werden nicht an den Webserver \"ubertragen.
+        \item Die \"Anderungen am Status der Leistungsposition und/oder das Foto mit Kommentar werden nicht an den WebServer \"ubertragen.
     \end{enumerate}
     \\\cline{2-2}                 &
     \begin{enumerate}
-        \item Die lokalen \"Anderungen durch den AppUser sollen durch Bet\"atigung der entsprechenden Funktion in der App an den Webserver \"ubertragen werden.
+        \item Die lokalen \"Anderungen durch den AppUser sollen durch Bet\"atigung der entsprechenden Funktion in der App an den WebServer \"ubertragen werden.
         \item Der AppUser erh\"alt eine Fehlermeldung, da zur Zeit f\"ur das verwendete Ger\"at keine (ausreichende) Internetverbindung besteht.
         \item Der AppUser erh\"alt eine R\"uckmeldung, dass zur Zeit keine Internetverbindung besteht und lokale \"Anderungen zwischengespeichert werden.
-        \item Sobald eine ausreichende Internetverbindung besteht, werden die entsprechenden Daten an den Webserver \"ubertragen.
+        \item Sobald eine ausreichende Internetverbindung besteht, werden die entsprechenden Daten an den WebServer \"ubertragen.
     \end{enumerate}
     \\\cline{2-2}                 &
     \begin{enumerate}
-        \item Der AppUser m\"ochte eine lokale \"Anderung an dem Status einer Leistungsposition oder ein Foto mit Kommentar an den Webserver \"ubertragen und verwendet die entsprechende Funktion in der Applikation.
+        \item Der AppUser m\"ochte eine lokale \"Anderung an dem Status einer Leistungsposition oder ein Foto mit Kommentar an den WebServer \"ubertragen und verwendet die entsprechende Funktion in der Applikation.
         \item Die Identifikationsnummer der betroffenen Leistungsposition ist nicht g\"ultig.
         \item Der AppUser erh\"alt eine Fehlermeldung.
-        \item Die \"Anderungen am Status der Leistungsposition oder das Foto mit Kommentar werden nicht an den Webserver \"ubertragen.
+        \item Die \"Anderungen am Status der Leistungsposition oder das Foto mit Kommentar werden nicht an den WebServer \"ubertragen.
     \end{enumerate}                                                                                                                                                                                                                                                                                                                                     \\ \hline
     \textbf{Benutzte Anwendungsfälle}   & Change status of position (ACC-1)                                                                                                                                                                                                                                                                                               \\ \hline
     \textbf{Spezielle Anforderungen}    & -                                                                                                                                                                                                                                                                                                                        \\ \hline
@@ -118,18 +118,18 @@
 
 \clearpage
 
-\section{Anwendungsfalldiagramme - Webserver}
+\section{Anwendungsfalldiagramme - WebServer}
 
 \subsection{Account-Management}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{img/diagrams/Acc_Management_Web.pdf}
-    \caption{Anwendungsfalldiagramm - Account-Management Webserver}
+    \caption{Anwendungsfalldiagramm - Account-Management WebServer}
     \label{fig:anwendungsfalldiagramm-acc}
 \end{figure}
 
-Das Hinzufügen, Editieren und Löschen von Nutzern sowie Organisationen wird als trivial erachtet und im Folgenden nicht näher betrachtet. Selbiges gilt für die Einsicht von Verträgen einer Organisation.
+Das Hinzufügen, Editieren und Löschen von WebUsern sowie Organisationen wird als trivial erachtet und im Folgenden nicht näher betrachtet. Selbiges gilt für die Einsicht von Verträgen einer Organisation.
 
 \centering
 \begin{longtable}[c]{|p{4cm}|p{10cm}|}
@@ -151,7 +151,7 @@ Das Hinzufügen, Editieren und Löschen von Nutzern sowie Organisationen wird al
     \textbf{Ablauf}                   &
     \begin{enumerate}
         \item Der WebUser \"andert den Status einer Leistungsposition und w\"ahlt die entsprechende Funktion der Weboberfl\"ache, dass diese \"Anderung \"ubernommen werden soll.
-        \item Die Aktion war erfolgreich und die \"Anderung wurde \"ubernommen.  Der User erh\"alt eine R\"uckmeldung \"uber den Erfolg der Aktion.
+        \item Die Aktion war erfolgreich und die \"Anderung wurde \"ubernommen.  Der WebUser erh\"alt eine R\"uckmeldung \"uber den Erfolg der Aktion.
     \end{enumerate}                                                                                                             \\ \hline
     \textbf{Alternative}              & -
     \\ \hline
