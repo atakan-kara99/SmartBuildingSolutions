@@ -3,9 +3,9 @@
 Referenzielle Daten werden nicht explizit gelistet, wenn sie ohnehin schon in der jeweiligen Applikation an anderer Stelle gespeichert, bzw. genutzt werden.
 Ein Beispiel hierfür sind Projekte und dazugehörige Leistungspositionen. Für die Projektdaten werden hier also keine IDs von zugehörigen Leistungspositionen
 als Produktdaten aufgeführt, da diese IDs nur als Referenz genutzt werden und bereits in den Leistungspositionsdaten aufgeführt werden.
-Die folgenden Daten können ausdrücklich im vollen Umfang innherhalb beider Applikationen (Webserver und App) gespeichert werden. Der Umfang der gespeicherten Daten in der App wird aber vermutlich geringer ausfallen können.
+Die folgenden Daten können ausdrücklich im vollen Umfang innerhalb beider Applikationen (Webserver und App) gespeichert werden. Der Umfang der gespeicherten Daten in der App wird aber vermutlich geringer ausfallen können.
 
-\subsection{Übersicht Benutzerrollen}
+\section{Übersicht Benutzerrollen}
 
 \begin{figure}[h]
 	\centering
@@ -26,7 +26,7 @@ Ein \textbf{WebUser} kann z. Bsp. nur Daten einer Leistungsposition einsehen, so
 Positionen ihrer jeweiligen Organisation einsehen.
 \end{flushleft}
 
-\subsection{Benutzerdaten}
+\section{Benutzerdaten}
 
 Die Benutzerdaten umfassen alle Informationen zu einem registrierten \textbf{WebUser}. Diese Daten sind nur f\"ur den Benutzer selbst und f\"ur \textbf{SysAdmin}s einsehbar.
 
@@ -45,7 +45,7 @@ Die Benutzerdaten umfassen alle Informationen zu einem registrierten \textbf{Web
 
 \newpage
 
-\subsection{Projektdaten}
+\section{Projektdaten}
 
 Die Projektdaten setzen sich aus den Daten der zur Verf\"ugung gestellten REST-API zusammen.
 
@@ -67,7 +67,7 @@ Die Projektdaten setzen sich aus den Daten der zur Verf\"ugung gestellten REST-A
 	\label{fig:Projektdaten}
 \end{figure}
 
-\subsection{Vertragsdaten}
+\section{Vertragsdaten}
 
 Die Vertragsdaten setzen sich aus den Daten der zur Verf\"ugung gestellten REST-API zusammen. Vertragsdaten werden pro Vertrag gespeichert.
 
@@ -89,7 +89,7 @@ Die Vertragsdaten setzen sich aus den Daten der zur Verf\"ugung gestellten REST-
 
 \newpage
 
-\subsection{Leistungspositionsdaten}
+\section{Leistungspositionsdaten}
 
 Die Leistungspositionsdaten setzen sich aus den Daten der zur Verf\"ugung gestellten REST-API zusammen und aus dem Status einer jeweiligen Position, welcher über die mobile Applikation geändert werden kann.
 Sie werden pro Leistungsposition gespeichert.
@@ -100,10 +100,10 @@ Sie werden pro Leistungsposition gespeichert.
         \hline
 		\textbf{Art der Daten} & \textbf{Beschreibung der Daten} & \textbf{Zugriffsberechtigung} \\ \hline \hline
 		\textbf{Positions-ID} & ID des Vertrags & SysAdmin \\ \hline
-        \textbf{Kurzbeschreibung} & Kurze beschreibung der Position & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
+        \textbf{Kurzbeschreibung} & Kurze Beschreibung der Position & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
         \textbf{Langbeschreibung} & Lange Beschreibung der Position & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
         \textbf{Fertigstellungsdatum} & Datum der Fertigstellung der Position & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
-        \textbf{Preis} & Preis der Positioon mit Einheit & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
+        \textbf{Preis} & Preis der Position mit Einheit & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
 		\textbf{Status} & Name des Vertrags & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
 		\textbf{Qualitätssicherungsdaten} & Fotos und dazugehörige Kommentare & SysAdmin, zugehöriger OrgAdmin und WebUser \\ \hline
 	\end{tabularx}

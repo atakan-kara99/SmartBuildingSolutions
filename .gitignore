@@ -12,7 +12,7 @@
 .vscode
 
 ##TemporaryPDFs
-*/pflichtenheft*.pdf
+Pflichtenheft/*pflichtenheft*.pdf
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
