@@ -10,6 +10,7 @@ assemble:
   only:
     - web-dev
     - main
+    - web
      
   script:
     - cd sbsweb
@@ -28,6 +29,7 @@ test:
 
   only:
     - merge_requests
+    - web
   
   script:
     - cd sbsweb
@@ -41,11 +43,10 @@ deploy:
   only:
     - web-dev
     - main
+    - web
   
   script:
     - docker build -t sbsweb-image docker/sbsweb.Dockerfile
     - docker stop sbsweb-container || true
     - docker rm sbsweb-container || true
     - docker run -d -p 8080:8080 --name sbsweb-container sbsweb-image
-
-
