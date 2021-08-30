@@ -12,7 +12,7 @@ assemble:
     - chmod +x gradlew
     - ./gradlew assemble
     - mkdir -p target
-    - mv sbsweb/build/libs/sbsweb-0.0.1.jar target/sbsweb.jar
+    - mv build/libs/sbsweb-0.0.1.jar target/sbsweb.jar
 
   artifacts:
     paths:
