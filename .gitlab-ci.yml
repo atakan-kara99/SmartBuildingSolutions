@@ -1,0 +1,40 @@
+stages:
+  - assemble
+  - test
+  - deploy
+
+assemble:
+  stage: assemble
+  image: openjdk:11.0-jdk
+     
+  script:
+    - cd sbsweb
+    - chmod +x gradlew
+    - ./gradlew assemble
+    - mkdir -p target
+    - mv sbsweb/build/libs/sbsweb-0.0.1.jar target/sbsweb.jar
+
+  artifacts:
+    paths:
+      - target/sbsweb.jar
+      
+test:
+  stage: test
+  image: openjdk:11.0-jdk
+  
+  script:
+    - cd sbsweb
+    - chmod +x gradlew
+    - ./gradlew test
+
+deploy:
+  stage: deploy
+  image: docker:19.03.1
+  
+  script:
+    - docker build -t SBSWEBIMG docker/sbsweb.Dockerfile
+    - docker stop SBSWEBCON || true
+    - docker rm SBSWEBCON || true
+    - docker run -d -p 8080:8080 --name soprodemo-spring-container SBSWEBIMG
+
+
