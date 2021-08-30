@@ -6,6 +6,10 @@ stages:
 assemble:
   stage: assemble
   image: openjdk:11.0-jdk
+
+  only:
+    - web-dev
+    - main
      
   script:
     - cd sbsweb
@@ -21,6 +25,9 @@ assemble:
 test:
   stage: test
   image: openjdk:11.0-jdk
+
+  only:
+    - merge_requests
   
   script:
     - cd sbsweb
@@ -30,11 +37,15 @@ test:
 deploy:
   stage: deploy
   image: docker:19.03.1
+
+  only:
+    - web-dev
+    - main
   
   script:
-    - docker build -t SBSWEBIMG docker/sbsweb.Dockerfile
-    - docker stop SBSWEBCON || true
-    - docker rm SBSWEBCON || true
-    - docker run -d -p 8080:8080 --name soprodemo-spring-container SBSWEBIMG
+    - docker build -t sbsweb-image docker/sbsweb.Dockerfile
+    - docker stop sbsweb-container || true
+    - docker rm sbsweb-container || true
+    - docker run -d -p 8080:8080 --name sbsweb-container sbsweb-image
 
 
