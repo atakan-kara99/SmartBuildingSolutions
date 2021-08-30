@@ -1,7 +1,6 @@
 .DS_Store
 *.bak*
 *.lck
-*pflichtenheft_*.pdf
 
 ##VP
 *.vbak
@@ -13,6 +12,7 @@
 
 ##TemporaryPDFs
 Pflichtenheft/*pflichtenheft*.pdf
+Entwurfsdoku/*entwurfsdoku*.pdf
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
