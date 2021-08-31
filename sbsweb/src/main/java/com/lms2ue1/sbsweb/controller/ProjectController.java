@@ -11,15 +11,4 @@ public class ProjectController {
     public String showProjectOverview(Model model) {
         return "project_overview";
     }
-    
-    @GetMapping("/billing_Items_Overview")
-    public String showBillingItemOverview(Model model) {
-    	return "billing_item_overview";
-    }
-    
-    //GetMapping ist hier falsch, aber für Dummy genügt es erstmal
-    @GetMapping("/billing_Item_XYZ")
-    public String showBillingItemDetails(Model model) {
-    	return "billing_item_XYS";
-    }
 }
