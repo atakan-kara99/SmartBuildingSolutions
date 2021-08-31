@@ -1,11 +1,40 @@
-\begin{figure}[h]
+%\begin{figure}[h]
+	%\centering
+	%\missingfigure{Komponentendiagramm}		
+	%\caption{Komponentendiagramm - A}
+	%\label{fig:komponentendiagramm-a}
+%\end{figure}
+
+%\begin{tcolorbox}
+%Die strukturelle Übersicht des zu entwickelnden Systems wird mittels Komponentendiagrammen modelliert. 
+%Auf jedes Diagramm muss eine textuelle Beschreibung (Fließtext mit Umbrüchen / Absätzen oder Tabelle) folgen, in der die Aufgaben der %Subkomponenten beschrieben werden. 
+%\end{tcolorbox}
+
+\section{Backend}
+
+\begin{figure}[h!]
 	\centering
-	\missingfigure{Komponentendiagramm}		
-	\caption{Komponentendiagramm - A}
-	\label{fig:komponentendiagramm-a}
+	\includegraphics[width=\linewidth]{img/diagrams/cp_backend.pdf}		
+	\caption{Komponentendiagramm - Backend}
+	\label{fig:komponentendiagramm-backend}
 \end{figure}
 
-\begin{tcolorbox}
-Die strukturelle Übersicht des zu entwickelnden Systems wird mittels Komponentendiagrammen modelliert. 
-Auf jedes Diagramm muss eine textuelle Beschreibung (Fließtext mit Umbrüchen / Absätzen oder Tabelle) folgen, in der die Aufgaben der Subkomponenten beschrieben werden. 
-\end{tcolorbox}
+\begin{longtable}{|p{2.5cm}|p{10.0cm}|}
+\caption{Tabelle - Komponentendiagramm-Backend}
+\label{tab:table_comp_backend} \\
+\hline
+\textbf{Komponente} & \textbf{Beschreibung} \\ 
+\hline
+Authentication & Komponente, welche den eigentlichen Vorgang der Authentifizierung verwaltet. \\
+\hline
+AuthIn & Interface, um die Response der Authentifizierung intern in die verschiedenen Caches aufzuteilen. \\
+\hline
+AppCache & Komponente, welche sich um den Cache der Mobile Application kümmert, u.A. auch die Berechtigungen prüft. \\
+\hline
+AppCacheIn & Interface, um die Kommunikation zwischen der App und der Authentication-Componente zu ermöglichen. \\
+\hline
+AppGUIin & 
+\hline
+AppGUIout &
+\hline
+\end{longtable}
