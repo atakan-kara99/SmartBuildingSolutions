@@ -4,24 +4,40 @@
 \end{tcolorbox}
 
 \section{Zweckbestimmung}\label{sec:zweckbestimmung}
-\begin{tcolorbox}
-	Zweck des ganzen Systems beschreiben (Fließtext).
-\end{tcolorbox}
+	\textbf{Smart Building Solutions} hat als Ziel die enwickelte Software f\"ur Auftragnehmer und Auftraggeber im Baugewerbe zur Verf\"ugung zu stellen.  Die Software verwendet die vom Unternehmen bereitgestellten Vertrags- und Projektdaten,  um den Status einzelner Projektbestandteile geeignet und den Anforderungen des Nutzers entsprechend in Form von Diagrammen und Statusbalken zu visualisieren. \\
+Dabei soll f\"ur Mitarbeiter einzelner Organisationen eine Web-Oberfl\"ache zur Verf\"ugung stehen.  F\"ur  Mitarbeiter,  welche konkret am Bauprozess einzelner Leistungspositionen beteiligt sind,  ist eine Oberfl\"ache in Form einer mobilen Applikation bereitgestellt.  Die mobile Anwendung verf\"ugt dann \"uber ausgew\"ahlte Funktionalit\"aten zur R\"uckmeldung und Visualisierung von Baufortschritt,  sowie Status\"anderung der einzelnen Leistungspositionen.  \"Anderungen an diesen Daten werden entsprechend mit der Webanwendung synchronisiert.  Sie ist ausgelegt f\"ur die Nutzung auf einem geeigneten Endger\"at unter Verwendung von Android 6 oder h\"oher.  Die Weboberfl\"ache hingegen bietet im Webbrowser,  bspw. Chrome oder Firefox, volle Funktionalit\"at zur Darstellung und Erstellung von Diagrammen nach benutzerspezifischen Kriterien, die M\"oglichkeit Nutzer zu registrieren,  Projekt- und Vertragsdaten einzusehen und den Status einzelner Leistungspositionen anzupassen. \\
+ Ein Systemadministrator, vom jeweiligen Bauunternehmen selbst ernannt,  erh\"alt die entsprechenden Rechte  einen Mitarbeiter als Organisations-Administrator auszuw\"ahlen.
+Zugriffsm\"oglichkeiten auf die einzelnen Funktionen von Webanwendung und mobiler Applikation sind entsprechend abh\"angig von der Position oder Benutzerrolle eines Mitarbeiters im konkreten Unternehmen und werden von einem zum Organisations-Administrator beauftragten Mitarbeiter des Unternehmens selbstst\"andig vergeben.  Die Registrierung einzelner Nutzer wird ebenfalls von diesem Mitarbeiter durchgef\"uhrt. 
 
+\newpage
 \section{Entwicklungsumgebung}\label{sec:entwicklungsumgebung}
-\begin{tcolorbox}
-	Oftmals treten neue Entwickler einem Projekt bei oder ein Entwicklungs-Rechner muss ersetzt werden.
-	Daher sollen hier nennenswerte und grundlegende Frameworks, Bibliotheken, Tools und Sprachen notiert werden.
-	Tabelle X stellt eine beispielhafte Umsetzung dar.
-	Eine Unterteilung in Komponenten ist sinnvoll.
-\end{tcolorbox}
 
 \begin{table}[h]
 	\centering
 	\begin{tabularx}{\textwidth}{l l X}
 		\rowcolor[HTML]{C0C0C0} 
 		\textbf{Software} & \textbf{Version} & \textbf{URL} \\
-		Java Development Kit & 8u144 & \url{http://www.oracle.com/technetwork/java/javase/downloads/index.html} \\
+		Java Development Kit & 11.0.11 & \url{https://www.oracle.com/de/java/technologies/javase-jdk11-downloads.html} \\
+		\rowcolor[HTML]{E7E7E7} 
+		Gradle & 7.1.1 & \url{https://gradle.org/releases/} \\
+		Spring Boot & 2.4.2 & \url{https://mvnrepository.com/artifact/org.springframework.boot/spring-boot/2.4.2} \\
+		\rowcolor[HTML]{E7E7E7} 
+			Spring Dependency Management & 1.0.11 & \url{https://plugins.gradle.org/plugin/io.spring.dependency-management} \\
+		Thymeleaf & 2.3.3 & \url{https://www.baeldung.com/thymeleaf-in-spring-mvc} \\
+		Bootstrap & 5.1.0 & \url{https://getbootstrap.com/docs/5.1/getting-started/download/} \\
+		\rowcolor[HTML]{E7E7E7} 
+		Lombok & 1.18.20 & \url{https://search.maven.org/search?q=g:org.projectlombok} \\
+	\end{tabularx}
+	\caption{Enwicklungsumgebung - Web-Oberfl\"ache}
+	\label{table:entwicklungsumgebung}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{l l X}
+		\rowcolor[HTML]{C0C0C0} 
+		\textbf{Software} & \textbf{Version} & \textbf{URL} \\
+		Java Development Kit & 11.0.11 & \url{https://www.oracle.com/de/java/technologies/javase-jdk11-downloads.html} \\
 		\rowcolor[HTML]{E7E7E7} 
 		Software X & Version X & URL X \\
 		Software X & Version X & URL X \\
@@ -32,6 +48,6 @@
 		Software X & Version X & URL X \\
 		Software X & Version X & URL X \\
 	\end{tabularx}
-	\caption{Enwicklungsumgebung}
+	\caption{Enwicklungsumgebung - mobile Applikation}
 	\label{table:entwicklungsumgebung}
 \end{table}
