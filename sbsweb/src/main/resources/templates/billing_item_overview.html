@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+    <title>Leistungspositionen</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <th:block th:fragment="content">
+        <div class="container">
+            <h2>Leistungspositionen</h2>
+            <form th:action="@{/projects}">
+            	<button type="submit">Projekt auswählen</button>
+            </form>
+            <form th:action="@{/billingItemXYZ}">
+            	<button type="submit">Leistungsposition auswählen</button>
+            </form>
+        </div>
+    </th:block>
+</body>
+
+</html>
