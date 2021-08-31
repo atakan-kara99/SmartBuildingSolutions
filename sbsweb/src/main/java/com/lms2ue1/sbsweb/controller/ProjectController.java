@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class Project_Overview {
+public class ProjectController {
 	
     @GetMapping("/projects")
     public String showProjectOverview(Model model) {
