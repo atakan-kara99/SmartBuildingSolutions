@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class OrganisationManagement {
+public class Organisation_Management {
 	
     @GetMapping("/organisation")
     public String showContractOverview(Model model) {

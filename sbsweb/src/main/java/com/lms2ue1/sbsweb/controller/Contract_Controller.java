@@ -5,14 +5,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class ContractController {
+public class Contract_Controller {
 	
     @GetMapping("/contracts")
     public String showContractOverview(Model model) {
         return "contract_overview";
     }
 
-    @GetMapping("/createDiagram")
+    @GetMapping("/create_Diagram")
     public String showCreateDiagram(Model model) {
         return "create_Diagram";
     }
