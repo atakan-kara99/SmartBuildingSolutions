@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="page">
+
+<head>
+	<title>SBS Demo</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" th:href="@{/css/main.css}"/>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0/css/bootstrap.min.css}"/>
+</head>
+
+<body>
+	<th:block th:replace="navbar :: navbar"></th:block>
+	<th:block th:include="this :: content"></th:block>
+</body>
+
+</html>
