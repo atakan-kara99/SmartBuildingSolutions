@@ -2,6 +2,25 @@
 *.bak*
 *.lck
 
+## Gradle Project
+*/HELP.md
+*/.gradle
+*/build/
+*/.apt_generated
+*/.classpath
+*/.factorypath
+*/.project
+*/.settings
+*/.springBeans
+*/.sts4-cache
+*/bin/
+*/.idea
+*/*.iws
+*/*.iml
+*/*.ipr
+*/out/
+*/.vscode/
+
 ##VP
 *.vbak
 *.bak_*
