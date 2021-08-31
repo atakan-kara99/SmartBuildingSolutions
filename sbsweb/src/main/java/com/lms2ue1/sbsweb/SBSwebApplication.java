@@ -4,10 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SbswebApplication {
-
+public class SBSwebApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(SbswebApplication.class, args);
+		SpringApplication.run(SBSwebApplication.class, args);
 	}
-
 }
