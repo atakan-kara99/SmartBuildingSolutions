@@ -10,12 +10,12 @@
 
 \subsection{Web}
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\linewidth]{img/diagrams/Frontend Classes.pdf}
-	\caption{Klassendiagramm - Frontend Web}
-	\label{fig:klassendiagramm-web}
-\end{figure}
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=\linewidth]{img/diagrams/Frontend Classes.pdf}
+%	\caption{Klassendiagramm - Frontend Web}
+%	\label{fig:klassendiagramm-web}
+%\end{figure}
 
 \noindent
 Klassen, deren Name mit ''Controller'' aufhört, verarbeiten HTTP Requests zu bestimmten Pfaden.
@@ -30,17 +30,17 @@ In der folgenden Tabelle werden für Controller unter ''Aufgabe'' die zu verarbe
 		DispatcherServlet & Leitet die HTTP Requests an den jeweils zuständigen Controller weiter \\
 		\rowcolor[HTML]{E7E7E7} 
 		LoginController & /login $\rightarrow$ Login-Seite \\
-		OrganisationManagementController & /organisation_management $\rightarrow$ Seite für das Management von Organisationen und deren OrgAdmins \\
+		OrganisationManagementController & /organisation\_management $\rightarrow$ Seite für das Management von Organisationen und deren OrgAdmins \\
 		\rowcolor[HTML]{E7E7E7} 
-		UserManagementController & /user_management $\rightarrow$ Seite für das Management von WebUsern \\
-		RoleManagementController & /role_management $\rightarrow$ Seite für das Management von Rollen \\
+		UserManagementController & /user\_management $\rightarrow$ Seite für das Management von WebUsern \\
+		RoleManagementController & /role\_management $\rightarrow$ Seite für das Management von Rollen \\
 		\rowcolor[HTML]{E7E7E7} 
 		ContractController & /contracts $\rightarrow$ Diese Seite zeigt Verträge an, für welche der WebUser die nötigen Berechtigungen hat \newline
-		/contract_diagrams $\rightarrow$ Diese Seite zeigt Diagramme zu Verträgen an, für welche der WebUser die nötigen Berechtigungen hat \\
+		/contract\_diagrams $\rightarrow$ Diese Seite zeigt Diagramme zu Verträgen an, für welche der WebUser die nötigen Berechtigungen hat \\
 		ProjectController & /projects $\rightarrow$ Diese Seite zeigt Projekte an, für welche der WebUser die nötigen Berechtigungen hat \\
 		\rowcolor[HTML]{E7E7E7} 
-		BillingItemController & /billing_items $\rightarrow$ Diese Seite zeigt Leistungspositionen an, für welche der WebUser die nötigen Berechtigungen hat \newline
-		/billing_item/\{ID\}/details $\rightarrow$ Diese Seite zeigt Details zu einer Leistungsposition mit gewählter ID an
+		BillingItemController & /billing\_items $\rightarrow$ Diese Seite zeigt Leistungspositionen an, für welche der WebUser die nötigen Berechtigungen hat \newline
+		/billing\_item/\{ID\}/details $\rightarrow$ Diese Seite zeigt Details zu einer Leistungsposition mit gewählter ID an
 	\end{tabularx}
 	\caption{Klassenbeschreibung - Frontend Web}
 	\label{table:klassenbeschreibung-web}
