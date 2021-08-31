@@ -9,14 +9,28 @@
     <link th:href="@{/css/main.css}" rel="stylesheet" />
 </head>
 
+<style>
+    .btn-row {
+        height: 50px
+    }
+</style>
+
 <body>
     <div class="container px-4">
         <div class="text-center">
-            <h2>Benutzerverwaltung</h2>
+            <h1>Benutzerverwaltung</h1>
         </div>
-        <div class="d-grid gap-2 col-6 mx-auto">
-            <button type="button" class="btn btn-success">Benutzer hinzufügen</button>
-            <button type="button" class="btn btn-danger">Ausgewählte benutzer löschen</button>
+    </div>
+    <div class="container">
+        <div class="row btn-row justify-content-center align-items-center">
+            <div class="col-4 text-center">
+                <button type="button" class="btn btn-outline-success">Benutzer hinzufügen</button>
+            </div>
+        </div>
+        <div class="row btn-row justify-content-center align-items-center">
+            <div class="col-4 text-center">
+                <button type="button" class="btn btn-outline-danger">Ausgewählte benutzer löschen</button>
+            </div>
         </div>
     </div>
 
