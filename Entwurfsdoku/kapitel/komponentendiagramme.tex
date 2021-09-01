@@ -28,34 +28,20 @@
 \hline
 \textbf{Komponente} & \textbf{Beschreibung} \\ 
 \hline
-Authentication & Komponente, welche den eigentlichen Vorgang der Authentifizierung verwaltet. \\
+Authenticate & Gibt die Daten nach dem Authentifizierungsvorgang zurück. \\
 \hline
-AppCache & Komponente, welche sich um den Cache der Mobile Application kümmert, u.A. auch die Berechtigungen prüft. \\
+AuthHandling & Verwaltet den Authentifizierungsvorgang.
 \hline
-AppGUIin & Interface, um die geschossenen Fotos in den \textbf{PictureCache} über das Interface \textbf{PicturesIn} aufzunehmen. \\
+Contracts {\&} Projects & Speichert die Vertrags- und Projektdaten aus der REST-API. \\
 \hline
-AppGUIout & Interface, um der App-Oberfläche die Fotos mit den zugehörigen User- und Vertragsdaten zu übergeben. \\
+Data & Das eingehende Interface empfängt die Anfragen für bestimmte Vertrags- und Projektdaten. Das ausgehende Interface gibt, falls passende Berechtigungen bestehen, die angefragten Daten aus.  \\
 \hline
-Contracts {\&} Projects & Komponente (voraussichtlich in Form einer DB), um die Vertrags- und Projektdaten aus der REST-API zu speichern. \\
+Management & Nimmt Daten vom \textbf{OrgAdmin} oder \textbf{SysAdmin} entgegen und übergibt diese über das Interface \textbf{WebIn} intern der \textbf{RoleData} und \textbf{UserDate}.
 \hline
-Contracts {\&} Projects Cache & Komponente (voraussichtlich in Form einer DB), um die übermittelten Vertrags- und Projektdaten vom WebServer für den Offline-Gebrauch zwischen zu speichern.\\
+REST-API & Fragt die Daten von der REST-API ab und übergibt diese über das Interface \textbf{RESTin} den Komponenten \textbf{Contracts {\&} Projects} und \textbf{UserData}. \\
 \hline
-DataIn & Interface, um die benötigten/übermittelten Daten für das geschossene Foto dem \textbf{PictureCache} zu übergeben. \\
+RoleData & Speichert die vom \textbf{OrgAdmin} erstellten Rollen und deren Berechtigungen ab. \\
 \hline
-OrgAdminGUI & Interface, um die übermittelten Daten zur Rollenverwaltung des \textbf{WebServers} vom \textbf{OrgAdmin} entgegenzunehmen und über das Interface \textbf{WebIn} intern der \textbf{RoleData} zu übergeben.
-\hline
-PictureCache & Komponente (voraussichtlich in Form einer DB), um die geschossenen Fotos für die Leitungspunkte zu speichern. \\
-\hline
-REST-API & Interface, um die Daten von der REST-API abzufragen und über die \textbf{RESTin} den DBs \textbf{Contracts {\&} Projects} und \textbf{UserData} zu übergeben. \\
-\hline
-RoleData & Komponente (voraussichtlich in Form einer DB), um die vom \textbf{OrgAdmin} erstellten Rollen und deren Berechtigungen zu speichern. \\
-\hline
-UserData & Komponente (voraussichtlich in Form einer DB), um die Nutzerdaten, so wie Name, Passwort und Rolle, zu speichern. \\
-\hline
-UserCache & Komponente (voraussichtlich in Form einer DB), um die übermittelten Nutzerdaten für den Offline-Gebrauch temporär zu speichern. \\
-\hline
-WebServerIn & Interface, um die Anfrage zur Authentifizierung und Übermittlung der Nutzer- und Vertragsdaten von der App an den \textbf{WebServer} entgegenzunehmen. Die erhaltenen Daten werden dann intern über das Interface \textbf{AuthIn} an die Caches \textbf{Contracts {\&} Projects Cache} übergeben. \\
-\hline
-WebServerOut & Interface, um dem \textbf{WebServer} die Nutzerdaten bei erfolgreicher Authentifizierung zurück zu geben. \\
+UserData & Speichert die Nutzerdaten, so wie Name, Passwort und assoziierte Rolle. \\
 \hline
 \end{longtable}
