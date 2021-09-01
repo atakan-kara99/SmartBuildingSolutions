@@ -1,34 +1,70 @@
+%\begin{tcolorbox}
+%Teilt eure Klassendiagramme bitte auf und baut \textbf{kein} einzelnes riesiges Diagramm.
+%Getter und Setter Methoden müssen hier nicht modelliert werden.
+%Sie sollten aber der klassischen Namenskonvention folgen, um die Nutzung in Sequenzdiagrammen zu ermöglichen.
+%\\\\
+%Auf jedes Diagramm folgt eine Tabelle, in der die Aufgabe \textbf{jeder} Klasse beschrieben wird.
+%\end{tcolorbox}
+
+\section{Frontend}
+
+\subsection{Web}
+
 \begin{figure}[h]
 	\centering
-	\missingfigure{Klassendiagramm}		
-	\caption{Klassendiagramm - A}
-	\label{fig:klassendiagramm-a}
+	\includegraphics[width=\linewidth]{img/diagrams/Frontend Classes.pdf}
+	\caption{Klassendiagramm - Frontend Web}
+	\label{fig:klassendiagramm-web}
 \end{figure}
 
-\begin{table}[h]
-	\centering
-	\begin{tabularx}{\textwidth}{X X}
-		\rowcolor[HTML]{C0C0C0} 
-		\textbf{Klassenname} & \textbf{Aufgabe} \\
-		Klasse A & Aufgabe A \\
-		\rowcolor[HTML]{E7E7E7} 
-		Klasse B & Aufgabe B \\
-		Klasse C & Aufgabe C \\
-		\rowcolor[HTML]{E7E7E7} 
-		Klasse D & Aufgabe D \\
-		Klasse E & Aufgabe E \\
-		\rowcolor[HTML]{E7E7E7} 
-		Klasse F & Aufgabe F \\
-		Klasse G & Aufgabe G
-	\end{tabularx}
-	\caption{Klassenbeschreibung - A}
-	\label{table:klassenbeschreibung-a}
-\end{table}
+\noindent
+Klassen, deren Name mit ''Controller'' aufhört, verarbeiten HTTP Requests zu bestimmten Pfaden.
+Die zu verarbeitenden Pfade sind pro Gebiet in einem jeweiligen Controller gruppiert.
+In der folgenden Tabelle werden für Controller unter ''Aufgabe'' die zu verarbeitenden Pfade sowie die Bedeutung der dazugehörigen Seite aufgeführt.
+Die Identifikationsnummern oID (Organisation), diaID (Diagramm), pID (Projekt), cID (Vertrag) und bID (Leistungsposition) sind in manche Pfade direkt integriert. \\
 
-\begin{tcolorbox}
-Teilt eure Klassendiagramme bitte auf und baut \textbf{kein} einzelnes riesiges Diagramm.
-Getter und Setter Methoden müssen hier nicht modelliert werden.
-Sie sollten aber der klassischen Namenskonvention folgen, um die Nutzung in Sequenzdiagrammen zu ermöglichen.
-\\\\
-Auf jedes Diagramm folgt eine Tabelle, in der die Aufgabe \textbf{jeder} Klasse beschrieben wird.
-\end{tcolorbox}
+\centering
+\begin{longtable}[h]{p{5.3cm} p{8.7cm}}
+	\caption{Klassenbeschreibung - Frontend Web}
+	\label{table:klassenbeschreibung-web}
+	\endlastfoot
+	\multicolumn{2}{r}{{Weitergeführt auf der folgenden Seite}} \\
+	\endfoot
+	\endhead
+	\rowcolor[HTML]{C0C0C0} 
+	\textbf{Klassenname} & \textbf{Aufgabe} \\
+    
+	DispatcherServlet & Teil des Spring Frameworks, leitet die HTTP Requests an den jeweils zuständigen Controller weiter \\
+	
+	\rowcolor[HTML]{E7E7E7} 
+	LoginController & /login $\rightarrow$ Login-Seite \\
+	
+	OrganisationManagementController & /organisation\_overview $\rightarrow$ Management von Organisationen und deren OrgAdmins \\
+	
+	\rowcolor[HTML]{E7E7E7} 
+	UserManagementController & /user\_overview $\rightarrow$ Management aller WebUser \newline\newline
+	/organisation/\{oID\}/user\_overview $\rightarrow$ Management der WebUser einer Organisation \newline\newline
+	/organisation/\{oID\}/add\_user $\rightarrow$ Hinzufügen eines WebUsers zu einer Organisation \newline\newline
+	/role\_overview $\rightarrow$ Management aller Rollen \newline
+	/organisation/\{oID\}/role\_overview $\rightarrow$ Management der Rollen einer Organisation \newline\newline
+	/organisation/\{oID\}/add\_role $\rightarrow$ Hinzufügen einer Rolle zu einer Organisation \\
+	
+	ProjectController & /project\_overview $\rightarrow$ Zeigt alle Projekte an, für welche der WebUser die nötigen Berechtigungen hat \newline\newline
+	/project/\{pID\}/show $\rightarrow$ Zeigt die Verträge des Projekts an, für welche der WebUser die nötigen Berechtigungen hat \\
+	
+	\rowcolor[HTML]{E7E7E7} 
+	ContractController & /contract\_overview $\rightarrow$ Zeigt alle Verträge an, für welche der WebUser die nötigen Berechtigungen hat \newline\newline
+	/project/\{pID\}/contract/\{cID\}/show $\rightarrow$ Zeigt die Leistungspositionen des Vertrags an, für welche der WebUser die nötigen Berechtigungen hat \newline\newline
+	/diagram\_overview $\rightarrow$ Zeigt alle Diagramme an, für welche der WebUser die nötigen Berechtigungen hat \newline\newline
+	/project/\{pID\}/contract/\{cID\}/create\_diagram $\rightarrow$ Erstellen eines Diagramms \newline\newline
+	/project/\{pID\}/contract/\{cID\}/diagram/\{diaID\}/show $\rightarrow$ Zeigt das Diagramm im Detail an \\
+	
+	BillingItemController & /billing\_item\_overwiew $\rightarrow$ Zeigt alle Leistungspositionen an, für welche der WebUser die nötigen Berechtigungen hat \newline\newline
+	/project/\{pID\}/contract/\{cID\}/billing\_item/\{bID\}/show $\rightarrow$ Zeigt Details zur Leistungsposition an
+\end{longtable}
+
+\clearpage
+
+\subsection{App}
+
+\section{Backend}
