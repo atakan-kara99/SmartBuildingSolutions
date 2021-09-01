@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
 
 <head>
     <title>Nutzerverwaltung</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <link th:href="@{/css/main.css}" href="../static/css/main.css" rel="stylesheet" />
 </head>
 
 <body>
-    <div class="container">
-        <div class="text-center">
-            <h1>Benutzerrollen verwalten</h1>
+    <th:block th:fragment="content">
+        <div class="container">
+            <div class="text-center">
+                <h1>Benutzerrollen verwalten</h1>
+            </div>
         </div>
-    </div>
+    </th:block>
 </body>
 
 </html>

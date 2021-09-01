@@ -1,68 +1,66 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
 
 <head>
     <title>Nutzerverwaltung</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <link th:href="@{/css/main.css}" href="../static/css/main.css" rel="stylesheet" />
 </head>
 
 <body>
-    <div class="container">
-        <div class="text-center">
-            <h1>Benutzer hinzufügen</h1>
-            <div class="padding-50"></div>
-            <form action="#" th:action="@{'/user_management/user_save'}" th:object="${user}" method="post">
-                <div class="row justify-content-center">
-                    <div class="col-3">
-                        <div class="form-group">
-                            <label for="surname"> Vorname </label>
-                            <input type="text" class="form-control" id="surname" th:field="*{surname}" th:errorclass="is-invalid" />
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="form-group">
-                            <label for="lastname"> Nachname </label>
-                            <input type="text" class="form-control" id="lastname" th:field="*{lastname}" th:errorclass="is-invalid" />
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-3">
-                        <div class="form-group">
-                            <label for="organization"> Organisation </label>
-                            <input type="text" class="form-control" id="organization" th:field="*{organization}" th:errorclass="is-invalid" />
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="form-group">
-                            <label for="role"> Rolle </label>
-                            <input type="text" class="form-control" id="role" th:field="*{role}" th:errorclass="is-invalid" />
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-3">
-                        <div class="form-group">
-                            <label for="username"> Benutzername </label>
-                            <input type="text" class="form-control" id="username" th:field="*{username}" th:errorclass="is-invalid" />
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="form-group">
-                            <label for="password"> Passwort </label>
-                            <input type="password" class="form-control" id="password"/>
-                        </div>
-                    </div>
-                </div>
+    <th:block th:fragment="content">
+        <div class="container">
+            <div class="text-center">
+                <h1>Benutzer hinzufügen</h1>
                 <div class="padding-50"></div>
-                <button type="submit" class="btn btn-success"> Benutzer hinzufügen </button>
-            </form>
+                <form action="#" th:action="@{'/user_management/user_save'}" th:object="${user}" method="post">
+                    <div class="row justify-content-center">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="surname"> Vorname </label>
+                                <input type="text" class="form-control" id="surname" th:field="*{surname}" th:errorclass="is-invalid" />
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="lastname"> Nachname </label>
+                                <input type="text" class="form-control" id="lastname" th:field="*{lastname}" th:errorclass="is-invalid" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="organization"> Organisation </label>
+                                <input type="text" class="form-control" id="organization" th:field="*{organization}" th:errorclass="is-invalid" />
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="role"> Rolle </label>
+                                <input type="text" class="form-control" id="role" th:field="*{role}" th:errorclass="is-invalid" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="username"> Benutzername </label>
+                                <input type="text" class="form-control" id="username" th:field="*{username}" th:errorclass="is-invalid" />
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="password"> Passwort </label>
+                                <input type="password" class="form-control" id="password" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="padding-50"></div>
+                    <button type="submit" class="btn btn-success"> Benutzer hinzufügen </button>
+                </form>
+            </div>
         </div>
-    </div>
+    </th:block>
 </body>
 
 </html>
