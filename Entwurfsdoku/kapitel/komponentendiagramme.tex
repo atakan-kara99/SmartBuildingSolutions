@@ -27,27 +27,23 @@
 \hline
 Authentication & Komponente, welche den eigentlichen Vorgang der Authentifizierung verwaltet. \\
 \hline
-AuthIn & Interface, um die Response der Authentifizierung intern in die verschiedenen Caches aufzuteilen. \\
+AuthIn & Interface, um die Response der Authentifizierung intern in die verschiedenen Caches, \textbf{Contracts {\&} Projects Cache} und \textbf{UserCache}, aufzuteilen. \\
 \hline
 AppCache & Komponente, welche sich um den Cache der Mobile Application kümmert, u.A. auch die Berechtigungen prüft. \\
 \hline
-AppGUIin & Following \\
+AppGUIin & Interface, um die geschossenen Fotos in den \textbf{PictureCache} über das Interface \textbf{PicturesIn} aufzunehmen. \\
 \hline
-AppGUIout & Following \\
+AppGUIout & Interface, um der App-Oberfläche die Fotos mit den zugehörigen User- und Vertragsdaten zu übergeben. \\
 \hline
-Contracts {\&} Projects & Following \\
+Contracts {\&} Projects & Komponente (voraussichtlich in Form einer DB), um die Vertrags- und Projektdaten aus der REST-API zu speichern. \\
 \hline
-Contracts {\&} Projects Cache & Following \\
+Contracts {\&} Projects Cache & Komponente (voraussichtlich in Form einer DB), um die übermittelten Vertrags- und Projektdaten vom WebServer für den Offline-Gebrauch zwischen zu speichern.\\
 \hline
-DataIn & Following \\
+DataIn & Interface, um die benötigten/übermittelten Daten für das geschossene Foto dem \textbf{PictureCache} zu übergeben. \\
 \hline
-PictureCache & Following \\
+PictureCache & Komponente (voraussichtlich in Form einer DB), um die geschossenen Fotos für die Leitungspunkte zu speichern. \\
 \hline
-PicturesIn & Following \\
-\hline
-PicturesOut & Following \\
-\hline
-REST-API & Following \\
+REST-API & Interface, um die Daten von der REST-API abzufragen und über die \textbf{RESTin} den DBs \textbf{Contracts {\&} Projects} und \textbf{UserData} zu übergeben. \\
 \hline
 RESTin & Following \\
 \hline
