@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+    <title>Nutzerverwaltung</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <th:block th:fragment="content">
+        <div class="container">
+            <h2>Projekte</h2>
+            <form th:action="@{/billing_Items_Overview}">
+            	<button type="submit">Projekt ausgewählt</button>
+            </form>
+        </div>
+    </th:block>
+</body>
+
+</html>

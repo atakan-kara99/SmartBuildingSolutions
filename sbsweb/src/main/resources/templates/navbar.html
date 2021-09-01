@@ -10,7 +10,10 @@
 	<nav class="navbar navbar-expand-lg navbar-light" th:fragment="navbar">
 		<div class="navbar-nav">
 			<th:block sec:authorize="isAuthenticated()">
+			<a class="nav-item nav-link" th:href="@{/contracts}">Vertragsdaten</a>
+			<a class="nav-item nav-link" th:href="@{/projects}">Projekte</a>
 			<a class="nav-item nav-link" th:href="@{/userManagement}">Nutzerverwaltung</a>
+			<a class="nav-item nav-link" th:href="@{/organisation}">Organisation</a>
 			<!-- Logout must be performed as a POST request, i. e., via a form button.
 			     For visual consistency, we use a hidden form submitted by a link here. -->
 			<a class="nav-item nav-link" href="javascript:document.logoutForm.submit()">Logout</a>
