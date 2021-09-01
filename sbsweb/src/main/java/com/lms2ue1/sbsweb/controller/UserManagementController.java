@@ -54,9 +54,21 @@ public class UserManagementController {
         return "redirect:/user_management";
     }
 
-    @PostMapping("/user_management/user/{uid}/edit")
-    public String editUserById(@PathVariable Long uid, Model model) {
-        model.addAttribute("user", userRepository.findById(uid));
+    @GetMapping("/user_management/user/{uid}/edit")
+    public String showUserById(@PathVariable Long uid, Model model) {
+        model.addAttribute("user", userRepository.findById(uid).get());
         return "user_edit";
+    }
+
+    @PostMapping("/user_management/user/{uid}/edit")
+    public String editUserById(@PathVariable Long uid, @Valid User user, BindingResult bindingResult, Model model) {
+        //More checks needed
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("user", user);
+            return "user_edit";
+        }
+        user.setId(uid);
+        userRepository.save(user);
+        return "redirect:/user_management";
     }
 }
