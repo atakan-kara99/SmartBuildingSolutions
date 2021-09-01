@@ -43,7 +43,7 @@
                             <td colspan="3"> Keine Benutzer verfügbar. Nutzerrechte nicht ausreichend </td>
                         </tr>
                         <tr th:each="user : ${users}">
-                            <td class="text-center"><span th:text="${user?.name}"> Benutzername </span></td>
+                            <td class="text-center"><span th:text="${user?.username}"> Benutzername </span></td>
                             <td class="text-center"><span th:text="${user?.role}"> Rolle </span></td>
                             <td class="text-center">
                                 <span>
@@ -73,7 +73,7 @@
     <div class="container">
         <div class="row btn-row justify-content-center align-items-center">
             <div class="col-4 text-center">
-                <a th:href="@{/user_management/new}">
+                <a th:href="@{/user_management/user_new}">
                     <button type="button" class="btn btn-outline-success">Benutzer hinzufügen</button>
                 </a>
             </div>
