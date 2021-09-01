@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class OrganisationManagementController {
-	
-    @GetMapping("/organisation")
-    public String showContractOverview(Model model) {
-        return "organisation_management";
+
+    /** Shows an overview of all organisations. */
+    @GetMapping("/organisation_overview")
+    public String showOrganisationOverview(Model model) {
+	// TODO sysadmin
+	return "organisation_overview";
     }
 }
