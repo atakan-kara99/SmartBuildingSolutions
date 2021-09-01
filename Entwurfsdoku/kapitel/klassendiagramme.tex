@@ -1,34 +1,48 @@
+\section{App}
+
 \begin{figure}[h]
 	\centering
-	\missingfigure{Klassendiagramm}		
-	\caption{Klassendiagramm - A}
+	\includegraphics[width=16cm]{img/diagrams/Classdiagram-App.pdf}
+	\caption{Klassendiagramm - App}
 	\label{fig:klassendiagramm-a}
 \end{figure}
+
+\clearpage
 
 \begin{table}[h]
 	\centering
 	\begin{tabularx}{\textwidth}{X X}
 		\rowcolor[HTML]{C0C0C0} 
 		\textbf{Klassenname} & \textbf{Aufgabe} \\
-		Klasse A & Aufgabe A \\
+		Project & Bauplan eines Projektes mit den jeweiligen Attributen.\\
 		\rowcolor[HTML]{E7E7E7} 
-		Klasse B & Aufgabe B \\
-		Klasse C & Aufgabe C \\
+		Contract & Bauplan eines Vertrages mit den jeweiligen Attributen. \\
+		BillingItem & Bauplan einer Leistungsposition mit den jeweiligen Attributen. \\
 		\rowcolor[HTML]{E7E7E7} 
-		Klasse D & Aufgabe D \\
-		Klasse E & Aufgabe E \\
+		ConstructionProgress & Bauplan einer Baufortschritts-Klasse mit den jeweiligen Attributen. \\
+		LoginActivity & Verwaltung des Login-Bildschirms. \\
 		\rowcolor[HTML]{E7E7E7} 
-		Klasse F & Aufgabe F \\
-		Klasse G & Aufgabe G
+		ProjectActivity & Verwaltung des Projekt-Bildschirms. \\
+		ContractActivity & Verwaltung des Vertags-Bildschirms. \\
+		\rowcolor[HTML]{E7E7E7} 
+		BillingItem & Verwaltung des Leistungspositions-Bildschirms. \\
+		ConstructionProgressActivity & Verwaltung des Baufortschritts-Bildschirms. \\
+		\rowcolor[HTML]{E7E7E7} 
+		Networking & Verwaltung der Netzwerkanfragen aller Klassen. \\
+		ProjectDao & Datenzugriffsobjekt mit Anfragen zur Interaktion mit der Projektdatenbank. \\
+		\rowcolor[HTML]{E7E7E7} 
+		ProjectDatabase & Room-Datenbank für Projekte. \\
+		ContractDao & Datenzugriffsobjekt mit Anfragen zur Interaktion mit der Vertragsdatenbank. \\
+		\rowcolor[HTML]{E7E7E7} 
+		ContractDatabase & Room-Datenbank für Verträge. \\
+		BillingItemDao & Datenzugriffsobjekt mit Anfragen zur Interaktion mit der Leistungspositionsdatenbank. \\
+		\rowcolor[HTML]{E7E7E7} 
+		BillingItemDatabase & Room-Datenbank für Leistungspositionen. \\
+		ConstructionProgressDao & Datenzugriffsobjekt mit Anfragen zur Interaktion mit der Baufortschritsdatenbank. \\
+		\rowcolor[HTML]{E7E7E7} 
+		ConstructionProgressDatabase & Room-Datenbank für den Baufortschritt. \\
+		Status & Enumeration des Typs Status.
 	\end{tabularx}
-	\caption{Klassenbeschreibung - A}
+	\caption{Klassenbeschreibung - App}
 	\label{table:klassenbeschreibung-a}
 \end{table}
-
-\begin{tcolorbox}
-Teilt eure Klassendiagramme bitte auf und baut \textbf{kein} einzelnes riesiges Diagramm.
-Getter und Setter Methoden müssen hier nicht modelliert werden.
-Sie sollten aber der klassischen Namenskonvention folgen, um die Nutzung in Sequenzdiagrammen zu ermöglichen.
-\\\\
-Auf jedes Diagramm folgt eine Tabelle, in der die Aufgabe \textbf{jeder} Klasse beschrieben wird.
-\end{tcolorbox}
