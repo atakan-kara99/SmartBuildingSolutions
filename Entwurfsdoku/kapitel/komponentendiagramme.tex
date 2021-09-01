@@ -27,8 +27,6 @@
 \hline
 Authentication & Komponente, welche den eigentlichen Vorgang der Authentifizierung verwaltet. \\
 \hline
-AuthIn & Interface, um die Response der Authentifizierung intern in die verschiedenen Caches, \textbf{Contracts {\&} Projects Cache} und \textbf{UserCache}, aufzuteilen. \\
-\hline
 AppCache & Komponente, welche sich um den Cache der Mobile Application kümmert, u.A. auch die Berechtigungen prüft. \\
 \hline
 AppGUIin & Interface, um die geschossenen Fotos in den \textbf{PictureCache} über das Interface \textbf{PicturesIn} aufzunehmen. \\
@@ -41,24 +39,20 @@ Contracts {\&} Projects Cache & Komponente (voraussichtlich in Form einer DB), u
 \hline
 DataIn & Interface, um die benötigten/übermittelten Daten für das geschossene Foto dem \textbf{PictureCache} zu übergeben. \\
 \hline
+OrgAdminGUI & Interface, um die übermittelten Daten zur Rollenverwaltung des \textbf{WebServers} vom \textbf{OrgAdmin} entgegenzunehmen und über das Interface \textbf{WebIn} intern der \textbf{RoleData} zu übergeben.
+\hline
 PictureCache & Komponente (voraussichtlich in Form einer DB), um die geschossenen Fotos für die Leitungspunkte zu speichern. \\
 \hline
 REST-API & Interface, um die Daten von der REST-API abzufragen und über die \textbf{RESTin} den DBs \textbf{Contracts {\&} Projects} und \textbf{UserData} zu übergeben. \\
 \hline
-RESTin & Following \\
+RoleData & Komponente (voraussichtlich in Form einer DB), um die vom \textbf{OrgAdmin} erstellten Rollen und deren Berechtigungen zu speichern. \\
 \hline
-RoleData & Following \\
+UserData & Komponente (voraussichtlich in Form einer DB), um die Nutzerdaten, so wie Name, Passwort und Rolle, zu speichern. \\
 \hline
-UserData & Following \\
+UserCache & Komponente (voraussichtlich in Form einer DB), um die übermittelten Nutzerdaten für den Offline-Gebrauch temporär zu speichern. \\
 \hline
-UserCache & Following \\
+WebServerIn & Interface, um die Anfrage zur Authentifizierung und Übermittlung der Nutzer- und Vertragsdaten von der App an den \textbf{WebServer} entgegenzunehmen. Die erhaltenen Daten werden dann intern über das Interface \textbf{AuthIn} an die Caches \textbf{Contracts {\&} Projects Cache} übergeben. \\
 \hline
-WebAppOut & Following \\
-\hline
-WebIn & Following \\
-\hline
-WebServerIn & Following \\
-\hline
-WebServerOut & Following \\
+WebServerOut & Interface, um dem \textbf{WebServer} die Nutzerdaten bei erfolgreicher Authentifizierung zurück zu geben. \\
 \hline
 \end{longtable}
