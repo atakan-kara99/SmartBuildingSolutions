@@ -4,16 +4,83 @@
 <head>
     <title>Nutzerverwaltung</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link th:href="@{/css/main.css}" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link th:href="@{/css/main.css}" href="../static/css/main.css" rel="stylesheet" />
 </head>
 
 <body>
-    <th:block th:fragment="content">
-        <div class="container">
-            <h2>Nutzerverwaltung</h2>
-            <p th:text="${message}">Test</p>
+    <div class="container">
+        <div class="text-center">
+            <h1>Benutzerverwaltung</h1>
         </div>
-    </th:block>
+    </div>
+    <div class="padding-50"></div>
+    <div class="container">
+        <div class="row btn-row justify-content-end align-items-center">
+            <div class="col-4 text-center">
+                <a th:href="@{/role_management}">
+                    <button type="button" class="btn btn-outline-success">Rollen verwalten</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="padding-50"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 45%" scope="col"> Benutzername </th>
+                            <th class="text-center" style="width: 45%" scope="col"> Rolle </th>
+                            <th class="text-center" style="width: 10%" scope="col"> Optionen </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${users.empty}" class="text-center">
+                            <td colspan="3"> Keine Benutzer verfügbar. Nutzerrechte nicht ausreichend </td>
+                        </tr>
+                        <tr th:each="user : ${users}">
+                            <td class="text-center"><span th:text="${user?.username}"> Benutzername </span></td>
+                            <td class="text-center"><span th:text="${user?.role}"> Rolle </span></td>
+                            <td class="text-center">
+                                <span>
+                                    <div class="row justify-content-center">
+                                        <div class="col-6">
+                                            <a th:href="@{'/user_management/user/' + ${user?.id} + '/edit'}" class="icon-link">
+                                                <i class="bi bi-pencil" style="font-size: medium; color: black;"
+                                                    title="Edit"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-6">
+                                            <a th:href="@{'/user_management/user/' + ${user?.id} + '/delete'}" class="icon-link">
+                                                <i class="bi bi-trash" style="font-size: medium; color: rgb(255, 60, 60);"
+                                                    title="Delete"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="padding-50"></div>
+    <div class="container">
+        <div class="row btn-row justify-content-center align-items-center">
+            <div class="col-4 text-center">
+                <a th:href="@{/user_management/user_new}">
+                    <button type="button" class="btn btn-outline-success">Benutzer hinzufügen</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="footer :: footer"></th:block>
+
 </body>
 
 </html>
