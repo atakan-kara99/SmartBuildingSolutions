@@ -11,6 +11,12 @@ assemble:
     - web-dev
     - main
     - web
+  
+  cache:
+    key: "$CI_JOB_NAME"
+    paths:
+      - .gradle/wrapper/
+      - .gradle/caches/
      
   script:
     - cd sbsweb
