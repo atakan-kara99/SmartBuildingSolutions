@@ -10,9 +10,9 @@ import javax.validation.constraints.NotEmpty;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
 
-    private Long organisationId;
+    private long organisationId;
 
     @NotEmpty
     private String surname;
@@ -32,7 +32,7 @@ public class User {
     public User() {
     }
 
-    public User(Long organisationId, String surname, String lastname, String organization, String role, String username) {
+    public User(long organisationId, String surname, String lastname, String organization, String role, String username) {
         this.organisationId = organisationId;
         this.surname = surname;
         this.lastname = lastname;
@@ -41,11 +41,11 @@ public class User {
         this.username = username;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public Long getOrganisationId() {
+    public long getOrganisationId() {
         return id;
     }
 
@@ -69,11 +69,11 @@ public class User {
         return username;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public void setOrganisationI(Long organisationId) {
+    public void setOrganisationId(long organisationId) {
         this.organisationId = organisationId;
     }
 
