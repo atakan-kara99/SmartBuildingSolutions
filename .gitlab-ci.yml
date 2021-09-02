@@ -1,3 +1,11 @@
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+
+cache:
+    paths:
+      - .gradle/wrapper/
+      - .gradle/caches/
+
 stages:
   - assemble
   - test
@@ -11,12 +19,6 @@ assemble:
     - web-dev
     - main
     - web
-  
-  cache:
-    key: "$CI_JOB_NAME"
-    paths:
-      - sbsweb/.gradle/wrapper/
-      - sbsweb/.gradle/caches/
      
   script:
     - cd sbsweb
