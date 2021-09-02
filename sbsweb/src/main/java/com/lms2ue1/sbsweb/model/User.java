@@ -73,7 +73,7 @@ public class User {
         this.id = id;
     }
 
-    public void setOrganisationI(Long organisationId) {
+    public void setOrganisationId(Long organisationId) {
         this.organisationId = organisationId;
     }
 
