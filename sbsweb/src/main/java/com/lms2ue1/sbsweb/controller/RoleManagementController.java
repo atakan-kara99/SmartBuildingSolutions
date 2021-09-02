@@ -22,9 +22,9 @@ public class RoleManagementController {
     @Autowired
     RoleRepository roleRepository;
 
-    /** Shows an overview of <b> ALL </b> organisations' users. */
+    /** Shows an overview of <b> ALL </b> organisations' roles. */
     @GetMapping("/organisation/{oID}/role_management")
-    public String showUserList(@PathVariable Long oID, Model model) {
+    public String showUserList(@PathVariable long oID, Model model) {
         // Should be mostly part of backend
         List<Role> availableRoles = new ArrayList<Role>();
         Iterator<Role> iter = roleRepository.findAll().iterator();
@@ -38,49 +38,49 @@ public class RoleManagementController {
         return "role_management";
     }
 
-    /** Shows the page to add a new user to an organisation. */
-    @GetMapping("/organisation/{oID}/user_management/user_new")
-    public String showNewUserForm(@PathVariable Long oID, Model model) {
-        model.addAttribute("user", new User());
-        return "user_new";
+    /** Shows the page to add a new role to an organisation. */
+    @GetMapping("/organisation/{oID}/user_management/role_new")
+    public String showNewRoleForm(@PathVariable long oID, Model model) {
+        model.addAttribute("role", new Role());
+        return "role_new";
     }
 
-    /** Will save the new user if no problems were encountered. Will also redirect to user management. */
-    @PostMapping("/organisation/{oID}/user_management/user_save")
-    public String addNewUser(@PathVariable Long oID, @Valid User user, BindingResult bindingResult, Model model) {
+    /** Will save the new role if no problems were encountered. Will also redirect to role management. */
+    @PostMapping("/organisation/{oID}/user_management/role_save")
+    public String addNewRole(@PathVariable long oID, @Valid Role role, BindingResult bindingResult, Model model) {
         //More checks needed
         if(bindingResult.hasErrors()) {
-            model.addAttribute("user", user);
-            return "user_new";
+            model.addAttribute("role", role);
+            return "role_new";
         }
-        userRepository.save(user);
-        return "redirect:/organisation/{oID}/user_management";
+        roleRepository.save(role);
+        return "redirect:/organisation/{oID}/role_management";
     }
 
-    /** Deletes the specified user and redirects to user management. */
-    @GetMapping("/organisation/{oID}/user_management/user/{uID}/delete")
-    public String deleteUserById(@PathVariable Long oID, @PathVariable Long uID) {
-        userRepository.deleteById(uID);
-        return "redirect:/organisation/{oID}/user_management";
+    /** Deletes the specified role and redirects to role management. */
+    @GetMapping("/organisation/{oID}/user_management/role/{rID}/delete")
+    public String deleteRoleById(@PathVariable long oID, @PathVariable long rID) {
+        roleRepository.deleteById(rID);
+        return "redirect:/organisation/{oID}/role_management";
     }
 
-    /** Shows the user edit page */
-    @GetMapping("/organisation/{oID}/user_management/user/{uID}/user_edit")
-    public String showUserById(@PathVariable Long oID, @PathVariable Long uID, Model model) {
-        model.addAttribute("user", userRepository.findById(uID).get());
+    /** Shows the role edit page */
+    @GetMapping("/organisation/{oID}/user_management/role/{rID}/role_edit")
+    public String showRoleEditFormById(@PathVariable long oID, @PathVariable long rID, Model model) {
+        model.addAttribute("user", roleRepository.findById(rID).get());
         return "user_edit";
     }
 
-    /** Updates the user with the new data that was specified. Will redirect to user management if everything went well. */
-    @PostMapping("/organisation/{oID}/user_management/user/{uID}/user_update")
-    public String editUserById(@PathVariable Long oID, @PathVariable Long uID, @Valid User user, BindingResult bindingResult, Model model) {
+    /** Updates the role with the new data that was specified. Will redirect to role management if everything went well. */
+    @PostMapping("/organisation/{oID}/user_management/role/{rID}/role_update")
+    public String editRoleById(@PathVariable long oID, @PathVariable long rID, @Valid Role role, BindingResult bindingResult, Model model) {
         //More checks needed
         if(bindingResult.hasErrors()) {
-            model.addAttribute("user", user);
-            return "user_edit";
+            model.addAttribute("role", role);
+            return "role_edit";
         }
-        user.setId(uID);
-        userRepository.save(user);
-        return "redirect:/organisation/{oID}/user_management";
+        role.setId(rID);
+        roleRepository.save(role);
+        return "redirect:/organisation/{oID}/role_management";
     }
 }
