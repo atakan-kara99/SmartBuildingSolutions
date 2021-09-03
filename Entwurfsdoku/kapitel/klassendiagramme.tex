@@ -6,9 +6,8 @@
 %Auf jedes Diagramm folgt eine Tabelle, in der die Aufgabe \textbf{jeder} Klasse beschrieben wird.
 %\end{tcolorbox}
 
-\section{Frontend}
 
-\subsection{Web}
+\section{Web}
 
 \begin{figure}[h]
 	\centering
@@ -65,12 +64,12 @@ Die Identifikationsnummern oID (Organisation), diaID (Diagramm), pID (Projekt), 
 
 \clearpage
 
-\subsection{App}
 
 \section{Backend}
 
 \begin{figure}[h]
 	\centering
+<<<<<<< HEAD
 	\includegraphics[width=\linewidth]{img/diagrams/class-diagram-backend.pdf}
 	\caption{Klassendiagramm - Backend}
 	\label{fig:klassendiagramm-backend}
@@ -114,3 +113,53 @@ Da SysAdmin und OrgAdmin überall einsehen können, assoziiert somit jede Klasse
 
 
 \clearpage
+=======
+	\includegraphics[width=16cm]{img/diagrams/Classdiagram-App.pdf}
+	\caption{Klassendiagramm - App}
+	\label{fig:klassendiagramm-a}
+\end{figure}
+
+\clearpage
+
+\section{App}
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{X X}
+		\rowcolor[HTML]{C0C0C0} 
+		\textbf{Klassenname} & \textbf{Aufgabe} \\
+		Project & Bauplan eines Projektes mit den jeweiligen Attributen.\\
+		\rowcolor[HTML]{E7E7E7} 
+		Contract & Bauplan eines Vertrages mit den jeweiligen Attributen. \\
+		BillingItem & Bauplan einer Leistungsposition mit den jeweiligen Attributen. \\
+		\rowcolor[HTML]{E7E7E7} 
+		ConstructionProgress & Bauplan einer Baufortschritts-Klasse mit den jeweiligen Attributen. \\
+		LoginActivity & Verwaltung des Login-Bildschirms. \\
+		\rowcolor[HTML]{E7E7E7} 
+		ProjectActivity & Verwaltung des Projekt-Bildschirms. \\
+		ContractActivity & Verwaltung des Vertags-Bildschirms. \\
+		\rowcolor[HTML]{E7E7E7} 
+		BillingItem & Verwaltung des Leistungspositions-Bildschirms. \\
+		ConstructionProgressActivity & Verwaltung des Baufortschritts-Bildschirms. \\
+		\rowcolor[HTML]{E7E7E7} 
+		RequestHandler & Verwaltung der Netzwerkanfragen aller Klassen. \\
+		ProjectDao & Datenzugriffsobjekt mit Anfragen zur Interaktion mit der Projektdatenbank. \\
+		\rowcolor[HTML]{E7E7E7} 
+		ProjectDatabase & Room-Datenbank für Projekte. \\
+		ContractDao & Datenzugriffsobjekt mit Anfragen zur Interaktion mit der Vertragsdatenbank. \\
+		\rowcolor[HTML]{E7E7E7} 
+		ContractDatabase & Room-Datenbank für Verträge. \\
+		BillingItemDao & Datenzugriffsobjekt mit Anfragen zur Interaktion mit der Leistungspositionsdatenbank. \\
+		\rowcolor[HTML]{E7E7E7} 
+		BillingItemDatabase & Room-Datenbank für Leistungspositionen. \\
+		ConstructionProgressDao & Datenzugriffsobjekt mit Anfragen zur Interaktion mit der Baufortschritsdatenbank. \\
+		\rowcolor[HTML]{E7E7E7} 
+		ConstructionProgressDatabase & Room-Datenbank für den Baufortschritt. \\
+		Status & Enumeration des Typs Status.
+	\end{tabularx}
+	\caption{Klassenbeschreibung - App}
+	\label{table:klassenbeschreibung-a}
+\end{table}
+
+\clearpage
+>>>>>>> entwurfsdoku
