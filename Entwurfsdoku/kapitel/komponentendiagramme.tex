@@ -59,6 +59,53 @@
 	\label{fig:komponentendiagramm-webserver}
 \end{figure}
 
+\begin{longtable}[h]{|p{2.5cm}|p{10.0cm}|}
+	\caption{Tabelle - Komponentendiagramm-WebServer}
+	\centering
+	\label{tab:table_comp_webserver}
+	\endlastfoot
+	\hline \multicolumn{2}{|r|}{{Weitergeführt auf der folgenden Seite}} \\ \hline
+	\endfoot
+	\endhead
+	\hline
+	\textbf{Komponente} & \textbf{Beschreibung} \\ 
+	\hline
+	GUI OrgAdmin & Eingehende Daten und graphische Nutzeroberfläche des \textbf{OrgAdmin}. Dieser muss eingeloggt sein. \\
+	\hline
+	GUI SysAdmin & Eingehende Daten und graphische Nutzeroberfläche des \textbf{SysAdmin}. Dieser muss eingeloggt sein. \\
+	\hline
+	GUI WebUser & Eingehende Daten und graphische Nutzeroberfläche des \textbf{WebUser}. Dieser muss eingeloggt sein. \\
+	\hline
+	Authentication & Schnittstelle zur Weiterleitung der Authentifizierungsanfrage des \textbf{AppUser} zum \textbf{Backend}. \\
+	\hline
+	APP-API for data & Schnittstelle zur Datenübermittlung zur \textbf{App}. \\
+	\hline
+	Data request & Erhalt der Anfragen zur Datenübermittlung von der \textbf{App}. \\
+	\hline
+	Construction progress data & Eingang der Daten zum Baufortschritt, wie Fotos und deren Beschreibungen. \\
+	\hline
+	Data & Ein- und Ausgang von Projekt-, Vertrags-, und Kontodaten zum und vom \textbf{Backend}. \\
+	\hline
+	Construction progress & Modul zur Speicherung von Baufortschrittsdaten. \\
+	\hline
+	Android application module & Modul zur Verwaltung der \textbf{App}. Dieser leitet Authentifizierungs- und Datenanfragen weiter. \\
+	\hline
+	Project {\&} contract data module & Modul zur Speicherung, Verwaltung und Weiterleitung von Projekt- und Vertragsdaten. \\
+	\hline
+	WebUser & Vereinigt die Interaktionsmöglichkeiten des \textbf{AppUser} in einem zentralen Modul. \\
+	\hline
+	SysAdmin & Vereinigt die Interaktionsmöglichkeiten des \textbf{SysAdmin} in einem zentralen Modul. \\
+	\hline
+	OrgAdmin & Vereinigt die Interaktionsmöglichkeiten des \textbf{OrgAdmin} in einem zentralen Modul. \\
+	\hline
+	Diagram management module & Modul zur Verwaltung und Anzeige von Diagrammen zu Projekten und Verträgen. \\
+	\hline
+	Account management & Modul zur Verwaltung von \textbf{OrgAdmins}, \textbf{WebUser} und Rollen von diesen. \\
+	\hline
+\end{longtable}
+
+\clearpage
+
 \section{App}
 
 \begin{figure}[H]
@@ -67,3 +114,34 @@
 	\caption{Komponentendiagramm - App}
 	\label{fig:komponentendiagramm-app}
 \end{figure}
+
+\begin{longtable}[h]{|p{2.5cm}|p{10.0cm}|}
+	\caption{Tabelle - Komponentendiagramm-App}
+	\centering
+	\label{tab:table_comp_app}
+	\endlastfoot
+	\hline \multicolumn{2}{|r|}{{Weitergeführt auf der folgenden Seite}} \\ \hline
+	\endfoot
+	\endhead
+	\hline
+	\textbf{Komponente} & \textbf{Beschreibung} \\ 
+	\hline
+	AppUser & Schnittstelle für den Nutzer der Applikation, um alle möglichen Daten einzusehen. \\
+	\hline
+	APP-API for data & Schnittstelle zum Erhalt von Projekt- und Vertragsdaten vom \textbf{WebServer} \\
+	\hline
+	Authentication & Übermittelt notwenige Daten zum \textbf{WebServer} zur Authentifizierung des \textbf{AppUser}. \\
+	\hline
+	Construction progress & Modul zur Speicherung und Verwaltung des Baufortschritts. \\
+	\hline
+	Construction progress data & Das eingehende Interface erhält Daten zum Baufortschritt, wie Fotos und deren Beschreibungen. Diese fügt der \textbf{AppUser} hinzu. Das ausgehende Interface hingegen übermittelt diese an den \textbf{WebServer} weiter. \\
+	\hline
+	Data request & Schnittstelle zur Anfrageübermittlung zum \textbf{WebServer}. \\
+	\hline
+	GUIAppUser & Modul zur Darstellung der graphischen Nutzeroberfläche der \textbf{App}. \\
+	\hline
+	Project {\&} Contract & Modul zur Speicherung der Projekt- und Vertragsdaten. \\
+	\hline
+\end{longtable}
+
+\clearpage
