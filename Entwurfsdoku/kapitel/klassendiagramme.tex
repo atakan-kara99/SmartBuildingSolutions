@@ -69,6 +69,51 @@ Die Identifikationsnummern oID (Organisation), diaID (Diagramm), pID (Projekt), 
 
 \begin{figure}[h]
 	\centering
+<<<<<<< HEAD
+	\includegraphics[width=\linewidth]{img/diagrams/class-diagram-backend.pdf}
+	\caption{Klassendiagramm - Backend}
+	\label{fig:klassendiagramm-backend}
+\end{figure}
+
+\noindent
+Dieses Klassendiagramm enthält die Entitäten der Datenbank, jede Klasse entspricht einer Entität. \\
+Jede wichtige Klasse hat eine Assoziation zur Rolle, um die Authentifizierung zu gewährleisten. \\
+Da SysAdmin und OrgAdmin überall einsehen können, assoziiert somit jede Klasse min. 2 Rollen.
+
+\begin{longtable}[h]{p{5.3cm} p{8.7cm}}
+	\caption{Klassenbeschreibung - Backend}
+	\label{table:klassenbeschreibung-backend}
+	\endlastfoot
+	\multicolumn{2}{r}{{Weitergeführt auf der folgenden Seite}} \\
+	\endfoot
+	\endhead
+	\rowcolor[HTML]{C0C0C0} 
+	\textbf{Klassenname} & \textbf{Aufgabe} \\
+    
+	Address & Die Adresse des Projektes. \\
+	
+	\rowcolor[HTML]{E7E7E7} 
+	BillingItem & Die Leistungspositionen eines Vertrages. \\
+	
+	BillingUnit & Eine Gruppierung von Leistungspositionen. \\
+	
+	\rowcolor[HTML]{E7E7E7} 
+	Contract & Ein Vertrag, welcher zwischen zwei Parteien geschlossen wird. \\
+	
+	Organisation & Eine Gruppierung von Usern. \\
+	
+	\rowcolor[HTML]{E7E7E7} 
+	Project & Ein Projekt min. einer Organisation, welches mehrere Verträge enhalten kann. \\
+	
+	Role & Nutzerrollen mit verschiedenen Rechten. Verwaltbar vom OrgAdmin. \\
+
+	\rowcolor[HTML]{E7E7E7}
+	User & Mitarbeiter min. einer Organisation.
+\end{longtable}
+
+
+\clearpage
+=======
 	\includegraphics[width=16cm]{img/diagrams/Classdiagram-App.pdf}
 	\caption{Klassendiagramm - App}
 	\label{fig:klassendiagramm-a}
@@ -117,3 +162,4 @@ Die Identifikationsnummern oID (Organisation), diaID (Diagramm), pID (Projekt), 
 \end{table}
 
 \clearpage
+>>>>>>> entwurfsdoku
