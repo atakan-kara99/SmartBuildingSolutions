@@ -65,6 +65,45 @@ Die Identifikationsnummern oID (Organisation), diaID (Diagramm), pID (Projekt), 
 
 \clearpage
 
-\subsection{App}
+\section{App}
 
 \section{Backend}
+
+\subsection{Datenmodell}
+
+\subsection{Datenverarbeitung}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{img/diagrams/Backend.pdf}
+	\caption{Klassendiagramm - Backend - Datenverarbeitung}
+	\label{fig:klassendiagramm-backend-data}
+\end{figure}
+
+\centering
+\begin{longtable}[h]{p{5cm} p{9cm}}
+	\caption{Klassenbeschreibung - Backend - Datenverarbeitung}
+	\label{table:klassenbeschreibung-backend-data}
+	\endlastfoot
+	\multicolumn{2}{r}{{Weitergeführt auf der folgenden Seite}} \\
+	\endfoot
+	\endhead
+	\rowcolor[HTML]{C0C0C0} 
+	\textbf{Klassenname} & \textbf{Aufgabe} \\
+	CrudRepository & Teil des Spring Frameworks. Wird hier genutzt, um die Datenbank in From von erbenden Repositories darzustellen \\
+	\rowcolor[HTML]{E7E7E7} 
+	*Repository & Verwaltet die jeweilige Datenmodellklasse. Bietet spezielle Zugriffsfunktionen für eine einfachere Nutzung \\
+	BackendAccessProvider & Bietet die eigentliche Funktionalität des Backends innerhalb der Server-Applikation an. Über diese Klasse wird der gesicherte Zugriff auf die gespeicherten Daten sichergestellt und die 
+    einzelnen DatenRepositories werden vor dem Nutzer verborgen. Alle Methoden verlangen einen Nutzernamen als Parameter, um festzustellen welche Daten tatsächlch zurückgegeben werden dürfen. Dafür werden intern die Rollen verwendet.
+    So soll ein Nutzer z.Bsp. nur Zugriff auf Verträge bekommen für welche er über eine entsprechende Rolle verfügt. Ansonsten werden leere Listen und auch Fehlercode zurückgegeben, welche dann z.Bsp. vom Frontend
+    entsprechen verarbeitet werden können. \\
+	\rowcolor[HTML]{E7E7E7} 
+	DBSynchronisationService & Dienst, welcher die Aufgabe hat nach einer gewissen verschrittenen Zeit eine Synchronisation der Datenbeank mit der von adesso zu veranlassen. Die Eigentliche Synchronisation wird
+    durch die Klasse RESTDataSynchroniser durchgeführt. \\
+    RESTDataSynchroniser & Hat zur Aufgabe die Daten über die REST-API von adesso abzufragen und folgend die Daten zu deserialisieren. Die so erhaltenen Klassen werden abschließend in die Datenbank eingeplegt. \\
+	\rowcolor[HTML]{E7E7E7} 
+	DBToJSONSerialiser & Dient dazu den gesamten Inhalt der Datenbank zu einen JSON-String zu konvertieren. Die ist notwendig um die App mit allen Daten zu versorgen auf die der AppUser Zugriff haben darf. \\
+    JSONDeserialiser & Deserialisiert JSON-Strings zu den entsprechenden Modellklassen. Dies wird dann genutzt, wenn die über die REST-API von adesso Daten abgefragt werden. \\
+    \rowcolor[HTML]{E7E7E7}
+    JSONSerialiser & Serialisiert alle Modelklassen zu entsprechenden JSON-Strings. Diese Funktionalität wird vom DBToJSONSerialiser genutzt. \\
+\end{longtable}
