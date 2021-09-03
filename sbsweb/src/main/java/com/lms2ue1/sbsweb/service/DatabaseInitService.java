@@ -1,6 +1,8 @@
 package com.lms2ue1.sbsweb.service;
 
+import com.lms2ue1.sbsweb.model.Organisation;
 import com.lms2ue1.sbsweb.model.User;
+import com.lms2ue1.sbsweb.repository.OrganisationRepository;
 import com.lms2ue1.sbsweb.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +12,15 @@ import org.springframework.stereotype.Service;
 public class DatabaseInitService {
     @Autowired
     UserRepository userRepository;
+    OrganisationRepository organisationRepository;
     
     public void init() {
-        if(userRepository.count() == 0) {
+        if(userRepository.count() == 0 && organisationRepository.count() == 0) {
+
+            Organisation org1 = new Organisation(0l, "SBS-Management");
+            Organisation org2 = new Organisation(1l, "Hochbau-Krause");
+
+
             User user0 = new User(0l, "Peter", "Müller", "SBS-Management", "SysAdmin", "SysAdmin");
             User user1 = new User(1l, "Anna", "Krause", "Hochbau-Krause", "OrgAdmin", "AKrause");
             User user2 = new User(1l, "Hans-Dieter", "Schulze", "Hochbau-Krause", "Bauleiter", "HDS");
@@ -20,6 +28,9 @@ public class DatabaseInitService {
             userRepository.save(user0);
             userRepository.save(user1);
             userRepository.save(user2);
+
+            organisationRepository.save(org1);
+            organisationRepository.save(org2);
         }
     }
 }
