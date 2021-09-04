@@ -6,78 +6,18 @@
 %Auf jedes Diagramm folgt eine Tabelle, in der die Aufgabe \textbf{jeder} Klasse beschrieben wird.
 %\end{tcolorbox}
 
-
-\section{Web}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\linewidth]{img/diagrams/Frontend Classes.pdf}
-	\caption{Klassendiagramm - Frontend Web}
-	\label{fig:klassendiagramm-web}
-\end{figure}
-
-\newpage
-
-\noindent
-Klassen, deren Name mit ''Controller'' aufhört, verarbeiten HTTP Requests zu bestimmten Pfaden.
-Die zu verarbeitenden Pfade sind pro Gebiet in einem jeweiligen Controller gruppiert.
-In der folgenden Tabelle werden für Controller unter ''Aufgabe'' die zu verarbeitenden Pfade sowie die Bedeutung der dazugehörigen Seite aufgeführt.
-Die Identifikationsnummern oID (Organisation), diaID (Diagramm), pID (Projekt), cID (Vertrag) und bID (Leistungsposition) sind in manche Pfade direkt integriert.\\
-
-\begin{longtable}[h]{p{5.3cm} p{8.7cm}}
-	\caption{Klassenbeschreibung - Frontend Web}
-	\label{table:klassenbeschreibung-web}
-	\endlastfoot
-	\multicolumn{2}{r}{{Weitergeführt auf der folgenden Seite}} \\
-	\endfoot
-	\endhead
-	\rowcolor[HTML]{C0C0C0} 
-	\textbf{Klassenname} & \textbf{Aufgabe} \\
-    
-	DispatcherServlet & Teil des Spring Frameworks, leitet die HTTP Requests an den jeweils zuständigen Controller weiter \\
-	
-	\rowcolor[HTML]{E7E7E7} 
-	LoginController & /login $\rightarrow$ Login-Seite \\
-	
-	OrganisationManagementController & /organisation\_overview $\rightarrow$ Management von Organisationen und deren OrgAdmins \\
-	
-	\rowcolor[HTML]{E7E7E7} 
-	UserManagementController & /user\_overview $\rightarrow$ Management aller WebUser \newline\newline
-	/organisation/\{oID\}/user\_overview $\rightarrow$ Management der WebUser einer Organisation \newline\newline
-	/organisation/\{oID\}/add\_user $\rightarrow$ Hinzufügen eines WebUsers zu einer Organisation \newline\newline
-	/role\_overview $\rightarrow$ Management aller Rollen \newline
-	/organisation/\{oID\}/role\_overview $\rightarrow$ Management der Rollen einer Organisation \newline\newline
-	/organisation/\{oID\}/add\_role $\rightarrow$ Hinzufügen einer Rolle zu einer Organisation \\
-	
-	ProjectController & /project\_overview $\rightarrow$ Zeigt alle Projekte an, für welche der WebUser die nötigen Berechtigungen hat \newline\newline
-	/project/\{pID\}/show $\rightarrow$ Zeigt die Verträge des Projekts an, für welche der WebUser die nötigen Berechtigungen hat \\
-	
-	\rowcolor[HTML]{E7E7E7} 
-	ContractController & /contract\_overview $\rightarrow$ Zeigt alle Verträge an, für welche der WebUser die nötigen Berechtigungen hat \newline\newline
-	/project/\{pID\}/contract/\{cID\}/show $\rightarrow$ Zeigt die Leistungspositionen des Vertrags an, für welche der WebUser die nötigen Berechtigungen hat \newline\newline
-	/diagram\_overview $\rightarrow$ Zeigt alle Diagramme an, für welche der WebUser die nötigen Berechtigungen hat \newline\newline
-	/project/\{pID\}/contract/\{cID\}/create\_diagram $\rightarrow$ Erstellen eines Diagramms \newline\newline
-	/project/\{pID\}/contract/\{cID\}/diagram/\{diaID\}/show $\rightarrow$ Zeigt das Diagramm im Detail an \\
-	
-	BillingItemController & /billing\_item\_overwiew $\rightarrow$ Zeigt alle Leistungspositionen an, für welche der WebUser die nötigen Berechtigungen hat \newline\newline
-	/project/\{pID\}/contract/\{cID\}/billing\_item/\{bID\}/show $\rightarrow$ Zeigt Details zur Leistungsposition an
-\end{longtable}
-
-\clearpage
-
-
 \section{Backend}
 
 \subsection{Backend Datenmodell}
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{img/diagrams/class-diagram-backend.pdf}
 	\caption{Klassendiagramm - Backend}
 	\label{fig:klassendiagramm-backend}
 \end{figure}
 
-\newpage
+\clearpage
 
 \noindent
 Dieses Klassendiagramm enthält die Entitäten der Datenbank, jede Klasse entspricht einer Entität. \\
@@ -118,14 +58,16 @@ Zusätzlich existiert zu jeder Organisation min. ein OrgAdmin, der ebenfalls auf
 
 \subsection{Backend Datenverarbeitung}
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{img/diagrams/Backend.pdf}
 	\caption{Klassendiagramm - Backend - Datenverarbeitung}
 	\label{fig:klassendiagramm-backend-data}
 \end{figure}
 
-\centering
+\clearpage
+
+\begin{center}
 \begin{longtable}[h]{p{5cm} p{9cm}}
 	\caption{Klassenbeschreibung - Backend - Datenverarbeitung}
 	\label{table:klassenbeschreibung-backend-data}
@@ -149,6 +91,65 @@ Zusätzlich existiert zu jeder Organisation min. ein OrgAdmin, der ebenfalls auf
 	\rowcolor[HTML]{E7E7E7} 
     JSONDeserialiser & Deserialisiert JSON-Strings zu den entsprechenden Modellklassen. Dies wird dann genutzt, wenn die über die REST-API von adesso Daten abgefragt werden. \\
 \end{longtable}
+\end{center}
+
+\clearpage
+
+\section{Web}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{img/diagrams/Frontend Classes.pdf}
+	\caption{Klassendiagramm - Frontend Web}
+	\label{fig:klassendiagramm-web}
+\end{figure}
+
+\noindent
+Klassen, deren Name mit ''Controller'' aufhört, verarbeiten HTTP Requests zu bestimmten Pfaden.
+Die zu verarbeitenden Pfade sind pro Gebiet in einem jeweiligen Controller gruppiert.
+In der folgenden Tabelle werden für Controller unter ''Aufgabe'' die zu verarbeitenden Pfade sowie die Bedeutung der dazugehörigen Seite aufgeführt.
+Die Identifikationsnummern oID (Organisation), diaID (Diagramm), pID (Projekt), cID (Vertrag) und bID (Leistungsposition) sind in manche Pfade direkt integriert.\\
+
+\begin{longtable}[h]{p{5.3cm} p{8.7cm}}
+	\caption{Klassenbeschreibung - Frontend Web}
+	\label{table:klassenbeschreibung-web}
+	\endlastfoot
+	\multicolumn{2}{r}{{Weitergeführt auf der folgenden Seite}} \\
+	\endfoot
+	\endhead
+	\rowcolor[HTML]{C0C0C0} 
+	\textbf{Klassenname} & \textbf{Aufgabe} \\
+    
+	DispatcherServlet & Teil des Spring Frameworks, leitet die HTTP Requests an den jeweils zuständigen Controller weiter \\
+	
+	\rowcolor[HTML]{E7E7E7} 
+	LoginController & /login $\rightarrow$ Login-Seite \\
+	
+	OrganisationManagementController & /organisation\_overview $\rightarrow$ Management von Organisationen und deren OrgAdmins, nur der SysAdmin hat hierauf Zugriff \\
+	
+	\rowcolor[HTML]{E7E7E7} 
+	UserManagementController & /organisation/\{oID\}/user\_management $\rightarrow$ Management der WebUser einer Organisation \newline\newline
+	/organisation/\{oID\}/user\_management/user\_new $\rightarrow$ Hinzufügen eines WebUsers zu einer Organisation \newline\newline
+	/organisation/\{oID\}/user\_management/user/\{uID\}/user\_edit $\rightarrow$ Bearbeiten eines WebUsers einer Organisation \\
+	
+	RoleManagementController & /organisation/\{oID\}/role\_management $\rightarrow$ Management der Rollen einer Organisation \newline\newline
+	/organisation/\{oID\}/role\_management/role\_new $\rightarrow$ Hinzufügen einer Rolle zu einer Organisation \newline\newline
+	/organisation/\{oID\}/role\_management/role/\{rID\}/role\_edit $\rightarrow$ Bearbeiten einer Rolle einer Organisation \\
+	
+	\rowcolor[HTML]{E7E7E7} 
+	ProjectController & /project\_overview $\rightarrow$ Zeigt alle Projekte an, für welche der WebUser die nötigen Berechtigungen hat \newline\newline
+	/project/\{pID\}/show $\rightarrow$ Zeigt die Verträge des Projekts an, für welche der WebUser die nötigen Berechtigungen hat \\
+	
+	ContractController & /contract\_overview $\rightarrow$ Zeigt alle Verträge an, für welche der WebUser die nötigen Berechtigungen hat \newline\newline
+	/project/\{pID\}/contract/\{cID\}/show $\rightarrow$ Zeigt die Leistungspositionen des Vertrags an, für welche der WebUser die nötigen Berechtigungen hat \\
+	
+	\rowcolor[HTML]{E7E7E7} 
+	BillingItemController & /billing\_item\_overview $\rightarrow$ Zeigt alle Leistungspositionen an, für welche der WebUser die nötigen Berechtigungen hat \newline\newline
+	/project/\{pID\}/contract/\{cID\}/billing\_item/\{bID\}/show $\rightarrow$ Zeigt Details zur Leistungsposition an, falls der WebUser die nötigen Berechtigungen hat \\
+	
+	DiagramController & /project\_diagram\_overview $\rightarrow$ Zeigt alle Diagramme zu Projekten an, für welche der WebUser die nötigen Berechtigungen hat \newline\newline
+	/contract\_diagram\_overview $\rightarrow$ Zeigt alle Diagramme zu Verträgen an, für welche der WebUser die nötigen Berechtigungen hat
+\end{longtable}
 
 \clearpage
 
@@ -159,6 +160,8 @@ Zusätzlich existiert zu jeder Organisation min. ein OrgAdmin, der ebenfalls auf
 	\caption{Klassendiagramm - App}
 	\label{fig:klassendiagramm-a}
 \end{figure}
+
+\clearpage
 
 \begin{table}[h]
 	\centering

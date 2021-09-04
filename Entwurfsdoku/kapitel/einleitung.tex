@@ -8,17 +8,16 @@ Kapitel 5 ist strukturiert in \textbf{Klassendiagramme} f\"ur das Frontend-Web, 
 Erg\"anzend verf\"ugt jedes Klassendiagramm \"uber eine Tabelle zur Beschreibung der konkreten Pfade und Intention der einzelnen Klassen.
 Abschlie{\ss}end werden die \textbf{Sequenzdiagramme} in Kapitel 6 aufgef\"uhrt und verf\"ugen, wenn n\"otig, \"uber eine schriftliche Beschreibung.
 
-
-
-
+\newpage
 \section{Zweckbestimmung}\label{sec:zweckbestimmung}
 \textbf{Smart Building Solutions} hat als Ziel die entwickelte Software f\"ur Auftragnehmer und Auftraggeber im Baugewerbe zur Verf\"ugung zu stellen.  Die Software verwendet die vom Unternehmen bereitgestellten Vertrags- und Projektdaten,  um den Status einzelner Projektbestandteile geeignet und den Anforderungen des Nutzers entsprechend in Form von Diagrammen und Statusbalken zu visualisieren. \\
 Dabei soll f\"ur Mitarbeiter einzelner Organisationen eine Web-Oberfl\"ache zur Verf\"ugung stehen.  F\"ur  Mitarbeiter,  welche konkret am Bauprozess einzelner Leistungspositionen beteiligt sind,  ist eine Oberfl\"ache in Form einer mobilen Applikation bereitgestellt.  Die mobile Anwendung verf\"ugt dann \"uber ausgew\"ahlte Funktionalit\"aten zur R\"uckmeldung und Visualisierung von Baufortschritt,  sowie Status\"anderung der einzelnen Leistungspositionen.  \"Anderungen an diesen Daten werden entsprechend mit der Webanwendung synchronisiert.  Sie ist ausgelegt f\"ur die Nutzung auf einem geeigneten Endger\"at unter Verwendung von Android 6 oder h\"oher.  Die Weboberfl\"ache hingegen bietet im Webbrowser,  bspw. Chrome oder Firefox, volle Funktionalit\"at zur Darstellung und Erstellung von Diagrammen nach benutzerspezifischen Kriterien, die M\"oglichkeit Nutzer zu registrieren,  Projekt- und Vertragsdaten einzusehen und den Status einzelner Leistungspositionen anzupassen. \\
 Ein Systemadministrator, vom jeweiligen Bauunternehmen selbst ernannt,  erh\"alt die entsprechenden Rechte  einen Mitarbeiter als Organisations-Administrator auszuw\"ahlen.
 Zugriffsm\"oglichkeiten auf die einzelnen Funktionen von Webanwendung und mobiler Applikation sind entsprechend abh\"angig von der Position oder Benutzerrolle eines Mitarbeiters im konkreten Unternehmen und werden von einem zum Organisations-Administrator beauftragten Mitarbeiter des Unternehmens selbstst\"andig vergeben.  Die Registrierung einzelner Nutzer wird ebenfalls von diesem Mitarbeiter durchgef\"uhrt.
 
-\newpage
 \section{Entwicklungsumgebung}\label{sec:entwicklungsumgebung}
+
+\subsection{Web und Backend}
 
 \begin{center}
 \begin{longtable}[h]{p{4cm} p{2cm} p{8cm}}
@@ -59,9 +58,13 @@ Zugriffsm\"oglichkeiten auf die einzelnen Funktionen von Webanwendung und mobile
     JUnit Jupiter API                & 5.7.2            & \url{https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api}                     \\
     Bootstrap                        & neueste(5.1.0)   & \url{https://getbootstrap.com/docs/5.1/getting-started/download/}                                \\
 \end{longtable}
+\end{center}
 
+\subsection{Mobile Applikation}
+
+\begin{center}
 \begin{longtable}[h]{p{4cm} p{2cm} p{8cm}}
-    \caption{Enwicklungsumgebung - mobile Applikation}
+    \caption{Enwicklungsumgebung - Mobile Applikation}
     \label{table:entwicklungsumgebung}
     \endlastfoot
     \multicolumn{3}{r}{{Weitergeführt auf der folgenden Seite}} \\
