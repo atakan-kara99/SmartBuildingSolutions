@@ -102,8 +102,5 @@ Die Identifikationsnummern oID (Organisation), diaID (Diagramm), pID (Projekt), 
     durch die Klasse RESTDataSynchroniser durchgeführt. \\
     RESTDataSynchroniser & Hat zur Aufgabe die Daten über die REST-API von adesso abzufragen und folgend die Daten zu deserialisieren. Die so erhaltenen Klassen werden abschließend in die Datenbank eingeplegt. \\
 	\rowcolor[HTML]{E7E7E7} 
-	DBToJSONSerialiser & Dient dazu den gesamten Inhalt der Datenbank zu einen JSON-String zu konvertieren. Die ist notwendig um die App mit allen Daten zu versorgen auf die der AppUser Zugriff haben darf. \\
     JSONDeserialiser & Deserialisiert JSON-Strings zu den entsprechenden Modellklassen. Dies wird dann genutzt, wenn die über die REST-API von adesso Daten abgefragt werden. \\
-    \rowcolor[HTML]{E7E7E7}
-    JSONSerialiser & Serialisiert alle Modelklassen zu entsprechenden JSON-Strings. Diese Funktionalität wird vom DBToJSONSerialiser genutzt. \\
 \end{longtable}
