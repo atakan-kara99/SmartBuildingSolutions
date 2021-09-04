@@ -96,7 +96,7 @@ Die Identifikationsnummern oID (Organisation), diaID (Diagramm), pID (Projekt), 
 	BackendAccessProvider & Bietet die eigentliche Funktionalität des Backends innerhalb der Server-Applikation an. Über diese Klasse wird der gesicherte Zugriff auf die gespeicherten Daten sichergestellt und die 
     einzelnen DatenRepositories werden vor dem Nutzer verborgen. Alle Methoden verlangen einen Nutzernamen als Parameter, um festzustellen welche Daten tatsächlch zurückgegeben werden dürfen. Dafür werden intern die Rollen verwendet.
     So soll ein Nutzer z.Bsp. nur Zugriff auf Verträge bekommen für welche er über eine entsprechende Rolle verfügt. Ansonsten werden leere Listen und auch Fehlercode zurückgegeben, welche dann z.Bsp. vom Frontend
-    entsprechen verarbeitet werden können. \\
+    entsprechen verarbeitet werden können. Die Controller-Klassen des Frontends haben demnach Zugriff auf den BackendAccessProvider. \\
 	\rowcolor[HTML]{E7E7E7} 
 	DBSynchronisationService & Dienst, welcher die Aufgabe hat nach einer gewissen verschrittenen Zeit eine Synchronisation der Datenbeank mit der von adesso zu veranlassen. Die Eigentliche Synchronisation wird
     durch die Klasse RESTDataSynchroniser durchgeführt. \\
