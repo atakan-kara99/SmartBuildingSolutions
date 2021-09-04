@@ -24,5 +24,5 @@
 \end{figure}
 
 \noindent
-Die neuen Daten werden von der REST-API als JSON zur Verfügung gestellt. Um die Daten aus der JSON-Datei in die Datenbank zu übertragen, muss  diese Datei in seine Einzelteile zerlegt werden: Dafür wird eine Instanz des JSONDeserializer genutzt, um die Daten z.B. in einen String oder eine HashMap zu konvertieren. Im nächsten Schritt werden die konvertierten Daten dann von einer Instanz des BackendAccessProviders in die Datenbank über die von Spring gestellten Repros eingetragen.
+Die neuen Daten werden von der REST-API als JSON zur Verfügung gestellt. Um die Daten aus der JSON-Datei in die Datenbank zu übertragen, muss  diese Datei in seine Einzelteile zerlegt werden: Dafür wird eine Instanz des JSONDeserializer verwendet, um die Daten etwa in einen String oder eine HashMap zu konvertieren. Diese wird dann von einer Instanz des BackendAccessProviders in die Datenbank über die von Spring gestellten Repros übertragen.
 Die Klasse REST-API wird vom Kunden gestellt und verwaltet. Darauf haben wir keinen Einfluss.
