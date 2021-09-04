@@ -79,9 +79,10 @@ Die Identifikationsnummern oID (Organisation), diaID (Diagramm), pID (Projekt), 
 
 \noindent
 Dieses Klassendiagramm enthält die Entitäten der Datenbank, jede Klasse entspricht einer Entität. \\
-Jede wichtige Klasse hat eine Assoziation zur Rolle, um die Authentifizierung zu gewährleisten. \\
-Da SysAdmin und OrgAdmin überall einsehen können, assoziiert somit jede Klasse min. 2 Rollen.
-
+Die Klasse Role besitzt zu den Klassen BillingItem, Contract, User, Organisation und Project min. 2 Rollen. \\
+Dies ist damit zu begründen, dass der SysAdmin Teil jeder Organisation ist und somit alle Projekte, User, Verträge und Leistungspositionen einsehen kann.
+Zusätzlich existiert zu jeder Organisation min. ein OrgAdmin, der ebenfalls auf alle Verträge, Projekte und Leistungspositionen zugreifen kann.
+ 
 \begin{longtable}[h]{p{5.3cm} p{8.7cm}}
 	\caption{Klassenbeschreibung - Backend}
 	\label{table:klassenbeschreibung-backend}
