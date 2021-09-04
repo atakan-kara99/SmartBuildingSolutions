@@ -39,7 +39,7 @@ Die Identifikationsnummern oID (Organisation), diaID (Diagramm), pID (Projekt), 
 	\rowcolor[HTML]{E7E7E7} 
 	LoginController & /login $\rightarrow$ Login-Seite \\
 	
-	OrganisationManagementController & /organisation\_overview $\rightarrow$ Management von Organisationen und deren OrgAdmins \\
+	OrganisationManagementController & /organisation\_overview $\rightarrow$ Management von Organisationen und deren OrgAdmins, nur der SysAdmin hat hierauf Zugriff \\
 	
 	\rowcolor[HTML]{E7E7E7} 
 	UserManagementController & /organisation/\{oID\}/user\_management $\rightarrow$ Management der WebUser einer Organisation \newline\newline
@@ -59,7 +59,7 @@ Die Identifikationsnummern oID (Organisation), diaID (Diagramm), pID (Projekt), 
 	
 	\rowcolor[HTML]{E7E7E7} 
 	BillingItemController & /billing\_item\_overview $\rightarrow$ Zeigt alle Leistungspositionen an, für welche der WebUser die nötigen Berechtigungen hat \newline\newline
-	/project/\{pID\}/contract/\{cID\}/billing\_item/\{bID\}/show $\rightarrow$ Zeigt Details zur Leistungsposition an \\
+	/project/\{pID\}/contract/\{cID\}/billing\_item/\{bID\}/show $\rightarrow$ Zeigt Details zur Leistungsposition an, falls der WebUser die nötigen Berechtigungen hat \\
 	
 	DiagramController & /project\_diagram\_overview $\rightarrow$ Zeigt alle Diagramme zu Projekten an, für welche der WebUser die nötigen Berechtigungen hat \newline\newline
 	/contract\_diagram\_overview $\rightarrow$ Zeigt alle Diagramme zu Verträgen an, für welche der WebUser die nötigen Berechtigungen hat
