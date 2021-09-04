@@ -6,9 +6,8 @@
 %Auf jedes Diagramm folgt eine Tabelle, in der die Aufgabe \textbf{jeder} Klasse beschrieben wird.
 %\end{tcolorbox}
 
-\section{Frontend}
 
-\subsection{Web}
+\section{Web}
 
 \begin{figure}[h]
 	\centering
@@ -17,13 +16,14 @@
 	\label{fig:klassendiagramm-web}
 \end{figure}
 
+\newpage
+
 \noindent
 Klassen, deren Name mit ''Controller'' aufhört, verarbeiten HTTP Requests zu bestimmten Pfaden.
 Die zu verarbeitenden Pfade sind pro Gebiet in einem jeweiligen Controller gruppiert.
 In der folgenden Tabelle werden für Controller unter ''Aufgabe'' die zu verarbeitenden Pfade sowie die Bedeutung der dazugehörigen Seite aufgeführt.
-Die Identifikationsnummern oID (Organisation), diaID (Diagramm), pID (Projekt), cID (Vertrag) und bID (Leistungsposition) sind in manche Pfade direkt integriert. \\
+Die Identifikationsnummern oID (Organisation), diaID (Diagramm), pID (Projekt), cID (Vertrag) und bID (Leistungsposition) sind in manche Pfade direkt integriert.\\
 
-\centering
 \begin{longtable}[h]{p{5.3cm} p{8.7cm}}
 	\caption{Klassenbeschreibung - Frontend Web}
 	\label{table:klassenbeschreibung-web}
@@ -65,6 +65,135 @@ Die Identifikationsnummern oID (Organisation), diaID (Diagramm), pID (Projekt), 
 
 \clearpage
 
-\subsection{App}
 
 \section{Backend}
+
+\subsection{Backend Datenmodell}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{img/diagrams/class-diagram-backend.pdf}
+	\caption{Klassendiagramm - Backend}
+	\label{fig:klassendiagramm-backend}
+\end{figure}
+
+\newpage
+
+\noindent
+Dieses Klassendiagramm enthält die Entitäten der Datenbank, jede Klasse entspricht einer Entität. \\
+Die Klasse Role besitzt zu den Klassen BillingItem, Contract, User, Organisation und Project min. 2 Rollen. \\
+Dies ist damit zu begründen, dass der SysAdmin Teil jeder Organisation ist und somit alle Projekte, User, Verträge und Leistungspositionen einsehen kann.
+Zusätzlich existiert zu jeder Organisation min. ein OrgAdmin, der ebenfalls auf alle Verträge, Projekte und Leistungspositionen zugreifen kann.
+ 
+\begin{longtable}[h]{p{5.3cm} p{8.7cm}}
+	\caption{Klassenbeschreibung - Backend}
+	\label{table:klassenbeschreibung-backend}
+    \endlastfoot
+	\multicolumn{2}{r}{{Weitergeführt auf der folgenden Seite}} \\
+	\endfoot
+	\endhead
+	\rowcolor[HTML]{C0C0C0} 
+	\textbf{Klassenname} & \textbf{Aufgabe} \\
+    
+	Address & Die Adresse des Projektes. \\
+	
+	\rowcolor[HTML]{E7E7E7} 
+	BillingItem & Die Leistungspositionen eines Vertrages. \\
+	
+	BillingUnit & Eine Gruppierung von Leistungspositionen. \\
+	
+	\rowcolor[HTML]{E7E7E7} 
+	Contract & Ein Vertrag, welcher zwischen zwei Parteien geschlossen wird. \\
+	
+	Organisation & Eine Gruppierung von Usern. \\
+	
+	\rowcolor[HTML]{E7E7E7} 
+	Project & Ein Projekt min. einer Organisation, welches mehrere Verträge enhalten kann. \\
+	
+	Role & Nutzerrollen mit verschiedenen Rechten. Verwaltbar vom OrgAdmin. \\
+
+	\rowcolor[HTML]{E7E7E7}
+	User & Mitarbeiter min. einer Organisation.
+\end{longtable}
+
+\subsection{Backend Datenverarbeitung}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{img/diagrams/Backend.pdf}
+	\caption{Klassendiagramm - Backend - Datenverarbeitung}
+	\label{fig:klassendiagramm-backend-data}
+\end{figure}
+
+\centering
+\begin{longtable}[h]{p{5cm} p{9cm}}
+	\caption{Klassenbeschreibung - Backend - Datenverarbeitung}
+	\label{table:klassenbeschreibung-backend-data}
+	\endlastfoot
+	\multicolumn{2}{r}{{Weitergeführt auf der folgenden Seite}} \\
+	\endfoot
+	\endhead
+	\rowcolor[HTML]{C0C0C0} 
+	\textbf{Klassenname} & \textbf{Aufgabe} \\
+    CrudRepository & Teil des Spring Frameworks. Wird hier genutzt, um die Datenbank in From von erbenden Repositories darzustellen \\
+	\rowcolor[HTML]{E7E7E7} 
+	*Repository & Verwaltet die jeweilige Datenmodellklasse. Bietet spezielle Zugriffsfunktionen für eine einfachere Nutzung \\
+	BackendAccessProvider & Bietet die eigentliche Funktionalität des Backends innerhalb der Server-Applikation an. Über diese Klasse wird der gesicherte Zugriff auf die gespeicherten Daten sichergestellt und die 
+    einzelnen DatenRepositories werden vor dem Nutzer verborgen. Alle Methoden verlangen einen Nutzernamen als Parameter, um festzustellen welche Daten tatsächlch zurückgegeben werden dürfen. Dafür werden intern die Rollen verwendet.
+    So soll ein Nutzer z.Bsp. nur Zugriff auf Verträge bekommen für welche er über eine entsprechende Rolle verfügt. Ansonsten werden leere Listen und auch Fehlercode zurückgegeben, welche dann z.Bsp. vom Frontend
+    entsprechen verarbeitet werden können. Die Controller-Klassen des Frontends haben demnach Zugriff auf den BackendAccessProvider. \\
+	\rowcolor[HTML]{E7E7E7} 
+	DBSynchronisationService & Dienst, welcher die Aufgabe hat nach einer gewissen verschrittenen Zeit eine Synchronisation der Datenbeank mit der von adesso zu veranlassen. Die Eigentliche Synchronisation wird
+    durch die Klasse RESTDataSynchroniser durchgeführt. \\
+    RESTDataRetriever & Hat zur Aufgabe die Daten über die REST-API von adesso abzufragen und folgend die Daten zu deserialisieren. Die so erhaltenen Klassen werden abschließend in die Datenbank eingepflegt. \\
+	\rowcolor[HTML]{E7E7E7} 
+    JSONDeserialiser & Deserialisiert JSON-Strings zu den entsprechenden Modellklassen. Dies wird dann genutzt, wenn die über die REST-API von adesso Daten abgefragt werden. \\
+\end{longtable}
+
+\clearpage
+
+\section{App}
+
+\begin{figure}[h]
+	\includegraphics[width=16cm]{img/diagrams/Classdiagram-App.pdf}
+	\caption{Klassendiagramm - App}
+	\label{fig:klassendiagramm-a}
+\end{figure}
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{X X}
+		\rowcolor[HTML]{C0C0C0} 
+		\textbf{Klassenname} & \textbf{Aufgabe} \\
+		Project & Bauplan eines Projektes mit den jeweiligen Attributen.\\
+		\rowcolor[HTML]{E7E7E7} 
+		Contract & Bauplan eines Vertrages mit den jeweiligen Attributen. \\
+		BillingItem & Bauplan einer Leistungsposition mit den jeweiligen Attributen. \\
+		\rowcolor[HTML]{E7E7E7} 
+		ConstructionProgress & Bauplan einer Baufortschritts-Klasse mit den jeweiligen Attributen. \\
+		LoginActivity & Verwaltung des Login-Bildschirms. \\
+		\rowcolor[HTML]{E7E7E7} 
+		ProjectActivity & Verwaltung des Projekt-Bildschirms. \\
+		ContractActivity & Verwaltung des Vertags-Bildschirms. \\
+		\rowcolor[HTML]{E7E7E7} 
+		BillingItem & Verwaltung des Leistungspositions-Bildschirms. \\
+		ConstructionProgressActivity & Verwaltung des Baufortschritts-Bildschirms. \\
+		\rowcolor[HTML]{E7E7E7} 
+		RequestHandler & Verwaltung der Netzwerkanfragen aller Klassen. \\
+		ProjectDao & Datenzugriffsobjekt mit Anfragen zur Interaktion mit der Projektdatenbank. \\
+		\rowcolor[HTML]{E7E7E7} 
+		ProjectDatabase & Room-Datenbank für Projekte. \\
+		ContractDao & Datenzugriffsobjekt mit Anfragen zur Interaktion mit der Vertragsdatenbank. \\
+		\rowcolor[HTML]{E7E7E7} 
+		ContractDatabase & Room-Datenbank für Verträge. \\
+		BillingItemDao & Datenzugriffsobjekt mit Anfragen zur Interaktion mit der Leistungspositionsdatenbank. \\
+		\rowcolor[HTML]{E7E7E7} 
+		BillingItemDatabase & Room-Datenbank für Leistungspositionen. \\
+		ConstructionProgressDao & Datenzugriffsobjekt mit Anfragen zur Interaktion mit der Baufortschritsdatenbank. \\
+		\rowcolor[HTML]{E7E7E7} 
+		ConstructionProgressDatabase & Room-Datenbank für den Baufortschritt. \\
+		Status & Enumeration des Typs Status.
+	\end{tabularx}
+	\caption{Klassenbeschreibung - App}
+	\label{table:klassenbeschreibung-a}
+\end{table}
