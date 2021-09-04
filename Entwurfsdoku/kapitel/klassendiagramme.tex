@@ -139,15 +139,15 @@ Zusätzlich existiert zu jeder Organisation min. ein OrgAdmin, der ebenfalls auf
 	\rowcolor[HTML]{E7E7E7} 
 	*Repository & Verwaltet die jeweilige Datenmodellklasse. Bietet spezielle Zugriffsfunktionen für eine einfachere Nutzung \\
 	BackendAccessProvider & Bietet die eigentliche Funktionalität des Backends innerhalb der Server-Applikation an. Über diese Klasse wird der gesicherte Zugriff auf die gespeicherten Daten sichergestellt und die 
-    einzelnen DatenRepositories werden vor dem Nutzer verborgen. Alle Methoden verlangen einen Nutzernamen als Parameter, um festzustellen welche Daten tatsächlich zurückgegeben werden dürfen. Dafür werden intern die Rollen verwendet.
+    einzelnen Daten-Repositories werden vor dem Nutzer verborgen. Alle Methoden verlangen einen Nutzernamen als Parameter, um festzustellen welche Daten zurückgegeben werden dürfen. Dafür werden intern die Rollen verwendet.
     So soll ein Nutzer z.B. nur Zugriff auf Verträge bekommen für welche er über eine entsprechende Rolle verfügt. Ansonsten werden leere Listen und auch Fehlercodes zurückgegeben, welche dann z.B. vom Frontend
     entsprechend verarbeitet werden können. Die Controller-Klassen des Frontends haben folglich Zugriff auf den BackendAccessProvider. \\
 	\rowcolor[HTML]{E7E7E7} 
-	DBSynchronisationService & Dienst, welcher die Aufgabe hat nach einem Zeitintervall eine Synchronisation der Datenbank mit der von adesso zu veranlassen. Die Eigentliche Synchronisation wird
+	DBSynchronisationService & Dienst, welcher die Aufgabe hat nach einem Zeitintervall eine Synchronisation zwischen der Datenbank von adesso und der lokalen zu veranlassen. Die Eigentliche Synchronisation wird
     durch die Klasse RESTDataRetriever durchgeführt. \\
     RESTDataRetriever & Hat zur Aufgabe die Daten über die REST-API von adesso abzufragen und folgend die Daten zu deserialisieren. Die so erhaltenen Klassen werden abschließend in die Datenbank über den BackendAccessProvider eingepflegt. \\
 	\rowcolor[HTML]{E7E7E7} 
-    JSONDeserialiser & Deserialisiert JSON-Strings zu den entsprechenden Modellklassen. Dies findet Verwendung, wenn die über die REST-API von adesso Daten abgefragt werden. \\
+    JSONDeserialiser & Konvertiert JSON-Strings in die entsprechenden Modellklassen. Dies findet Verwendung, wenn die Daten über die REST-API von adesso abgefragt werden. \\
 \end{longtable}
 
 \clearpage
