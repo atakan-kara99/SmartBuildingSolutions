@@ -1,0 +1,90 @@
+\section{Dokumentaufbau}\label{sec:dokumentaufbau}
+In diesem Dokument wird die Implementierung der Software spezifiziert,  wie sie im Pflichtenheft 2021 zum Projekt Smart Building Solutions vorgestellt wurde.  Hierbei handelt es sich konkret um die \textbf{Weboberfl\"ache,}  die \textbf{mobile Applikation} und das entsprechende \textbf{Backend},  also den funktionalen Teil beider digitalen Produkte.
+Zu diesem Zweck wird zuerst in \ref{sec:zweckbestimmung} der Einsatzbereich der Software erl\"autert und in  {\ref{sec:entwicklungsumgebung} die Auswahl an Software oder Tools dargelegt,  welche f\"ur die Implementierung verwendet werden. \\
+Die \textbf{Teamaufteilung},  also der Zust\"andigkeitsbereich der einzelnen Entwickler,  wird in Kapitel 2 festgehalten. 
+In Kapitel 3 befinden sich die \textbf{Komponentendiagramme} des Backends 3.1,  der Weboberfl\"ache bzw.  des Webservers 3.2 und der mobilen App 3.3 in dieser Reihenfolge.  In Form einer Tabelle werden unterhalb der Abbildungen die jeweiligen Komponenten mit entsprechender Beschreibung n\"aher erl\"autert.
+Anschlie{\ss}end folgt in Kapitel 4 ein \textbf{Verteilungsdiagramm},  welches die Elemente des Komponentendiagramms wieder aufgreift und das zuk\"unftige Deployment des Systems widerspiegelt.  Eine kurze Beschreibung darunter erl\"autert m\"oglicherweise undeutliche Zusammenh\"ange.
+Kapitel 5 ist strukturiert in \textbf{Klassendiagramme} f\"ur das Backend,  5.1, Web 5.2 und die mobile-Applikation 5.3.
+Erg\"anzend verf\"ugt jedes Klassendiagramm \"uber eine Tabelle zur Beschreibung der konkreten Pfade und Intention der einzelnen Klassen.
+Abschlie{\ss}end werden die \textbf{Sequenzdiagramme} in Kapitel 6 aufgef\"uhrt und verf\"ugen, wenn n\"otig, \"uber eine schriftliche Beschreibung.
+
+\newpage
+\section{Zweckbestimmung}\label{sec:zweckbestimmung}
+\textbf{Smart Building Solutions} hat als Ziel die entwickelte Software f\"ur Auftragnehmer und Auftraggeber im Baugewerbe zur Verf\"ugung zu stellen.  Die Software verwendet die vom Unternehmen bereitgestellten Vertrags- und Projektdaten,  um den Status einzelner Projektbestandteile geeignet und den Anforderungen des Nutzers entsprechend in Form von Diagrammen und Statusbalken zu visualisieren. \\
+Dabei soll f\"ur Mitarbeiter einzelner Organisationen eine Web-Oberfl\"ache zur Verf\"ugung stehen.  F\"ur  Mitarbeiter,  welche konkret am Bauprozess einzelner Leistungspositionen beteiligt sind,  ist eine Oberfl\"ache in Form einer mobilen Applikation bereitgestellt.  Die mobile Anwendung verf\"ugt  \"uber ausgew\"ahlte Funktionalit\"aten zur R\"uckmeldung und Visualisierung des Baufortschritts,  sowie Status\"anderungen der einzelnen Leistungspositionen.  \"Anderungen an diesen Daten werden entsprechend mit der Webanwendung synchronisiert.  Sie ist ausgelegt f\"ur die Nutzung auf einem geeigneten Endger\"at unter Verwendung von Android 6 oder h\"oher.  Die Weboberfl\"ache hingegen bietet im Webbrowser,  bspw. Chrome oder Firefox, volle Funktionalit\"at zur Darstellung von Diagrammen, die M\"oglichkeit Nutzer zu registrieren,  Projekt- und Vertragsdaten einzusehen und den Status einzelner Leistungspositionen anzupassen. \\
+Ein Systemadministrator, vom jeweiligen Bauunternehmen selbst ernannt,  erh\"alt die Rechte  Mitarbeiter als Organisations-Administratoren auszuw\"ahlen.
+Zugriffsm\"oglichkeiten auf die einzelnen Funktionen von Webanwendung und mobiler Applikation sind entsprechend abh\"angig von der Position oder Benutzerrolle eines Mitarbeiters im konkreten Unternehmen und werden von einem zum Organisations-Administrator beauftragten Mitarbeiter des Unternehmens selbstst\"andig vergeben.  Die Registrierung einzelner Nutzer wird ebenfalls von diesem Mitarbeiter durchgef\"uhrt.
+
+\section{Entwicklungsumgebung}\label{sec:entwicklungsumgebung}
+
+\subsection{Web und Backend}
+
+\begin{center}
+\begin{longtable}[h]{p{4cm} p{2cm} p{8cm}}
+    \caption{Enwicklungsumgebung - Web-Oberfl\"ache und Backend}
+    \label{table:entwicklungsumgebung}
+    \endlastfoot
+    \multicolumn{3}{r}{{Weitergeführt auf der folgenden Seite}}                                                                                            \\
+    \endfoot
+    \endhead
+    \rowcolor[HTML]{C0C0C0}
+    \textbf{Software}                & \textbf{Version} & \textbf{URL}                                                                                     \\
+    Eclipse                          & neueste (2021‑06)         & \url{https://www.eclipse.org/}                                                                   \\
+    \rowcolor[HTML]{E7E7E7}
+    IntelliJ IDEA                    & neueste (2021. 2.1)         & \url{https://www.jetbrains.com/de-de/idea/}                                                      \\
+    VSCode                           & neueste          & \url{https://code.visualstudio.com/}                                                             \\
+    \rowcolor[HTML]{E7E7E7}
+    Java Development Kit             & 11.0.11          & \url{https://www.oracle.com/de/java/technologies/javase-jdk11-downloads.html}                    \\
+    Gradle                           & 7.1.1            & \url{https://gradle.org/releases/}                                                               \\
+    \rowcolor[HTML]{E7E7E7}
+    Spring Boot                      & 2.5.4            & \url{https://mvnrepository.com/artifact/org.springframework.boot/spring-boot/2.5.4}              \\
+    Spring Dependency Management     & 1.0.11           & \url{https://plugins.gradle.org/plugin/io.spring.dependency-management}                          \\
+    \rowcolor[HTML]{E7E7E7}
+    Spring Boot Starter Data JPA     & neueste (2.5.4)         & \url{https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa}   \\
+    Spring Boot Starter Validation   & neueste (2.5.4)          & \url{https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation} \\
+    \rowcolor[HTML]{E7E7E7}
+    Spring Boot Starter Security     & neueste (2.5.4)         & \url{https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security}   \\
+    Spring Boot Starter Thymeleaf    & neueste (2.5.4)          & \url{https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf}  \\
+    \rowcolor[HTML]{E7E7E7}
+    Spring Boot Starter Web          & neueste (2.5.4)         & \url{https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web}        \\
+    Thymeleaf Extras Springsecurity5 & neueste (3.0.4.)          & \url{https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5}   \\
+    \rowcolor[HTML]{E7E7E7}
+    Spring Boot Devtools             & neueste (2.5.4)         & \url{https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools}           \\
+    H2 Database                      &  neueste (1.4.200)         & \url{https://mvnrepository.com/artifact/com.h2database/h2}                                       \\
+    \rowcolor[HTML]{E7E7E7}
+    Spring Boot Starter Test         & neueste (2.5.4)         & \url{https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test}       \\
+    Spring Security Test             & neueste          & \url{https://mvnrepository.com/artifact/org.springframework.security/spring-security-test}       \\
+    \rowcolor[HTML]{E7E7E7}
+    JUnit Jupiter API                & 5.7.2            & \url{https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api}                     \\
+    Bootstrap                        & neueste (5.1.0)   & \url{https://getbootstrap.com/docs/5.1/getting-started/download/}                                \\
+      \rowcolor[HTML]{E7E7E7}
+     Chart.js & neueste (3.5.1) & \url{https://www.jsdelivr.com/package/npm/chart.js}
+\end{longtable}
+\end{center}
+
+\subsection{Mobile Applikation}
+
+\begin{center}
+\begin{longtable}[h]{p{4cm} p{2cm} p{8cm}}
+    \caption{Enwicklungsumgebung - Mobile Applikation}
+    \label{table:entwicklungsumgebung}
+    \endlastfoot
+    \multicolumn{3}{r}{{Weitergeführt auf der folgenden Seite}} \\
+    \endfoot
+    \endhead
+    \rowcolor[HTML]{C0C0C0}
+    \textbf{Software}    & \textbf{Version} & \textbf{URL} \\
+    Java Development Kit & 11.0.11          & \url{https://www.oracle.com/de/java/technologies/javase-jdk11-downloads.html} \\
+    \rowcolor[HTML]{E7E7E7}
+    Android Studio           & neueste        & \url{https://developer.android.com/studio} \\
+       Gradle & 7.0.1          & \url{https://gradle.org/releases/}                                                  \\
+    \rowcolor[HTML]{E7E7E7}
+   OkHttp           & 4.9.0        & \url{https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp} \\
+   JUnit & ab Version 4 & \url{https://junit.org/junit4/} \\
+    \rowcolor[HTML]{E7E7E7}
+   Espresso-Core  & 3.4.0   & \url{https://mvnrepository.com/artifact/androidx.test.espresso/espresso-core?repo=google} \\
+   CameraX & 1.0.1 & \url{https://developer.android.com/training/camerax} \\
+     \rowcolor[HTML]{E7E7E7}
+   Room  & 2.3.0  & \url{https://developer.android.com/jetpack/androidx/releases/room} \\
+\end{longtable}
+\end{center}
