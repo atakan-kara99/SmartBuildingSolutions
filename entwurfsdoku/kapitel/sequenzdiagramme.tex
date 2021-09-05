@@ -19,13 +19,13 @@
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\linewidth]{img/diagrams/RESThandling.pdf}	
-	\caption{Sequenzdiagramm - A}
-	\label{fig:sequenz-a}
+	\caption{Sequenzdiagramm - Backend}
+	\label{fig:sequenz-backend}
 \end{figure}
 
 \noindent
-Die neuen Daten werden von der REST-API als JSON zur Verfügung gestellt. Um die Daten aus der JSON-Datei in die Datenbank zu übertragen, muss  diese Datei in seine Einzelteile zerlegt werden: Dafür wird eine Instanz des JSONDeserializer verwendet, um die Daten etwa in eine Liste von Projekten zu konvertieren. Diese wird dann von einer Instanz des BackendAccessProviders in die Datenbank über die von Spring gestellten Repros übertragen.
-Die Klasse REST-API wird vom Kunden gestellt und verwaltet. Darauf haben wir keinen Einfluss.
+Die neuen Daten werden von der \textbf{REST-API} als \textbf{JSON} zur Verfügung gestellt. Um die Daten aus der \textbf{JSON}-Datei in die Datenbank zu übertragen, muss  diese Datei in seine Einzelteile zerlegt werden: Dafür wird eine Instanz des \textbf{JSONDeserialiser} verwendet, um die Daten etwa in eine Liste von Projekten zu konvertieren. Diese wird dann von einer Instanz des \textbf{BackendAccessProviders} in die Datenbank über die von Spring gestellten Repositories übertragen.
+Die \textbf{REST-API} wird vom Kunden gestellt und verwaltet.
 
 \clearpage
 

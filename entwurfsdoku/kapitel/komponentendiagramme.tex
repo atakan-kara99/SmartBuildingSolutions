@@ -37,20 +37,20 @@
 	\rowcolor[HTML]{E7E7E7} 
 	AuthHandling & Verwaltet den Authentifizierungsvorgang.  \\
 	
-	Contracts {\&} Projects & Speichert die Vertrags- und Projektdaten aus der REST-API. \\
+	Contracts {\&} Projects & Speichert die Vertrags- und Projektdaten aus der \textbf{REST-API}. \\
 	
 	\rowcolor[HTML]{E7E7E7} 
-	Data & Das eingehende Interface empfängt die Anfragen des \textbf{WebServers} für den Erhalt und die Veränderung bestimmter Vertrags- und Projektdaten. Das ausgehende Interface gibt, falls passende Berechtigungen bestehen, die abgefragten Daten, eine Bestätigung oder eine Fehlermeldung aus.  \\
+	Data & Das eingehende Interface empfängt die Anfragen des \textbf{WebServer}s für den Erhalt und die Veränderung bestimmter Vertrags- und Projektdaten. Das ausgehende Interface gibt, falls passende Berechtigungen bestehen, die abgefragten Daten, eine Bestätigung oder eine Fehlermeldung aus.  \\
 	
 	Management & Nimmt Daten vom \textbf{OrgAdmin} oder \textbf{SysAdmin} entgegen und übergibt diese über das Interface \textbf{WebIn} intern der \textbf{RoleData} und \textbf{UserDate}. \\
 	
 	\rowcolor[HTML]{E7E7E7} 
-	REST-API & Fragt die Daten von der REST-API ab und übergibt diese über das Interface \textbf{RESTin} der Komponente \textbf{Contracts {\&} Projects}. \\
+	REST-API & Fragt die Daten von der \textbf{REST-API} ab und übergibt diese über das Interface \textbf{RESTin} der Komponente \textbf{Contracts {\&} Projects}. \\
 	
 	RoleData & Speichert die vom \textbf{OrgAdmin} erstellten Rollen und deren Berechtigungen ab. \\
 	
 	\rowcolor[HTML]{E7E7E7} 
-	UserData & Speichert die Nutzerdaten, so wie Name, Passwort und assoziierte Rolle.
+	UserData & Speichert Nutzerdaten, wie etwa Name, Passwort und assoziierte Rolle.
 \end{longtable}
 
 \clearpage
@@ -77,17 +77,17 @@
 	\rowcolor[HTML]{C0C0C0} 
 	\textbf{Komponente} & \textbf{Beschreibung} \\
 	
-	Account management & Modul zur Anzeige und graphischen Verwaltung von \textbf{OrgAdmins}, \textbf{WebUser} und deren Rollen. \\
+	Account management module & Anzeige und graphische Verwaltung von \textbf{OrgAdmin}s, \textbf{WebUser} und deren Rollen. \\
 	
 	\rowcolor[HTML]{E7E7E7} 
-	Android application module & Modul zur Verwaltung der \textbf{App}. Leitet Authentifizierungs- und Datenanfragen weiter. \\
+	Android application module & Verwaltung der \textbf{App}. Leitet Authentifizierungs- und Datenanfragen weiter. \\
 	
 	APP-API for data & Schnittstelle zur Datenübermittlung zur \textbf{App}. \\
 	
 	\rowcolor[HTML]{E7E7E7} 
 	Authentication & Schnittstelle zur Weiterleitung der Authentifizierungsanfrage des \textbf{AppUser}s zum \textbf{Backend}. \\
 	
-	Construction progress & Modul zur Übermittlung von Baufortschrittsdaten. \\
+	Construction progress module & Übermittlung von Baufortschrittsdaten. \\
 	
 	\rowcolor[HTML]{E7E7E7} 
 	Construction progress data & Eingang der Baufortschrittsdaten der App, wie z.B. Fotos und deren Beschreibungen. \\
@@ -97,10 +97,10 @@
 	\rowcolor[HTML]{E7E7E7} 
 	Data request & Erhalt der Anfragen zur Datenübermittlung von der \textbf{App}. \\
 	
-	Diagram management module & Modul zur Verwaltung und Anzeige von Diagrammen. \\
+	Diagram management module & Verwaltung und Anzeige von Diagrammen. \\
 	
 	\rowcolor[HTML]{E7E7E7} 
-	Project {\&} contract data module & Modul zur Verwaltung und Weiterleitung von Projekt- und Vertragsdaten. \\
+	Project {\&} contract data module & Verwaltung und Weiterleitung von Projekt- und Vertragsdaten. \\
 	
 	GUI OrgAdmin & Eingehende Daten und graphische Nutzeroberfläche des \textbf{OrgAdmin}s. Dieser muss eingeloggt sein. \\
 	
@@ -110,12 +110,12 @@
 	GUI WebUser & Eingehende Daten und graphische Nutzeroberfläche des \textbf{WebUser}s. Dieser muss eingeloggt sein. \\
 	
 	\rowcolor[HTML]{E7E7E7} 
-	OrgAdmin & Vereinigt die Interaktionsmöglichkeiten des \textbf{OrgAdmin} in einem zentralen Modul. \\
+	OrgAdmin module & Vereinigt die Interaktionsmöglichkeiten des \textbf{OrgAdmin}s in einem zentralen Modul. \\
 	
-	SysAdmin & Vereinigt die Interaktionsmöglichkeiten des \textbf{SysAdmin} in einem zentralen Modul. \\
+	SysAdmin module & Vereinigt die Interaktionsmöglichkeiten des \textbf{SysAdmin}s in einem zentralen Modul. \\
 	
 	\rowcolor[HTML]{E7E7E7} 
-	WebUser & Vereinigt die Interaktionsmöglichkeiten des \textbf{AppUser} in einem zentralen Modul.
+	WebUser module & Vereinigt die Interaktionsmöglichkeiten des \textbf{AppUser}s in einem zentralen Modul.
 \end{longtable}
 
 \clearpage
@@ -141,12 +141,12 @@
 	\rowcolor[HTML]{C0C0C0} 
 	\textbf{Komponente} & \textbf{Beschreibung} \\ 
 	
-	AppUser & Schnittstelle für den Nutzer der Applikation, um alle möglichen Daten einzusehen. \\
+	AppUser & Einsicht der Daten für den Nutzer der Applikation. \\
 	
 	\rowcolor[HTML]{E7E7E7} 
-	APP-API for data & Schnittstelle zum Erhalt von Projekt- und Vertragsdaten vom \textbf{WebServer}. \\
+	APP-API for data & Erhalt von Projekt- und Vertragsdaten vom \textbf{WebServer}. \\
 	
-	Authentication & Übermittelt notwendige Daten zum \textbf{WebServer} zur Authentifizierung des \textbf{AppUser}. \\
+	Authentication & Übermittelt notwendige Daten zum \textbf{WebServer} zur Authentifizierung des \textbf{AppUser}s. \\
 	
 	\rowcolor[HTML]{E7E7E7} 
 	Cache module & Dient der Zwischenspeicherung der Projekt- und Vertragsdaten sowie des Baufortschritts. \\
