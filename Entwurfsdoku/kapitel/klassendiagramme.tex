@@ -105,10 +105,10 @@ Zusätzlich existiert zu jeder Organisation min. ein OrgAdmin, der ebenfalls auf
 \end{figure}
 
 \noindent
-Klassen, deren Name mit ''Controller'' aufhört, verarbeiten HTTP Requests zu bestimmten Pfaden.
-Die zu verarbeitenden Pfade sind pro Gebiet in einem jeweiligen Controller gruppiert.
-In der folgenden Tabelle werden für Controller unter ''Aufgabe'' die zu verarbeitenden Pfade sowie die Bedeutung der dazugehörigen Seite aufgeführt.
-Die Identifikationsnummern oID (Organisation), diaID (Diagramm), pID (Projekt), cID (Vertrag) und bID (Leistungsposition) sind in manche Pfade direkt integriert.\\
+Controller verarbeiten HTTP Requests zu bestimmten Pfaden.
+Die Pfade werden von je einem Controller nach Gebiet gruppiert verarbeitet.
+Diese werden in der folgenden Tabelle unter Aufgabe aufgeführt.
+Die Identifikationsnummern oID (Organisation), uID (Nutzer), rID (Rolle), pID (Projekt), cID (Vertrag) und bID (Leistungsposition) sind in einigen Pfaden direkt integriert.\\
 
 \begin{longtable}[h]{p{5.3cm} p{8.7cm}}
 	\caption{Klassenbeschreibung - Frontend Web}
@@ -163,8 +163,8 @@ Die Identifikationsnummern oID (Organisation), diaID (Diagramm), pID (Projekt), 
 \end{figure}
 
 \noindent
-Alle Activity-Klassen enthalten neben den Angegebenen auch die folgenden Methoden: onLogout(), onBack(), onCreate(), onStart(), onResume(), onPause(), onStop(), onRestart(), onDestroy().
-Außerdem wird das Composite-Srukturmuster verwendet. Dafür wurde eine neue abstrakte Klasse Billing eingeführt.\\
+Alle Activity-Klassen enthalten neben den angegebenen auch die folgenden Methoden: onLogout(), onBack(), onCreate(), onStart(), onResume(), onPause(), onStop(), onRestart(), onDestroy().
+Außerdem wird mittels der abstrakten Klasse Billing das Composite-Strukturmuster verwendet.\\
 
 \clearpage
 
