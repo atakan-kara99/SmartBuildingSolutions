@@ -2,27 +2,26 @@ package com.lms2ue1.sbsweb.model;
 
 import javax.validation.constraints.NotEmpty;
 
-public class Project {
-    
+public class Contract {
     @NotEmpty
     private String name;
 
-    private Long pID;
+    private Long cID;
 
-    public Project(String name, Long pID) {
+    public Contract(String name, Long cID) {
 	this.name = name;
-	this.pID = pID;
+	this.cID = cID;
     }
 
     public String getName() {
-        return name;
+	return name;
     }
 
     public void setName(String name) {
-        this.name = name;
+	this.name = name;
     }
 
-    public Long getPID() {
-        return pID;
+    public Long getCID() {
+	return cID;
     }
 }

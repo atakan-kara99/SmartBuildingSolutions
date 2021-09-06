@@ -22,7 +22,8 @@
             <div class="text-center">
                 <div th:unless="${projects.empty}">
                     <div th:each="project : ${projects}">
-                        <a th:href="@{'/project/' + ${project.pID} + '/show'}" th:text="${project.name}" style="font-size: 25px"></a>
+                        <a th:href="@{'/project/' + ${project.pID} + '/show'}"
+                            th:text="${project.name}" style="font-size: 25px"></a>
                     </div>
                 </div>
             </div>
