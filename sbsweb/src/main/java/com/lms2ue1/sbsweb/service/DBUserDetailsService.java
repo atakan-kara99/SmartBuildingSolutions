@@ -1,8 +1,9 @@
 package com.lms2ue1.sbsweb.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,11 +14,13 @@ import com.lms2ue1.sbsweb.model.*;
 import com.lms2ue1.sbsweb.repository.UserRepository;
 import com.lms2ue1.sbsweb.security.SBSUserDetails;
 
+//import org.springframework.security.core.userdetails.User;
+
 
 @Service
 public class DBUserDetailsService implements UserDetailsService {
 
-	@Value("${credentials.default.username}")
+	/*@Value("${credentials.default.username}")
 	private String username;
 
 	@Value("${credentials.default.password}")
@@ -33,9 +36,9 @@ public class DBUserDetailsService implements UserDetailsService {
 		}
 		return User.withUsername(this.username).password(passwordEncoder.encode(password))
 			.roles("ADMIN").build();
-	}
+	}*/
 	
-	/*private final UserRepository userRepo;
+	private UserRepository userRepo;
 	
 	public DBUserDetailsService(UserRepository userRepo) {
 		this.userRepo = userRepo;
@@ -49,6 +52,6 @@ public class DBUserDetailsService implements UserDetailsService {
 			throw new UsernameNotFoundException(String.format("User '%s' not found.", username));
 		}
 		return new SBSUserDetails(user);
-	}*/
+	}
 	
 }

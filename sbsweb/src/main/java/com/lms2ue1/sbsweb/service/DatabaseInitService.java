@@ -14,9 +14,9 @@ public class DatabaseInitService {
     
     public void init() {
         if(userRepo.count() == 0) {
-        	//BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         	
-            User user0 = new User(0l, "Peter", "Müller", "SBS-Management", "SysAdmin", "sysadmin", "admin");
+            User user0 = new User(0l, "Peter", "Müller", "SBS-Management", "SysAdmin", "sysadmin", passwordEncoder.encode("admin"));
             //User user1 = new User(1l, "Anna", "Krause", "Hochbau-Krause", "OrgAdmin", "AKrause", "krause");
             //User user2 = new User(1l, "Hans-Dieter", "Schulze", "Hochbau-Krause", "Bauleiter", "HDS", "schulze");
 
