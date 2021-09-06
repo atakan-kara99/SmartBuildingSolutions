@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
 
 <head>
-    <title>Nutzerverwaltung</title>
+    <title>Projektübersicht</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link th:href="@{/css/main.css}" rel="stylesheet" />
 </head>
@@ -11,7 +11,7 @@
     <th:block th:fragment="content">
         <div class="container">
             <h2>Projekte</h2>
-            <form th:action="@{/billing_Items_Overview}">
+            <form th:action="@{/project_details}">
             	<button type="submit">Projekt ausgewählt</button>
             </form>
         </div>
