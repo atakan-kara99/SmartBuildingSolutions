@@ -1,5 +1,6 @@
 package com.lms2ue1.sbsweb.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,33 +9,38 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name="USER")
+@Table(name="user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
 //    @NotEmpty THIS IS VERY BAD, DON'T USE THIS
+    @Column(name="ORGANISATION_ID")
     private Long organisationId;
 
     @NotEmpty
+    @Column(name="SURNAME")
     private String surname;
 
     @NotEmpty
+    @Column(name="LASTNAME")
     private String lastname;
 
-
 	@NotEmpty
+	@Column(name="ORGANIZATION")
     private String organization;
 
     @NotEmpty
+    @Column(name="ROLE")
     private String role;
 
     @NotEmpty
+    @Column(name="USERNAME")
     private String username;
     
-    // TODO: Is this decoded?
     @NotEmpty
+    @Column(name="PASSWORD")
     private String password;
 
     public User() {
