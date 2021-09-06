@@ -21,12 +21,13 @@ public class ContractController {
     public String showContractDetails(@PathVariable Long pID, @PathVariable Long cID, Model model) {
 	model.addAttribute("pID", pID);
 	model.addAttribute("cID", cID);
-//	model.addAttribute("contract", BackendAccessProvider.getContractById(cID));
-//	List<BillingItem> billingItems = BackendAccessProvider.getAccessibleBillingItems(user.getUsername());
+//	model.addAttribute("contract", BackendAccessProvider.getContractById(username, cID));
+//	List<BillingItem> billingItems = BackendAccessProvider.getAccessibleBillingItems(username);
 //	model.addAttribute("billingItems", billingItems.stream().filter(billingItem -> billingItem.getCID() == cID).collect(Collectors.toList()));
 	model.addAttribute("contract", new Contract("Wohnzimmer bauen", 0L));
 	model.addAttribute("billingItems",
-		List.of(new BillingItem("Heizung montieren", 0L), new BillingItem("Fenster einbauen", 1L)));
+		List.of(new BillingItem("Heizung montieren", 0L, "Heizkörper B7-2 fensternah einbauen.", "OPEN"),
+			new BillingItem("Fenster einbauen", 1L)));
 	return "contract_details";
     }
 }

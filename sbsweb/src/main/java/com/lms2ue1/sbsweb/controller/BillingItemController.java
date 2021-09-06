@@ -21,8 +21,8 @@ public class BillingItemController {
 	model.addAttribute("pID", pID);
 	model.addAttribute("cID", cID);
 	model.addAttribute("bID", bID);
-//	model.addAttribute("billingItem", BackendAccessProvider.getBillingItemById(bID));
-	model.addAttribute("billingItem", new BillingItem("Heizung montieren", 0L));
+//	model.addAttribute("billingItem", BackendAccessProvider.getBillingItemById(username, bID));
+	model.addAttribute("billingItem", new BillingItem("Heizung montieren", 0L, "Heizkörper B7-2 fensternah einbauen.", "OPEN"));
 	return "billing_item_details";
     }
 }

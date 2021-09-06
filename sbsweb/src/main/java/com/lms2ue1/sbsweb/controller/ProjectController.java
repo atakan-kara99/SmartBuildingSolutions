@@ -43,8 +43,8 @@ public class ProjectController {
     @GetMapping("/project/{pID}/show")
     public String showProjectDetails(@PathVariable Long pID, Model model) {
 	model.addAttribute("pID", pID);
-//	model.addAttribute("project", BackendAccessProvider.getProjectById(pID));
-//	List<Contract> contracts = BackendAccessProvider.getAccessibleContracts(user.getUsername());
+//	model.addAttribute("project", BackendAccessProvider.getProjectById(username, pID));
+//	List<Contract> contracts = BackendAccessProvider.getAccessibleContracts(username);
 //	model.addAttribute("contracts", contracts.stream().filter(contract -> contract.getPID() == pID).collect(Collectors.toList()));
 	model.addAttribute("project", new Project("Hausbau", 1L));
 	model.addAttribute("contracts",
