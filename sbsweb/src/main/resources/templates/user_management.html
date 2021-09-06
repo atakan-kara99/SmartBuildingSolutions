@@ -45,13 +45,13 @@
                                     <span>
                                         <div class="row justify-content-center">
                                             <div class="col-6">
-                                                <a th:href="@{'/organisation/' + ${user.organisationId} + '/user_management/user/' + ${user?.id} + '/edit'}"
+                                                <a th:href="@{'/organisation/' + ${organisation.id} + '/user_management/user/' + ${user?.id} + '/edit'}"
                                                     class="icon-link">
                                                     <i class="bi bi-pencil" style="font-size: medium; color: black;" title="Edit"></i>
                                                 </a>
                                             </div>
                                             <div class="col-6">
-                                                <a th:href="@{'/organisation/' + ${user.organisationId} + '/user_management/user/' + ${user?.id} + '/delete'}"
+                                                <a th:href="@{'/organisation/' + ${organisation.id} + '/user_management/user/' + ${user?.id} + '/delete'}"
                                                     class="icon-link">
                                                     <i class="bi bi-trash" style="font-size: medium; color: rgb(255, 60, 60);" title="Delete"></i>
                                                 </a>
@@ -69,7 +69,7 @@
         <div class="container">
             <div class="row btn-row justify-content-center align-items-center">
                 <div class="col-4 text-center">
-                    <a th:href="@{'/organisation/' + ${organisationId} + '/user_management/user_new'}">
+                    <a th:href="@{'/organisation/' + ${organisation.id} + '/user_management/user_new'}">
                         <button type="button" class="btn btn-outline-success"> Benutzer hinzufügen </button>
                     </a>
                 </div>

@@ -14,25 +14,25 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
-	SBSUserDetailsService userDetailsService;
+    SBSUserDetailsService userDetailsService;
 
-	@Bean
-	protected PasswordEncoder getPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    protected PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-				.anyRequest().authenticated()
-			.and()
-				.formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/organisation/0/user_management", true)
-			.and()
-				.logout().permitAll();
-	}
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().antMatchers("/h2-console/**").permitAll().anyRequest().authenticated().and()
+                .formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/organisation/4/user_management", true)
+                .and().logout().permitAll();
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder());
-	}
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder());
+    }
 }

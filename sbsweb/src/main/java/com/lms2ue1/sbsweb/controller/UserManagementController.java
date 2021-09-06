@@ -2,7 +2,9 @@ package com.lms2ue1.sbsweb.controller;
 
 import javax.validation.Valid;
 
+import com.lms2ue1.sbsweb.model.Organisation;
 import com.lms2ue1.sbsweb.model.User;
+import com.lms2ue1.sbsweb.repository.OrganisationRepository;
 import com.lms2ue1.sbsweb.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +20,24 @@ public class UserManagementController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    OrganisationRepository organisationRepository;
+
     // Note! We will need a proper backend so all of this works properly!
 
     // This redirect will not work as of now. We will need the backend for this to work properly
     @GetMapping("/")
     public String showUserManagementRedirect(Model model) {
         model.addAttribute("message", "Testnachricht");
-        return "redirect:/organisation/0/user_management";
+        return "redirect:/organisation/4/user_management";
     }
 
     /** Shows an overview of <b> ALL </b> organisations' users. */
     @GetMapping("/organisation/{oID}/user_management")
     public String showUserList(@PathVariable Long oID, Model model) {
         model.addAttribute("users", userRepository.findAll());
+        Organisation orga = organisationRepository.findById(oID).get();
+        model.addAttribute("organisation", orga);
         return "user_management";
     }
 
