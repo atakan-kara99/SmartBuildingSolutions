@@ -35,8 +35,7 @@ public class UserManagementController {
     @GetMapping("/organisation/{oID}/user_management")
     public String showUserList(@PathVariable Long oID, Model model) {
         model.addAttribute("users", userRepository.findAll());
-        Organisation orga = organisationRepository.findById(oID).get();
-        model.addAttribute("organisation", orga);
+        model.addAttribute("organisation", organisationRepository.findById(oID).get());
         return "user_management";
     }
 
@@ -44,6 +43,7 @@ public class UserManagementController {
     @GetMapping("/organisation/{oID}/user_management/user_new")
     public String showNewUserForm(@PathVariable Long oID, Model model) {
         model.addAttribute("user", new User());
+        model.addAttribute("organisation", organisationRepository.findById(oID).get());
         return "user_new";
     }
 
@@ -60,7 +60,7 @@ public class UserManagementController {
     }
 
     /** Deletes the specified user and redirects to user management. */
-    @GetMapping("/organisation/{oID}/user_management/user/{uID}/delete")
+    @GetMapping("/organisation/{oID}/user_management/user/{uID}/user_delete")
     public String deleteUserById(@PathVariable Long oID, @PathVariable Long uID) {
         userRepository.deleteById(uID);
         return "redirect:/organisation/{oID}/user_management";
@@ -70,6 +70,7 @@ public class UserManagementController {
     @GetMapping("/organisation/{oID}/user_management/user/{uID}/user_edit")
     public String showUserById(@PathVariable Long oID, @PathVariable Long uID, Model model) {
         model.addAttribute("user", userRepository.findById(uID).get());
+        model.addAttribute("organisation", organisationRepository.findById(oID).get());
         return "user_edit";
     }
 

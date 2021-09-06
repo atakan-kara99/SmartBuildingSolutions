@@ -28,7 +28,7 @@ public class RoleManagementController {
 
     /** Shows an overview of <b> ALL </b> organisations' roles. */
     @GetMapping("/organisation/{oID}/role_management")
-    public String showUserList(@PathVariable long oID, Model model) {
+    public String showRoleList(@PathVariable long oID, Model model) {
         // Should be mostly part of backend
         List<Role> availableRoles = new ArrayList<Role>();
         Iterator<Role> iter = roleRepository.findAll().iterator();
@@ -44,14 +44,15 @@ public class RoleManagementController {
     }
 
     /** Shows the page to add a new role to an organisation. */
-    @GetMapping("/organisation/{oID}/user_management/role_new")
+    @GetMapping("/organisation/{oID}/role_management/role_new")
     public String showNewRoleForm(@PathVariable long oID, Model model) {
+        model.addAttribute("organisation", organisationRepository.findById(oID).get());
         model.addAttribute("role", new Role());
         return "role_new";
     }
 
     /** Will save the new role if no problems were encountered. Will also redirect to role management. */
-    @PostMapping("/organisation/{oID}/user_management/role_save")
+    @PostMapping("/organisation/{oID}/role_management/role_save")
     public String addNewRole(@PathVariable long oID, @Valid Role role, BindingResult bindingResult, Model model) {
         //More checks needed
         if(bindingResult.hasErrors()) {
@@ -63,21 +64,22 @@ public class RoleManagementController {
     }
 
     /** Deletes the specified role and redirects to role management. */
-    @GetMapping("/organisation/{oID}/user_management/role/{rID}/delete")
+    @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_delete")
     public String deleteRoleById(@PathVariable long oID, @PathVariable long rID) {
         roleRepository.deleteById(rID);
         return "redirect:/organisation/{oID}/role_management";
     }
 
     /** Shows the role edit page */
-    @GetMapping("/organisation/{oID}/user_management/role/{rID}/role_edit")
+    @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_edit")
     public String showRoleEditFormById(@PathVariable long oID, @PathVariable long rID, Model model) {
-        model.addAttribute("user", roleRepository.findById(rID).get());
-        return "user_edit";
+        model.addAttribute("role", roleRepository.findById(rID).get());
+        model.addAttribute("organisation", organisationRepository.findById(oID).get());
+        return "role_edit";
     }
 
     /** Updates the role with the new data that was specified. Will redirect to role management if everything went well. */
-    @PostMapping("/organisation/{oID}/user_management/role/{rID}/role_update")
+    @PostMapping("/organisation/{oID}/role_management/role/{rID}/role_update")
     public String editRoleById(@PathVariable long oID, @PathVariable long rID, @Valid Role role, BindingResult bindingResult, Model model) {
         //More checks needed
         if(bindingResult.hasErrors()) {
