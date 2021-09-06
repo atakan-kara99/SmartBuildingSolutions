@@ -1,99 +1,98 @@
 package com.lms2ue1.sbsweb.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
 
+/**
+ * User class with associations to role and organizations.
+ * 
+ * @author juliusdaum
+ */
 @Entity
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	// ---- Attributes ----//
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+	private String surname;
+	private String lastname;
+	private String organization;
+	private String role;
+	private String username;
 
-    private Long organisationId;
+	// ---- Associations ----//
+	private List<Organization> organizations;
+	private List<Role> roles;
 
-    @NotEmpty
-    private String surname;
+	// ----------------------------------//
+	// ---------- Constructors ----------//
+	// ----------------------------------//
+	public User() {
+	}
 
-    @NotEmpty
-    private String lastname;
+	public User(long userId, ) {
+		this.surname = surname;
+		this.lastname = lastname;
+		this.organization = organization;
+		this.role = role;
+		this.username = username;
+	}
 
-    @NotEmpty
-    private String organization;
+	// ----------------------------//
+	// ---------- Getter ----------//
+	// ----------------------------//
+	public Long getId() {
+		return this.id;
+	}
 
-    @NotEmpty
-    private String role;
+	public String getSurname() {
+		return this.surname;
+	}
 
-    @NotEmpty
-    private String username;
+	public String getLastname() {
+		return this.lastname;
+	}
 
-    public User() {
-    }
+	public String getOrganization() {
+		return this.organization;
+	}
 
-    public User(Long organisationId, String surname, String lastname, String organization, String role, String username) {
-        this.organisationId = organisationId;
-        this.surname = surname;
-        this.lastname = lastname;
-        this.organization = organization;
-        this.role = role;
-        this.username = username;
-    }
+	public String getRole() {
+		return this.role;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public String getUsername() {
+		return this.username;
+	}
 
-    public Long getOrganisationId() {
-        return id;
-    }
+	// ----------------------------//
+	// ---------- Setter ----------//
+	// ----------------------------//
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getSurname() {
-        return surname;
-    }
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
 
-    public String getLastname() {
-        return lastname;
-    }
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
 
-    public String getOrganization() {
-        return organization;
-    }
+	public void setOrganization(String organization) {
+		this.organization = organization;
+	}
 
-    public String getRole() {
-        return role;
-    }
+	public void setRole(String role) {
+		this.role = role;
+	}
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setOrganisationI(Long organisationId) {
-        this.organisationId = organisationId;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public void setOrganization(String organization) {
-        this.organization = organization;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 }
