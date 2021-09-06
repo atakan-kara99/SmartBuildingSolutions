@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,16 +25,20 @@ public class ProjectController {
 
     /** Shows an overview of all projects. */
     @GetMapping("/project_overview")
-    public String showProjectOverview(@AuthenticationPrincipal User user, Model model) {
+    public String showProjectOverview(Model model) {
 //	model.addAttribute("projects", BackendAccessProvider.getAccessibleProjects(user.getUsername()));
 	model.addAttribute("projects", List.of(new Project("Schule sanieren", 0L), new Project("Hausbau", 1L),
 		new Project("Feierabend XTREME", 2L)));
 	return "project_overview";
+//	TODO get username via
+//	"@AuthenticationPrincipal User user" in method params, doesn't work yet
+//	or
+//	((org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
     }
 
     /** Shows the specified project's details, e.g. its contracts. */
     @GetMapping("/project/{pID}/show")
-    public String showProjectDetails(@AuthenticationPrincipal User user, @PathVariable Long pID, Model model) {
+    public String showProjectDetails(@PathVariable Long pID, Model model) {
 	model.addAttribute("pID", pID);
 //	model.addAttribute("project", BackendAccessProvider.getProjectById(pID));
 //	List<Contract> contracts = BackendAccessProvider.getAccessibleContracts(user.getUsername());

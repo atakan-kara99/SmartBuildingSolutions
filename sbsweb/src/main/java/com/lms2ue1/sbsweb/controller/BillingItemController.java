@@ -16,8 +16,8 @@ public class BillingItemController {
 
     /** Shows the specified billing item's details. */
     @GetMapping("/project/{pID}/contract/{cID}/billing_item/{bID}/show")
-    public String showBillingItemDetails(@AuthenticationPrincipal User user, @PathVariable Long pID,
-	    @PathVariable Long cID, @PathVariable Long bID, Model model) {
+    public String showBillingItemDetails(@PathVariable Long pID, @PathVariable Long cID, @PathVariable Long bID,
+	    Model model) {
 	model.addAttribute("pID", pID);
 	model.addAttribute("cID", cID);
 	model.addAttribute("bID", bID);
