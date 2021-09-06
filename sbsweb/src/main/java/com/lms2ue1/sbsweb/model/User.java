@@ -4,14 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
+@Table(name = "USER")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotEmpty
     private Long organisationId;
 
     @NotEmpty
@@ -20,7 +23,19 @@ public class User {
     @NotEmpty
     private String lastname;
 
-    @NotEmpty
+    public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setOrganisationId(Long organisationId) {
+		this.organisationId = organisationId;
+	}
+
+	@NotEmpty
     private String organization;
 
     @NotEmpty
@@ -28,17 +43,22 @@ public class User {
 
     @NotEmpty
     private String username;
+    
+    // TODO: Is this decoded?
+    @NotEmpty
+    private String password;
 
     public User() {
     }
 
-    public User(Long organisationId, String surname, String lastname, String organization, String role, String username) {
+    public User(Long organisationId, String surname, String lastname, String organization, String role, String username, String password) {
         this.organisationId = organisationId;
         this.surname = surname;
         this.lastname = lastname;
         this.organization = organization;
         this.role = role;
         this.username = username;
+        this.password = password;
     }
 
     public Long getId() {

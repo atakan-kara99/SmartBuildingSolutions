@@ -6,6 +6,7 @@ import com.lms2ue1.sbsweb.model.User;
 import com.lms2ue1.sbsweb.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,6 +50,11 @@ public class UserManagementController {
             model.addAttribute("user", user);
             return "user_new";
         }
+        
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        
         userRepository.save(user);
         return "redirect:/organisation/{oID}/user_management";
     }
