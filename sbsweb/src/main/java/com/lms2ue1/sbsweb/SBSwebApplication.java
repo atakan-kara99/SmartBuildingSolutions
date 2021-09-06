@@ -18,6 +18,7 @@ public class SBSwebApplication implements CommandLineRunner {
 
     @Override
 	public void run(String... arg0) throws Exception {
+    	// TODO: Find the error.
 		databaseInitService.init();
 	}
 }

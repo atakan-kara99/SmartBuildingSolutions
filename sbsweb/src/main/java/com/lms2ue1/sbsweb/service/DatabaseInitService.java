@@ -10,20 +10,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class DatabaseInitService {
     @Autowired
-    UserRepository userRepository;
+    UserRepository userRepo;
     
     public void init() {
-        if(userRepository.count() == 0) {
-        	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if(userRepo.count() == 0) {
+        	//BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         	
-            User user0 = new User(0l, "Peter", "Müller", "SBS-Management", "SysAdmin", "sysadmin", "mueller");
+            User user0 = new User(0l, "Peter", "Müller", "SBS-Management", "SysAdmin", "sysadmin", "admin");
             //User user1 = new User(1l, "Anna", "Krause", "Hochbau-Krause", "OrgAdmin", "AKrause", "krause");
             //User user2 = new User(1l, "Hans-Dieter", "Schulze", "Hochbau-Krause", "Bauleiter", "HDS", "schulze");
 
-            String encodedPassword = passwordEncoder.encode(user0.getPassword());
-            user0.setPassword(encodedPassword);
+            //String encodedPassword = passwordEncoder.encode(user0.getPassword());
+            //user0.setPassword(encodedPassword);
             
-            userRepository.save(user0);
+            userRepo.save(user0);
             //userRepository.save(user1);
             //userRepository.save(user2);
         }

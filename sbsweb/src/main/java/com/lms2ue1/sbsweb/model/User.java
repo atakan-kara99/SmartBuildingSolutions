@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name = "USER")
+@Table(name="USER")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,17 +23,6 @@ public class User {
     @NotEmpty
     private String lastname;
 
-    public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public void setOrganisationId(Long organisationId) {
-		this.organisationId = organisationId;
-	}
 
 	@NotEmpty
     private String organization;
@@ -59,6 +48,18 @@ public class User {
         this.role = role;
         this.username = username;
         this.password = password;
+    }
+    
+    public String getPassword() {
+    	return password;
+    }
+    
+    public void setPassword(String password) {
+    	this.password = password;
+    }
+    
+    public void setOrganisationId(Long organisationId) {
+    	this.organisationId = organisationId;
     }
 
     public Long getId() {
