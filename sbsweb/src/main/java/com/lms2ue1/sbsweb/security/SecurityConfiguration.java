@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Autowired
+	@Autowired
 	SBSUserDetailsService userDetailsService;
 
 	@Bean
@@ -23,12 +23,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-				.anyRequest().authenticated()
+		http
+			.authorizeRequests()
+			//.antMatchers("/h2-console").permitAll()
+			.anyRequest().authenticated()
 			.and()
-				.formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/organisation/0/user_management", true)
-			.and()
-				.logout().permitAll();
+			.formLogin().loginPage("/login").permitAll()
+			.defaultSuccessUrl("/organisation/0/user_management", true)
+			.and().logout().permitAll();
+		
+		// Comment in to enable H2 console on test server (not recommended for release version!)
+		http.csrf().disable();
+		http.headers().frameOptions().disable();
 	}
 
 	@Override
