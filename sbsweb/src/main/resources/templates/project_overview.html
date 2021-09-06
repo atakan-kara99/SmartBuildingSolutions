@@ -2,18 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
 
 <head>
-    <title>Projektübersicht</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link th:href="@{/css/main.css}" rel="stylesheet" />
+<title>Projekte</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link th:href="@{/css/main.css}" rel="stylesheet" />
 </head>
 
 <body>
     <th:block th:fragment="content">
         <div class="container">
-            <h2>Projekte</h2>
-            <form th:action="@{/project_details}">
-            	<button type="submit">Projekt ausgewählt</button>
-            </form>
+            <div class="text-center">
+                <h1>Projekte</h1>
+            </div>
+        </div>
+        <div class="padding-50"></div>
+        <div th:if="${projects.empty}" class="text-center">
+            <p>Keine Projekte verfügbar.</p>
+        </div>
+        <div class="container">
+            <div class="text-center">
+                <div th:unless="${projects.empty}">
+                    <div th:each="project : ${projects}">
+                        <a th:href="@{'/project/' + ${project.pId} + '/show'}" th:text="${project.name}" style="font-size: 25px"></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </th:block>
 </body>
