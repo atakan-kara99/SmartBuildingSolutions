@@ -14,7 +14,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty
+//    @NotEmpty THIS IS VERY BAD, DON'T USE THIS
     private Long organisationId;
 
     @NotEmpty
