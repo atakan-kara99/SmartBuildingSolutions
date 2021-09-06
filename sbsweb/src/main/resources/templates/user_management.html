@@ -16,7 +16,7 @@
         <div class="container">
             <div class="row btn-row justify-content-end align-items-center">
                 <div class="col-4 text-center">
-                    <a th:href="@{'/organisation' + ${organisation.id} + '/role_management'}">
+                    <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management'}">
                         <button type="button" class="btn btn-outline-success"> Rollen verwalten </button>
                     </a>
                 </div>
@@ -36,7 +36,7 @@
                         </thead>
                         <tbody>
                             <tr th:if="${users.empty}" class="text-center">
-                                <td colspan="3"> Keine Benutzer verfügbar. Nutzerrechte nicht ausreichend </td>
+                                <td colspan="3"> Keine Benutzer verfügbar </td>
                             </tr>
                             <tr th:each="user : ${users}">
                                 <td class="text-center"><span th:text="${user?.username}"> Benutzername </span></td>

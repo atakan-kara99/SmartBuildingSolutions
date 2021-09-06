@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.lms2ue1.sbsweb.model.Role;
+import com.lms2ue1.sbsweb.repository.OrganisationRepository;
 import com.lms2ue1.sbsweb.repository.RoleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class RoleManagementController {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    OrganisationRepository organisationRepository;
+
     /** Shows an overview of <b> ALL </b> organisations' roles. */
     @GetMapping("/organisation/{oID}/role_management")
     public String showUserList(@PathVariable long oID, Model model) {
@@ -35,6 +39,7 @@ public class RoleManagementController {
             }
         }
         model.addAttribute("roles", availableRoles);
+        model.addAttribute("organisation", organisationRepository.findById(oID).get());
         return "role_management";
     }
 

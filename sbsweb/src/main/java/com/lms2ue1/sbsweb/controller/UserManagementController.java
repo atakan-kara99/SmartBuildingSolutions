@@ -28,7 +28,6 @@ public class UserManagementController {
     // This redirect will not work as of now. We will need the backend for this to work properly
     @GetMapping("/")
     public String showUserManagementRedirect(Model model) {
-        model.addAttribute("message", "Testnachricht");
         return "redirect:/organisation/4/user_management";
     }
 
