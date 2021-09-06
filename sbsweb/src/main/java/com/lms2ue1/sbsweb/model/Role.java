@@ -33,6 +33,28 @@ public class Role {
 	public Role() {
 	}
 
+	/**
+	 * Initializes a role object.
+	 * 
+	 * @param id            the unique id of a role.
+	 * @param name          the name of a role.
+	 * @param projects      the associated projects.
+	 * @param organizations the associated organizations.
+	 * @param users         the associated users.
+	 * @param contracts     the associated contracts.
+	 * @param billingItems  the associated billing items.
+	 */
+	public Role(long id, String name, List<Project> projects, List<Organization> organizations, List<User> users,
+			List<Contract> contracts, List<BillingItem> billingItems) {
+		this.id = id;
+		this.name = name;
+		this.projects = projects;
+		this.organizations = organizations;
+		this.users = users;
+		this.contracts = contracts;
+		this.billingItems = billingItems;
+	}
+
 	// ----------------------------//
 	// ---------- Getter ----------//
 	// ----------------------------//
@@ -67,8 +89,8 @@ public class Role {
 	// ----------------------------//
 	// ---------- Setter ----------//
 	// ----------------------------//
-	public void setId(long rId) {
-		this.id = rId;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public void setName(String n) {

@@ -13,18 +13,19 @@ import javax.persistence.Id;
  * @author juliusdaum
  */
 @Entity
+@Table(name="users")
 public class User {
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	private String surname;
+	private String forename;
 	private String lastname;
-	private String organization;
 	private String role;
 	private String username;
 
 	// ---- Associations ----//
+	// TODO: set the associations
 	private List<Organization> organizations;
 	private List<Role> roles;
 
@@ -34,12 +35,26 @@ public class User {
 	public User() {
 	}
 
-	public User(long userId, ) {
-		this.surname = surname;
+	/**
+	 * Initializes a user object.
+	 * 
+	 * @param id            the unique id of the user.
+	 * @param forename
+	 * @param lastname
+	 * @param role          the associated role.
+	 * @param username
+	 * @param organizations associated organizations.
+	 * @param roles         associated roles.
+	 */
+	public User(long id, String forename, String lastname, String role, String username,
+			List<Organization> organizations, List<Role> roles) {
+		this.id = id;
+		this.forename = forename;
 		this.lastname = lastname;
-		this.organization = organization;
 		this.role = role;
 		this.username = username;
+		this.organizations = organizations;
+		this.roles = roles;
 	}
 
 	// ----------------------------//
@@ -49,16 +64,12 @@ public class User {
 		return this.id;
 	}
 
-	public String getSurname() {
-		return this.surname;
+	public String getForename() {
+		return this.forename;
 	}
 
 	public String getLastname() {
 		return this.lastname;
-	}
-
-	public String getOrganization() {
-		return this.organization;
 	}
 
 	public String getRole() {
@@ -69,6 +80,14 @@ public class User {
 		return this.username;
 	}
 
+	public List<Organization> getOrganizations() {
+		return this.organizations;
+	}
+
+	public List<Role> getRoles() {
+		return this.roles;
+	}
+
 	// ----------------------------//
 	// ---------- Setter ----------//
 	// ----------------------------//
@@ -76,16 +95,12 @@ public class User {
 		this.id = id;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public void setForename(String forename) {
+		this.forename = forename;
 	}
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
-	}
-
-	public void setOrganization(String organization) {
-		this.organization = organization;
 	}
 
 	public void setRole(String role) {
@@ -94,5 +109,13 @@ public class User {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public void setOrganizations(List<Organization> organizations) {
+		this.organizations = organizations;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 }
