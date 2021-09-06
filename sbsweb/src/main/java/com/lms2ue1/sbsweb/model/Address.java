@@ -4,10 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Address of each project.
+ * Address of each project. Associated to one project.
  * 
  * @author juliusdaum
  */
@@ -25,7 +26,7 @@ public class Address {
 	private String country;
 
 	// ---- Associations ----//
-	// TODO: set the associations
+	@ManyToOne
 	private Project project;
 
 	// ----------------------------------//

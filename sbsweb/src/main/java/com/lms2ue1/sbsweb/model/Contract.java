@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -29,10 +32,13 @@ public class Contract {
 	private String contractor;
 
 	// ---- Associations ----//
-	// TODO: set the associations
+	@ManyToMany
 	private List<Organization> organizations;
+	@ManyToMany
 	private List<Role> roles;
+	@ManyToOne
 	private Project project;
+	@OneToMany(mappedBy="contract", orphanRemoval=true)
 	private List<BillingUnit> billingUnits;
 
 	// ----------------------------------//

@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import java.util.List;
@@ -25,10 +27,13 @@ public class Organization {
 	private String name;
 
 	// ---- Associations ----//
-	// TODO: set the associations
+	@OneToMany(mappedBy="organizations")
 	private List<Project> projects;
+	@ManyToMany
 	private List<User> users;
+	@OneToMany(mappedBy="organizations")
 	private List<Role> roles;
+	@ManyToMany
 	private List<Contract> contracts;
 
 	// ----------------------------------//

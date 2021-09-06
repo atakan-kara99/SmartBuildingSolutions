@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 /**
  * User class with associations to role and organizations.
@@ -25,8 +27,9 @@ public class User {
 	private String username;
 
 	// ---- Associations ----//
-	// TODO: set the associations
+	@ManyToMany
 	private List<Organization> organizations;
+	@ManyToMany
 	private List<Role> roles;
 
 	// ----------------------------------//

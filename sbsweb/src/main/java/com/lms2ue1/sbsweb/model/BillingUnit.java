@@ -6,15 +6,23 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * BillingUnit of each contract. Associated to one contract and one or more
+ * billing items.
+ * 
+ * @author juliusdaum
+ *
+ */
 @Entity
-@Table(name="billing_units")
+@Table(name = "billing_units")
 public class BillingUnit {
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	// TODO: set the associations
 	private long id;
 	private String shortDescription;
 	private String longDescription;
@@ -25,7 +33,9 @@ public class BillingUnit {
 	private double totalPrice;
 
 	// ---- Associations ----//
+	@ManyToOne
 	private Contract contract;
+	@OneToMany(mappedBy = "billingUnit", orphanRemoval = true)
 	private List<BillingItem> billingItems;
 
 	// ----------------------------------//

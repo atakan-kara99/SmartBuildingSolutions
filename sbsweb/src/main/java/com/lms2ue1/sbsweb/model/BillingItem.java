@@ -7,33 +7,45 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Billing Item of a project. Associated to two or more roles, one billing unit
+ * and two itself.
+ * 
+ * @author juliusdaum
+ *
+ */
 @Entity
-@Table(name="billing_item")
+@Table(name = "billing_item")
 public class BillingItem {
 	// ---- Attributes ----//
 	@Id
-	@Column(updatable=false)
+	@Column(updatable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	// TODO: set the associations
 	private long id;
 	private double price;
-	@Column(name="short_description")
+	@Column(name = "short_description")
 	private String shortDescription;
 	private String status;
 	private double quantities;
 	private String unit;
-	@Column(name="unit_price")
+	@Column(name = "unit_price")
 	private double unitPrice;
-	@Column(name="qty_split")
+	@Column(name = "qty_split")
 	private String qtySplit;
-	@Column(name="short_desclinked_ifc")
+	@Column(name = "short_desclinked_ifc")
 	private String shortDesLinkedIFC;
 
 	// ---- Associations ----//
+	@ManyToOne
 	private BillingUnit billingUnit;
-	private List<BillingItem> billingItems;
+	/* when billing item mappes to itself, it needs an billing item attribute. */
+//	@OneToMany(mappedBy="billingItem")
+//	private List<BillingItem> billingItems;
+	@ManyToMany
 	private List<Role> roles;
 
 	// ----------------------------------//
