@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+<title th:text="${project.name}"></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link th:href="@{/css/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <th:block th:fragment="content">
+        <div class="container">
+            <div class="text-center">
+                <h1 th:text="${project.name}"></h1>
+            </div>
+        </div>
+        <div class="padding-50"></div>
+        <div th:if="${contracts.empty}" class="text-center">
+            <p>Keine Verträge verfügbar.</p>
+        </div>
+        <div class="container">
+            <div class="text-center">
+                <div th:unless="${contracts.empty}">
+                    <div th:each="contract : ${contracts}">
+                        <a th:href="@{'/contract/' + ${contract.cID} + '/show'}" th:text="${contract.name}" style="font-size: 25px"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</body>
+
+</html>

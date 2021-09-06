@@ -1,6 +1,7 @@
 package com.lms2ue1.sbsweb.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -24,8 +25,12 @@ public class ProjectController {
 
     /** Shows the specified project's details, e.g. its contracts. */
     @GetMapping("/project/{pID}/show")
-    public String showProjectDetails(@PathVariable Long pID, Model model) {
-	model.addAttribute("pID", pID);
+    public String showProjectDetails(@AuthenticationPrincipal User user, @PathVariable Long pID, Model model) {
+//	model.addAttribute("project", BackendAccessProvider.getProjectById(pID));
+//	List<Contract> contracts = BackendAccessProvider.getAccessibleContracts(user.getUsername());
+//	model.addAttribute("contracts", contracts.stream().filter(contract -> contract.getPID() == pID).collect(Collectors.toList()));
+	model.addAttribute("project", new Project("Hausbau",1L));
+	model.addAttribute("contracts", List.of());
 	return "project_details";
     }
 }

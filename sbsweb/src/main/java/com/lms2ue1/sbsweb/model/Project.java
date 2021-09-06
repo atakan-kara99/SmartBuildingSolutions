@@ -1,7 +1,5 @@
 package com.lms2ue1.sbsweb.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.validation.constraints.NotEmpty;
 
 public class Project {
@@ -9,11 +7,11 @@ public class Project {
     @NotEmpty
     private String name;
 
-    private Long pId;
+    private Long pID;
 
-    public Project(String name, Long pId) {
+    public Project(String name, Long pID) {
 	this.name = name;
-	this.pId = pId;
+	this.pID = pID;
     }
 
     public String getName() {
@@ -24,7 +22,7 @@ public class Project {
         this.name = name;
     }
 
-    public Long getpId() {
-        return pId;
+    public Long getpID() {
+        return pID;
     }
 }
