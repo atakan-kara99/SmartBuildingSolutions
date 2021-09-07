@@ -57,10 +57,8 @@ public class BillingUnit {
 	 * @param totalQuantity      = total quantity
 	 * @param totalPrice         = total price
 	 * @param contract           = contract
-	 * @param billingItems       = billing items
 	 */
-	public BillingUnit(String sDesc, String lDesc, String unit, String completionDate, String ownContractDefined, double totalQuantity, double totalPrice, Contract contract,
-			List<BillingItem> billingItems) {
+	public BillingUnit(String sDesc, String lDesc, String unit, String completionDate, String ownContractDefined, double totalQuantity, double totalPrice, Contract contract) {
 		this.shortDescription = sDesc;
 		this.longDescription = lDesc;
 		this.unit = unit;
@@ -69,7 +67,6 @@ public class BillingUnit {
 		this.totalQuantity = totalQuantity;
 		this.totalPrice = totalPrice;
 		this.contract = contract;
-		this.billingItems = billingItems;
 	}
 
 	// ----------------------------//

@@ -45,15 +45,13 @@ public class Address {
 	 * @param zip         zip code of the city.
 	 * @param city        city.
 	 * @param country     country.
-	 * @param project     the associated project.
 	 */
-	public Address(String street, int houseNumber, int zip, String city, String country, Project project) {
+	public Address(String street, int houseNumber, int zip, String city, String country) {
 		this.street = street;
 		this.houseNumber = houseNumber;
 		this.zipCode = zip;
 		this.city = city;
 		this.country = country;
-		this.project = project;
 	}
 
 	// ----------------------------//

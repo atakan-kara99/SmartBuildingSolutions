@@ -2,6 +2,7 @@ package com.lms2ue1.sbsweb.backend.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,7 +40,7 @@ public class Contract {
 	@Size(min = 2)
 	@ManyToMany
 	private List<Role> roles;
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.ALL})
 	private Project project;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "contract", orphanRemoval = true)

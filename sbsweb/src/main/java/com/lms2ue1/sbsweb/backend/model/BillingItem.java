@@ -30,7 +30,7 @@ public class BillingItem {
 	private double price;
 	private String name;
 	private String shortDescription;
-	private String status;
+	private Status status;
 	private double quantities;
 	private String unit;
 	private double unitPrice;
@@ -67,7 +67,7 @@ public class BillingItem {
 	 * @param billUnit = billing unit
 	 * @param billingItems = billing items
 	 */
-	public BillingItem(double price, String sDesc, String status, double quantities, String unit, double uPrice, String qSplit,
+	public BillingItem(double price, String sDesc, Status status, double quantities, String unit, double uPrice, String qSplit,
 			String sDLIFC, BillingUnit billUnit, List<BillingItem> billingItems) {
 		this.price = price;
 		this.shortDescription = sDesc;
@@ -104,7 +104,7 @@ public class BillingItem {
 		return this.shortDescription;
 	}
 
-	public String getStatus() {
+	public Status getStatus() {
 		return this.status;
 	}
 
@@ -155,7 +155,7 @@ public class BillingItem {
 		this.shortDescription = sDesc;
 	}
 
-	public void setStatus(String s) {
+	public void setStatus(Status s) {
 		this.status = s;
 	}
 

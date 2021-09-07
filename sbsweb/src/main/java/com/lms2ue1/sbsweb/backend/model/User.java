@@ -2,6 +2,7 @@ package com.lms2ue1.sbsweb.backend.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -40,7 +41,7 @@ public class User {
 	@ManyToMany
 	private List<Organisation> organisations;
 	// It is only ONE role allowed. Otherwise we have a problem with authorisation.
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.ALL})
 	private Role role;
 	/*
 	 * @OneToMany(mappedBy = "project") private List<Project> projects;
