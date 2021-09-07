@@ -12,6 +12,12 @@
         <div class="container">
             <div class="text-center">
                 <h1 th:text="${project.name}"></h1>
+                <div class="padding-50"></div>
+                <p th:text="${project.description}"></p>
+                <div class="padding-50"></div>
+                <p>
+                    Status: <b th:text="${project.status}"></b>
+                </p>
             </div>
         </div>
         <div class="padding-50"></div>

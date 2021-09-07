@@ -32,7 +32,7 @@ public class ProjectController {
 	model.addAttribute("projects",
 		List.of(new Project(0, "Schule sanieren", null, null, null, null, 0, null, null, null, null, null, null,
 			null, null),
-			new Project(1, "Hausbau", "Haus an der Lindenallee 37 wird", null, null, null, 0, null, null,
+			new Project(1, "Hausbau", "Haus an der Lindenallee 37 wird gebaut", null, null, "NO_STATUS", 0, null, null,
 				null, null, null, null, null, null),
 			new Project(2, "Feierabend XTREME", null, null, null, null, 0, null, null, null, null, null,
 				null, null, null)));
@@ -51,8 +51,8 @@ public class ProjectController {
 //	model.addAttribute("project", BackendAccessProvider.getProjectById(username, pID));
 //	List<Contract> contracts = BackendAccessProvider.getAccessibleContracts(username);
 //	model.addAttribute("contracts", contracts.stream().filter(contract -> contract.getPID() == pID).collect(Collectors.toList()));
-	model.addAttribute("project", new Project(1, "Hausbau", "Haus an der Lindenallee 37 wird", null, null, null, 0,
-		null, null, null, null, null, null, null, null));
+	model.addAttribute("project", new Project(1, "Hausbau", "Haus an der Lindenallee 37 wird gebaut", null, null, "NO_STATUS", 0, null, null,
+		null, null, null, null, null, null));
 	model.addAttribute("contracts", List.of(
 		new Contract(0, "Wohnzimmer bauen", "Sachen müssen erledigt werden", null, null, null, null, null, null,
 			null),
