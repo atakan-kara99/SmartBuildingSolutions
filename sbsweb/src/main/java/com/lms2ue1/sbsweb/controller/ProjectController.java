@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.lms2ue1.sbsweb.backend.model.Contract;
 import com.lms2ue1.sbsweb.backend.model.Project;
+import com.lms2ue1.sbsweb.backend.model.User;
 
 @Controller
 public class ProjectController {
@@ -27,7 +28,7 @@ public class ProjectController {
     /** Shows an overview of all projects. */
     @GetMapping("/project_overview")
     public String showProjectOverview(Model model) {
-//	model.addAttribute("projects", BackendAccessProvider.getAccessibleProjects(user.getUsername()));
+//	model.addAttribute("projects", BackendAccessProvider.getAccessibleProjects(principal.getName()));
 	model.addAttribute("projects",
 		List.of(new Project(0, "Schule sanieren", null, null, null, null, 0, null, null, null, null, null, null,
 			null, null),
@@ -40,7 +41,7 @@ public class ProjectController {
 //	"@AuthenticationPrincipal User user" in method params, doesn't work yet
 //	Working solutions:
 //	"Principal principal" in method params
-//	System.out.println(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+//	((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
     }
 
     /** Shows the specified project's details, e.g. its contracts. */
