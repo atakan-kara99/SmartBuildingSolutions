@@ -21,7 +21,7 @@ public class User {
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable=false)
+	@Column(updatable = false)
 	private long id;
 	@NotEmpty
 	private String forename;
@@ -35,32 +35,33 @@ public class User {
 	private String password;
 
 	// ---- Associations ----//
-	@Size(min=1)
+	@Size(min = 1)
 	@ManyToMany
 	private List<Organisation> organisations;
-	@Size(min=2)
+	@Size(min = 2)
 	@ManyToMany
 	private List<Role> roles;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
-	
+
 	// TODO: Do we really want to allow this? Good for testing. (nka)
 	public User() {
 	}
-	
+
 	/**
 	 * Constructor for OrgAdmin. He can create users.
 	 * 
-	 * @param firstname first name of the user.
-	 * @param lastname last name of the user.
-	 * @param role     role of the user.
+	 * @param firstname     first name of the user.
+	 * @param lastname      last name of the user.
+	 * @param role          role of the user.
 	 * @param organisations at least one organisation the user works for.
-	 * @param username user name.
-	 * @param password password of the user (encrypted).
+	 * @param username      user name.
+	 * @param password      password of the user (encrypted).
 	 */
-	public User(String firstname, String lastname, String role, List<Organisation> organisations, String username, String password) {
+	public User(String firstname, String lastname, String role, List<Organisation> organisations, String username,
+			String password) {
 		this.forename = firstname;
 		this.lastname = lastname;
 		this.role = role;

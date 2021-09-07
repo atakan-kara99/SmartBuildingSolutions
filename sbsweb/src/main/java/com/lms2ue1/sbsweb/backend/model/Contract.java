@@ -54,29 +54,25 @@ public class Contract {
 	/**
 	 * Initializes a contract object.
 	 * 
-	 * @param id      = id
-	 * @param n       = name
-	 * @param desc    = description
-	 * @param s       = status
-	 * @param cnsgn   = consignee
-	 * @param cntrctr = contructor
-	 * @param os      = organisations
-	 * @param rs      = roles
-	 * @param ps      = projects
-	 * @param bus     = billing units
+	 * @param name          = name
+	 * @param description   = description
+	 * @param status        = status
+	 * @param consignee     = consignee
+	 * @param contructor    = contructor
+	 * @param organisations = organisations
+	 * @param projects      = projects
+	 * @param billunits     = billing units
 	 */
-	public Contract(long id, String n, String desc, String s, String cnsgn, String cntrctr, List<Organisation> os,
-			List<Role> rs, Project ps, List<BillingUnit> bus) {
-		this.id = id;
-		this.name = n;
-		this.description = desc;
-		this.status = s;
-		this.consignee = cnsgn;
-		this.contractor = cntrctr;
-		this.organisations = os;
-		this.roles = rs;
-		this.project = ps;
-		this.billingUnits = bus;
+	public Contract(String name, String description, String status, String consignee, String contructor,
+			List<Organisation> organisations, Project projects, List<BillingUnit> billunits) {
+		this.name = name;
+		this.description = description;
+		this.status = status;
+		this.consignee = consignee;
+		this.contractor = contructor;
+		this.organisations = organisations;
+		this.project = projects;
+		this.billingUnits = billunits;
 	}
 
 	// ----------------------------//

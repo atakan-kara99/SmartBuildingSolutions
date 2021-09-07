@@ -24,7 +24,7 @@ public class Organisation {
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable=false)
+	@Column(updatable = false)
 	private long id;
 	@NotEmpty
 	private String name;
@@ -46,7 +46,7 @@ public class Organisation {
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
-	
+
 	// TODO: Do we really want to allow this? Good for testing. (nka)
 	public Organisation() {
 	}
@@ -54,20 +54,17 @@ public class Organisation {
 	/**
 	 * Constructor to insert the data of the rest api json request.
 	 * 
-	 * @param id id of the organisation.
-	 * @param n  name of the organisation.
-	 * @param ps associated projects.
-	 * @param us associated users.
-	 * @param rs associated roles.
-	 * @param cs assocaited contracts.
+	 * @param name      = name of the organisation.
+	 * @param projects  = associated projects.
+	 * @param users     = associated users.
+	 * @param contracts = assocaited contracts.
 	 */
-	public Organisation(long id, String n, List<Project> ps, List<User> us, List<Role> rs, List<Contract> cs) {
-		this.id = id;
-		this.name = n;
-		this.projects = ps;
-		this.users = us;
-		this.roles = rs;
-		this.contracts = cs;
+	public Organisation(String name, List<Project> projects, List<User> users,
+			List<Contract> contracts) {
+		this.name = name;
+		this.projects = projects;
+		this.users = users;
+		this.contracts = contracts;
 	}
 
 	// ----------------------------//

@@ -19,7 +19,7 @@ public class Project {
 	// ------ Attributes ------//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable=false)
+	@Column(updatable = false)
 	private long id;
 	private String name;
 	private String description;
@@ -36,14 +36,16 @@ public class Project {
 	// ------ Associations ------//
 	@OneToOne
 	private Address address;
-	@Size(min=1)
+	@Size(min = 1)
 	@OneToMany(mappedBy = "project", orphanRemoval = true)
 	private List<Contract> contracts;
 	@ManyToOne
 	private Organisation organisation;
-	@Size(min=2)
+	@Size(min = 2)
 	@ManyToMany
 	private List<Role> roles;
+
+
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
@@ -53,40 +55,36 @@ public class Project {
 	/**
 	 * Constructor to insert the data of the rest api json request.
 	 * 
-	 * @param id             project id.
-	 * @param n              name of the project.
+	 * @param name           name of the project.
 	 * @param desc           description.
 	 * @param creationDate   date where the project started.
 	 * @param completionDate date where the project should be finished.
-	 * @param s              current status of the project.
-	 * @param oC             overall costs.
-	 * @param c              name of the creator.
+	 * @param status         current status of the project.
+	 * @param costs          overall costs.
+	 * @param creator        name of the creator.
 	 * @param img            path of the image.
 	 * @param imgType        type of the image.
 	 * @param imgFileName    name of the image.
-	 * @param a              address of the project.
-	 * @param cs             associated contracts.
-	 * @param o              associated organization.
-	 * @param rs             associated roles.
+	 * @param address        address of the project.
+	 * @param contracts      associated contracts.
+	 * @param organisation   associated organisation.
 	 */
-	public Project(long id, String n, String desc, String creationDate, String completionDate, String s, double oC,
-			String c, String img, String imgType, String imgFileName, Address a, List<Contract> cs, Organisation o,
-			List<Role> rs) {
-		this.id = id;
-		this.name = n;
+	public Project(String name, String desc, String creationDate, String completionDate, String status, double costs,
+			String creator, String img, String imgType, String imgFileName, Address address, List<Contract> contracts,
+			Organisation organisation) {
+		this.name = name;
 		this.description = desc;
 		this.creationDate = creationDate;
 		this.completionDate = completionDate;
-		this.status = s;
-		this.overallCosts = oC;
-		this.creator = c;
+		this.status = status;
+		this.overallCosts = costs;
+		this.creator = creator;
 		this.image = img;
 		this.imageType = imgType;
 		this.imageFileName = imgFileName;
-		this.address = a;
-		this.contracts = cs;
-		this.organisation = o;
-		this.roles = rs;
+		this.address = address;
+		this.contracts = contracts;
+		this.organisation = organisation;
 	}
 
 	// ----------------------------//
@@ -149,9 +147,8 @@ public class Project {
 	}
 
 	public List<Role> getRoles() {
-		return this.roles;
+		return roles;
 	}
-
 	// ----------------------------//
 	// ---------- Setter ----------//
 	// ----------------------------//
@@ -206,9 +203,13 @@ public class Project {
 	public void setOrganisation(Organisation o) {
 		this.organisation = o;
 	}
-
-	public void setRoles(List<Role> rs) {
-		this.roles = rs;
+	
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+	
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 
 }

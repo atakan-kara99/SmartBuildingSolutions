@@ -22,7 +22,7 @@ public class Role {
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable=false)
+	@Column(updatable = false)
 	private long id;
 	@NotEmpty
 	private String name;
@@ -48,23 +48,21 @@ public class Role {
 	/**
 	 * Initializes a role object.
 	 * 
-	 * @param id  the unique id of a role.
-	 * @param n   the name of a role.
-	 * @param ps  the associated projects.
-	 * @param os  the associated organisations.
-	 * @param us  the associated users.
-	 * @param cs  the associated contracts.
-	 * @param bus the associated billing items.
+	 * @param id            the unique id of a role.
+	 * @param name          the name of a role.
+	 * @param projects      the associated projects.
+	 * @param organisations the associated organisations.
+	 * @param contracts     the associated contracts.
+	 * @param billingItems  the associated billing items.
 	 */
-	public Role(long id, String n, List<Project> ps, Organisation os, List<User> us, List<Contract> cs,
-			List<BillingItem> bus) {
+	public Role(long id, String name, List<Project> projects, Organisation organisations, List<Contract> contracts,
+			List<BillingItem> billingItems) {
 		this.id = id;
-		this.name = n;
-		this.projects = ps;
-		this.organisation = os;
-		this.users = us;
-		this.contracts = cs;
-		this.billingItems = bus;
+		this.name = name;
+		this.projects = projects;
+		this.organisation = organisations;
+		this.contracts = contracts;
+		this.billingItems = billingItems;
 	}
 
 	// ----------------------------//
