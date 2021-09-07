@@ -6,9 +6,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import com.lms2ue1.sbsweb.model.Role;
-import com.lms2ue1.sbsweb.repository.OrganisationRepository;
-import com.lms2ue1.sbsweb.repository.RoleRepository;
+import com.lms2ue1.sbsweb.backend.model.Organisation;
+import com.lms2ue1.sbsweb.backend.model.Role;
+import com.lms2ue1.sbsweb.backend.repository.OrganisationRepository;
+import com.lms2ue1.sbsweb.backend.repository.RoleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,15 +30,8 @@ public class RoleManagementController {
     /** Shows an overview of <b> ALL </b> organisations' roles. */
     @GetMapping("/organisation/{oID}/role_management")
     public String showRoleList(@PathVariable long oID, Model model) {
-        // Should be mostly part of backend
-        List<Role> availableRoles = new ArrayList<Role>();
-        Iterator<Role> iter = roleRepository.findAll().iterator();
-        while(iter.hasNext()) {
-            Role role = iter.next();
-            if(role.getOrganisation().getId() == oID) {
-                availableRoles.add(role);
-            }
-        }
+        Organisation organisation = organisationRepository.findById(oID).get();
+        List<Role> availableRoles = roleRepository.findByOrganisationOrderByNameAsc(organisation);
         model.addAttribute("roles", availableRoles);
         model.addAttribute("organisation", organisationRepository.findById(oID).get());
         return "role_management";

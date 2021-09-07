@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.lms2ue1.sbsweb.backend.model.Organisation;
 import com.lms2ue1.sbsweb.backend.model.User;
+import com.lms2ue1.sbsweb.backend.repository.OrganisationRepository;
 import com.lms2ue1.sbsweb.backend.repository.UserRepository;
 
 @Controller
@@ -22,8 +24,6 @@ public class UserManagementController {
     @Autowired
     OrganisationRepository organisationRepository;
 
-    // Note! We will need a proper backend so all of this works properly!
-
     // This redirect will not work as of now. We will need the backend for this to work properly
     @GetMapping("/")
     public String showUserManagementRedirect(Model model) {
@@ -33,8 +33,9 @@ public class UserManagementController {
     /** Shows an overview of <b> ALL </b> organisations' users. */
     @GetMapping("/organisation/{oID}/user_management")
     public String showUserList(@PathVariable Long oID, Model model) {
-        model.addAttribute("users", userRepository.findAll());
-        model.addAttribute("organisation", organisationRepository.findById(oID).get());
+        Organisation organisation = organisationRepository.findById(oID).get();
+        model.addAttribute("users", userRepository.findByOrganisationsOrderByUsernameAsc(organisation));
+        model.addAttribute("organisation", organisation);
         return "user_management";
     }
 
