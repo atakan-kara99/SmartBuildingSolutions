@@ -46,6 +46,8 @@ public class Organisation {
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
+	
+	// TODO: Do we really want to allow this? Good for testing. (nka)
 	public Organisation() {
 	}
 

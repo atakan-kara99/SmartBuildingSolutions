@@ -39,6 +39,7 @@ public class UserManagementController {
     /** Shows the page to add a new user to an organisation. */
     @GetMapping("/organisation/{oID}/user_management/user_new")
     public String showNewUserForm(@PathVariable Long oID, Model model) {
+    	// TODO: Is this really storing a new user in the database? (nka)
         model.addAttribute("user", new User());
         return "user/user_new";
     }
