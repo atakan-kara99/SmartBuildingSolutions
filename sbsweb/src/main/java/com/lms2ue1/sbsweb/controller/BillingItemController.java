@@ -11,7 +11,7 @@ public class BillingItemController {
     /** Shows an overview of all billing items. */
     @GetMapping("/billing_item_overview")
     public String showBillingItemOverview(Model model) {
-	return "billing_item_overview";
+	return "billingitem/billing_item_overview";
     }
 
     /** Shows the specified billing item's details. */
@@ -19,6 +19,6 @@ public class BillingItemController {
     public String showBillingItemDetails(@PathVariable Long pID, @PathVariable Long cID, @PathVariable Long bID,
 	    Model model) {
 	// TODO
-	return "billing_item_details";
+	return "billingitem/billing_item_details";
     }
 }

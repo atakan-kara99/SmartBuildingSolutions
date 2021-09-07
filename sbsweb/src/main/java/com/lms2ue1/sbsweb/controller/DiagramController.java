@@ -9,13 +9,13 @@ public class DiagramController {
     @GetMapping("/project_diagram_overview")
     public String showProjectDiagramOverview(Model model) {
 	// TODO
-	return "project_diagram_overview";
+	return "diagram/project_diagram_overview";
     }
 
     /** Shows an overview of all contract's diagrams. */
     @GetMapping("/contract_diagram_overview")
     public String showContractDiagramOverview(Model model) {
 	// TODO
-	return "contract_diagram_overview";
+	return "diagram/contract_diagram_overview";
     }
 }

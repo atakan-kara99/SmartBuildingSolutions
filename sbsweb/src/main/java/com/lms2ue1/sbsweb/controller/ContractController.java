@@ -11,13 +11,13 @@ public class ContractController {
     /** Shows an overview of all contracts. */
     @GetMapping("/contract_overview")
     public String showContractOverview(Model model) {
-	return "contract_overview";
+	return "contract/contract_overview";
     }
 
     /** Shows the specified contract's details, e.g. its billing items. */
     @GetMapping("/project/{pID}/contract/{cID}/show")
     public String showContractDetails(@PathVariable Long pID, @PathVariable Long cID, Model model) {
 	// TODO
-	return "contract_details";
+	return "contract/contract_details";
     }
 }
