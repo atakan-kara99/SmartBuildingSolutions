@@ -11,6 +11,6 @@ public class OrganisationManagementController {
     @GetMapping("/organisation_overview")
     public String showOrganisationOverview(Model model) {
 	// TODO sysadmin
-	return "organisation_overview";
+	return "organisation/organisation_overview";
     }
 }

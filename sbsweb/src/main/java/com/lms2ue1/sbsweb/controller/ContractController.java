@@ -8,10 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.lms2ue1.sbsweb.model.BillingItem;
-import com.lms2ue1.sbsweb.model.Contract;
-import com.lms2ue1.sbsweb.model.Project;
-import com.lms2ue1.sbsweb.model.User;
+import com.lms2ue1.sbsweb.backend.model.BillingItem;
+import com.lms2ue1.sbsweb.backend.model.Contract;
 
 @Controller
 public class ContractController {
@@ -24,10 +22,12 @@ public class ContractController {
 //	model.addAttribute("contract", BackendAccessProvider.getContractById(username, cID));
 //	List<BillingItem> billingItems = BackendAccessProvider.getAccessibleBillingItems(username);
 //	model.addAttribute("billingItems", billingItems.stream().filter(billingItem -> billingItem.getCID() == cID).collect(Collectors.toList()));
-	model.addAttribute("contract", new Contract("Wohnzimmer bauen", 0L));
+	model.addAttribute("contract", new Contract(0, "Wohnzimmer bauen", "Sachen müssen erledigt werden", null, null,
+		null, null, null, null, null));
 	model.addAttribute("billingItems",
-		List.of(new BillingItem("Heizung montieren", 0L, "Heizkörper B7-2 fensternah einbauen.", "OPEN"),
-			new BillingItem("Fenster einbauen", 1L)));
-	return "contract_details";
+		List.of(new BillingItem(0, 0, "Heizkörper B7-2 fensternah einbauen.", "OPEN", 0, null, 0, null, null,
+			null, null, null),
+			new BillingItem(0, 0, "Fenster einbauen", null, 0, null, 0, null, null, null, null, null)));
+	return "contract/contract_details";
     }
 }

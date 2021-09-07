@@ -8,8 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.lms2ue1.sbsweb.model.BillingItem;
-import com.lms2ue1.sbsweb.model.User;
+import com.lms2ue1.sbsweb.backend.model.BillingItem;
 
 @Controller
 public class BillingItemController {
@@ -22,7 +21,8 @@ public class BillingItemController {
 	model.addAttribute("cID", cID);
 	model.addAttribute("bID", bID);
 //	model.addAttribute("billingItem", BackendAccessProvider.getBillingItemById(username, bID));
-	model.addAttribute("billingItem", new BillingItem("Heizung montieren", 0L, "Heizkörper B7-2 fensternah einbauen.", "OPEN"));
-	return "billing_item_details";
+	model.addAttribute("billingItem", new BillingItem(0, 0, "Heizkörper B7-2 fensternah einbauen.", "OPEN", 0, null,
+		0, null, null, null, null, null));
+	return "billingitem/billing_item_details";
     }
 }
