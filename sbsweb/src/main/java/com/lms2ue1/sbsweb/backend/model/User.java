@@ -31,6 +31,8 @@ public class User {
 	private String username;
 	@NotEmpty
 	private String password;
+	@NotEmpty
+	private Role role;
 
 	// ---- Associations ----//
 	@Size(min = 1)
@@ -57,8 +59,7 @@ public class User {
 	 * @param username      user name.
 	 * @param password      password of the user (encrypted).
 	 */
-	public User(String firstname, String lastname, List<Organisation> organisations, String username,
-			String password) {
+	public User(String firstname, String lastname, List<Organisation> organisations, String username, String password) {
 		this.forename = firstname;
 		this.lastname = lastname;
 		this.organisations = organisations;
@@ -81,10 +82,6 @@ public class User {
 		return this.lastname;
 	}
 
-	public Role getRole() {
-		return this.role;
-	}
-
 	public String getUsername() {
 		return this.username;
 	}
@@ -99,6 +96,10 @@ public class User {
 
 	public String getPassword() {
 		return this.password;
+	}
+
+	public String getRole() {
+		return "" + role;
 	}
 
 	// ----------------------------//
@@ -116,10 +117,6 @@ public class User {
 		this.lastname = lname;
 	}
 
-	public void setRole(Role r) {
-		this.role = r;
-	}
-
 	public void setUsername(String uname) {
 		this.username = uname;
 	}
@@ -134,5 +131,9 @@ public class User {
 
 	public void setPassword(String p) {
 		this.password = p;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 }
