@@ -1,10 +1,10 @@
 package com.lms2ue1.sbsweb.service;
 
-import com.lms2ue1.sbsweb.model.User;
-import com.lms2ue1.sbsweb.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.lms2ue1.sbsweb.backend.repository.UserRepository;
 
 @Service
 public class DatabaseInitService {
@@ -12,8 +12,5 @@ public class DatabaseInitService {
     UserRepository userRepository;
     
     public void init() {
-        if(userRepository.count() == 0) {
-            
-        }
     }
 }

@@ -1,11 +1,10 @@
-package com.lms2ue1.sbsweb.repository;
+package com.lms2ue1.sbsweb.backend.repository;
 
-import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.lms2ue1.sbsweb.model.BillingItem;
-import com.lms2ue1.sbsweb.model.Role;
+import com.lms2ue1.sbsweb.backend.model.BillingItem;
+
 
 public interface BillingItemRepository extends CrudRepository<BillingItem, Long>{
 }

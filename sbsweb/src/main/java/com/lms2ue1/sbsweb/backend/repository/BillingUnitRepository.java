@@ -1,11 +1,12 @@
-package com.lms2ue1.sbsweb.repository;
+package com.lms2ue1.sbsweb.backend.repository;
 
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.lms2ue1.sbsweb.model.BillingUnit;
-import com.lms2ue1.sbsweb.model.Contract;
+import com.lms2ue1.sbsweb.backend.model.BillingUnit;
+import com.lms2ue1.sbsweb.backend.model.Contract;
+
 
 public interface BillingUnitRepository extends CrudRepository<BillingUnit, Long>{
 	List<BillingUnit> findByContract(Contract c);

@@ -1,4 +1,4 @@
-package com.lms2ue1.sbsweb.model;
+package com.lms2ue1.sbsweb.backend.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
