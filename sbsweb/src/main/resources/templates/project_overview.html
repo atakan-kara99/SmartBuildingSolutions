@@ -21,34 +21,74 @@
         <div class="container">
             <div class="text-center">
                 <div th:unless="${projects.empty}">
-                    <!-- Just adding spans -->
-                    <span th:each="project : ${projects}">
-                        <a th:href="@{'/project/' + ${project.pID} + '/show'}" class="icon-link">
-                            <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="${project.name}"></i>
-                            <span th:text="${project.name}" style="font-size: 175%; color: black;"></span>
-                        </a>
-                    </span>
-                    <!-- 2 cols -->
-                    <div th:each="_, row: ${projects}" th:if="${row.count % 2 == 0 or row.last}">
-                        <span th:each="x : ${ {1,0} }" th:with="project=${projects[row.index - x]}">
-                            <span th:if="${row.count % 2 == 0}">
-                                <a th:href="@{'/project/' + ${project.pID} + '/show'}" class="icon-link">
-                                    <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="${project.name}"></i>
-                                    <span th:text="${project.name}" style="font-size: 175%; color: black;"></span>
-                                </a>
-                            </span>
-                            <span th:if="${row.count % 2 != 0} and ${row.last} and ${x &lt; row.count % 2}">
-                                <a th:href="@{'/project/' + ${project.pID} + '/show'}" class="icon-link">
-                                    <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="${project.name}"></i>
-                                    <span th:text="${project.name}" style="font-size: 175%; color: black;"></span>
-                                </a>
-                            </span>
-                        </span>
+                    <!-- Table -->
+                    <div class="container">
+                        <table class="table">
+                            <tbody>
+                                <span th:if="${projects.size < 4}">
+                                    <tr>
+                                        <td th:each="project : ${projects}">
+                                            <a th:href="@{'/project/' + ${project.pID} + '/show'}" class="icon-link">
+                                                <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="${project.name}"></i>
+                                                <span th:text="${project.name}" style="font-size: 175%; color: black; display: block;"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </span>
+                                <span th:unless="${projects.size < 4}">
+                                    <tr th:each="project, row : ${projects}" th:if="${row.count % 4 == 0 or row.last}">
+                                        <span th:each="x : ${ {3,2,1,0} }" th:with="project=${projects[row.index - x]}">
+                                            <td th:if="${row.count % 4 == 0}">
+                                                <a th:href="@{'/project/' + ${project.pID} + '/show'}" class="icon-link">
+                                                    <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="${project.name}"></i>
+                                                    <span th:text="${project.name}" style="font-size: 175%; color: black; display: block;"></span>
+                                                </a>
+                                            </td>
+                                            <td th:if="${row.count % 4 != 0} and ${row.last} and ${x < row.count % 4}">
+                                                <a th:href="@{'/project/' + ${project.pID} + '/show'}" class="icon-link">
+                                                    <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="${project.name}"></i>
+                                                    <span th:text="${project.name}" style="font-size: 175%; color: black; display: block;"></span>
+                                                </a>
+                                            </td>
+                                        </span>
+                                    </tr>
+                                </span>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </th:block>
 </body>
+
+<!-- Just adding spans -->
+<!--
+<span th:each="project : ${projects}">
+    <a th:href="@{'/project/' + ${project.pID} + '/show'}" class="icon-link">
+        <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="${project.name}"></i>
+        <span th:text="${project.name}" style="font-size: 175%; color: black;"></span>
+    </a>
+</span>
+-->
+<!-- 2 cols -->
+<!--
+<div th:each="_, row : ${projects}" th:if="${row.count % 2 == 0 or row.last}">
+    <span th:each="x : ${ {1,0} }" th:with="project=${projects[row.index - x]}">
+        <span th:if="${row.count % 2 == 0}">
+            <a th:href="@{'/project/' + ${project.pID} + '/show'}" class="icon-link">
+                <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="${project.name}"></i>
+                <span th:text="${project.name}" style="font-size: 175%; color: black;"></span>
+            </a>
+        </span>
+        <span th:if="${row.count % 2 != 0} and ${row.last} and ${x < row.count % 2}">
+            <a th:href="@{'/project/' + ${project.pID} + '/show'}" class="icon-link">
+                <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="${project.name}"></i>
+                <span th:text="${project.name}" style="font-size: 175%; color: black;"></span>
+            </a>
+        </span>
+    </span>
+</div>
+-->
 
 </html>
