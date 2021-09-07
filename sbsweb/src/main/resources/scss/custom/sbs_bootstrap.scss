@@ -1,0 +1,10 @@
+$primary: #b6ffe9;
+$secondary: #5bffba;
+$success: #8eff8a;
+$info: #ffce47;
+$warning: #ffb157;
+$danger: #ff4b3e;
+$light: #d3ebff;
+$dark: #5d758d;
+$theme-colors: (primary: $primary, secondary: $secondary, success: $success, info: $info, warning: $warning, danger: $danger, light: $light, dark: $dark);
+@import "../bootstrap/bootstrap";
