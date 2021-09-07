@@ -21,10 +21,13 @@ public class DatabaseInitService {
             Organisation org2 = new Organisation(1l, "Hochbau-Krause");
 
 
-            User user0 = new User(0l, "Peter", "Müller", "SBS-Management", "SysAdmin", "SysAdmin");
-            User user1 = new User(1l, "Anna", "Krause", "Hochbau-Krause", "OrgAdmin", "AKrause");
-            User user2 = new User(1l, "Hans-Dieter", "Schulze", "Hochbau-Krause", "Bauleiter", "HDS");
+            User user0 = new User("Peter", "Müller", org1, "SysAdmin", "SysAdmin");
+            User user1 = new User("Anna", "Krause", org2, "OrgAdmin", "AKrause");
+            User user2 = new User("Hans-Dieter", "Schulze", org2, "Bauleiter", "HDS");
 
+            org1.getUsers().add(user0);
+            org2.getUsers().add(user1);
+            org2.getUsers().add(user2);
             userRepository.save(user0);
             userRepository.save(user1);
             userRepository.save(user2);
