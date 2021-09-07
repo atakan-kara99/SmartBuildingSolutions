@@ -9,6 +9,7 @@ import com.lms2ue1.sbsweb.backend.model.BillingItem;
 import com.lms2ue1.sbsweb.backend.model.Role;
 
 
+
 public interface BillingItemRepository extends CrudRepository<BillingItem, Long>{
-	//List<BillingItem> findByRoleOrderByNameAsc(Role r);
+	List<BillingItem> findByRoles(Role r);
 }

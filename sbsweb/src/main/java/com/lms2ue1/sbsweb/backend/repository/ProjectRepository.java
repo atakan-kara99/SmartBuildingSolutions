@@ -8,5 +8,5 @@ import com.lms2ue1.sbsweb.backend.model.Project;
 
 
 public interface ProjectRepository extends CrudRepository<Project, Long>{
-	//List<Project> findByRoleOrderByZipCode(Project p);
+	//List<Project> findByRolesOrderByZipCode(Project p);
 }
