@@ -1,9 +1,6 @@
 package com.lms2ue1.sbsweb.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -12,7 +9,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long organisationId;
+ //   private Long organisationId;
 
     @NotEmpty
     private String surname;
@@ -20,8 +17,8 @@ public class User {
     @NotEmpty
     private String lastname;
 
-    @NotEmpty
-    private String organization;
+    @ManyToOne
+    private Organisation organisation;
 
     @NotEmpty
     private String role;
@@ -32,11 +29,11 @@ public class User {
     public User() {
     }
 
-    public User(Long organisationId, String surname, String lastname, String organization, String role, String username) {
-        this.organisationId = organisationId;
+    public User(String surname, String lastname, Organisation organisation, String role, String username) {
+    //    this.organisationId = organisationId;
         this.surname = surname;
         this.lastname = lastname;
-        this.organization = organization;
+        this.organisation = organisation;
         this.role = role;
         this.username = username;
     }
@@ -45,9 +42,9 @@ public class User {
         return id;
     }
 
-    public Long getOrganisationId() {
-        return id;
-    }
+  //  public Long getOrganisationId() {
+//        return id;
+//    }
 
     public String getSurname() {
         return surname;
@@ -57,8 +54,8 @@ public class User {
         return lastname;
     }
 
-    public String getOrganization() {
-        return organization;
+    public Organisation getOrganisation() {
+        return organisation;
     }
 
     public String getRole() {
@@ -73,9 +70,9 @@ public class User {
         this.id = id;
     }
 
-    public void setOrganisationI(Long organisationId) {
-        this.organisationId = organisationId;
-    }
+  //  public void setOrganisationId(Long organisationId) {
+//        this.organisationId = organisationId;
+//    }
 
     public void setSurname(String surname) {
         this.surname = surname;
@@ -85,8 +82,8 @@ public class User {
         this.lastname = lastname;
     }
 
-    public void setOrganization(String organization) {
-        this.organization = organization;
+    public void setOrganisation(Organisation organisation) {
+        this.organisation = organisation;
     }
 
     public void setRole(String role) {
