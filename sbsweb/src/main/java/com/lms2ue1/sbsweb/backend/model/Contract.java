@@ -28,7 +28,7 @@ public class Contract {
 	private long id;
 	private String name;
 	private String description;
-	private String status;
+	private Status status;
 	private String consignee;
 	private String contractor;
 
@@ -63,8 +63,8 @@ public class Contract {
 	 * @param projects      = projects
 	 * @param billunits     = billing units
 	 */
-	public Contract(String name, String description, String status, String consignee, String contructor,
-			List<Organisation> organisations, Project projects, List<BillingUnit> billunits) {
+	public Contract(String name, String description, Status status, String consignee, String contructor,
+			List<Organisation> organisations, Project projects) {
 		this.name = name;
 		this.description = description;
 		this.status = status;
@@ -72,7 +72,6 @@ public class Contract {
 		this.contractor = contructor;
 		this.organisations = organisations;
 		this.project = projects;
-		this.billingUnits = billunits;
 	}
 
 	// ----------------------------//
@@ -90,7 +89,7 @@ public class Contract {
 		return this.description;
 	}
 
-	public String getStatus() {
+	public Status getStatus() {
 		return this.status;
 	}
 
@@ -133,7 +132,7 @@ public class Contract {
 		this.description = desc;
 	}
 
-	public void setStatus(String s) {
+	public void setStatus(Status s) {
 		this.status = s;
 	}
 
