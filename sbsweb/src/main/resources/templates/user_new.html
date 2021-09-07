@@ -13,16 +13,36 @@
                 <div class="padding-50"></div>
                 <form action="#" th:action="@{'/organisation/' + ${organisation.id} + '/user_management/user_save'}" th:object="${user}" method="post">
                     <div class="row justify-content-center">
-                        <div class="col-3">
+                        <div class="col-2">
                             <div class="form-group">
                                 <label for="surname"> Vorname </label>
                                 <input type="text" class="form-control" id="surname" th:field="*{surname}" th:errorclass="is-invalid" />
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-2">
                             <div class="form-group">
                                 <label for="lastname"> Nachname </label>
                                 <input type="text" class="form-control" id="lastname" th:field="*{lastname}" th:errorclass="is-invalid" />
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label for="username"> Benutzername </label>
+                                <input type="text" class="form-control" id="username" th:field="*{username}" th:errorclass="is-invalid" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="password"> Passwort </label>
+                                <input type="password" class="form-control" id="password" />
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="password"> Passwort wiederholt </label>
+                                <input type="password" class="form-control" id="password" />
                             </div>
                         </div>
                     </div>
@@ -37,20 +57,6 @@
                             <div class="form-group">
                                 <label for="role"> Rolle </label>
                                 <input type="text" class="form-control" id="role" th:field="*{role}" th:errorclass="is-invalid" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="username"> Benutzername </label>
-                                <input type="text" class="form-control" id="username" th:field="*{username}" th:errorclass="is-invalid" />
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="password"> Passwort </label>
-                                <input type="password" class="form-control" id="password" />
                             </div>
                         </div>
                     </div>
