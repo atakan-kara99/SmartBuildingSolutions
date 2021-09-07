@@ -24,7 +24,7 @@ public class Contract {
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable=false)
+	@Column(updatable = false)
 	private long id;
 	private String name;
 	private String description;
@@ -33,7 +33,7 @@ public class Contract {
 	private String contractor;
 
 	// ---- Associations ----//
-	@Size(min = 2)
+	@Size(min = 2, max = 2)
 	@ManyToMany
 	private List<Organisation> organisations;
 	@Size(min = 2)
