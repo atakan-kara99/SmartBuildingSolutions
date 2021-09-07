@@ -2,6 +2,7 @@ package com.lms2ue1.sbsweb.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 /**
  * Contract of each organization. Each contract is associated to one or more
@@ -23,6 +24,7 @@ public class Contract {
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(updatable=false)
 	private long id;
 	private String name;
 	private String description;
@@ -31,13 +33,16 @@ public class Contract {
 	private String contractor;
 
 	// ---- Associations ----//
+	@Size(min = 2)
 	@ManyToMany
-	private List<Organization> organizations;
+	private List<Organisation> organisations;
+	@Size(min = 2)
 	@ManyToMany
 	private List<Role> roles;
-//	@ManyToOne
-//	private Project project;
-	@OneToMany(mappedBy="contract", orphanRemoval=true)
+	@ManyToOne
+	private Project project;
+	@Size(min = 1)
+	@OneToMany(mappedBy = "contract", orphanRemoval = true)
 	private List<BillingUnit> billingUnits;
 
 	// ----------------------------------//
@@ -47,28 +52,31 @@ public class Contract {
 	}
 
 	/**
-	 * Initializes a user object.
+	 * Initializes a contract object.
 	 * 
-	 * @param id            the unique id of the user.
-	 * @param forename
-	 * @param lastname
-	 * @param role          the associated role.
-	 * @param username
-	 * @param organizations associated organizations.
-	 * @param roles         associated roles.
+	 * @param id      = id
+	 * @param n       = name
+	 * @param desc    = description
+	 * @param s       = status
+	 * @param cnsgn   = consignee
+	 * @param cntrctr = contructor
+	 * @param os      = organisations
+	 * @param rs      = roles
+	 * @param ps      = projects
+	 * @param bus     = billing units
 	 */
-	public Contract(long id, String name, String description, String status, String consignee, String contractor,
-			List<Organization> organizations, List<Role> roles, Project projects, List<BillingUnit> billingUnits) {
+	public Contract(long id, String n, String desc, String s, String cnsgn, String cntrctr, List<Organisation> os,
+			List<Role> rs, Project ps, List<BillingUnit> bus) {
 		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.status = status;
-		this.consignee = consignee;
-		this.contractor = contractor;
-		this.organizations = organizations;
-		this.roles = roles;
-		this.project = projects;
-		this.billingUnits = billingUnits;
+		this.name = n;
+		this.description = desc;
+		this.status = s;
+		this.consignee = cnsgn;
+		this.contractor = cntrctr;
+		this.organisations = os;
+		this.roles = rs;
+		this.project = ps;
+		this.billingUnits = bus;
 	}
 
 	// ----------------------------//
@@ -77,7 +85,7 @@ public class Contract {
 	public Long getId() {
 		return this.id;
 	}
-	
+
 	public String getName() {
 		return this.name;
 	}
@@ -98,16 +106,18 @@ public class Contract {
 		return this.contractor;
 	}
 
-	public List<Organization> getOrganizations() {
-		return this.organizations;
+	public List<Organisation> getOrganisations() {
+		return this.organisations;
 	}
 
 	public List<Role> getRoles() {
 		return this.roles;
 	}
+
 	public Project getProject() {
 		return this.project;
 	}
+
 	public List<BillingUnit> getBillingUnits() {
 		return this.billingUnits;
 	}
@@ -118,36 +128,41 @@ public class Contract {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public void setConsignee(String consignee) {
-		this.consignee = consignee;
-	}
-	public void setContractor(String contractor) {
-		this.contractor = contractor;
+
+	public void setName(String n) {
+		this.name = n;
 	}
 
-	public void setOrganizations(List<Organization> organizations) {
-		this.organizations = organizations;
+	public void setDescription(String desc) {
+		this.description = desc;
 	}
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
+	public void setStatus(String s) {
+		this.status = s;
 	}
-	
+
+	public void setConsignee(String cnsgn) {
+		this.consignee = cnsgn;
+	}
+
+	public void setContractor(String cntrctr) {
+		this.contractor = cntrctr;
+	}
+
+	public void setOrganizations(List<Organisation> os) {
+		this.organisations = os;
+	}
+
+	public void setRoles(List<Role> rs) {
+		this.roles = rs;
+	}
+
 	public void setProject(Project p) {
 		this.project = p;
 	}
-	public void setBillingUnit(List<BillingUnit> billingUnits) {
-		this.billingUnits = billingUnits;
+
+	public void setBillingUnit(List<BillingUnit> bus) {
+		this.billingUnits = bus;
 	}
 
 }

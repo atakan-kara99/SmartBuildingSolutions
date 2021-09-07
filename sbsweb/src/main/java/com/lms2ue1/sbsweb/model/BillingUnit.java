@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 /**
  * BillingUnit of each contract. Associated to one contract and one or more
@@ -19,29 +19,24 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "billing_units")
 public class BillingUnit {
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(updatable=false)
 	private long id;
-	@Column(name="short_description")
 	private String shortDescription;
-	@Column(name="long_description")
 	private String longDescription;
 	private String unit;
-	@Column(name="completion_date")
 	private String completionDate;
-	@Column(name="own_contract_defined")
 	private String ownContractDefined;
-	@Column(name="total_quantity")
 	private double totalQuantity;
-	@Column(name="total_price")
 	private double totalPrice;
 
 	// ---- Associations ----//
 	@ManyToOne
 	private Contract contract;
+	@Size(min=1)
 	@OneToMany(mappedBy = "billingUnit", orphanRemoval = true)
 	private List<BillingItem> billingItems;
 
@@ -50,18 +45,32 @@ public class BillingUnit {
 	// ----------------------------------//
 	public BillingUnit() {
 	}
-
-	public BillingUnit(long id, String shortDescription, String longDescription, String unit, String completionDate,
-			String ownContractDefined, double totalQuantity, double totalPrice, Contract contract,
-			List<BillingItem> billingItems) {
+	/**
+	 * Initializes a billing unit object.
+	 * @param id = id
+	 * @param sDesc = short description
+	 * @param lDesc = long description
+	 * @param u = unit
+	 * @param cD = completion date
+	 * @param oCD = own contract defined
+	 * @param tQ = total quantity
+	 * @param tP = total price
+	 * @param c = contract
+	 * @param bis = billing items
+	 */
+	public BillingUnit(long id, String sDesc, String lDesc, String u, String cD,
+			String oCD, double tQ, double tP, Contract c,
+			List<BillingItem> bis) {
 		this.id = id;
-		this.shortDescription = shortDescription;
-		this.longDescription = longDescription;
-		this.unit = unit;
-		this.completionDate = completionDate;
-		this.ownContractDefined = ownContractDefined;
-		this.contract = contract;
-		this.billingItems = billingItems;
+		this.shortDescription = sDesc;
+		this.longDescription = lDesc;
+		this.unit = u;
+		this.completionDate = cD;
+		this.ownContractDefined = oCD;
+		this.totalQuantity = tQ;
+		this.totalPrice = tP;
+		this.contract = c;
+		this.billingItems = bis;
 	}
 
 	// ----------------------------//
@@ -114,39 +123,39 @@ public class BillingUnit {
 		this.id = id;
 	}
 
-	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
+	public void setShortDescription(String sDesc) {
+		this.shortDescription = sDesc;
 	}
 
-	public void setLongDescription(String longDescription) {
-		this.longDescription = longDescription;
+	public void setLongDescription(String lDesc) {
+		this.longDescription = lDesc;
 	}
 
-	public void setUnit(String unit) {
-		this.unit = unit;
+	public void setUnit(String u) {
+		this.unit = u;
 	}
 
-	public void setCompletionDate(String completionDate) {
-		this.completionDate = completionDate;
+	public void setCompletionDate(String cD) {
+		this.completionDate = cD;
 	}
 
-	public void setownContractDefined(String ownContractDefnied) {
-		this.ownContractDefined = ownContractDefnied;
+	public void setownContractDefined(String oCD) {
+		this.ownContractDefined = oCD;
 	}
 
-	public void setTotalQuantity(double totalQuantity) {
-		this.totalQuantity = totalQuantity;
+	public void setTotalQuantity(double tQ) {
+		this.totalQuantity = tQ;
 	}
 
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setTotalPrice(double tP) {
+		this.totalPrice = tP;
 	}
 
-	public void setContract(Contract contract) {
-		this.contract = contract;
+	public void setContract(Contract c) {
+		this.contract = c;
 	}
 
-	public void setBillingItems(List<BillingItem> billingItems) {
-		this.billingItems = billingItems;
+	public void setBillingItems(List<BillingItem> bis) {
+		this.billingItems = bis;
 	}
 }

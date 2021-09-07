@@ -7,9 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
 
 /**
  * Billing Item of a project. Associated to two or more roles, one billing unit
@@ -19,7 +21,6 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "billing_item")
 public class BillingItem {
 	// ---- Attributes ----//
 	@Id
@@ -27,31 +28,60 @@ public class BillingItem {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private double price;
-	@Column(name = "short_description")
 	private String shortDescription;
 	private String status;
 	private double quantities;
 	private String unit;
-	@Column(name = "unit_price")
 	private double unitPrice;
-	@Column(name = "qty_split")
 	private String qtySplit;
-	@Column(name = "short_desclinked_ifc")
 	private String shortDesLinkedIFC;
 
 	// ---- Associations ----//
 	@ManyToOne
 	private BillingUnit billingUnit;
-	/* when billing item mappes to itself, it needs an billing item attribute. */
-//	@OneToMany(mappedBy="billingItem")
-//	private List<BillingItem> billingItems;
+	@Size(min = 2)
 	@ManyToMany
 	private List<Role> roles;
+	@OneToMany
+	@JoinColumn(name = "sub_billing_item")
+	private List<BillingItem> billingItems;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
 	public BillingItem() {
+	}
+
+	/**
+	 * Initializes a billing item.
+	 * 
+	 * @param id     = id
+	 * @param p      = price
+	 * @param sDesc  = short description
+	 * @param s      = status
+	 * @param qs     = quantities
+	 * @param u      = unit
+	 * @param uP     = unit price
+	 * @param qS     = qty split
+	 * @param sDLIFC = short deslinked ifc
+	 * @param b      = billing unit
+	 * @param rs     = roles
+	 * @param bis    = billing items
+	 */
+	public BillingItem(long id, double p, String sDesc, String s, double qs, String u, double uP, String qS,
+			String sDLIFC, BillingUnit b, List<Role> rs, List<BillingItem> bis) {
+		this.id = id;
+		this.price = p;
+		this.shortDescription = sDesc;
+		this.status = s;
+		this.quantities = qs;
+		this.unit = u;
+		this.unitPrice = uP;
+		this.qtySplit = qS;
+		this.shortDesLinkedIFC = sDLIFC;
+		this.billingUnit = b;
+		this.roles = rs;
+		this.billingItems = bis;
 	}
 
 	// ----------------------------//
@@ -112,28 +142,28 @@ public class BillingItem {
 		this.id = id;
 	}
 
-	public void setPrice(double price) {
-		this.price = price;
+	public void setPrice(double p) {
+		this.price = p;
 	}
 
-	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
+	public void setShortDescription(String sDesc) {
+		this.shortDescription = sDesc;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatus(String s) {
+		this.status = s;
 	}
 
-	public void setQuantities(double quantities) {
-		this.quantities = quantities;
+	public void setQuantities(double qs) {
+		this.quantities = qs;
 	}
 
-	public void setUnit(String unit) {
-		this.unit = unit;
+	public void setUnit(String u) {
+		this.unit = u;
 	}
 
-	public void setUnitPrice(double unitPrice) {
-		this.unitPrice = unitPrice;
+	public void setUnitPrice(double uP) {
+		this.unitPrice = uP;
 	}
 
 	public void setQtySplit(String qtySplit) {
@@ -144,16 +174,16 @@ public class BillingItem {
 		this.shortDesLinkedIFC = shortDesLinkedIFC;
 	}
 
-	public void setBillingUnit(BillingUnit billingUnit) {
-		this.billingUnit = billingUnit;
+	public void setBillingUnit(BillingUnit bu) {
+		this.billingUnit = bu;
 	}
 
-	public void setBillingItems(List<BillingItem> billingItems) {
-		this.billingItems = billingItems;
+	public void setBillingItems(List<BillingItem> bis) {
+		this.billingItems = bis;
 	}
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
+	public void setRoles(List<Role> rs) {
+		this.roles = rs;
 	}
 
 }

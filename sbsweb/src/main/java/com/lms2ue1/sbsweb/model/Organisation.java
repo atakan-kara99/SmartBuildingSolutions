@@ -1,12 +1,14 @@
 package com.lms2ue1.sbsweb.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import java.util.List;
 
@@ -18,45 +20,52 @@ import java.util.List;
  *
  */
 @Entity
-public class Organization {
+public class Organisation {
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(updatable=false)
 	private long id;
+	@NotEmpty
 	private String name;
 
 	// ---- Associations ----//
-//	TODO: fix the references
-//	@OneToMany(mappedBy="organizations")
-//	private List<Project> projects;
+	@Size(min = 1)
+	@OneToMany(mappedBy = "organisation")
+	private List<Project> projects;
+	@Size(min = 2)
 	@ManyToMany
 	private List<User> users;
-//	@OneToMany(mappedBy="organizations")
-//	private List<Role> roles;
+	@Size(min = 2)
+	@OneToMany(mappedBy = "organisation")
+	private List<Role> roles;
+	@Size(min = 1)
 	@ManyToMany
 	private List<Contract> contracts;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
-	public Organization() {
+	public Organisation() {
 	}
 
 	/**
-	 * Initializes an organization object.
+	 * Constructor to insert the data of the rest api json request.
 	 * 
-	 * @param orgId
-	 * @param orgName
+	 * @param id id of the organisation.
+	 * @param n  name of the organisation.
+	 * @param ps associated projects.
+	 * @param us associated users.
+	 * @param rs associated roles.
+	 * @param cs assocaited contracts.
 	 */
-	public Organization(long orgId, String orgName, List<Contract> contracts, List<User> users, List<Role> roles,
-			List<Project> projects) {
-		this.id = orgId;
-		this.name = orgName;
-		this.contracts = contracts;
-		this.users = users;
-		this.roles = roles;
-		this.projects = projects;
-
+	public Organisation(long id, String n, List<Project> ps, List<User> us, List<Role> rs, List<Contract> cs) {
+		this.id = id;
+		this.name = n;
+		this.projects = ps;
+		this.users = us;
+		this.roles = rs;
+		this.contracts = cs;
 	}
 
 	// ----------------------------//
@@ -89,12 +98,12 @@ public class Organization {
 	// ----------------------------//
 	// ---------- Setter ----------//
 	// ----------------------------//
-	public void setId(long orgId) {
-		this.id = orgId;
+	public void setId(long id) {
+		this.id = id;
 	}
 
-	public void setName(String orgName) {
-		this.name = orgName;
+	public void setName(String n) {
+		this.name = n;
 	}
 
 	public void setProjects(List<Project> p) {

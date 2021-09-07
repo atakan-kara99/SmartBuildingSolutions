@@ -1,10 +1,11 @@
 package com.lms2ue1.sbsweb.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -18,6 +19,7 @@ public class Address {
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(updatable=false)
 	private long id;
 	private String street;
 	private int houseNumber;
@@ -26,7 +28,7 @@ public class Address {
 	private String country;
 
 	// ---- Associations ----//
-	@ManyToOne
+	@OneToOne
 	private Project project;
 
 	// ----------------------------------//
@@ -36,25 +38,24 @@ public class Address {
 	}
 
 	/**
-	 * Construction of address object that the frontend will use.
+	 * Constructor to insert the data of the rest api json request.
 	 * 
-	 * @param addressId   unique id of the object.
-	 * @param street      the name of street.
-	 * @param houseNumber houseNumber of the project.
-	 * @param zipCode     unique zip code of the city.
-	 * @param city        name of the city.
-	 * @param country     name of the country.
-	 * @param Project     the associated project to this address.
+	 * @param id    id of the address.
+	 * @param st    name of the street.
+	 * @param hNum  house number.
+	 * @param zC    zip code of the city.
+	 * @param c     city.
+	 * @param cntry country.
+	 * @param p     the associated project.
 	 */
-	public Address(long addressId, String street, int houseNumber, int zipCode, String city, String country,
-			Project project) {
-		this.id = addressId;
-		this.street = street;
-		this.houseNumber = houseNumber;
-		this.zipCode = zipCode;
-		this.city = city;
-		this.country = country;
-		this.project = project;
+	public Address(long id, String st, int hNum, int zC, String c, String cntry, Project p) {
+		this.id = id;
+		this.street = st;
+		this.houseNumber = hNum;
+		this.zipCode = zC;
+		this.city = c;
+		this.country = cntry;
+		this.project = p;
 	}
 
 	// ----------------------------//

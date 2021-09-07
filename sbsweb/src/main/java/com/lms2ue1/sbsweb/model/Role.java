@@ -7,16 +7,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 import java.util.List;
 
+/**
+ * Custom class role. Roles are essential for the authorization.
+ * 
+ * @author juliusdaum
+ *
+ */
 @Entity
 public class Role {
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(updatable=false)
 	private long id;
 	@NotEmpty
 	private String name;
@@ -24,14 +30,13 @@ public class Role {
 	// ---- Associations ----//
 	@ManyToMany
 	private List<Project> projects;
-//	@ManyToOne
-//	private List<Organization> organizations;
+	@ManyToOne
+	private Organisation organisation;
 	@ManyToMany
 	private List<User> users;
 	@ManyToMany
 	private List<Contract> contracts;
 	@ManyToMany
-	@Column(name="billing_items")
 	private List<BillingItem> billingItems;
 
 	// ----------------------------------//
@@ -43,23 +48,23 @@ public class Role {
 	/**
 	 * Initializes a role object.
 	 * 
-	 * @param id            the unique id of a role.
-	 * @param name          the name of a role.
-	 * @param projects      the associated projects.
-	 * @param organizations the associated organizations.
-	 * @param users         the associated users.
-	 * @param contracts     the associated contracts.
-	 * @param billingItems  the associated billing items.
+	 * @param id  the unique id of a role.
+	 * @param n   the name of a role.
+	 * @param ps  the associated projects.
+	 * @param os  the associated organisations.
+	 * @param us  the associated users.
+	 * @param cs  the associated contracts.
+	 * @param bus the associated billing items.
 	 */
-	public Role(long id, String name, List<Project> projects, List<Organization> organizations, List<User> users,
-			List<Contract> contracts, List<BillingItem> billingItems) {
+	public Role(long id, String n, List<Project> ps, Organisation os, List<User> us, List<Contract> cs,
+			List<BillingItem> bus) {
 		this.id = id;
-		this.name = name;
-		this.projects = projects;
-		this.organizations = organizations;
-		this.users = users;
-		this.contracts = contracts;
-		this.billingItems = billingItems;
+		this.name = n;
+		this.projects = ps;
+		this.organisation = os;
+		this.users = us;
+		this.contracts = cs;
+		this.billingItems = bus;
 	}
 
 	// ----------------------------//
@@ -77,8 +82,8 @@ public class Role {
 		return this.projects;
 	}
 
-	public List<Organization> getOrganizations() {
-		return this.organizations;
+	public Organisation getOrganisation() {
+		return this.organisation;
 	}
 
 	public List<User> getUsers() {
@@ -104,24 +109,24 @@ public class Role {
 		this.name = n;
 	}
 
-	public void setProjects(List<Project> p) {
-		this.projects = p;
+	public void setProjects(List<Project> ps) {
+		this.projects = ps;
 	}
 
-	public void setOrganizations(List<Organization> o) {
-		this.organizations = o;
+	public void setOrganisation(Organisation o) {
+		this.organisation = o;
 	}
 
-	public void setUsers(List<User> u) {
-		this.users = u;
+	public void setUsers(List<User> us) {
+		this.users = us;
 	}
 
-	public void setContracts(List<Contract> c) {
-		this.contracts = c;
+	public void setContracts(List<Contract> cs) {
+		this.contracts = cs;
 	}
 
-	public void setBillingItems(List<BillingItem> b) {
-		this.billingItems = b;
+	public void setBillingItems(List<BillingItem> bs) {
+		this.billingItems = bs;
 	}
 
 }

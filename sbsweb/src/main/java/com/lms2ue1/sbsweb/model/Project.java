@@ -8,45 +8,40 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.Size;
 
 import java.util.List;
 
 @Entity
-@Table(name = "projects")
 public class Project {
 
 	// ------ Attributes ------//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(updatable=false)
 	private long id;
 	private String name;
 	private String description;
-	@Column(name="creation_date")
 	private String creationDate;
-	@Column(name="completion_date")
 	private String completionDate;
 	private String status;
-	@Column(name="overall_costs")
 	private double overallCosts;
 	private String creator;
 	// -- These attributes are not important for our use. --//
 	private String image;
-	@Column(name="image_type")
 	private String imageType;
-	@Column(name="image_file_name")
 	private String imageFileName;
 
 	// ------ Associations ------//
-	@OneToMany(mappedBy = "project")
-	private List<Address> address;
-//	@OneToMany(mappedBy = "projects", orphanRemoval = true)
-//	private List<Contract> contracts;
-//	TODO: fix the references!
-//	@ManyToOne
-//	private List<Organization> organizations;
+	@OneToOne
+	private Address address;
+	@Size(min=1)
+	@OneToMany(mappedBy = "project", orphanRemoval = true)
+	private List<Contract> contracts;
+	@ManyToOne
+	private Organisation organisation;
+	@Size(min=2)
 	@ManyToMany
 	private List<Role> roles;
 
@@ -56,34 +51,42 @@ public class Project {
 	}
 
 	/**
-	 * Constructs the object, that the frontend needs.
+	 * Constructor to insert the data of the rest api json request.
 	 * 
-	 * @param projectId             the unique id of the project.
-	 * @param name                  name of the project.
-	 * @param description           a description of the project.
-	 * @param creationDate          date where the project starts.
-	 * @param completionDate        date where the project will be finished.
-	 * @param status                the current status of the project.
-	 * @param overallCosts          the sum of all costs.
-	 * @param address               the fixed address of the project.
-	 * @param ownerGroupIdentifiers the associated organizations to the project.
-	 * @param roles                 the associated roles to the project.
-	 * @param contracts             the associated contracts to the project.
+	 * @param id             project id.
+	 * @param n              name of the project.
+	 * @param desc           description.
+	 * @param creationDate   date where the project started.
+	 * @param completionDate date where the project should be finished.
+	 * @param s              current status of the project.
+	 * @param oC             overall costs.
+	 * @param c              name of the creator.
+	 * @param img            path of the image.
+	 * @param imgType        type of the image.
+	 * @param imgFileName    name of the image.
+	 * @param a              address of the project.
+	 * @param cs             associated contracts.
+	 * @param o              associated organization.
+	 * @param rs             associated roles.
 	 */
-	public Project(long projectId, String name, String description, String creationDate, String completionDate,
-			String status, double overallCosts, Address address, List<Organization> organizations,
-			List<Role> roles, List<Contract> contracts) {
-		this.id = projectId;
-		this.name = name;
-		this.description = description;
+	public Project(long id, String n, String desc, String creationDate, String completionDate, String s, double oC,
+			String c, String img, String imgType, String imgFileName, Address a, List<Contract> cs, Organisation o,
+			List<Role> rs) {
+		this.id = id;
+		this.name = n;
+		this.description = desc;
 		this.creationDate = creationDate;
 		this.completionDate = completionDate;
-		this.status = status;
-		this.overallCosts = overallCosts;
-		this.address = address;
-		this.organizations = organizations;
-		this.roles = roles;
-		this.contracts = contracts;
+		this.status = s;
+		this.overallCosts = oC;
+		this.creator = c;
+		this.image = img;
+		this.imageType = imgType;
+		this.imageFileName = imgFileName;
+		this.address = a;
+		this.contracts = cs;
+		this.organisation = o;
+		this.roles = rs;
 	}
 
 	// ----------------------------//
@@ -141,8 +144,8 @@ public class Project {
 		return this.contracts;
 	}
 
-	public List<Organization> getOrganizations() {
-		return this.organizations;
+	public Organisation getOrganisation() {
+		return this.organisation;
 	}
 
 	public List<Role> getRoles() {
@@ -160,8 +163,8 @@ public class Project {
 		this.name = n;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescription(String desc) {
+		this.description = desc;
 	}
 
 	public void setCreationDate(String creationDate) {
@@ -172,12 +175,12 @@ public class Project {
 		this.completionDate = completionDate;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatus(String s) {
+		this.status = s;
 	}
 
-	public void setOverallCosts(double overallCosts) {
-		this.overallCosts = overallCosts;
+	public void setOverallCosts(double oC) {
+		this.overallCosts = oC;
 	}
 
 	public void setImage(String img) {
@@ -192,20 +195,20 @@ public class Project {
 		this.imageFileName = imgFileName;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setAddress(Address a) {
+		this.address = a;
 	}
 
-	public void setContracts(List<Contract> contracts) {
-		this.contracts = contracts;
+	public void setContracts(List<Contract> cs) {
+		this.contracts = cs;
 	}
 
-	public void setOrganizations(List<Organization> orgs) {
-		this.organizations = orgs;
+	public void setOrganisation(Organisation o) {
+		this.organisation = o;
 	}
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
+	public void setRoles(List<Role> rs) {
+		this.roles = rs;
 	}
 
 }
