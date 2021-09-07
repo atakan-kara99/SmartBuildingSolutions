@@ -20,9 +20,6 @@ public class DatabaseInitService {
             //User user1 = new User(1l, "Anna", "Krause", "Hochbau-Krause", "OrgAdmin", "AKrause", "krause");
             //User user2 = new User(1l, "Hans-Dieter", "Schulze", "Hochbau-Krause", "Bauleiter", "HDS", "schulze");
 
-            //String encodedPassword = passwordEncoder.encode(user0.getPassword());
-            //user0.setPassword(encodedPassword);
-            
             userRepo.save(user0);
             //userRepository.save(user1);
             //userRepository.save(user2);

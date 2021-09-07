@@ -6,6 +6,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.lms2ue1.sbsweb.model.User;
 
+/**
+ * Provides the user credentials from the database.
+ * 
+ * @author nataliekaufhold
+ *
+ */
 public class SBSUserDetails implements UserDetails {
 	
 	// Generated
