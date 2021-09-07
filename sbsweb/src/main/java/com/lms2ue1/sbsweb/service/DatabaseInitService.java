@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 public class DatabaseInitService {
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
     OrganisationRepository organisationRepository;
     
     public void init() {
