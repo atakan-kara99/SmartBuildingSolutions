@@ -6,6 +6,7 @@ build/
 !**/src/test/**/build/
 sbs-database.mv.db
 sbs-database/database.mv.db
+*.trace.db
 
 ### STS ###
 .apt_generated

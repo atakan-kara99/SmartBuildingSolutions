@@ -12,13 +12,13 @@ public class ProjectController {
     @GetMapping("/project_overview")
     public String showProjectOverview(Model model) {
 	// TODO
-	return "project_overview";
+	return "project/project_overview";
     }
 
     /** Shows the specified project's details, e.g. its contracts. */
     @GetMapping("/project/{pID}/show")
     public String showProjectDetails(@PathVariable Long pID, Model model) {
 	// TODO
-	return "project_details";
+	return "project/project_details";
     }
 }

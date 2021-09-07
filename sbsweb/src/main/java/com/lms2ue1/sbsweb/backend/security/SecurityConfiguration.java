@@ -1,4 +1,4 @@
-package com.lms2ue1.sbsweb.security;
+package com.lms2ue1.sbsweb.backend.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,25 +13,28 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Autowired
-    SBSUserDetailsService userDetailsService;
+	@Autowired
+	SBSUserDetailsService userDetailsService;
 
     @Bean
     protected PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/h2-console/**").permitAll().anyRequest().authenticated().and()
-                .formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/organisation/4/user_management", true)
-                .and().logout().permitAll();
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
-    }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/h2-console/**").permitAll().anyRequest().authenticated().and()
+				.formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/organisation/0/user_management", true)
+				.and().logout().permitAll();
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder());
-    }
+		// Comment in to enable H2 console on test server (not recommended for release
+		// version!)
+		http.csrf().disable();
+		http.headers().frameOptions().disable();
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder());
+	}
 }

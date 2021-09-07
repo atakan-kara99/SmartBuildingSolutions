@@ -2,10 +2,6 @@ package com.lms2ue1.sbsweb.controller;
 
 import javax.validation.Valid;
 
-import com.lms2ue1.sbsweb.model.Organisation;
-import com.lms2ue1.sbsweb.model.User;
-import com.lms2ue1.sbsweb.repository.OrganisationRepository;
-import com.lms2ue1.sbsweb.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.lms2ue1.sbsweb.backend.model.User;
+import com.lms2ue1.sbsweb.backend.repository.UserRepository;
 
 @Controller
 public class UserManagementController {
@@ -53,7 +52,7 @@ public class UserManagementController {
         //More checks needed
         if(bindingResult.hasErrors()) {
             model.addAttribute("user", user);
-            return "user_new";
+            return "user/user_new";
         }
         userRepository.save(user);
         return "redirect:/organisation/{oID}/user_management";
@@ -80,7 +79,7 @@ public class UserManagementController {
         //More checks needed
         if(bindingResult.hasErrors()) {
             model.addAttribute("user", user);
-            return "user_edit";
+            return "user/user_edit";
         }
         user.setId(uID);
         userRepository.save(user);
