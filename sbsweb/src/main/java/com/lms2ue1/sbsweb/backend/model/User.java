@@ -41,6 +41,7 @@ public class User {
 	@ManyToMany
 	private List<Organisation> organisations;
 	// It is only ONE role allowed. Otherwise we have a problem with authorisation.
+	// The SysAdmin will get an exception in authorisation.
 	@ManyToOne(cascade = {CascadeType.ALL})
 	private Role role;
 	/*
