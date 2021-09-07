@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import com.lms2ue1.sbsweb.model.User;
+import com.lms2ue1.sbsweb.backend.model.User;
 
 /**
  * Provides the user credentials from the database.
@@ -14,9 +14,14 @@ import com.lms2ue1.sbsweb.model.User;
  */
 public class SBSUserDetails implements UserDetails {
 	
-	// Generated
+	/**
+	 * ID for serial object.
+	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Instance of 'User' to use to authenticate.
+	 */
 	private final User user;
 	
 	public SBSUserDetails(User user) {
@@ -62,7 +67,5 @@ public class SBSUserDetails implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-
 	
-
 }

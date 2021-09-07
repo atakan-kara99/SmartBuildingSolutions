@@ -10,4 +10,7 @@ import com.lms2ue1.sbsweb.backend.model.User;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 	List<User> findByOrganisationsOrderByUsernameAsc(Organisation o);
+	// Needed for the authentication.
+	User findByUsername(String username);
 }
+

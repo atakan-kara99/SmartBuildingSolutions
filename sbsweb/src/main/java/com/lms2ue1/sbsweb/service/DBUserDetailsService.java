@@ -5,8 +5,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.lms2ue1.sbsweb.model.*;
-import com.lms2ue1.sbsweb.repository.UserRepository;
+import com.lms2ue1.sbsweb.backend.model.*;
+import com.lms2ue1.sbsweb.backend.repository.UserRepository;
 import com.lms2ue1.sbsweb.security.SBSUserDetails;
 
 //import org.springframework.security.core.userdetails.User;
@@ -20,6 +20,9 @@ import com.lms2ue1.sbsweb.security.SBSUserDetails;
 @Service
 public class DBUserDetailsService implements UserDetailsService {
 
+	/**
+	 * Repository to use.
+	 */
 	private UserRepository userRepo;
 	
 	public DBUserDetailsService(UserRepository userRepo) {
