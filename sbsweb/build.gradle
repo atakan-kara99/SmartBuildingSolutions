@@ -29,3 +29,9 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+task runPython(type:Exec) {
+   commandLine 'python', 'compileSass.py'
+} 
+
+tasks.named("build") { finalizedBy("runPython") }
