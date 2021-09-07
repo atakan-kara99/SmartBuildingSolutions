@@ -1,5 +1,6 @@
 package com.lms2ue1.sbsweb.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,6 +9,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
@@ -21,23 +24,29 @@ public class Project {
 	private long id;
 	private String name;
 	private String description;
+	@Column(name="creation_date")
 	private String creationDate;
+	@Column(name="completion_date")
 	private String completionDate;
 	private String status;
+	@Column(name="overall_costs")
 	private double overallCosts;
 	private String creator;
 	// -- These attributes are not important for our use. --//
 	private String image;
+	@Column(name="image_type")
 	private String imageType;
+	@Column(name="image_file_name")
 	private String imageFileName;
 
 	// ------ Associations ------//
 	@OneToMany(mappedBy = "project")
-	private Address address;
-	@OneToMany(mappedBy = "projects", orphanRemoval = true)
-	private List<Contract> contracts;
-	@ManyToOne
-	private List<Organization> ownerGroupIdentifiers;
+	private List<Address> address;
+//	@OneToMany(mappedBy = "projects", orphanRemoval = true)
+//	private List<Contract> contracts;
+//	TODO: fix the references!
+//	@ManyToOne
+//	private List<Organization> organizations;
 	@ManyToMany
 	private List<Role> roles;
 
@@ -62,7 +71,7 @@ public class Project {
 	 * @param contracts             the associated contracts to the project.
 	 */
 	public Project(long projectId, String name, String description, String creationDate, String completionDate,
-			String status, double overallCosts, Address address, List<Organization> ownerGroupIdentifiers,
+			String status, double overallCosts, Address address, List<Organization> organizations,
 			List<Role> roles, List<Contract> contracts) {
 		this.id = projectId;
 		this.name = name;
@@ -72,7 +81,7 @@ public class Project {
 		this.status = status;
 		this.overallCosts = overallCosts;
 		this.address = address;
-		this.ownerGroupIdentifiers = ownerGroupIdentifiers;
+		this.organizations = organizations;
 		this.roles = roles;
 		this.contracts = contracts;
 	}
@@ -132,8 +141,8 @@ public class Project {
 		return this.contracts;
 	}
 
-	public List<Organization> getOwnerGroupIdentifiers() {
-		return this.ownerGroupIdentifiers;
+	public List<Organization> getOrganizations() {
+		return this.organizations;
 	}
 
 	public List<Role> getRoles() {
@@ -192,7 +201,7 @@ public class Project {
 	}
 
 	public void setOrganizations(List<Organization> orgs) {
-		this.ownerGroupIdentifiers = orgs;
+		this.organizations = orgs;
 	}
 
 	public void setRoles(List<Role> roles) {

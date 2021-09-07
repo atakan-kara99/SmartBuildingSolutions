@@ -2,6 +2,7 @@ package com.lms2ue1.sbsweb.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,12 +25,18 @@ public class BillingUnit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	@Column(name="short_description")
 	private String shortDescription;
+	@Column(name="long_description")
 	private String longDescription;
 	private String unit;
+	@Column(name="completion_date")
 	private String completionDate;
+	@Column(name="own_contract_defined")
 	private String ownContractDefined;
+	@Column(name="total_quantity")
 	private double totalQuantity;
+	@Column(name="total_price")
 	private double totalPrice;
 
 	// ---- Associations ----//

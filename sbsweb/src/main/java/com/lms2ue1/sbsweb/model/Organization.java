@@ -18,7 +18,6 @@ import java.util.List;
  *
  */
 @Entity
-@Table(name = "organizations") // declare the name of the table
 public class Organization {
 	// ---- Attributes ----//
 	@Id
@@ -27,12 +26,13 @@ public class Organization {
 	private String name;
 
 	// ---- Associations ----//
-	@OneToMany(mappedBy="organizations")
-	private List<Project> projects;
+//	TODO: fix the references
+//	@OneToMany(mappedBy="organizations")
+//	private List<Project> projects;
 	@ManyToMany
 	private List<User> users;
-	@OneToMany(mappedBy="organizations")
-	private List<Role> roles;
+//	@OneToMany(mappedBy="organizations")
+//	private List<Role> roles;
 	@ManyToMany
 	private List<Contract> contracts;
 

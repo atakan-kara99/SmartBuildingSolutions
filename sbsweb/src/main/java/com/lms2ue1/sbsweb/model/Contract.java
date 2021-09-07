@@ -19,7 +19,6 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="contracts")
 public class Contract {
 	// ---- Attributes ----//
 	@Id
@@ -36,8 +35,8 @@ public class Contract {
 	private List<Organization> organizations;
 	@ManyToMany
 	private List<Role> roles;
-	@ManyToOne
-	private Project project;
+//	@ManyToOne
+//	private Project project;
 	@OneToMany(mappedBy="contract", orphanRemoval=true)
 	private List<BillingUnit> billingUnits;
 

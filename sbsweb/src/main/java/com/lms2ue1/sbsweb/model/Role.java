@@ -1,5 +1,6 @@
 package com.lms2ue1.sbsweb.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +13,6 @@ import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Entity
-@Table(name = "roles")
 public class Role {
 	// ---- Attributes ----//
 	@Id
@@ -24,13 +24,14 @@ public class Role {
 	// ---- Associations ----//
 	@ManyToMany
 	private List<Project> projects;
-	@ManyToOne
-	private List<Organization> organizations;
+//	@ManyToOne
+//	private List<Organization> organizations;
 	@ManyToMany
 	private List<User> users;
 	@ManyToMany
 	private List<Contract> contracts;
 	@ManyToMany
+	@Column(name="billing_items")
 	private List<BillingItem> billingItems;
 
 	// ----------------------------------//

@@ -15,7 +15,6 @@ import javax.persistence.Table;
  * @author juliusdaum
  */
 @Entity
-@Table(name="users")
 public class User {
 	// ---- Attributes ----//
 	@Id
@@ -38,27 +37,6 @@ public class User {
 	public User() {
 	}
 
-	/**
-	 * Initializes a user object.
-	 * 
-	 * @param id            the unique id of the user.
-	 * @param forename
-	 * @param lastname
-	 * @param role          the associated role.
-	 * @param username
-	 * @param organizations associated organizations.
-	 * @param roles         associated roles.
-	 */
-	public User(long id, String forename, String lastname, String role, String username,
-			List<Organization> organizations, List<Role> roles) {
-		this.id = id;
-		this.forename = forename;
-		this.lastname = lastname;
-		this.role = role;
-		this.username = username;
-		this.organizations = organizations;
-		this.roles = roles;
-	}
 
 	// ----------------------------//
 	// ---------- Getter ----------//
