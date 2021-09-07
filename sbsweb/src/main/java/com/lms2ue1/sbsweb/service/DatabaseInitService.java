@@ -30,9 +30,9 @@ public class DatabaseInitService {
             org1.getUsers().add(user0);
             org2.getUsers().add(user1);
             org2.getUsers().add(user2);
-            userRepository.save(user0);
-            userRepository.save(user1);
-            userRepository.save(user2);
+//            userRepository.save(user0);
+//            userRepository.save(user1);
+//            userRepository.save(user2);
 
             organisationRepository.save(org1);
             organisationRepository.save(org2);
