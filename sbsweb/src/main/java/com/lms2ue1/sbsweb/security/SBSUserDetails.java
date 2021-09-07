@@ -33,6 +33,7 @@ public class SBSUserDetails implements UserDetails {
 		return Collections.singletonList(new GrantedAuthority() {
 			@Override
 			public String getAuthority() {
+				//return user.getRole().toString();
 				return user.getRole();
 			}
 		});

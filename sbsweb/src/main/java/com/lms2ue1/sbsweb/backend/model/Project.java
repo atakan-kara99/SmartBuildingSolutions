@@ -27,7 +27,7 @@ public class Project {
 	private String completionDate;
 	private Status status;
 	private double overallCosts;
-	private User creator;
+	private String creator;
 	// -- These attributes are not important for our use. --//
 	private String image;
 	private String imageType;
@@ -44,6 +44,8 @@ public class Project {
 	@Size(min = 2)
 	@ManyToMany
 	private List<Role> roles;
+	/*@ManyToOne
+	private User creator;*/
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
@@ -68,7 +70,7 @@ public class Project {
 	 * @param organisation   associated organisation.
 	 */
 	public Project(String name, String desc, String creationDate, String completionDate, Status status, double costs,
-			User creator, String img, String imgType, String imgFileName, Address address,
+			String creator, String img, String imgType, String imgFileName, Address address,
 			Organisation organisation) {
 		this.name = name;
 		this.description = desc;
@@ -115,7 +117,7 @@ public class Project {
 		return this.overallCosts;
 	}
 
-	public User getCreator() {
+	public String getCreator() {
 		return this.creator;
 	}
 
@@ -206,7 +208,7 @@ public class Project {
 		this.roles = roles;
 	}
 
-	public void setCreator(User creator) {
+	public void setCreator(String creator) {
 		this.creator = creator;
 	}
 

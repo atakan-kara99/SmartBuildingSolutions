@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -31,8 +32,9 @@ public class User {
 	private String username;
 	@NotEmpty
 	private String password;
+	// TODO: Why is here typ "Role" not working?
 	@NotEmpty
-	private Role role;
+	private String role;
 
 	// ---- Associations ----//
 	@Size(min = 1)
@@ -41,6 +43,8 @@ public class User {
 	@Size(min = 2)
 	@ManyToMany
 	private List<Role> roles;
+	/*@OneToMany(mappedBy = "project")
+	private List<Project> projects;*/
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
@@ -99,7 +103,7 @@ public class User {
 	}
 
 	public String getRole() {
-		return "" + role;
+		return role;
 	}
 
 	// ----------------------------//
@@ -133,7 +137,7 @@ public class User {
 		this.password = p;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 }

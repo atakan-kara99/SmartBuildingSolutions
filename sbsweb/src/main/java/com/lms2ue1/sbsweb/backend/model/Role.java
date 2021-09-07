@@ -126,5 +126,14 @@ public class Role {
 	public void setBillingItems(List<BillingItem> bs) {
 		this.billingItems = bs;
 	}
+	
+	// ----------------------------//
+	// ---------- Misc ------------//
+	// ----------------------------//
 
+	@Override
+	public String toString() {
+		String str = "" + this;
+		return str;
+	}
 }
