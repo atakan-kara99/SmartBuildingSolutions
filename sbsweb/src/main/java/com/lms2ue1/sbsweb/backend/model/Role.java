@@ -30,8 +30,8 @@ public class Role {
 	// ---- Associations ----//
 	@ManyToMany
 	private List<Project> projects;
-	@ManyToOne
-	private Organisation organisation;
+	@ManyToMany
+	private List<Organisation> orgas;
 	@ManyToMany
 	private List<User> users;
 	@ManyToMany
@@ -55,12 +55,12 @@ public class Role {
 	 * @param contracts     the associated contracts.
 	 * @param billingItems  the associated billing items.
 	 */
-	public Role(long id, String name, List<Project> projects, Organisation organisations, List<Contract> contracts,
+	public Role(long id, String name, List<Project> projects, List<Organisation> organisations, List<Contract> contracts,
 			List<BillingItem> billingItems) {
 		this.id = id;
 		this.name = name;
 		this.projects = projects;
-		this.organisation = organisations;
+		this.orgas = organisations;
 		this.contracts = contracts;
 		this.billingItems = billingItems;
 	}
@@ -80,8 +80,8 @@ public class Role {
 		return this.projects;
 	}
 
-	public Organisation getOrganisation() {
-		return this.organisation;
+	public List<Organisation> getOrganisation() {
+		return this.orgas;
 	}
 
 	public List<User> getUsers() {
@@ -111,8 +111,8 @@ public class Role {
 		this.projects = ps;
 	}
 
-	public void setOrganisation(Organisation o) {
-		this.organisation = o;
+	public void setOrganisation(List<Organisation> o) {
+		this.orgas = o;
 	}
 
 	public void setUsers(List<User> us) {

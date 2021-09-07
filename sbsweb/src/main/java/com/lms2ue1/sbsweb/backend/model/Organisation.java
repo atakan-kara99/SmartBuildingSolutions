@@ -55,16 +55,9 @@ public class Organisation {
 	 * Constructor to insert the data of the rest api json request.
 	 * 
 	 * @param name      = name of the organisation.
-	 * @param projects  = associated projects.
-	 * @param users     = associated users.
-	 * @param contracts = assocaited contracts.
 	 */
-	public Organisation(String name, List<Project> projects, List<User> users,
-			List<Contract> contracts) {
+	public Organisation(String name) {
 		this.name = name;
-		this.projects = projects;
-		this.users = users;
-		this.contracts = contracts;
 	}
 
 	// ----------------------------//

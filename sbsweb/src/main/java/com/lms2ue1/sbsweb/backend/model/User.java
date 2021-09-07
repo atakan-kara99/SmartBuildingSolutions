@@ -28,8 +28,6 @@ public class User {
 	@NotEmpty
 	private String lastname;
 	@NotEmpty
-	private String role;
-	@NotEmpty
 	private String username;
 	@NotEmpty
 	private String password;
@@ -55,16 +53,14 @@ public class User {
 	 * 
 	 * @param firstname     first name of the user.
 	 * @param lastname      last name of the user.
-	 * @param role          role of the user.
 	 * @param organisations at least one organisation the user works for.
 	 * @param username      user name.
 	 * @param password      password of the user (encrypted).
 	 */
-	public User(String firstname, String lastname, String role, List<Organisation> organisations, String username,
+	public User(String firstname, String lastname, List<Organisation> organisations, String username,
 			String password) {
 		this.forename = firstname;
 		this.lastname = lastname;
-		this.role = role;
 		this.organisations = organisations;
 		this.username = username;
 		this.password = password;
@@ -85,7 +81,7 @@ public class User {
 		return this.lastname;
 	}
 
-	public String getRole() {
+	public Role getRole() {
 		return this.role;
 	}
 
@@ -120,7 +116,7 @@ public class User {
 		this.lastname = lname;
 	}
 
-	public void setRole(String r) {
+	public void setRole(Role r) {
 		this.role = r;
 	}
 

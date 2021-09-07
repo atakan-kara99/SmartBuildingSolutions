@@ -25,9 +25,9 @@ public class Project {
 	private String description;
 	private String creationDate;
 	private String completionDate;
-	private String status;
+	private Status status;
 	private double overallCosts;
-	private String creator;
+	private User creator;
 	// -- These attributes are not important for our use. --//
 	private String image;
 	private String imageType;
@@ -45,12 +45,11 @@ public class Project {
 	@ManyToMany
 	private List<Role> roles;
 
-
-
 	// ----------------------------------//
 	// ---------- Constructors ----------//
-	public Project() {
-	}
+	/*
+	 * public Project() { }
+	 */
 
 	/**
 	 * Constructor to insert the data of the rest api json request.
@@ -66,11 +65,10 @@ public class Project {
 	 * @param imgType        type of the image.
 	 * @param imgFileName    name of the image.
 	 * @param address        address of the project.
-	 * @param contracts      associated contracts.
 	 * @param organisation   associated organisation.
 	 */
-	public Project(String name, String desc, String creationDate, String completionDate, String status, double costs,
-			String creator, String img, String imgType, String imgFileName, Address address, List<Contract> contracts,
+	public Project(String name, String desc, String creationDate, String completionDate, Status status, double costs,
+			User creator, String img, String imgType, String imgFileName, Address address,
 			Organisation organisation) {
 		this.name = name;
 		this.description = desc;
@@ -83,7 +81,6 @@ public class Project {
 		this.imageType = imgType;
 		this.imageFileName = imgFileName;
 		this.address = address;
-		this.contracts = contracts;
 		this.organisation = organisation;
 	}
 
@@ -110,7 +107,7 @@ public class Project {
 		return this.completionDate;
 	}
 
-	public String getStatus() {
+	public Status getStatus() {
 		return this.status;
 	}
 
@@ -118,7 +115,7 @@ public class Project {
 		return this.overallCosts;
 	}
 
-	public String getCreator() {
+	public User getCreator() {
 		return this.creator;
 	}
 
@@ -149,6 +146,7 @@ public class Project {
 	public List<Role> getRoles() {
 		return roles;
 	}
+
 	// ----------------------------//
 	// ---------- Setter ----------//
 	// ----------------------------//
@@ -172,7 +170,7 @@ public class Project {
 		this.completionDate = completionDate;
 	}
 
-	public void setStatus(String s) {
+	public void setStatus(Status s) {
 		this.status = s;
 	}
 
@@ -203,12 +201,12 @@ public class Project {
 	public void setOrganisation(Organisation o) {
 		this.organisation = o;
 	}
-	
+
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
-	
-	public void setCreator(String creator) {
+
+	public void setCreator(User creator) {
 		this.creator = creator;
 	}
 
