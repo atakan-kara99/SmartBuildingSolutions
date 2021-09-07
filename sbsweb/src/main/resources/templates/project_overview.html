@@ -15,68 +15,32 @@
             </div>
         </div>
         <div class="padding-50"></div>
-        <div th:if="${projects.empty}" class="text-center">
-            <p>Keine Projekte verfügbar.</p>
-        </div>
-        <div class="container">
-            <div class="text-center">
-                <div th:unless="${projects.empty}">
-                    <!-- Table -->
-                    <div class="container">
-                        <table class="table">
-                            <tbody>
-                                <tr th:each="project, row : ${projects}" th:if="${row.count % 4 == 0 or row.last}">
-                                    <span th:each="x : ${ {3,2,1,0} }">
-                                        <td th:if="${row.count % 4 == 0}" th:with="project=${projects[row.index - x]}">
-                                            <a th:href="@{'/project/' + ${project.pID} + '/show'}" class="icon-link">
-                                                <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="${project.name}"></i>
-                                                <span th:text="${project.name}" style="font-size: 175%; color: black; display: block;"></span>
-                                            </a>
-                                        </td>
-                                        <td th:if="${row.count % 4 != 0} and ${row.last} and ${x < row.count % 4}" th:with="project=${projects[row.index - x]}">
-                                            <a th:href="@{'/project/' + ${project.pID} + '/show'}" class="icon-link">
-                                                <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="${project.name}"></i>
-                                                <span th:text="${project.name}" style="font-size: 175%; color: black; display: block;"></span>
-                                            </a>
-                                        </td>
-                                    </span>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+        <div class="text-center">
+            <h4 th:if="${projects.empty}">Keine Projekte verfügbar.</h4>
+            <div class="container" th:unless="${projects.empty}">
+                <table class="table">
+                    <tbody>
+                        <tr th:each="_, row : ${projects}" th:if="${row.count % 4 == 0 or row.last}">
+                            <span th:each="x : ${ {3,2,1,0} }">
+                                <td th:if="${row.count % 4 == 0}" th:with="project=${projects[row.index - x]}">
+                                    <a th:href="@{'/project/' + ${project.pID} + '/show'}" class="icon-link">
+                                        <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="${project.name}"></i>
+                                        <span th:text="${project.name}" style="font-size: 175%; color: black; display: block;"></span>
+                                    </a>
+                                </td>
+                                <td th:if="${row.count % 4 != 0} and ${row.last} and ${x < row.count % 4}" th:with="project=${projects[row.index - x]}">
+                                    <a th:href="@{'/project/' + ${project.pID} + '/show'}" class="icon-link">
+                                        <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="${project.name}"></i>
+                                        <span th:text="${project.name}" style="font-size: 175%; color: black; display: block;"></span>
+                                    </a>
+                                </td>
+                            </span>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </th:block>
 </body>
-
-<!-- Just adding spans -->
-<!--
-<span th:each="project : ${projects}">
-    <a th:href="@{'/project/' + ${project.pID} + '/show'}" class="icon-link">
-        <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="${project.name}"></i>
-        <span th:text="${project.name}" style="font-size: 175%; color: black;"></span>
-    </a>
-</span>
--->
-<!-- 2 cols -->
-<!--
-<div th:each="_, row : ${projects}" th:if="${row.count % 2 == 0 or row.last}">
-    <span th:each="x : ${ {1,0} }" th:with="project=${projects[row.index - x]}">
-        <span th:if="${row.count % 2 == 0}">
-            <a th:href="@{'/project/' + ${project.pID} + '/show'}" class="icon-link">
-                <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="${project.name}"></i>
-                <span th:text="${project.name}" style="font-size: 175%; color: black;"></span>
-            </a>
-        </span>
-        <span th:if="${row.count % 2 != 0} and ${row.last} and ${x < row.count % 2}">
-            <a th:href="@{'/project/' + ${project.pID} + '/show'}" class="icon-link">
-                <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="${project.name}"></i>
-                <span th:text="${project.name}" style="font-size: 175%; color: black;"></span>
-            </a>
-        </span>
-    </span>
-</div>
--->
 
 </html>

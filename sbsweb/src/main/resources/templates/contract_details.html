@@ -15,18 +15,31 @@
             </div>
         </div>
         <div class="padding-50"></div>
-        <div th:if="${billingItems.empty}" class="text-center">
-            <p>Keine Leistungspositionen verfügbar.</p>
-        </div>
-        <div class="container">
-            <div class="text-center">
-                <div th:unless="${billingItems.empty}">
-                    <div th:each="billingItem : ${billingItems}">
-                        <a
-                            th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + ${billingItem.bID} + '/show'}"
-                            th:text="${billingItem.name}" style="font-size: 25px"></a>
-                    </div>
-                </div>
+        <div class="text-center">
+            <h4 th:if="${billingItems.empty}">Keine Leistungspositionen verfügbar.</h4>
+            <div class="container" th:unless="${billingItems.empty}">
+                <table class="table">
+                    <tbody>
+                        <tr th:each="_, row : ${billingItems}" th:if="${row.count % 4 == 0 or row.last}">
+                            <span th:each="x : ${ {3,2,1,0} }">
+                                <td th:if="${row.count % 4 == 0}" th:with="billingItem=${billingItems[row.index - x]}">
+                                    <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + ${billingItem.bID} + '/show'}"
+                                        class="icon-link">
+                                        <i class="bi bi-exclamation-circle" style="font-size: 300%; color: black;" th:title="${billingItem.name}"></i>
+                                        <span th:text="${billingItem.name}" style="font-size: 175%; color: black; display: block;"></span>
+                                    </a>
+                                </td>
+                                <td th:if="${row.count % 4 != 0} and ${row.last} and ${x < row.count % 4}" th:with="billingItem=${billingItems[row.index - x]}">
+                                    <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + ${billingItem.bID} + '/show'}"
+                                        class="icon-link">
+                                        <i class="bi bi-exclamation-circle" style="font-size: 300%; color: black;" th:title="${billingItem.name}"></i>
+                                        <span th:text="${billingItem.name}" style="font-size: 175%; color: black; display: block;"></span>
+                                    </a>
+                                </td>
+                            </span>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </th:block>
