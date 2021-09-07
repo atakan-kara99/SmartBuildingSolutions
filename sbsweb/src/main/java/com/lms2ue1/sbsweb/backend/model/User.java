@@ -3,11 +3,13 @@ package com.lms2ue1.sbsweb.backend.model;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -32,19 +34,17 @@ public class User {
 	private String username;
 	@NotEmpty
 	private String password;
-	// TODO: Why is here typ "Role" not working?
-	@NotEmpty
-	private String role;
 
 	// ---- Associations ----//
 	@Size(min = 1)
 	@ManyToMany
 	private List<Organisation> organisations;
-	@Size(min = 2)
-	@ManyToMany
-	private List<Role> roles;
-	/*@OneToMany(mappedBy = "project")
-	private List<Project> projects;*/
+	// It is only ONE role allowed. Otherwise we have a problem with authorisation.
+	@ManyToOne
+	private Role role;
+	/*
+	 * @OneToMany(mappedBy = "project") private List<Project> projects;
+	 */
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
@@ -60,13 +60,16 @@ public class User {
 	 * @param firstname     first name of the user.
 	 * @param lastname      last name of the user.
 	 * @param organisations at least one organisation the user works for.
+	 * @param role          the role of the user.
 	 * @param username      user name.
 	 * @param password      password of the user (encrypted).
 	 */
-	public User(String firstname, String lastname, List<Organisation> organisations, String username, String password) {
+	public User(String firstname, String lastname, List<Organisation> organisations, Role role, String username,
+			String password) {
 		this.forename = firstname;
 		this.lastname = lastname;
 		this.organisations = organisations;
+		this.role = role;
 		this.username = username;
 		this.password = password;
 	}
@@ -94,16 +97,12 @@ public class User {
 		return this.organisations;
 	}
 
-	public List<Role> getRoles() {
-		return this.roles;
+	public Role getRole() {
+		return this.role;
 	}
 
 	public String getPassword() {
 		return this.password;
-	}
-
-	public String getRole() {
-		return role;
 	}
 
 	// ----------------------------//
@@ -129,15 +128,12 @@ public class User {
 		this.organisations = os;
 	}
 
-	public void setRoles(List<Role> rs) {
-		this.roles = rs;
+	public void setRole(Role rs) {
+		this.role = rs;
 	}
 
 	public void setPassword(String p) {
 		this.password = p;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
-	}
 }

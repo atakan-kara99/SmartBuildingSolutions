@@ -1,12 +1,14 @@
 package com.lms2ue1.sbsweb.backend.model;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
 import java.util.List;
@@ -32,7 +34,7 @@ public class Role {
 	private List<Project> projects;
 	@ManyToOne
 	private Organisation organisation;
-	@ManyToMany
+	@OneToMany
 	private List<User> users;
 	@ManyToMany
 	private List<Contract> contracts;

@@ -21,12 +21,15 @@ public class DatabaseInitService {
         if(userRepo.count() == 0) {
         	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         	
+        	  //-----------------------------//
+        	 //------------- User ----------//
+        	//-----------------------------//
             //User user0 = new User(0l, "Peter", "Müller", "SBS-Management", "SysAdmin", "sysadmin", passwordEncoder.encode("admin"));
         	List<Organisation> organisations = new ArrayList<Organisation>();
         	organisations.add(new Organisation());
-        	User user0 = new User("Peter", "Müller", "SysAdmin", organisations, "root", passwordEncoder.encode("admin"));
+        	/*User user0 = new User("Peter", "Müller", "SysAdmin", organisations, "root", passwordEncoder.encode("admin"));
 
-            userRepo.save(user0);
+            userRepo.save(user0);*/
         }
     }
 }
