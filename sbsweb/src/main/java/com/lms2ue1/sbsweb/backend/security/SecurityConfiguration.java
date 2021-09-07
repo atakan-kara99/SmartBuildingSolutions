@@ -1,4 +1,4 @@
-package com.lms2ue1.sbsweb.security;
+package com.lms2ue1.sbsweb.backend.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

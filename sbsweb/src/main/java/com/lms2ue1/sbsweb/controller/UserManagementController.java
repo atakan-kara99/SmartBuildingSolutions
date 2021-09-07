@@ -2,8 +2,6 @@ package com.lms2ue1.sbsweb.controller;
 
 import javax.validation.Valid;
 
-import com.lms2ue1.sbsweb.model.User;
-import com.lms2ue1.sbsweb.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,6 +11,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.lms2ue1.sbsweb.backend.model.User;
+import com.lms2ue1.sbsweb.backend.repository.UserRepository;
 
 @Controller
 public class UserManagementController {
@@ -32,14 +33,14 @@ public class UserManagementController {
     @GetMapping("/organisation/{oID}/user_management")
     public String showUserList(@PathVariable Long oID, Model model) {
         model.addAttribute("users", userRepository.findAll());
-        return "user_management";
+        return "user/user_management";
     }
 
     /** Shows the page to add a new user to an organisation. */
     @GetMapping("/organisation/{oID}/user_management/user_new")
     public String showNewUserForm(@PathVariable Long oID, Model model) {
         model.addAttribute("user", new User());
-        return "user_new";
+        return "user/user_new";
     }
 
     /** Will save the new user if no problems were encountered. Will also redirect to user management. */
@@ -48,7 +49,7 @@ public class UserManagementController {
         //More checks needed
         if(bindingResult.hasErrors()) {
             model.addAttribute("user", user);
-            return "user_new";
+            return "user/user_new";
         }
         
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -70,7 +71,7 @@ public class UserManagementController {
     @GetMapping("/organisation/{oID}/user_management/user/{uID}/user_edit")
     public String showUserById(@PathVariable Long oID, @PathVariable Long uID, Model model) {
         model.addAttribute("user", userRepository.findById(uID).get());
-        return "user_edit";
+        return "user/user_edit";
     }
 
     /** Updates the user with the new data that was specified. Will redirect to user management if everything went well. */
@@ -79,7 +80,7 @@ public class UserManagementController {
         //More checks needed
         if(bindingResult.hasErrors()) {
             model.addAttribute("user", user);
-            return "user_edit";
+            return "user/user_edit";
         }
         user.setId(uID);
         userRepository.save(user);
