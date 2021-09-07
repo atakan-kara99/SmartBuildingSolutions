@@ -40,7 +40,7 @@ public class Contract {
 	@Size(min = 2)
 	@ManyToMany
 	private List<Role> roles;
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne(cascade = { CascadeType.ALL })
 	private Project project;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "contract", orphanRemoval = true)
@@ -61,18 +61,18 @@ public class Contract {
 	 * @param consignee     = consignee
 	 * @param contructor    = contructor
 	 * @param organisations = organisations
-	 * @param projects      = projects
+	 * @param project       = projects
 	 * @param billunits     = billing units
 	 */
 	public Contract(String name, String description, Status status, String consignee, String contructor,
-			List<Organisation> organisations, Project projects) {
+			List<Organisation> organisations, Project project) {
 		this.name = name;
 		this.description = description;
 		this.status = status;
 		this.consignee = consignee;
 		this.contractor = contructor;
 		this.organisations = organisations;
-		this.project = projects;
+		this.project = project;
 	}
 
 	// ----------------------------//
