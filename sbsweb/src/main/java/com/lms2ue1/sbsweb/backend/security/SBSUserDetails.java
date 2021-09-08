@@ -13,59 +13,61 @@ import com.lms2ue1.sbsweb.backend.model.User;
  *
  */
 public class SBSUserDetails implements UserDetails {
-	
-	/**
-	 * ID for serial object.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * Instance of 'User' to use to authenticate.
-	 */
-	private final User user;
-	
-	public SBSUserDetails(User user) {
-		this.user = user;
-	}
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Collections.singletonList(new GrantedAuthority() {
-			@Override
-			public String getAuthority() {
-				return user.getRole().getName();
-			}
-		});
-	}
+    /**
+     * ID for serial object.
+     */
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	public String getPassword() {
-		return user.getPassword();
-	}
+    /**
+     * Instance of 'User' to use to authenticate.
+     */
+    private final User user;
 
-	@Override
-	public String getUsername() {
-		return user.getUsername();
-	}
+    public SBSUserDetails(User user) {
+	this.user = user;
+    }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+	return Collections.singletonList(() -> user.getRole().getName());
+	// Alternate code
+//	return Collections.singletonList(new GrantedAuthority() {
+//	    @Override
+//	    public String getAuthority() {
+//		return user.getRole().getName();
+//	    }
+//	});
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+    @Override
+    public String getPassword() {
+	return user.getPassword();
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    @Override
+    public String getUsername() {
+	return user.getUsername();
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
-	
+    @Override
+    public boolean isAccountNonExpired() {
+	return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+	return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+	return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+	return true;
+    }
+
 }
