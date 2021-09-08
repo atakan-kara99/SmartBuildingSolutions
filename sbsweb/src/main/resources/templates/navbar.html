@@ -28,9 +28,15 @@
             </div>
         </div>
         <div class="navbar navbar-expand-lg navbar-nav">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="darkmode-toggle">
-                <label class="form-check-label" for="darkmode-toggle"> Darkmode </label>
+            <div th:switch="${session.darkmodeEnabled}">
+                <div th:case="false" class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="darkmode-toggle">
+                    <label class="form-check-label" for="darkmode-toggle"> Darkmode </label>
+                </div>
+                <div th:case="true" class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="darkmode-toggle" checked>
+                    <label class="form-check-label" for="darkmode-toggle"> Darkmode </label>
+                </div>
             </div>
             <a class="navbar-brand" href="#">
                 <img th:src="@{/images/Logo.png}" height="40" alt="Logo">

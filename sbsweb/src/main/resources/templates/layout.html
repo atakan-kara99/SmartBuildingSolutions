@@ -5,7 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
     <link th:rel="stylesheet" th:href="@{/css/main.css}" />
-    <link id="style" th:rel="stylesheet" href="/css/sbs_bootstrap_light.css " />
+    <div th:switch="${session.darkmodeEnabled}">
+        <link th:case="false" th:rel="stylesheet" href="/css/sbs_bootstrap_light.css " />
+        <link th:case="true" th:rel="stylesheet" href="/css/sbs_bootstrap_dark.css " />
+    </div>
     <link rel="stylesheet " href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css ">
 </head>
 
@@ -15,7 +18,7 @@
     <th:block th:replace="footer :: footer "></th:block>
 
     <script type="text/javascript " th:src="@{/js/bootstrap.min.js} "></script>
-    <script type="text/javascript " th:src="@{/js/darkmode_toggle.js} "></script>
+    <script type="text/javascript " defer th:src="@{/js/darkmode_toggle.js} "></script>
 </body>
 
 </html>
