@@ -17,7 +17,7 @@ public class Organisation {
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable = false, unique = true)
+	@Column(updatable = false)
 	private long id;
 	@NotEmpty
 	@Column(unique = true)
@@ -28,7 +28,7 @@ public class Organisation {
 	@OneToMany(mappedBy = "organisation")
 	private List<Project> projects;
 	@Size(min = 2)
-	@OneToMany
+	@OneToMany(mappedBy="organisation") // Mapping is necessary!
 	private List<Role> roles;
 	@Size(min = 1)
 	@ManyToMany

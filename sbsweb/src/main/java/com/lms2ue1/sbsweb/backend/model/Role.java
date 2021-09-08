@@ -10,7 +10,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class Role {
 	// ---- Associations ----//
 	@ManyToMany
 	private List<Project> projects;
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne//(cascade = CascadeType.MERGE)
 	private Organisation organisation;
 	@OneToMany
 	private List<User> users;
