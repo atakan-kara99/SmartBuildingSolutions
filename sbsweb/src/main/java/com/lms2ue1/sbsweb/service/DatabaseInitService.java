@@ -53,15 +53,15 @@ public class DatabaseInitService {
         	Organisation org0 = new Organisation("SBS", roleList);
         	Organisation org1 = new Organisation("Tiefbau", roleList);
         	
-        	//orgaRepo.save(org0);
-        	//orgaRepo.save(org1);
+        	orgaRepo.save(org0);
+        	orgaRepo.save(org1);
         	
         	List<Organisation> organisations = List.of(org0, org1);
         	
         	//-----------------------------//
         	//------------- User ----------//
         	//-----------------------------//
-        	User user0 = new User("Peter", "Müller", organisations, role0, "root", passwordEncoder.encode("admin"));
+        	/*User user0 = new User("Peter", "Müller", organisations, role0, "root", passwordEncoder.encode("admin"));
         	
         	userRepo.save(user0);
         	
@@ -93,7 +93,7 @@ public class DatabaseInitService {
           //------------------------------//
         	BillingItem billItem0 = new BillingItem("bill0", 0, null, Status.NO_STATUS, 0, null, 0, null, null, billUnit0, null);
         	
-        	billItemRepo.save(billItem0);
+        	billItemRepo.save(billItem0);*/
         }
     }
 }

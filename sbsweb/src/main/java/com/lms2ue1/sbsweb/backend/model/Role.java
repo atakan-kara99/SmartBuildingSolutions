@@ -1,13 +1,12 @@
 package com.lms2ue1.sbsweb.backend.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
@@ -34,8 +33,8 @@ public class Role {
 	// ---- Associations ----//
 	@ManyToMany
 	private List<Project> projects;
-	@ManyToOne
-	private Organisation organisation;
+	@ManyToMany(cascade = CascadeType.MERGE)
+	private List<Organisation> organisations;
 	@OneToMany
 	private List<User> users;
 	@ManyToMany
@@ -80,8 +79,8 @@ public class Role {
 		return this.projects;
 	}
 
-	public Organisation getOrganisation() {
-		return this.organisation;
+	public List<Organisation> getOrganisations() {
+		return this.organisations;
 	}
 
 	public List<User> getUsers() {
@@ -111,8 +110,8 @@ public class Role {
 		this.projects = ps;
 	}
 
-	public void setOrganisation(Organisation o) {
-		this.organisation = o;
+	public void setOrganisation(List<Organisation> o) {
+		this.organisations = o;
 	}
 
 	public void setUsers(List<User> us) {

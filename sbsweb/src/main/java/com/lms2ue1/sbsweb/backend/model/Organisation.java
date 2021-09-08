@@ -1,5 +1,6 @@
 package com.lms2ue1.sbsweb.backend.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,7 +41,7 @@ public class Organisation {
 	@ManyToMany
 	private List<User> users;
 	@Size(min = 2)
-	@OneToMany(mappedBy = "organisation")
+	@ManyToMany(cascade = CascadeType.MERGE)
 	private List<Role> roles;
 	@Size(min = 1)
 	@ManyToMany
