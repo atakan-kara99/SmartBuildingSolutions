@@ -1,5 +1,8 @@
 package com.lms2ue1.sbsweb.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 
@@ -13,8 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.lms2ue1.sbsweb.backend.model.Organisation;
+import com.lms2ue1.sbsweb.backend.model.Role;
 import com.lms2ue1.sbsweb.backend.model.User;
 import com.lms2ue1.sbsweb.backend.repository.OrganisationRepository;
+import com.lms2ue1.sbsweb.backend.repository.RoleRepository;
 import com.lms2ue1.sbsweb.backend.repository.UserRepository;
 
 @Controller
@@ -24,6 +29,9 @@ public class UserManagementController {
 
     @Autowired
     OrganisationRepository organisationRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     // This redirect will not work as of now. We will need the backend for this to work properly
     @GetMapping("/")
@@ -35,7 +43,12 @@ public class UserManagementController {
     @GetMapping("/organisation/{oID}/user_management")
     public String showUserList(@PathVariable Long oID, Model model) {
         Organisation organisation = organisationRepository.findById(oID).get();
-        model.addAttribute("users", userRepository.findByOrganisationsOrderByUsernameAsc(organisation));
+        List<Role> roles = roleRepository.findByOrganisationOrderByNameAsc(organisation);
+        List<User> users = new ArrayList<User>();
+        for(Role role : roles) {
+            users.addAll(role.getUsers());
+        }
+        model.addAttribute("users", users);
         model.addAttribute("organisation", organisation);
         return "user_management";
     }
@@ -44,6 +57,7 @@ public class UserManagementController {
     @GetMapping("/organisation/{oID}/user_management/user_new")
     public String showNewUserForm(@PathVariable Long oID, Model model) {
     	// TODO: Is this really storing a new user in the database? (nka)
+        // This will not store a new user
         model.addAttribute("user", new User());
         model.addAttribute("organisation", organisationRepository.findById(oID).get());
         return "user_new";
