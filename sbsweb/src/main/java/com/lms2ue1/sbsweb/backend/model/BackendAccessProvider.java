@@ -18,21 +18,21 @@ public class BackendAccessProvider {
     //////////////////////// Repositories ////////////////////////
 
     @Autowired
-    AddressRepository addresses;
+    private AddressRepository addresses;
     @Autowired
-    ProjectRepository projects;
+    private ProjectRepository projects;
     @Autowired
-    ContractRepository contracts;
+    private ContractRepository contracts;
     @Autowired
-    BillingUnitRepository billingUnits;
+    private BillingUnitRepository billingUnits;
     @Autowired
-    BillingItemRepository billingItems;
+    private BillingItemRepository billingItems;
     @Autowired
-    OrganisationRepository organisations;
+    private OrganisationRepository organisations;
     @Autowired
-    UserRepository users;
+    private UserRepository users;
     @Autowired
-    RoleRepository roles;
+    private RoleRepository roles;
 
     //////////////////////// Singleton ////////////////////////
 
@@ -44,6 +44,9 @@ public class BackendAccessProvider {
 	    instance = new BackendAccessProvider();
 	}
 	return instance;
+    }
+
+    private BackendAccessProvider() {
     }
 
     //////////////////////// Modifying the repositories ////////////////////////
@@ -65,13 +68,12 @@ public class BackendAccessProvider {
     /**
      * Removes an organisation.
      * 
-     * @param username             the username of the user requesting this
-     *                             operation.
-     * @param organisationToRemove the organisation to remove.
+     * @param username       the username of the user requesting this operation.
+     * @param organisationId the id of the organisation to remove.
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void removeOrganisation(String username, String organisationToRemove) {
+    public void removeOrganisation(String username, Long organisationId) {
 	// TODO sysadmin only
     }
 
@@ -112,12 +114,12 @@ public class BackendAccessProvider {
     /**
      * Removes a user.
      * 
-     * @param username     the username of the user requesting this operation.
-     * @param userToRemove the user to remove.
+     * @param username the username of the user requesting this operation.
+     * @param userId   the id of the user to remove.
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void removeUser(String username, String userToRemove) {
+    public void removeUser(String username, Long userId) {
 	// TODO
     }
 
@@ -152,12 +154,12 @@ public class BackendAccessProvider {
     /**
      * Removes a role.
      * 
-     * @param username     the username of the user requesting this operation.
-     * @param roleToRemove the role to remove.
+     * @param username the username of the user requesting this operation.
+     * @param roleId   the id of the role to remove.
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void removeRole(String username, String roleToRemove) {
+    public void removeRole(String username, Long roleId) {
 	// TODO
     }
 
@@ -315,7 +317,7 @@ public class BackendAccessProvider {
      */
     public List<Address> getAllAccessibleAddresses(String username) {
 	try {
-	    return users.findByUsername(username).getRole().getOrganisation().getContracts().stream()
+	    return users.findByUsername(username).getRole().getContracts().stream()
 		    .map(c -> c.getProject().getAddress()).collect(Collectors.toList());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
@@ -332,8 +334,7 @@ public class BackendAccessProvider {
      */
     public List<Project> getAllAccessibleProjects(String username) {
 	try {
-	    return users.findByUsername(username).getRole().getOrganisation().getContracts().stream()
-		    .map(c -> c.getProject()).collect(Collectors.toList());
+	    return users.findByUsername(username).getRole().getProjects();
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -349,7 +350,7 @@ public class BackendAccessProvider {
      */
     public List<Contract> getAllAccessibleContracts(String username) {
 	try {
-	    return users.findByUsername(username).getRole().getOrganisation().getContracts();
+	    return users.findByUsername(username).getRole().getContracts();
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -365,15 +366,16 @@ public class BackendAccessProvider {
      */
     public List<BillingUnit> getAllAccessibleBillingUnits(String username) {
 	try {
-	    return users.findByUsername(username).getRole().getOrganisation().getContracts().stream()
-		    .map(c -> c.getBillingUnits()).flatMap(Collection::stream).collect(Collectors.toList());
+	    return users.findByUsername(username).getRole().getContracts().stream().map(c -> c.getBillingUnits())
+		    .flatMap(List::stream).collect(Collectors.toList());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
     }
 
     /**
-     * Returns a list of all billing items the user can access.
+     * Returns a list of all billing items the user can access <b> not </b>
+     * including nested billing items.
      * 
      * @param username the username of the user requesting this operation.
      * @return a list of all billing items the user can access.
@@ -383,9 +385,9 @@ public class BackendAccessProvider {
     public List<BillingItem> getAllAccessibleBillingItems(String username) {
 	// TODO also return billing items in billing items? Not yet implemented
 	try {
-	    return users.findByUsername(username).getRole().getOrganisation().getContracts().stream()
-		    .map(c -> c.getBillingUnits()).flatMap(List::stream).map(bu -> bu.getBillingItems())
-		    .flatMap(List::stream).collect(Collectors.toList());
+	    return users.findByUsername(username).getRole().getContracts().stream().map(c -> c.getBillingUnits())
+		    .flatMap(List::stream).map(bu -> bu.getBillingItems()).flatMap(List::stream)
+		    .collect(Collectors.toList());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
