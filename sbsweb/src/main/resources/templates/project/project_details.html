@@ -15,10 +15,11 @@
                 <div class="padding-50"></div>
                 <p th:text="${project.description}"></p>
                 <p>
-                    Status: <b th:text="${project.status}"></b>
+                    Status:
+                    <b th:text="${project.status}"></b>
                 </p>
                 <a th:href="@{'/project/' + ${pID} + '/diagrams'}">
-                     <button type="button" class="btn btn-outline-success">Diagramme anzeigen</button>
+                    <button type="button" class="btn btn-outline-success">Diagramme anzeigen</button>
                 </a>
             </div>
         </div>

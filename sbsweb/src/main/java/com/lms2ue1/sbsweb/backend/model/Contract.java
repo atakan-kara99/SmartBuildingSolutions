@@ -2,6 +2,7 @@ package com.lms2ue1.sbsweb.backend.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,14 +22,17 @@ import javax.validation.constraints.Size;
  */
 @Entity
 public class Contract {
+	// A few adaptations to make the data model actually work (nka).
+	
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable = false)
+	@Column(updatable = false, unique = true)
 	private long id;
+	@Column(unique = true)
 	private String name;
 	private String description;
-	private String status;
+	private Status status;
 	private String consignee;
 	private String contractor;
 
@@ -39,7 +43,7 @@ public class Contract {
 	@Size(min = 2)
 	@ManyToMany
 	private List<Role> roles;
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.ALL })
 	private Project project;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "contract", orphanRemoval = true)
@@ -54,35 +58,30 @@ public class Contract {
 	/**
 	 * Initializes a contract object.
 	 * 
-	 * @param id      = id
-	 * @param n       = name
-	 * @param desc    = description
-	 * @param s       = status
-	 * @param cnsgn   = consignee
-	 * @param cntrctr = contructor
-	 * @param os      = organisations
-	 * @param rs      = roles
-	 * @param ps      = projects
-	 * @param bus     = billing units
+	 * @param name          = name
+	 * @param description   = description
+	 * @param status        = status
+	 * @param consignee     = consignee
+	 * @param contructor    = contructor
+	 * @param organisations = organisations
+	 * @param project       = projects
+	 * @param billunits     = billing units
 	 */
-	public Contract(long id, String n, String desc, String s, String cnsgn, String cntrctr, List<Organisation> os,
-			List<Role> rs, Project ps, List<BillingUnit> bus) {
-		this.id = id;
-		this.name = n;
-		this.description = desc;
-		this.status = s;
-		this.consignee = cnsgn;
-		this.contractor = cntrctr;
-		this.organisations = os;
-		this.roles = rs;
-		this.project = ps;
-		this.billingUnits = bus;
+	public Contract(String name, String description, Status status, String consignee, String contructor,
+			List<Organisation> organisations, Project project) {
+		this.name = name;
+		this.description = description;
+		this.status = status;
+		this.consignee = consignee;
+		this.contractor = contructor;
+		this.organisations = organisations;
+		this.project = project;
 	}
 
 	// ----------------------------//
 	// ---------- Getter ----------//
 	// ----------------------------//
-	public Long getId() {
+	public Long getOrganisationId() {
 		return this.id;
 	}
 
@@ -94,7 +93,7 @@ public class Contract {
 		return this.description;
 	}
 
-	public String getStatus() {
+	public Status getStatus() {
 		return this.status;
 	}
 
@@ -137,7 +136,7 @@ public class Contract {
 		this.description = desc;
 	}
 
-	public void setStatus(String s) {
+	public void setStatus(Status s) {
 		this.status = s;
 	}
 

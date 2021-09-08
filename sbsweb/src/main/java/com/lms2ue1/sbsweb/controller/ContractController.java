@@ -1,7 +1,9 @@
 package com.lms2ue1.sbsweb.controller;
 
 import java.util.List;
+import java.util.stream.StreamSupport;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +12,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.lms2ue1.sbsweb.backend.model.BillingItem;
 import com.lms2ue1.sbsweb.backend.model.Contract;
+import com.lms2ue1.sbsweb.backend.model.Status;
+import com.lms2ue1.sbsweb.backend.repository.BillingItemRepository;
+import com.lms2ue1.sbsweb.backend.repository.ContractRepository;
 
 @Controller
 public class ContractController {
+
+    @Autowired
+    ContractRepository contracts;
+    @Autowired
+    BillingItemRepository billingItems;
 
     /** Shows the specified contract's details, e.g. its billing items. */
     @GetMapping("/project/{pID}/contract/{cID}/show")
@@ -22,12 +32,9 @@ public class ContractController {
 //	model.addAttribute("contract", BackendAccessProvider.getContractById(username, cID));
 //	List<BillingItem> billingItems = BackendAccessProvider.getAccessibleBillingItems(username);
 //	model.addAttribute("billingItems", billingItems.stream().filter(billingItem -> billingItem.getCID() == cID).collect(Collectors.toList()));
-	model.addAttribute("contract", new Contract(0, "Wohnzimmer bauen", "Sachen müssen erledigt werden", null, null,
-		null, null, null, null, null));
-	model.addAttribute("billingItems",
-		List.of(new BillingItem(0, 0, "Heizkörper B7-2 fensternah einbauen.", "OPEN", 0, null, 0, null, null,
-			null, null, null),
-			new BillingItem(0, 0, "Fenster einbauen", null, 0, null, 0, null, null, null, null, null)));
+	model.addAttribute("contract", contracts.findById(cID));
+	model.addAttribute("billingItems", StreamSupport.stream(billingItems.findAll().spliterator(), false)
+		.filter(billingItem -> billingItem.getBillingUnit().getContract().getOrganisationId() == cID));
 	return "contract/contract_details";
     }
 }

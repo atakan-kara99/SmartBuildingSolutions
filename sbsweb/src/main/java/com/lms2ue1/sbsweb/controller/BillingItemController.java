@@ -2,6 +2,7 @@ package com.lms2ue1.sbsweb.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,9 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.lms2ue1.sbsweb.backend.model.BillingItem;
+import com.lms2ue1.sbsweb.backend.model.Status;
+import com.lms2ue1.sbsweb.backend.repository.BillingItemRepository;
 
 @Controller
 public class BillingItemController {
+
+    @Autowired
+    BillingItemRepository billingItems;
 
     /** Shows the specified billing item's details. */
     @GetMapping("/project/{pID}/contract/{cID}/billing_item/{bID}/show")
@@ -21,8 +27,7 @@ public class BillingItemController {
 	model.addAttribute("cID", cID);
 	model.addAttribute("bID", bID);
 //	model.addAttribute("billingItem", BackendAccessProvider.getBillingItemById(username, bID));
-	model.addAttribute("billingItem", new BillingItem(0, 0, "Heizkörper B7-2 fensternah einbauen.", "OPEN", 0, null,
-		0, null, null, null, null, null));
+	model.addAttribute("billingItem", billingItems.findById(bID));
 	return "billingitem/billing_item_details";
     }
 }
