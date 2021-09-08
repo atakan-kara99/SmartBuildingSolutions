@@ -35,7 +35,7 @@ public class Project {
 	private String imageFileName;
 
 	// ------ Associations ------//
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne//(cascade = {CascadeType.ALL}) try w/ cascading
 	private Address address;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "project", orphanRemoval = true)

@@ -28,7 +28,8 @@ public class BillingUnit {
 	private double totalPrice;
 
 	// ---- Associations ----//
-	@ManyToOne(cascade = { CascadeType.MERGE })
+	/* Got problems with merging with contracts */
+	@ManyToOne//(cascade = { CascadeType.MERGE }) // try to run w/
 	private Contract contract;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "billingUnit", orphanRemoval = true)

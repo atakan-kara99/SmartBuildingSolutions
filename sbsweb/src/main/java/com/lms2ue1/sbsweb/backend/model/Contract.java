@@ -36,7 +36,7 @@ public class Contract {
 	@Size(min = 2)
 	@ManyToMany
 	private List<Role> roles;
-	@ManyToOne(cascade = { CascadeType.ALL })
+	@ManyToOne//(cascade = { CascadeType.ALL }) try to remove
 	private Project project;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "contract", orphanRemoval = true)

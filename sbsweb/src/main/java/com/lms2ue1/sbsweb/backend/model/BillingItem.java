@@ -33,7 +33,7 @@ public class BillingItem {
 	private String shortDesLinkedIFC;
 
 	// ---- Associations ----//
-	@ManyToOne(cascade = { CascadeType.ALL })
+	@ManyToOne//(cascade = { CascadeType.ALL }) tried w/ cascading
 	private BillingUnit billingUnit;
 	@Size(min = 2)
 	@ManyToMany
