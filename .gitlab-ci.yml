@@ -16,6 +16,7 @@ assemble:
   image: openjdk:11.0-jdk
 
   only:
+    - merge_requests
     - web-dev
     - main
     - web

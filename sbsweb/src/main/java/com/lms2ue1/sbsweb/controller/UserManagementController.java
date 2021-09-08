@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,6 +43,7 @@ public class UserManagementController {
     /** Shows the page to add a new user to an organisation. */
     @GetMapping("/organisation/{oID}/user_management/user_new")
     public String showNewUserForm(@PathVariable Long oID, Model model) {
+    	// TODO: Is this really storing a new user in the database? (nka)
         model.addAttribute("user", new User());
         model.addAttribute("organisation", organisationRepository.findById(oID).get());
         return "user_new";
@@ -55,6 +57,11 @@ public class UserManagementController {
             model.addAttribute("user", user);
             return "user/user_new";
         }
+        
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        
         userRepository.save(user);
         return "redirect:/organisation/{oID}/user_management";
     }

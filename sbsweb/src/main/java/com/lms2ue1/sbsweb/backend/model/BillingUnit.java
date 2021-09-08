@@ -11,19 +11,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
-/**
- * BillingUnit of each contract. Associated to one contract and one or more
- * billing items.
- * 
- * @author juliusdaum
- *
- */
 @Entity
 public class BillingUnit {
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable=false)
+	@Column(updatable = false, unique = true)
 	private long id;
 	private String shortDescription;
 	private String longDescription;
@@ -34,43 +27,42 @@ public class BillingUnit {
 	private double totalPrice;
 
 	// ---- Associations ----//
-	@ManyToOne
+	/* Got problems with merging with contracts */
+	@ManyToOne//(cascade = { CascadeType.MERGE }) // try to run w/
 	private Contract contract;
-	@Size(min=1)
+	@Size(min = 1)
 	@OneToMany(mappedBy = "billingUnit", orphanRemoval = true)
 	private List<BillingItem> billingItems;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
+	// TODO: Do we actually want to allow this?
 	public BillingUnit() {
 	}
+
 	/**
 	 * Initializes a billing unit object.
-	 * @param id = id
-	 * @param sDesc = short description
-	 * @param lDesc = long description
-	 * @param u = unit
-	 * @param cD = completion date
-	 * @param oCD = own contract defined
-	 * @param tQ = total quantity
-	 * @param tP = total price
-	 * @param c = contract
-	 * @param bis = billing items
+	 * Only the parameters of the constructor are columns (plus the FKs).
+	 * 
+	 * @param sDesc              = short description
+	 * @param lDesc              = long description
+	 * @param unit               = unit
+	 * @param completionDate     = completion date
+	 * @param ownContractDefined = own contract defined
+	 * @param totalQuantity      = total quantity
+	 * @param totalPrice         = total price
+	 * @param contract           = contract
 	 */
-	public BillingUnit(long id, String sDesc, String lDesc, String u, String cD,
-			String oCD, double tQ, double tP, Contract c,
-			List<BillingItem> bis) {
-		this.id = id;
+	public BillingUnit(String sDesc, String lDesc, String unit, String completionDate, String ownContractDefined, double totalQuantity, double totalPrice, Contract contract) {
 		this.shortDescription = sDesc;
 		this.longDescription = lDesc;
-		this.unit = u;
-		this.completionDate = cD;
-		this.ownContractDefined = oCD;
-		this.totalQuantity = tQ;
-		this.totalPrice = tP;
-		this.contract = c;
-		this.billingItems = bis;
+		this.unit = unit;
+		this.completionDate = completionDate;
+		this.ownContractDefined = ownContractDefined;
+		this.totalQuantity = totalQuantity;
+		this.totalPrice = totalPrice;
+		this.contract = contract;
 	}
 
 	// ----------------------------//

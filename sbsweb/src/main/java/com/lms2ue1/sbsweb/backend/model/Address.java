@@ -8,18 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-/**
- * Address of each project. Associated to one project.
- * 
- * @author juliusdaum
- */
 @Entity
 @Table(name = "addresses")
 public class Address {
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable=false)
+	@Column(updatable = false, unique = true)
 	private long id;
 	private String street;
 	private int houseNumber;
@@ -34,28 +29,26 @@ public class Address {
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
+	// TODO: Do we really want to allow this? Good for testing. (nka)
 	public Address() {
 	}
 
 	/**
 	 * Constructor to insert the data of the rest api json request.
+	 * Only the parameters of the constructor are columns (plus the FKs).
 	 * 
-	 * @param id    id of the address.
-	 * @param st    name of the street.
-	 * @param hNum  house number.
-	 * @param zC    zip code of the city.
-	 * @param c     city.
-	 * @param cntry country.
-	 * @param p     the associated project.
+	 * @param street      = name of the street.
+	 * @param houseNumber = house number.
+	 * @param zip         = zip code of the city.
+	 * @param city        = city.
+	 * @param country     = country.
 	 */
-	public Address(long id, String st, int hNum, int zC, String c, String cntry, Project p) {
-		this.id = id;
-		this.street = st;
-		this.houseNumber = hNum;
-		this.zipCode = zC;
-		this.city = c;
-		this.country = cntry;
-		this.project = p;
+	public Address(String street, int houseNumber, int zip, String city, String country) {
+		this.street = street;
+		this.houseNumber = houseNumber;
+		this.zipCode = zip;
+		this.city = city;
+		this.country = country;
 	}
 
 	// ----------------------------//
