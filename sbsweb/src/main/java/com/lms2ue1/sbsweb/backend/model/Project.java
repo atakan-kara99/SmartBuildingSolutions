@@ -1,5 +1,6 @@
 package com.lms2ue1.sbsweb.backend.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,12 +16,14 @@ import java.util.List;
 
 @Entity
 public class Project {
+	// A few adaptations to make the data model actually work (nka).
 
 	// ------ Attributes ------//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable = false)
+	@Column(updatable = false, unique = true)
 	private long id;
+	@Column(unique = true)
 	private String name;
 	private String description;
 	private String creationDate;
@@ -34,7 +37,7 @@ public class Project {
 	private String imageFileName;
 
 	// ------ Associations ------//
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
 	private Address address;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "project", orphanRemoval = true)

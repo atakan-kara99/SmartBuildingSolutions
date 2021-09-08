@@ -21,12 +21,15 @@ import java.util.List;
  */
 @Entity
 public class Organisation {
+	// A few adaptations to make the data model actually work (nka).
+	
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable = false)
+	@Column(updatable = false, unique = true)
 	private long id;
 	@NotEmpty
+	@Column(unique = true)
 	private String name;
 
 	// ---- Associations ----//

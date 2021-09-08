@@ -4,14 +4,12 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -22,16 +20,19 @@ import javax.validation.constraints.Size;
  */
 @Entity
 public class User {
+	// A few adaptations to make the data model actually work (nka).
+	
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable = false)
+	@Column(updatable = false, unique = true)
 	private long id;
 	@NotEmpty
 	private String forename;
 	@NotEmpty
 	private String lastname;
 	@NotEmpty
+	@Column(unique = true)
 	private String username;
 	@NotEmpty
 	private String password;

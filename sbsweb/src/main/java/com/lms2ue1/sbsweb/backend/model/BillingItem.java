@@ -2,6 +2,7 @@ package com.lms2ue1.sbsweb.backend.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,10 +25,11 @@ import javax.validation.constraints.Size;
 public class BillingItem {
 	// ---- Attributes ----//
 	@Id
-	@Column(updatable = false)
+	@Column(updatable = false, unique = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private double price;
+	@Column(unique = true)
 	private String name;
 	private String shortDescription;
 	private Status status;
@@ -38,7 +40,7 @@ public class BillingItem {
 	private String shortDesLinkedIFC;
 
 	// ---- Associations ----//
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.ALL})
 	private BillingUnit billingUnit;
 	@Size(min = 2)
 	@ManyToMany
@@ -50,6 +52,7 @@ public class BillingItem {
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
+	// TODO: Do we really want to allow this? Good for testing. (nka)
 	public BillingItem() {
 	}
 

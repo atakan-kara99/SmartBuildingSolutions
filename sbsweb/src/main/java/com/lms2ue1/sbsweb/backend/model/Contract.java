@@ -22,11 +22,14 @@ import javax.validation.constraints.Size;
  */
 @Entity
 public class Contract {
+	// A few adaptations to make the data model actually work (nka).
+	
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable = false)
+	@Column(updatable = false, unique = true)
 	private long id;
+	@Column(unique = true)
 	private String name;
 	private String description;
 	private Status status;

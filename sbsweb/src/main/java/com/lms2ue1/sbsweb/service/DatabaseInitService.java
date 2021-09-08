@@ -40,19 +40,22 @@ public class DatabaseInitService {
        	   //------------- Orga ----------//
        	  //-----------------------------//
         	Organisation org0 = new Organisation("SBS");
+        	Organisation org1 = new Organisation("Tiefbau");
         	
         	orgaRepo.save(org0);
+        	orgaRepo.save(org1);
         	
+        	List<Organisation> organisations = new ArrayList<Organisation>();
+        	organisations.add(org0);
+        	organisations.add(org1);
         	//-----------------------------//
         	//------------- Role ----------//
         	//-----------------------------//
-        	Role role0 = new Role(0, "SysAdmin", null, org0, null, null);
+        	Role role0 = new Role("SysAdmin", null, org0, null, null);
         	
         	//-----------------------------//
         	//------------- User ----------//
         	//-----------------------------//
-        	List<Organisation> organisations = new ArrayList<Organisation>();
-        	organisations.add(org0);
         	User user0 = new User("Peter", "Müller", organisations, role0, "root", passwordEncoder.encode("admin"));
         	
         	userRepo.save(user0);

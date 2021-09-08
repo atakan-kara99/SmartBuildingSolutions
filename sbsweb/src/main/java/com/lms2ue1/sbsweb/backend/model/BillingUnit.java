@@ -23,7 +23,7 @@ public class BillingUnit {
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable = false)
+	@Column(updatable = false, unique = true)
 	private long id;
 	private String shortDescription;
 	private String longDescription;

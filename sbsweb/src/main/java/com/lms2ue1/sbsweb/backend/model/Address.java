@@ -16,10 +16,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "addresses")
 public class Address {
+	// A few adaptations to make the data model actually work (nka).
+	
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable = false)
+	@Column(updatable = false, unique = true)
 	private long id;
 	private String street;
 	private int houseNumber;
@@ -34,6 +36,7 @@ public class Address {
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
+	// TODO: Do we really want to allow this? Good for testing. (nka)
 	public Address() {
 	}
 

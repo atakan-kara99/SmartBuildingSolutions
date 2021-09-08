@@ -21,10 +21,12 @@ import java.util.List;
  */
 @Entity
 public class Role {
+	// A few adaptations to make the data model actually work (nka).
+	
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable = false)
+	@Column(updatable = false, unique = true)
 	private long id;
 	@NotEmpty
 	private String name;
@@ -50,16 +52,14 @@ public class Role {
 	/**
 	 * Initializes a role object.
 	 * 
-	 * @param id           the unique id of a role.
 	 * @param name         the name of a role.
 	 * @param projects     the associated projects.
 	 * @param organisation the associated organisation.
 	 * @param contracts    the associated contracts.
 	 * @param billingItems the associated billing items.
 	 */
-	public Role(long id, String name, List<Project> projects, Organisation organisation,
+	public Role(String name, List<Project> projects, Organisation organisation,
 			List<Contract> contracts, List<BillingItem> billingItems) {
-		this.id = id;
 		this.name = name;
 		this.projects = projects;
 		this.organisation = organisation;
