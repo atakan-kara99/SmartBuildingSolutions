@@ -28,7 +28,7 @@ public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, unique = true)
-	private long roleId;
+	private long id;
 	@NotEmpty
 	private String name;
 
@@ -72,7 +72,7 @@ public class Role {
 	// ---------- Getter ----------//
 	// ----------------------------//
 	public long getId() {
-		return this.roleId;
+		return this.id;
 	}
 
 	public String getName() {
@@ -103,7 +103,7 @@ public class Role {
 	// ---------- Setter ----------//
 	// ----------------------------//
 	public void setId(long id) {
-		this.roleId = id;
+		this.id = id;
 	}
 
 	public void setName(String n) {

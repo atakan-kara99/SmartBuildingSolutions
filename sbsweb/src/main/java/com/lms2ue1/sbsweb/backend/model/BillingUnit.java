@@ -24,7 +24,7 @@ public class BillingUnit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, unique = true)
-	private long billingUnitId;
+	private long id;
 	private String shortDescription;
 	private String longDescription;
 	private String unit;
@@ -73,7 +73,7 @@ public class BillingUnit {
 	// ---------- Getter ----------//
 	// ----------------------------//
 	public long getId() {
-		return this.billingUnitId;
+		return this.id;
 	}
 
 	public String getShortDescription() {
@@ -116,7 +116,7 @@ public class BillingUnit {
 	// ---------- Setter ----------//
 	// ----------------------------//
 	public void setId(long id) {
-		this.billingUnitId = id;
+		this.id = id;
 	}
 
 	public void setShortDescription(String sDesc) {

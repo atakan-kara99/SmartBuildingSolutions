@@ -27,7 +27,7 @@ public class BillingItem {
 	@Id
 	@Column(updatable = false, unique = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long billingItemId;
+	private long id;
 	private double price;
 	@Column(unique = true)
 	private String name;
@@ -98,7 +98,7 @@ public class BillingItem {
 	// ---------- Getter ----------//
 	// ----------------------------//
 	public long getId() {
-		return this.billingItemId;
+		return this.id;
 	}
 
 	public double getPrice() {
@@ -149,7 +149,7 @@ public class BillingItem {
 	// ---------- Setter ----------//
 	// ----------------------------//
 	public void setId(long id) {
-		this.billingItemId = id;
+		this.id = id;
 	}
 
 	public void setPrice(double p) {
