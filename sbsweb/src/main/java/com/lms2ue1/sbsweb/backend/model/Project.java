@@ -22,7 +22,7 @@ public class Project {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, unique = true)
-	private long id;
+	private long projectId;
 	@Column(unique = true)
 	private String name;
 	private String description;
@@ -91,7 +91,7 @@ public class Project {
 	// ---------- Getter ----------//
 	// ----------------------------//
 	public long getId() {
-		return this.id;
+		return this.projectId;
 	}
 
 	public String getName() {
@@ -154,7 +154,7 @@ public class Project {
 	// ---------- Setter ----------//
 	// ----------------------------//
 	public void setId(long pId) {
-		this.id = pId;
+		this.projectId = pId;
 	}
 
 	public void setName(String n) {

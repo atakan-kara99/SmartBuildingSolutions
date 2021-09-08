@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,7 +23,7 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, unique = true)
-	private long addressID;
+	private long addressId;
 	private String street;
 	private int houseNumber;
 	private int zipCode;
@@ -61,7 +62,7 @@ public class Address {
 	// ---------- Getter ----------//
 	// ----------------------------//
 	public long getId() {
-		return this.addressID;
+		return this.addressId;
 	}
 
 	public String getStreet() {
@@ -92,7 +93,7 @@ public class Address {
 	// ---------- Setter ----------//
 	// ----------------------------//
 	public void setAddressId(long aId) {
-		this.addressID = aId;
+		this.addressId = aId;
 	}
 
 	public void setStreet(String s) {

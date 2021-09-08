@@ -25,7 +25,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, unique = true)
-	private long id;
+	private long userId;
 	@NotEmpty
 	private String forename;
 	@NotEmpty
@@ -72,7 +72,7 @@ public class User {
 	// ---------- Getter ----------//
 	// ----------------------------//
 	public Long getId() {
-		return this.id;
+		return this.userId;
 	}
 
 	public String getForename() {
@@ -99,7 +99,7 @@ public class User {
 	// ---------- Setter ----------//
 	// ----------------------------//
 	public void setId(Long id) {
-		this.id = id;
+		this.userId = id;
 	}
 
 	public void setForename(String fname) {
