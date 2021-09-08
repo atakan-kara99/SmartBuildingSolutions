@@ -47,8 +47,6 @@ public class Project {
 	@Size(min = 2)
 	@ManyToMany
 	private List<Role> roles;
-	/*@ManyToOne
-	private User creator;*/
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//

@@ -40,7 +40,7 @@ public class BillingItem {
 	private String shortDesLinkedIFC;
 
 	// ---- Associations ----//
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne(cascade = { CascadeType.ALL })
 	private BillingUnit billingUnit;
 	@Size(min = 2)
 	@ManyToMany
@@ -59,19 +59,21 @@ public class BillingItem {
 	/**
 	 * Initializes a billing item.
 	 * 
-	 * @param price  = price
-	 * @param sDesc  = short description
-	 * @param status = status
-	 * @param quantities  = quantities
-	 * @param unit 	 = unit
-	 * @param uPrice = unit price
-	 * @param qSplit = qty split
-	 * @param sDLIFC = short deslinked ifc
-	 * @param billUnit = billing unit
+	 * @param name         = name of the user
+	 * @param price        = price
+	 * @param sDesc        = short description
+	 * @param status       = status
+	 * @param quantities   = quantities
+	 * @param unit         = unit
+	 * @param uPrice       = unit price
+	 * @param qSplit       = qty split
+	 * @param sDLIFC       = short deslinked ifc
+	 * @param billUnit     = billing unit
 	 * @param billingItems = billing items
 	 */
-	public BillingItem(double price, String sDesc, Status status, double quantities, String unit, double uPrice, String qSplit,
-			String sDLIFC, BillingUnit billUnit, List<BillingItem> billingItems) {
+	public BillingItem(String name, double price, String sDesc, Status status, double quantities, String unit,
+			double uPrice, String qSplit, String sDLIFC, BillingUnit billUnit, List<BillingItem> billingItems) {
+		this.name = name;
 		this.price = price;
 		this.shortDescription = sDesc;
 		this.status = status;

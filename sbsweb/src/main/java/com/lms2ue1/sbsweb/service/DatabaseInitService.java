@@ -37,21 +37,26 @@ public class DatabaseInitService {
         	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         	
         	//-----------------------------//
-       	   //------------- Orga ----------//
-       	  //-----------------------------//
-        	Organisation org0 = new Organisation("SBS");
-        	Organisation org1 = new Organisation("Tiefbau");
-        	
-        	orgaRepo.save(org0);
-        	orgaRepo.save(org1);
-        	
-        	List<Organisation> organisations = new ArrayList<Organisation>();
-        	organisations.add(org0);
-        	organisations.add(org1);
-        	//-----------------------------//
         	//------------- Role ----------//
         	//-----------------------------//
-        	Role role0 = new Role("SysAdmin", null, org0, null, null);
+        	Role role0 = new Role("SysAdmin", null, null, null);
+        	Role role1 = new Role("OrgAdmin", null, null, null);
+        	
+        	roleRepo.save(role0);
+        	roleRepo.save(role1);
+        	
+        	List<Role> roleList = List.of(role0, role1);
+        	
+        	//-----------------------------//
+       	   //------------- Orga ----------//
+       	  //-----------------------------//
+        	Organisation org0 = new Organisation("SBS", roleList);
+        	Organisation org1 = new Organisation("Tiefbau", roleList);
+        	
+        	//orgaRepo.save(org0);
+        	//orgaRepo.save(org1);
+        	
+        	List<Organisation> organisations = List.of(org0, org1);
         	
         	//-----------------------------//
         	//------------- User ----------//
@@ -68,14 +73,13 @@ public class DatabaseInitService {
         	//-----------------------------//
            //------------- Project -------//
           //-----------------------------//
-        	Project pro0 = new Project("pro0", null, null, null, Status.NO_Status, 0, "root", null, null, null, add0, org0);
+        	Project pro0 = new Project("pro0", null, null, null, Status.NO_STATUS, 0, "root", null, null, null, add0, org0);
         	
-        	roleRepo.save(role0);
         	
         	//------------------------------//
            //------------- Contract -------//
           //------------------------------//
-        	Contract con0 = new Contract("con0", null, Status.NO_Status, null, null, organisations, pro0);
+        	Contract con0 = new Contract("con0", null, Status.NO_STATUS, null, null, organisations, pro0);
         	
         	conRepo.save(con0);
         	
@@ -87,7 +91,7 @@ public class DatabaseInitService {
         	//------------------------------//
            //------------- BillingItem ----//
           //------------------------------//
-        	BillingItem billItem0 = new BillingItem(0, null, Status.NO_Status, 0, null, 0, null, null, billUnit0, null);
+        	BillingItem billItem0 = new BillingItem("bill0", 0, null, Status.NO_STATUS, 0, null, 0, null, null, billUnit0, null);
         	
         	billItemRepo.save(billItem0);
         }

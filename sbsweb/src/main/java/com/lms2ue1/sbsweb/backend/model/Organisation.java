@@ -22,7 +22,7 @@ import java.util.List;
 @Entity
 public class Organisation {
 	// A few adaptations to make the data model actually work (nka).
-	
+
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -57,10 +57,12 @@ public class Organisation {
 	/**
 	 * Constructor to insert the data of the rest api json request.
 	 * 
-	 * @param name      = name of the organisation.
+	 * @param name  = name of the organisation.
+	 * @param roles = associated roles.
 	 */
-	public Organisation(String name) {
+	public Organisation(String name, List<Role> roles) {
 		this.name = name;
+		this.roles = roles;
 	}
 
 	// ----------------------------//

@@ -1,4 +1,4 @@
-package com.lms2ue1.sbsweb.security;
+package com.lms2ue1.sbsweb.backend.security;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -33,8 +33,7 @@ public class SBSUserDetails implements UserDetails {
 		return Collections.singletonList(new GrantedAuthority() {
 			@Override
 			public String getAuthority() {
-				return user.getRole().toString();
-				//return user.getRole();
+				return user.getRole().getName();
 			}
 		});
 	}

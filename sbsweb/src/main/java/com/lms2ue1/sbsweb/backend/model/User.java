@@ -45,9 +45,6 @@ public class User {
 	// The SysAdmin will get an exception in authorisation.
 	@ManyToOne(cascade = {CascadeType.ALL})
 	private Role role;
-	/*
-	 * @OneToMany(mappedBy = "project") private List<Project> projects;
-	 */
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//

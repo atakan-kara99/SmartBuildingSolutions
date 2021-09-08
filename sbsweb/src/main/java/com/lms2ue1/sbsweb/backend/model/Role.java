@@ -22,7 +22,7 @@ import java.util.List;
 @Entity
 public class Role {
 	// A few adaptations to make the data model actually work (nka).
-	
+
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,20 +49,18 @@ public class Role {
 	public Role() {
 	}
 
+	// TODO: Organisation raus und bei Rolle speichern?
 	/**
 	 * Initializes a role object.
 	 * 
 	 * @param name         the name of a role.
 	 * @param projects     the associated projects.
-	 * @param organisation the associated organisation.
 	 * @param contracts    the associated contracts.
 	 * @param billingItems the associated billing items.
 	 */
-	public Role(String name, List<Project> projects, Organisation organisation,
-			List<Contract> contracts, List<BillingItem> billingItems) {
+	public Role(String name, List<Project> projects, List<Contract> contracts, List<BillingItem> billingItems) {
 		this.name = name;
 		this.projects = projects;
-		this.organisation = organisation;
 		this.contracts = contracts;
 		this.billingItems = billingItems;
 	}
@@ -128,14 +126,5 @@ public class Role {
 	public void setBillingItems(List<BillingItem> bs) {
 		this.billingItems = bs;
 	}
-	
-	// ----------------------------//
-	// ---------- Misc ------------//
-	// ----------------------------//
 
-	@Override
-	public String toString() {
-		String str = "" + this;
-		return str;
-	}
 }

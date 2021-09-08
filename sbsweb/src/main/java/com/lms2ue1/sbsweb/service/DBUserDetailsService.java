@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.lms2ue1.sbsweb.backend.model.*;
 import com.lms2ue1.sbsweb.backend.repository.UserRepository;
-import com.lms2ue1.sbsweb.security.SBSUserDetails;
+import com.lms2ue1.sbsweb.backend.security.SBSUserDetails;
 
 //import org.springframework.security.core.userdetails.User;
 
