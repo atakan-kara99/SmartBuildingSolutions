@@ -1,6 +1,5 @@
 package com.lms2ue1.sbsweb.backend.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,7 +34,7 @@ public class Project {
 	private String imageFileName;
 
 	// ------ Associations ------//
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne//(cascade = {CascadeType.ALL}) try w/ cascading
 	private Address address;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "project", orphanRemoval = true)
