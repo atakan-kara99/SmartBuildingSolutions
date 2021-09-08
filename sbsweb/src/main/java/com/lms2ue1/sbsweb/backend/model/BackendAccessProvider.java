@@ -436,4 +436,17 @@ public class BackendAccessProvider {
 	// TODO
 	return null;
     }
+
+    //////////////////////// Stuff to JSON ////////////////////////
+
+    /**
+     * Serializes a status.
+     * 
+     * @param status the status to serialize.
+     * @return the serialized status.
+     */
+    public String statusToJSON(Status status) {
+	// TODO evtl schon irgendwas vordefiniert
+	return null;
+    }
 }
