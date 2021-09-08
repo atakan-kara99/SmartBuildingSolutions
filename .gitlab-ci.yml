@@ -19,6 +19,7 @@ assemble:
     - web-dev
     - main
     - web
+    - merge_requests
      
   script:
     - cd sbsweb
