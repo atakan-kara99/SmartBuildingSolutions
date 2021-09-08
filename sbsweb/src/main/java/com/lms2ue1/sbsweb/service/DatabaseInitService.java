@@ -50,7 +50,7 @@ public class DatabaseInitService {
         	//------------- Role ----------//
         	//-----------------------------//
         	Role role0 = new Role("SysAdmin", null, null, null, org0);
-        	Role role1 = new Role("OrgAdmin", null, null, null, org0);
+        	Role role1 = new Role("OrgAdmin", null, null, null, org1);
         	
         	roleRepo.save(role0);
         	roleRepo.save(role1);
