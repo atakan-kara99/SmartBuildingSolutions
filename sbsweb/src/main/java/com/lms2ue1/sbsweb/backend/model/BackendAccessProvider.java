@@ -204,6 +204,7 @@ public class BackendAccessProvider {
      */
     public Address getAddressById(String username, Long addressId) {
 	// TODO check if username is allowed to access
+	// Direkt an natalie weiterleiten
 	return addresses.findById(addressId).orElseThrow(IllegalArgumentException::new);
     }
 
