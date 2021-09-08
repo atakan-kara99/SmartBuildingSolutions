@@ -13,3 +13,8 @@
     width: 100%;
     text-align: center;
 }
+
+.navbar-nav>a {
+    padding-left: 30px;
+    padding-right: 30px;
+}

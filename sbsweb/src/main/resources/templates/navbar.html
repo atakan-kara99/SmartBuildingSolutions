@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light" th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg" th:fragment="navbar">
         <div class="navbar-collapse collapse">
             <div class="navbar-nav">
                 <th:block sec:authorize="isAuthenticated()">
@@ -27,9 +27,15 @@
                 </th:block>
             </div>
         </div>
-        <a class="navbar-brand" href="#">
-            <img th:src="@{/images/Logo.png}" height="40" alt="Logo">
-        </a>
+        <div class="navbar navbar-expand-lg navbar-nav">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="darkmode-toggle">
+                <label class="form-check-label" for="darkmode-toggle"> Darkmode </label>
+            </div>
+            <a class="navbar-brand" href="#">
+                <img th:src="@{/images/Logo.png}" height="40" alt="Logo">
+            </a>
+        </div>
     </nav>
 </body>
 
