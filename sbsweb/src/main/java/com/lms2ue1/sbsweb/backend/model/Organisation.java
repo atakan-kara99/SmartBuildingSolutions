@@ -1,6 +1,5 @@
 package com.lms2ue1.sbsweb.backend.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,10 +37,7 @@ public class Organisation {
 	@OneToMany(mappedBy = "organisation")
 	private List<Project> projects;
 	@Size(min = 2)
-	@ManyToMany
-	private List<User> users;
-	@Size(min = 2)
-	@ManyToMany(cascade = CascadeType.MERGE)
+	@OneToMany
 	private List<Role> roles;
 	@Size(min = 1)
 	@ManyToMany
@@ -59,11 +55,9 @@ public class Organisation {
 	 * Constructor to insert the data of the rest api json request.
 	 * 
 	 * @param name  = name of the organisation.
-	 * @param roles = associated roles.
 	 */
-	public Organisation(String name, List<Role> roles) {
+	public Organisation(String name) {
 		this.name = name;
-		this.roles = roles;
 	}
 
 	// ----------------------------//
@@ -79,10 +73,6 @@ public class Organisation {
 
 	public List<Project> getProjects() {
 		return this.projects;
-	}
-
-	public List<User> getUsers() {
-		return this.users;
 	}
 
 	public List<Role> getRoles() {
@@ -106,10 +96,6 @@ public class Organisation {
 
 	public void setProjects(List<Project> p) {
 		this.projects = p;
-	}
-
-	public void setUsers(List<User> u) {
-		this.users = u;
 	}
 
 	public void setRoles(List<Role> r) {

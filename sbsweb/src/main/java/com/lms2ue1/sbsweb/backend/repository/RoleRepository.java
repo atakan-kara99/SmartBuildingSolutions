@@ -9,5 +9,5 @@ import com.lms2ue1.sbsweb.backend.model.Role;
 
 
 public interface RoleRepository extends CrudRepository<Role, Long>{
-	List<Role> findByOrganisationsOrderByNameAsc(Organisation o);
+	List<Role> findByOrganisationOrderByNameAsc(Organisation o);
 }

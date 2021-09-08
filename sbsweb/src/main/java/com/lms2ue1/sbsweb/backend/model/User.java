@@ -16,11 +16,10 @@ import javax.validation.constraints.Size;
 /**
  * User will be created at the frontend side of the application.
  * 
- * @author juliusdaum
  */
 @Entity
 public class User {
-	// A few adaptations to make the data model actually work (nka).
+	// A few adaptations to make the data model actually work.
 	
 	// ---- Attributes ----//
 	@Id
@@ -38,12 +37,9 @@ public class User {
 	private String password;
 
 	// ---- Associations ----//
-	@Size(min = 1)
-	@ManyToMany
-	private List<Organisation> organisations;
 	// It is only ONE role allowed. Otherwise we have a problem with authorisation.
 	// The SysAdmin will get an exception in authorisation.
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne(cascade = {CascadeType.MERGE})
 	private Role role;
 
 	// ----------------------------------//
@@ -59,16 +55,14 @@ public class User {
 	 * 
 	 * @param firstname     first name of the user.
 	 * @param lastname      last name of the user.
-	 * @param organisations at least one organisation the user works for.
 	 * @param role          the role of the user.
 	 * @param username      user name.
 	 * @param password      password of the user (encrypted).
 	 */
-	public User(String firstname, String lastname, List<Organisation> organisations, Role role, String username,
+	public User(String firstname, String lastname, Role role, String username,
 			String password) {
 		this.forename = firstname;
 		this.lastname = lastname;
-		this.organisations = organisations;
 		this.role = role;
 		this.username = username;
 		this.password = password;
@@ -91,10 +85,6 @@ public class User {
 
 	public String getUsername() {
 		return this.username;
-	}
-
-	public List<Organisation> getOrganisations() {
-		return this.organisations;
 	}
 
 	public Role getRole() {
@@ -122,10 +112,6 @@ public class User {
 
 	public void setUsername(String uname) {
 		this.username = uname;
-	}
-
-	public void setOrganisations(List<Organisation> os) {
-		this.organisations = os;
 	}
 
 	public void setRole(Role rs) {

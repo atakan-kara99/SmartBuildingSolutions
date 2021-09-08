@@ -7,8 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import java.util.List;
 
@@ -33,8 +35,8 @@ public class Role {
 	// ---- Associations ----//
 	@ManyToMany
 	private List<Project> projects;
-	@ManyToMany(cascade = CascadeType.MERGE)
-	private List<Organisation> organisations;
+	@ManyToOne(cascade = CascadeType.MERGE)
+	private Organisation organisation;
 	@OneToMany
 	private List<User> users;
 	@ManyToMany
@@ -56,12 +58,14 @@ public class Role {
 	 * @param projects     the associated projects.
 	 * @param contracts    the associated contracts.
 	 * @param billingItems the associated billing items.
+	 * @param organisation the associated organisation.
 	 */
-	public Role(String name, List<Project> projects, List<Contract> contracts, List<BillingItem> billingItems) {
+	public Role(String name, List<Project> projects, List<Contract> contracts, List<BillingItem> billingItems, Organisation organisation) {
 		this.name = name;
 		this.projects = projects;
 		this.contracts = contracts;
 		this.billingItems = billingItems;
+		this.organisation = organisation;
 	}
 
 	// ----------------------------//
@@ -79,8 +83,8 @@ public class Role {
 		return this.projects;
 	}
 
-	public List<Organisation> getOrganisations() {
-		return this.organisations;
+	public Organisation getOrganisation() {
+		return this.organisation;
 	}
 
 	public List<User> getUsers() {
@@ -110,8 +114,8 @@ public class Role {
 		this.projects = ps;
 	}
 
-	public void setOrganisation(List<Organisation> o) {
-		this.organisations = o;
+	public void setOrganisation(Organisation o) {
+		this.organisation = o;
 	}
 
 	public void setUsers(List<User> us) {

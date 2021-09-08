@@ -1,6 +1,5 @@
 package com.lms2ue1.sbsweb.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,21 +36,10 @@ public class DatabaseInitService {
         	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         	
         	//-----------------------------//
-        	//------------- Role ----------//
+        	//------------- Orga ----------//
         	//-----------------------------//
-        	Role role0 = new Role("SysAdmin", null, null, null);
-        	Role role1 = new Role("OrgAdmin", null, null, null);
-        	
-        	roleRepo.save(role0);
-        	roleRepo.save(role1);
-        	
-        	List<Role> roleList = List.of(role0, role1);
-        	
-        	//-----------------------------//
-       	   //------------- Orga ----------//
-       	  //-----------------------------//
-        	Organisation org0 = new Organisation("SBS", roleList);
-        	Organisation org1 = new Organisation("Tiefbau", roleList);
+        	Organisation org0 = new Organisation("SBS");
+        	Organisation org1 = new Organisation("Tiefbau");
         	
         	orgaRepo.save(org0);
         	orgaRepo.save(org1);
@@ -59,9 +47,20 @@ public class DatabaseInitService {
         	List<Organisation> organisations = List.of(org0, org1);
         	
         	//-----------------------------//
+        	//------------- Role ----------//
+        	//-----------------------------//
+        	Role role0 = new Role("SysAdmin", null, null, null, org0);
+        	Role role1 = new Role("OrgAdmin", null, null, null, org0);
+        	
+        	roleRepo.save(role0);
+        	roleRepo.save(role1);
+        	
+        	//List<Role> roleList = List.of(role0, role1);
+        	
+        	//-----------------------------//
         	//------------- User ----------//
         	//-----------------------------//
-        	/*User user0 = new User("Peter", "Müller", organisations, role0, "root", passwordEncoder.encode("admin"));
+        	User user0 = new User("Peter", "Müller", role0, "root", passwordEncoder.encode("admin"));
         	
         	userRepo.save(user0);
         	
@@ -93,7 +92,7 @@ public class DatabaseInitService {
           //------------------------------//
         	BillingItem billItem0 = new BillingItem("bill0", 0, null, Status.NO_STATUS, 0, null, 0, null, null, billUnit0, null);
         	
-        	billItemRepo.save(billItem0);*/
+        	billItemRepo.save(billItem0);
         }
     }
 }
