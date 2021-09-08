@@ -55,7 +55,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void addOrganisation(String username, Organisation newOrganisation) {
-
+	// TODO sysadmin only
     }
 
     /**
@@ -68,7 +68,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void removeOrganisation(String username, String organisationToRemove) {
-
+	// TODO sysadmin only
     }
 
     /**
@@ -82,7 +82,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void updateOrganisation(String username, Long oldOrganisationId, Organisation updatedOrganisation) {
-
+	// TODO sysadmin only
     }
 
     //////// Users
@@ -114,7 +114,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void removeUser(String username, String userToRemove) {
-
+	// TODO
     }
 
     /**
@@ -128,7 +128,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void updateUser(String username, Long oldUserId, User updatedUser) {
-
+	// TODO
     }
 
     //////// Roles
@@ -142,7 +142,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void addRole(String username, Role newRole) {
-
+	// TODO
     }
 
     /**
@@ -154,7 +154,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void removeRole(String username, String roleToRemove) {
-
+	// TODO
     }
 
     /**
@@ -167,7 +167,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void updateRole(String username, Long oldRoleId, Role updatedRole) {
-
+	// TODO
     }
 
     //////// BillingItem status
@@ -182,7 +182,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void updateStatus(String username, Long billingItemId, Status newStatus) {
-
+	// TODO
     }
 
     //////////////////////// Getters per id ////////////////////////
@@ -197,6 +197,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public Address getAddressById(String username, Long addressId) {
+	// TODO
 	return null;
     }
 
@@ -210,6 +211,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public Project getProjectById(String username, Long projectId) {
+	// TODO
 	return null;
     }
 
@@ -223,6 +225,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public Contract getContractById(String username, Long contractId) {
+	// TODO
 	return null;
     }
 
@@ -236,6 +239,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public BillingUnit getBillingUnitById(String username, Long billingUnitId) {
+	// TODO
 	return null;
     }
 
@@ -249,6 +253,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public BillingItem getBillingItemById(String username, Long billingItemId) {
+	// TODO
 	return null;
     }
 
@@ -262,6 +267,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public Organisation getOrganisationById(String username, Long organisationId) {
+	// TODO
 	return null;
     }
 
@@ -275,6 +281,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public User getUserById(String username, Long userId) {
+	// TODO
 	return null;
     }
 
@@ -288,6 +295,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public Role getRoleById(String username, Long roleId) {
+	// TODO
 	return null;
     }
 
@@ -302,6 +310,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<Address> getAllAccessibleAddresses(String username) {
+	// TODO
 	return null;
     }
 
@@ -314,6 +323,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<Project> getAllAccessibleProjects(String username) {
+	// TODO
 	return null;
     }
 
@@ -326,6 +336,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<Contract> getAllAccessibleContracts(String username) {
+	// TODO
 	return null;
     }
 
@@ -338,6 +349,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<BillingUnit> getAllAccessibleBillingUnits(String username) {
+	// TODO
 	return null;
     }
 
@@ -350,6 +362,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<BillingItem> getAllAccessibleBillingItems(String username) {
+	// TODO
 	return null;
     }
 
@@ -362,6 +375,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<Organisation> getAllAccessibleOrganisations(String username) {
+	// TODO
 	return null;
     }
 
@@ -374,6 +388,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<User> getAllAccessibleUsers(String username) {
+	// TODO
 	return null;
     }
 
@@ -386,6 +401,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<Role> getAllAccessibleRoles(String username) {
+	// TODO
 	return null;
     }
 }
