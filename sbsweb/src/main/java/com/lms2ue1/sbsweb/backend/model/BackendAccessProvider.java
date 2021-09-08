@@ -1,6 +1,7 @@
 package com.lms2ue1.sbsweb.backend.model;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.naming.AuthenticationException;
 
@@ -197,8 +198,8 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public Address getAddressById(String username, Long addressId) {
-	// TODO
-	return null;
+	// TODO check if username is allowed to access
+	return addresses.findById(addressId).orElseThrow(IllegalArgumentException::new);
     }
 
     /**
@@ -211,8 +212,8 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public Project getProjectById(String username, Long projectId) {
-	// TODO
-	return null;
+	// TODO check if username is allowed to access
+	return projects.findById(projectId).orElseThrow(IllegalArgumentException::new);
     }
 
     /**
@@ -225,8 +226,8 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public Contract getContractById(String username, Long contractId) {
-	// TODO
-	return null;
+	// TODO check if username is allowed to access
+	return contracts.findById(contractId).orElseThrow(IllegalArgumentException::new);
     }
 
     /**
@@ -239,8 +240,8 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public BillingUnit getBillingUnitById(String username, Long billingUnitId) {
-	// TODO
-	return null;
+	// TODO check if username is allowed to access
+	return billingUnits.findById(billingUnitId).orElseThrow(IllegalArgumentException::new);
     }
 
     /**
@@ -253,8 +254,8 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public BillingItem getBillingItemById(String username, Long billingItemId) {
-	// TODO
-	return null;
+	// TODO check if username is allowed to access
+	return billingItems.findById(billingItemId).orElseThrow(IllegalArgumentException::new);
     }
 
     /**
@@ -267,8 +268,8 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public Organisation getOrganisationById(String username, Long organisationId) {
-	// TODO
-	return null;
+	// TODO check if username is allowed to access
+	return organisations.findById(organisationId).orElseThrow(IllegalArgumentException::new);
     }
 
     /**
@@ -281,8 +282,8 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public User getUserById(String username, Long userId) {
-	// TODO
-	return null;
+	// TODO check if username is allowed to access
+	return users.findById(userId).orElseThrow(IllegalArgumentException::new);
     }
 
     /**
@@ -295,8 +296,8 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public Role getRoleById(String username, Long roleId) {
-	// TODO
-	return null;
+	// TODO check if username is allowed to access
+	return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
     }
 
     //////////////////////// Getters for lists ////////////////////////
