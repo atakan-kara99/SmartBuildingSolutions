@@ -76,7 +76,7 @@ public class Contract {
 	// ----------------------------//
 	// ---------- Getter ----------//
 	// ----------------------------//
-	public Long getOrganisationId() {
+	public Long getId() {
 		return this.id;
 	}
 
