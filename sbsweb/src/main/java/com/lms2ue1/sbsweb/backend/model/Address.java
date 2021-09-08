@@ -9,16 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-/**
- * Address of each project. Associated to one project.
- * 
- * @author juliusdaum
- */
 @Entity
 @Table(name = "addresses")
 public class Address {
-	// A few adaptations to make the data model actually work (nka).
-	
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,12 +36,13 @@ public class Address {
 
 	/**
 	 * Constructor to insert the data of the rest api json request.
+	 * Only the parameters of the constructor are columns (plus the FKs).
 	 * 
-	 * @param street      name of the street.
-	 * @param houseNumber house number.
-	 * @param zip         zip code of the city.
-	 * @param city        city.
-	 * @param country     country.
+	 * @param street      = name of the street.
+	 * @param houseNumber = house number.
+	 * @param zip         = zip code of the city.
+	 * @param city        = city.
+	 * @param country     = country.
 	 */
 	public Address(String street, int houseNumber, int zip, String city, String country) {
 		this.street = street;

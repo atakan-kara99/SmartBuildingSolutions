@@ -2,6 +2,7 @@ package com.lms2ue1.sbsweb.backend.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,13 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
-/**
- * BillingUnit of each contract. Associated to one contract and one or more
- * billing items.
- * 
- * @author juliusdaum
- *
- */
 @Entity
 public class BillingUnit {
 	// ---- Attributes ----//
@@ -34,7 +28,7 @@ public class BillingUnit {
 	private double totalPrice;
 
 	// ---- Associations ----//
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.MERGE })
 	private Contract contract;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "billingUnit", orphanRemoval = true)
@@ -43,11 +37,13 @@ public class BillingUnit {
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
+	// TODO: Do we actually want to allow this?
 	public BillingUnit() {
 	}
 
 	/**
 	 * Initializes a billing unit object.
+	 * Only the parameters of the constructor are columns (plus the FKs).
 	 * 
 	 * @param sDesc              = short description
 	 * @param lDesc              = long description

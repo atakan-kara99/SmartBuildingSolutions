@@ -16,8 +16,6 @@ import java.util.List;
 
 @Entity
 public class Project {
-	// A few adaptations to make the data model actually work (nka).
-
 	// ------ Attributes ------//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,12 +48,10 @@ public class Project {
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
-	/*
-	 * public Project() { }
-	 */
 
 	/**
 	 * Constructor to insert the data of the rest api json request.
+	 * Only the parameters of the constructor are columns (plus the FKs).
 	 * 
 	 * @param name           name of the project.
 	 * @param desc           description.

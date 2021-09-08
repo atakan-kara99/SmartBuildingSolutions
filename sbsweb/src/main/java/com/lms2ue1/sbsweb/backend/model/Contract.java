@@ -13,13 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
-/**
- * Contract of each organization. Each contract is associated to one or more
- * billing units, one project, two or more roles and two organizations.
- * 
- * @author juliusdaum
- *
- */
 @Entity
 public class Contract {
 	// A few adaptations to make the data model actually work (nka).
@@ -52,11 +45,13 @@ public class Contract {
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
+	// TODO: Do we actually want to allow this?
 	public Contract() {
 	}
 
 	/**
 	 * Initializes a contract object.
+	 * Only the parameters of the constructor are columns (plus the FKs).
 	 * 
 	 * @param name          = name
 	 * @param description   = description
