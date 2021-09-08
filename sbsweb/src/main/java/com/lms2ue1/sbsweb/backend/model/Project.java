@@ -1,5 +1,6 @@
 package com.lms2ue1.sbsweb.backend.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,17 +16,19 @@ import java.util.List;
 
 @Entity
 public class Project {
+	// A few adaptations to make the data model actually work (nka).
 
 	// ------ Attributes ------//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable=false)
+	@Column(updatable = false, unique = true)
 	private long id;
+	@Column(unique = true)
 	private String name;
 	private String description;
 	private String creationDate;
 	private String completionDate;
-	private String status;
+	private Status status;
 	private double overallCosts;
 	private String creator;
 	// -- These attributes are not important for our use. --//
@@ -34,59 +37,54 @@ public class Project {
 	private String imageFileName;
 
 	// ------ Associations ------//
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
 	private Address address;
-	@Size(min=1)
+	@Size(min = 1)
 	@OneToMany(mappedBy = "project", orphanRemoval = true)
 	private List<Contract> contracts;
 	@ManyToOne
 	private Organisation organisation;
-	@Size(min=2)
+	@Size(min = 2)
 	@ManyToMany
 	private List<Role> roles;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
-	public Project() {
-	}
+	/*
+	 * public Project() { }
+	 */
 
 	/**
 	 * Constructor to insert the data of the rest api json request.
 	 * 
-	 * @param id             project id.
-	 * @param n              name of the project.
+	 * @param name           name of the project.
 	 * @param desc           description.
 	 * @param creationDate   date where the project started.
 	 * @param completionDate date where the project should be finished.
-	 * @param s              current status of the project.
-	 * @param oC             overall costs.
-	 * @param c              name of the creator.
+	 * @param status         current status of the project.
+	 * @param costs          overall costs.
+	 * @param creator        name of the creator.
 	 * @param img            path of the image.
 	 * @param imgType        type of the image.
 	 * @param imgFileName    name of the image.
-	 * @param a              address of the project.
-	 * @param cs             associated contracts.
-	 * @param o              associated organization.
-	 * @param rs             associated roles.
+	 * @param address        address of the project.
+	 * @param organisation   associated organisation.
 	 */
-	public Project(long id, String n, String desc, String creationDate, String completionDate, String s, double oC,
-			String c, String img, String imgType, String imgFileName, Address a, List<Contract> cs, Organisation o,
-			List<Role> rs) {
-		this.id = id;
-		this.name = n;
+	public Project(String name, String desc, String creationDate, String completionDate, Status status, double costs,
+			String creator, String img, String imgType, String imgFileName, Address address,
+			Organisation organisation) {
+		this.name = name;
 		this.description = desc;
 		this.creationDate = creationDate;
 		this.completionDate = completionDate;
-		this.status = s;
-		this.overallCosts = oC;
-		this.creator = c;
+		this.status = status;
+		this.overallCosts = costs;
+		this.creator = creator;
 		this.image = img;
 		this.imageType = imgType;
 		this.imageFileName = imgFileName;
-		this.address = a;
-		this.contracts = cs;
-		this.organisation = o;
-		this.roles = rs;
+		this.address = address;
+		this.organisation = organisation;
 	}
 
 	// ----------------------------//
@@ -112,7 +110,7 @@ public class Project {
 		return this.completionDate;
 	}
 
-	public String getStatus() {
+	public Status getStatus() {
 		return this.status;
 	}
 
@@ -149,7 +147,7 @@ public class Project {
 	}
 
 	public List<Role> getRoles() {
-		return this.roles;
+		return roles;
 	}
 
 	// ----------------------------//
@@ -175,7 +173,7 @@ public class Project {
 		this.completionDate = completionDate;
 	}
 
-	public void setStatus(String s) {
+	public void setStatus(Status s) {
 		this.status = s;
 	}
 
@@ -207,8 +205,12 @@ public class Project {
 		this.organisation = o;
 	}
 
-	public void setRoles(List<Role> rs) {
-		this.roles = rs;
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.lms2ue1.sbsweb.backend.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,7 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import java.util.List;
 
@@ -19,10 +22,12 @@ import java.util.List;
  */
 @Entity
 public class Role {
+	// A few adaptations to make the data model actually work (nka).
+
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable=false)
+	@Column(updatable = false, unique = true)
 	private long id;
 	@NotEmpty
 	private String name;
@@ -30,9 +35,9 @@ public class Role {
 	// ---- Associations ----//
 	@ManyToMany
 	private List<Project> projects;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private Organisation organisation;
-	@ManyToMany
+	@OneToMany
 	private List<User> users;
 	@ManyToMany
 	private List<Contract> contracts;
@@ -45,26 +50,22 @@ public class Role {
 	public Role() {
 	}
 
+	// TODO: Organisation raus und bei Rolle speichern?
 	/**
 	 * Initializes a role object.
 	 * 
-	 * @param id  the unique id of a role.
-	 * @param n   the name of a role.
-	 * @param ps  the associated projects.
-	 * @param os  the associated organisations.
-	 * @param us  the associated users.
-	 * @param cs  the associated contracts.
-	 * @param bus the associated billing items.
+	 * @param name         the name of a role.
+	 * @param projects     the associated projects.
+	 * @param contracts    the associated contracts.
+	 * @param billingItems the associated billing items.
+	 * @param organisation the associated organisation.
 	 */
-	public Role(long id, String n, List<Project> ps, Organisation os, List<User> us, List<Contract> cs,
-			List<BillingItem> bus) {
-		this.id = id;
-		this.name = n;
-		this.projects = ps;
-		this.organisation = os;
-		this.users = us;
-		this.contracts = cs;
-		this.billingItems = bus;
+	public Role(String name, List<Project> projects, List<Contract> contracts, List<BillingItem> billingItems, Organisation organisation) {
+		this.name = name;
+		this.projects = projects;
+		this.contracts = contracts;
+		this.billingItems = billingItems;
+		this.organisation = organisation;
 	}
 
 	// ----------------------------//

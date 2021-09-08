@@ -21,12 +21,15 @@ import java.util.List;
  */
 @Entity
 public class Organisation {
+	// A few adaptations to make the data model actually work (nka).
+
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable=false)
+	@Column(updatable = false, unique = true)
 	private long id;
 	@NotEmpty
+	@Column(unique = true)
 	private String name;
 
 	// ---- Associations ----//
@@ -34,10 +37,7 @@ public class Organisation {
 	@OneToMany(mappedBy = "organisation")
 	private List<Project> projects;
 	@Size(min = 2)
-	@ManyToMany
-	private List<User> users;
-	@Size(min = 2)
-	@OneToMany(mappedBy = "organisation")
+	@OneToMany
 	private List<Role> roles;
 	@Size(min = 1)
 	@ManyToMany
@@ -46,26 +46,18 @@ public class Organisation {
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
+
+	// TODO: Do we really want to allow this? Good for testing. (nka)
 	public Organisation() {
 	}
 
 	/**
 	 * Constructor to insert the data of the rest api json request.
 	 * 
-	 * @param id id of the organisation.
-	 * @param n  name of the organisation.
-	 * @param ps associated projects.
-	 * @param us associated users.
-	 * @param rs associated roles.
-	 * @param cs assocaited contracts.
+	 * @param name  = name of the organisation.
 	 */
-	public Organisation(long id, String n, List<Project> ps, List<User> us, List<Role> rs, List<Contract> cs) {
-		this.id = id;
-		this.name = n;
-		this.projects = ps;
-		this.users = us;
-		this.roles = rs;
-		this.contracts = cs;
+	public Organisation(String name) {
+		this.name = name;
 	}
 
 	// ----------------------------//
@@ -81,10 +73,6 @@ public class Organisation {
 
 	public List<Project> getProjects() {
 		return this.projects;
-	}
-
-	public List<User> getUsers() {
-		return this.users;
 	}
 
 	public List<Role> getRoles() {
@@ -108,10 +96,6 @@ public class Organisation {
 
 	public void setProjects(List<Project> p) {
 		this.projects = p;
-	}
-
-	public void setUsers(List<User> u) {
-		this.users = u;
 	}
 
 	public void setRoles(List<Role> r) {

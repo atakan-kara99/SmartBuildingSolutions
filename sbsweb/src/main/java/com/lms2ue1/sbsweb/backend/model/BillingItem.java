@@ -2,6 +2,7 @@ package com.lms2ue1.sbsweb.backend.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,12 +25,14 @@ import javax.validation.constraints.Size;
 public class BillingItem {
 	// ---- Attributes ----//
 	@Id
-	@Column(updatable = false)
+	@Column(updatable = false, unique = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private double price;
+	@Column(unique = true)
+	private String name;
 	private String shortDescription;
-	private String status;
+	private Status status;
 	private double quantities;
 	private String unit;
 	private double unitPrice;
@@ -37,7 +40,7 @@ public class BillingItem {
 	private String shortDesLinkedIFC;
 
 	// ---- Associations ----//
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.ALL })
 	private BillingUnit billingUnit;
 	@Size(min = 2)
 	@ManyToMany
@@ -49,39 +52,46 @@ public class BillingItem {
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
+	// TODO: Do we really want to allow this? Good for testing. (nka)
 	public BillingItem() {
 	}
 
 	/**
 	 * Initializes a billing item.
 	 * 
-	 * @param id     = id
-	 * @param p      = price
-	 * @param sDesc  = short description
-	 * @param s      = status
-	 * @param qs     = quantities
-	 * @param u      = unit
-	 * @param uP     = unit price
-	 * @param qS     = qty split
-	 * @param sDLIFC = short deslinked ifc
-	 * @param b      = billing unit
-	 * @param rs     = roles
-	 * @param bis    = billing items
+	 * @param name         = name of the user
+	 * @param price        = price
+	 * @param sDesc        = short description
+	 * @param status       = status
+	 * @param quantities   = quantities
+	 * @param unit         = unit
+	 * @param uPrice       = unit price
+	 * @param qSplit       = qty split
+	 * @param sDLIFC       = short deslinked ifc
+	 * @param billUnit     = billing unit
+	 * @param billingItems = billing items
 	 */
-	public BillingItem(long id, double p, String sDesc, String s, double qs, String u, double uP, String qS,
-			String sDLIFC, BillingUnit b, List<Role> rs, List<BillingItem> bis) {
-		this.id = id;
-		this.price = p;
+	public BillingItem(String name, double price, String sDesc, Status status, double quantities, String unit,
+			double uPrice, String qSplit, String sDLIFC, BillingUnit billUnit, List<BillingItem> billingItems) {
+		this.name = name;
+		this.price = price;
 		this.shortDescription = sDesc;
-		this.status = s;
-		this.quantities = qs;
-		this.unit = u;
-		this.unitPrice = uP;
-		this.qtySplit = qS;
+		this.status = status;
+		this.quantities = quantities;
+		this.unit = unit;
+		this.unitPrice = uPrice;
+		this.qtySplit = qSplit;
 		this.shortDesLinkedIFC = sDLIFC;
-		this.billingUnit = b;
-		this.roles = rs;
-		this.billingItems = bis;
+		this.billingUnit = billUnit;
+		this.billingItems = billingItems;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	// ----------------------------//
@@ -99,7 +109,7 @@ public class BillingItem {
 		return this.shortDescription;
 	}
 
-	public String getStatus() {
+	public Status getStatus() {
 		return this.status;
 	}
 
@@ -150,7 +160,7 @@ public class BillingItem {
 		this.shortDescription = sDesc;
 	}
 
-	public void setStatus(String s) {
+	public void setStatus(Status s) {
 		this.status = s;
 	}
 
