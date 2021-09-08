@@ -28,7 +28,7 @@ public class Contract {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, unique = true)
-	private long id;
+	private long organisationId;
 	@Column(unique = true)
 	private String name;
 	private String description;
@@ -81,8 +81,8 @@ public class Contract {
 	// ----------------------------//
 	// ---------- Getter ----------//
 	// ----------------------------//
-	public Long getId() {
-		return this.id;
+	public Long getOrganisationId() {
+		return this.organisationId;
 	}
 
 	public String getName() {
@@ -125,7 +125,7 @@ public class Contract {
 	// ---------- Setter ----------//
 	// ----------------------------//
 	public void setId(Long id) {
-		this.id = id;
+		this.organisationId = id;
 	}
 
 	public void setName(String n) {

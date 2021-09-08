@@ -22,7 +22,7 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, unique = true)
-	private long id;
+	private long addressID;
 	private String street;
 	private int houseNumber;
 	private int zipCode;
@@ -61,7 +61,7 @@ public class Address {
 	// ---------- Getter ----------//
 	// ----------------------------//
 	public long getId() {
-		return this.id;
+		return this.addressID;
 	}
 
 	public String getStreet() {
@@ -92,7 +92,7 @@ public class Address {
 	// ---------- Setter ----------//
 	// ----------------------------//
 	public void setAddressId(long aId) {
-		this.id = aId;
+		this.addressID = aId;
 	}
 
 	public void setStreet(String s) {

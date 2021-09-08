@@ -27,7 +27,7 @@ public class Organisation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, unique = true)
-	private long id;
+	private long organisationId;
 	@NotEmpty
 	@Column(unique = true)
 	private String name;
@@ -64,7 +64,7 @@ public class Organisation {
 	// ---------- Getter ----------//
 	// ----------------------------//
 	public long getId() {
-		return this.id;
+		return this.organisationId;
 	}
 
 	public String getName() {
@@ -87,7 +87,7 @@ public class Organisation {
 	// ---------- Setter ----------//
 	// ----------------------------//
 	public void setId(long id) {
-		this.id = id;
+		this.organisationId = id;
 	}
 
 	public void setName(String n) {
