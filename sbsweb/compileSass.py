@@ -1,4 +1,5 @@
-# Very basci script to compile custon style SASS files to be used with bootstrap
+# Author: Luca Anthony Schwarz (sunfl0w)
+# Very basic script to compile custon style SASS files to be used with bootstrap
 
 import os
 
