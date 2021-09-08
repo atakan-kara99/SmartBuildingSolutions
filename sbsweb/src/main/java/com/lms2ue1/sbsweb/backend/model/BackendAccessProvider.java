@@ -1,7 +1,10 @@
 package com.lms2ue1.sbsweb.backend.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.naming.AuthenticationException;
 
@@ -311,8 +314,12 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<Address> getAllAccessibleAddresses(String username) {
-	// TODO
-	return null;
+	try {
+	    return users.findByUsername(username).getRole().getOrganisation().getContracts().stream()
+		    .map(c -> c.getProject().getAddress()).collect(Collectors.toList());
+	} catch (NullPointerException e) {
+	    throw new IllegalArgumentException();
+	}
     }
 
     /**
@@ -324,8 +331,12 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<Project> getAllAccessibleProjects(String username) {
-	// TODO
-	return null;
+	try {
+	    return users.findByUsername(username).getRole().getOrganisation().getContracts().stream()
+		    .map(c -> c.getProject()).collect(Collectors.toList());
+	} catch (NullPointerException e) {
+	    throw new IllegalArgumentException();
+	}
     }
 
     /**
@@ -337,8 +348,11 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<Contract> getAllAccessibleContracts(String username) {
-	// TODO
-	return null;
+	try {
+	    return users.findByUsername(username).getRole().getOrganisation().getContracts();
+	} catch (NullPointerException e) {
+	    throw new IllegalArgumentException();
+	}
     }
 
     /**
@@ -350,8 +364,12 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<BillingUnit> getAllAccessibleBillingUnits(String username) {
-	// TODO
-	return null;
+	try {
+	    return users.findByUsername(username).getRole().getOrganisation().getContracts().stream()
+		    .map(c -> c.getBillingUnits()).flatMap(Collection::stream).collect(Collectors.toList());
+	} catch (NullPointerException e) {
+	    throw new IllegalArgumentException();
+	}
     }
 
     /**
@@ -363,8 +381,14 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<BillingItem> getAllAccessibleBillingItems(String username) {
-	// TODO
-	return null;
+	// TODO also return billing items in billing items? Not yet implemented
+	try {
+	    return users.findByUsername(username).getRole().getOrganisation().getContracts().stream()
+		    .map(c -> c.getBillingUnits()).flatMap(List::stream).map(bu -> bu.getBillingItems())
+		    .flatMap(List::stream).collect(Collectors.toList());
+	} catch (NullPointerException e) {
+	    throw new IllegalArgumentException();
+	}
     }
 
     /**
@@ -376,8 +400,12 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<Organisation> getAllAccessibleOrganisations(String username) {
-	// TODO
-	return null;
+	// TODO can't handle the sysadmin's swag yet
+	try {
+	    return List.of(users.findByUsername(username).getRole().getOrganisation());
+	} catch (NullPointerException e) {
+	    throw new IllegalArgumentException();
+	}
     }
 
     /**
