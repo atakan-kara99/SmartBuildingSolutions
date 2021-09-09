@@ -32,7 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.anyRequest().authenticated()
 			.and()
 			.formLogin().loginPage("/login").permitAll()
-			.defaultSuccessUrl("/organisation/0/user_management", true)
+			.defaultSuccessUrl("/organisations", true)
 			.and().logout().permitAll();
 		
 		// Comment in to enable H2 console on test server (not recommended for release version!)

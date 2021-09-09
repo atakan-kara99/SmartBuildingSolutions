@@ -28,7 +28,7 @@ public class Role {
 	// ---- Associations ----//
 	@ManyToMany
 	private List<Project> projects;
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne//(cascade = CascadeType.MERGE)
 	private Organisation organisation;
 	@OneToMany
 	private List<User> users;
