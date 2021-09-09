@@ -55,10 +55,9 @@ public class ProjectController {
 //	model.addAttribute("project", BackendAccessProvider.getProjectById(username, pID));
 //	List<Contract> contracts = BackendAccessProvider.getAccessibleContracts(username);
 //	model.addAttribute("contracts", contracts.stream().filter(contract -> contract.getPID() == pID).collect(Collectors.toList()));
-	model.addAttribute("project", new Project("Hausbau", "Haus an der Lindenallee 37 wird gebaut", null, null,
-		Status.NO_STATUS, 0, null, null, null, null, null, null));
+	model.addAttribute("project", projects.findById(pID).get());
 	model.addAttribute("contracts", StreamSupport.stream(contracts.findAll().spliterator(), false)
-		.filter(contract -> contract.getProject().getId() == pID));
+		.filter(contract -> contract.getProject().getId() == pID).collect(Collectors.toList()));
 	return "project/project_details";
     }
 }

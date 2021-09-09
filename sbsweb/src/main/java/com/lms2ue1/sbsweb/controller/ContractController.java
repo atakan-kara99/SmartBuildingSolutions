@@ -1,6 +1,7 @@
 package com.lms2ue1.sbsweb.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,9 @@ public class ContractController {
 //	model.addAttribute("contract", BackendAccessProvider.getContractById(username, cID));
 //	List<BillingItem> billingItems = BackendAccessProvider.getAccessibleBillingItems(username);
 //	model.addAttribute("billingItems", billingItems.stream().filter(billingItem -> billingItem.getCID() == cID).collect(Collectors.toList()));
-	model.addAttribute("contract", contracts.findById(cID));
+	model.addAttribute("contract", contracts.findById(cID).get());
 	model.addAttribute("billingItems", StreamSupport.stream(billingItems.findAll().spliterator(), false)
-		.filter(billingItem -> billingItem.getBillingUnit().getContract().getOrganisationId() == cID));
+		.filter(billingItem -> billingItem.getBillingUnit().getContract().getId() == cID).collect(Collectors.toList()));
 	return "contract/contract_details";
     }
 }

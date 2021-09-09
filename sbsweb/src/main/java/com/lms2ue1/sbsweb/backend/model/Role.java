@@ -10,16 +10,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 import java.util.List;
 
-/**
- * Custom class role. Roles are essential for the authorization.
- * 
- * @author juliusdaum
- *
- */
 @Entity
 public class Role {
 	// A few adaptations to make the data model actually work (nka).
@@ -35,7 +28,7 @@ public class Role {
 	// ---- Associations ----//
 	@ManyToMany
 	private List<Project> projects;
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne//(cascade = CascadeType.MERGE)
 	private Organisation organisation;
 	@OneToMany
 	private List<User> users;
@@ -50,7 +43,6 @@ public class Role {
 	public Role() {
 	}
 
-	// TODO: Organisation raus und bei Rolle speichern?
 	/**
 	 * Initializes a role object.
 	 * 

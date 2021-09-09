@@ -1,6 +1,5 @@
 package com.lms2ue1.sbsweb.backend.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +15,6 @@ import java.util.List;
 
 @Entity
 public class Project {
-	// A few adaptations to make the data model actually work (nka).
-
 	// ------ Attributes ------//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,7 +34,7 @@ public class Project {
 	private String imageFileName;
 
 	// ------ Associations ------//
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne//(cascade = {CascadeType.ALL}) try w/ cascading
 	private Address address;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "project", orphanRemoval = true)
@@ -50,12 +47,13 @@ public class Project {
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
-	/*
-	 * public Project() { }
-	 */
+	
+	public Project() {
+	}
 
 	/**
 	 * Constructor to insert the data of the rest api json request.
+	 * Only the parameters of the constructor are columns (plus the FKs).
 	 * 
 	 * @param name           name of the project.
 	 * @param desc           description.

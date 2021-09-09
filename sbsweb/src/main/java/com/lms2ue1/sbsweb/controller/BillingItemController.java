@@ -27,7 +27,7 @@ public class BillingItemController {
 	model.addAttribute("cID", cID);
 	model.addAttribute("bID", bID);
 //	model.addAttribute("billingItem", BackendAccessProvider.getBillingItemById(username, bID));
-	model.addAttribute("billingItem", billingItems.findById(bID));
+	model.addAttribute("billingItem", billingItems.findById(bID).get());
 	return "billingitem/billing_item_details";
     }
 }
