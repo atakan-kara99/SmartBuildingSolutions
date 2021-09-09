@@ -18,7 +18,7 @@
                     Status:
                     <b th:text="${contract.status}"></b>
                 </p>
-                <a th:href="@{'/project/' + ${pID} + '/diagrams'}">
+                <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/diagrams'}">
                     <button type="button" class="btn btn-outline-success">Diagramme anzeigen</button>
                 </a>
             </div>
