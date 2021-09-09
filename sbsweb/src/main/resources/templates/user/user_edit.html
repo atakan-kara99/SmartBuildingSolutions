@@ -15,28 +15,14 @@
                     <div class="row justify-content-center">
                         <div class="col-3">
                             <div class="form-group">
-                                <label for="surname"> Vorname </label>
-                                <input type="text" class="form-control" id="surname" th:field="*{surname}" th:errorclass="is-invalid" />
+                                <label for="firstname"> Vorname </label>
+                                <input type="text" class="form-control" id="firstname" th:field="*{forename}" th:errorclass="is-invalid" />
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="lastname"> Nachname </label>
                                 <input type="text" class="form-control" id="lastname" th:field="*{lastname}" th:errorclass="is-invalid" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="organization"> Organisation </label>
-                                <input type="text" class="form-control" id="organization" th:field="*{organization}" th:errorclass="is-invalid" />
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="role"> Rolle </label>
-                                <input type="text" class="form-control" id="role" th:field="*{role}" th:errorclass="is-invalid" />
                             </div>
                         </div>
                     </div>
@@ -50,10 +36,12 @@
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="password"> Passwort </label>
-                                <input type="password" class="form-control" id="password" />
+                                <input type="password" class="form-control" id="password" th:field="*{password}" th:errorclass="is-invalid" />
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" th:field="*{id}" />
+                    <input type="hidden" th:field="*{role}" />
                     <div class="padding-50"></div>
                     <button type="submit" class="btn btn-success"> Änderungen speichern </button>
                 </form>

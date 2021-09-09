@@ -39,8 +39,9 @@
                                 <td colspan="3"> Keine Benutzer verfügbar </td>
                             </tr>
                             <tr th:each="user : ${users}">
-                                <td class="text-center"><span th:text="${user?.username}"> Benutzername </span></td>
-                                <td class="text-center"><span th:text="${user?.role}"> Rolle </span></td>
+                                <td class="text-center"><span th:text="${user.username}"> Benutzername </span></td>
+                                <td class="text-center" th:if="${user.role == null}"><span> Keine Rolle zugewiesen </span></td>
+                                <td class="text-center" th:if="${user.role != null}"><span th:text="${user.role.name}"> Rolle </span></td>
                                 <td class="text-center">
                                     <span>
                                         <div class="row justify-content-center">
@@ -50,7 +51,7 @@
                                                     <i class="bi bi-pencil" style="font-size: medium; color: black;" title="Edit"></i>
                                                 </a>
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-6" th:if="${user.username} != ${#authentication.getPrincipal().getUsername()}">
                                                 <a th:href="@{'/organisation/' + ${organisation.id} + '/user_management/user/' + ${user?.id} + '/user_delete'}"
                                                     class="icon-link">
                                                     <i class="bi bi-trash" style="font-size: medium; color: rgb(255, 60, 60);" title="Delete"></i>

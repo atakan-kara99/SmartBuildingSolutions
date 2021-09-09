@@ -1,7 +1,5 @@
 package com.lms2ue1.sbsweb.controller;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -34,7 +32,7 @@ public class RoleManagementController {
         List<Role> availableRoles = roleRepository.findByOrganisationOrderByNameAsc(organisation);
         model.addAttribute("roles", availableRoles);
         model.addAttribute("organisation", organisationRepository.findById(oID).get());
-        return "role_management";
+        return "role/role_management";
     }
 
     /** Shows the page to add a new role to an organisation. */
@@ -42,7 +40,7 @@ public class RoleManagementController {
     public String showNewRoleForm(@PathVariable long oID, Model model) {
         model.addAttribute("organisation", organisationRepository.findById(oID).get());
         model.addAttribute("role", new Role());
-        return "role_new";
+        return "role/role_new";
     }
 
     /** Will save the new role if no problems were encountered. Will also redirect to role management. */
@@ -69,7 +67,7 @@ public class RoleManagementController {
     public String showRoleEditFormById(@PathVariable long oID, @PathVariable long rID, Model model) {
         model.addAttribute("role", roleRepository.findById(rID).get());
         model.addAttribute("organisation", organisationRepository.findById(oID).get());
-        return "role_edit";
+        return "role/role_edit";
     }
 
     /** Updates the role with the new data that was specified. Will redirect to role management if everything went well. */
@@ -78,7 +76,7 @@ public class RoleManagementController {
         //More checks needed
         if(bindingResult.hasErrors()) {
             model.addAttribute("role", role);
-            return "role_edit";
+            return "role/role_edit";
         }
         role.setId(rID);
         roleRepository.save(role);
