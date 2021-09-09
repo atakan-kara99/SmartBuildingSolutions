@@ -6,6 +6,8 @@ import static org.mockito.Mockito.*;
 import java.util.List;
 import java.util.Optional;
 
+import javax.naming.AuthenticationException;
+
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
@@ -58,6 +60,7 @@ public class BackendAccessProviderTest {
     private Role role1;
     private Role role2;
     private String rootUsername = "root";
+    private String failUsername = null;
 
     @BeforeEach
     public void initFields() {
@@ -157,8 +160,55 @@ public class BackendAccessProviderTest {
 
     @Test
     public void testGetProjectById() {
-	String username = "root";
-	when(projects.findById(project1.getId())).thenReturn(Optional.of(project1));
-	assertEquals(project1, BAP.getProjectById(username, project1.getId()), "The project wasn't found!");
+	Long id = project1.getId();
+	when(projects.findById(id)).thenReturn(Optional.of(project1));
+	assertEquals(project1, BAP.getProjectById(rootUsername, id), "The project wasn't found!");
+	assertThrows(AuthenticationException.class, () -> BAP.getProjectById(failUsername, id),
+		"An unauthorized user was granted access!");
+    }
+
+    @Test
+    public void testGetContractById() {
+	Long id = contract1.getId();
+	when(contracts.findById(id)).thenReturn(Optional.of(contract1));
+	assertEquals(contract1, BAP.getContractById(rootUsername, id), "The contract wasn't found!");
+	assertThrows(AuthenticationException.class, () -> BAP.getContractById(failUsername, id),
+		"An unauthorized user was granted access!");
+    }
+
+    @Test
+    public void testGetBillingUnitById() {
+	Long id = billingUnit1.getId();
+	when(billingUnits.findById(id)).thenReturn(Optional.of(billingUnit1));
+	assertEquals(billingUnit1, BAP.getBillingUnitById(rootUsername, id), "The billing unit wasn't found!");
+	assertThrows(AuthenticationException.class, () -> BAP.getBillingUnitById(failUsername, id),
+		"An unauthorized user was granted access!");
+    }
+
+    @Test
+    public void testGetBillingItemById() {
+	Long id = billingItem1.getId();
+	when(billingItems.findById(id)).thenReturn(Optional.of(billingItem1));
+	assertEquals(billingItem1, BAP.getBillingItemById(rootUsername, id), "The billing item wasn't found!");
+	assertThrows(AuthenticationException.class, () -> BAP.getBillingItemById(failUsername, id),
+		"An unauthorized user was granted access!");
+    }
+
+    @Test
+    public void testGetOrganisationById() {
+	Long id = organisation1.getId();
+	when(organisations.findById(id)).thenReturn(Optional.of(organisation1));
+	assertEquals(organisation1, BAP.getOrganisationById(rootUsername, id), "The organisation wasn't found!");
+	assertThrows(AuthenticationException.class, () -> BAP.getOrganisationById(failUsername, id),
+		"An unauthorized user was granted access!");
+    }
+
+    @Test
+    public void testGetUserById() {
+	Long id = user1.getId();
+	when(users.findById(id)).thenReturn(Optional.of(user1));
+	assertEquals(user1, BAP.getUserById(rootUsername, id), "The user wasn't found!");
+	assertThrows(AuthenticationException.class, () -> BAP.getUserById(failUsername, id),
+		"An unauthorized user was granted access!");
     }
 }
