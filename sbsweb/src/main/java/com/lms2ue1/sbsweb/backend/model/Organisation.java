@@ -28,7 +28,7 @@ public class Organisation {
 	@OneToMany(mappedBy = "organisation")
 	private List<Project> projects;
 	@Size(min = 2)
-	@OneToMany(mappedBy="organisation") // Mapping is necessary!
+	@OneToMany(mappedBy = "organisation") // Mapping is necessary!
 	private List<Role> roles;
 	@Size(min = 1)
 	@ManyToMany

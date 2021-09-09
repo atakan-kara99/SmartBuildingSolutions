@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -36,6 +37,7 @@ public class Contract {
 	@ManyToMany
 	private List<Role> roles;
 	@ManyToOne//(cascade = { CascadeType.ALL }) try to remove
+	@JoinColumn(name = "project_id")
 	private Project project;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "contract", orphanRemoval = true)

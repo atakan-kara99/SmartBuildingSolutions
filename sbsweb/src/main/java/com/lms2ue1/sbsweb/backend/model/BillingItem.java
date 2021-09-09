@@ -33,11 +33,12 @@ public class BillingItem {
 
 	// ---- Associations ----//
 	@ManyToOne//(cascade = { CascadeType.ALL }) tried w/ cascading
+	@JoinColumn(name = "billing_unit_id")
 	private BillingUnit billingUnit;
 	@Size(min = 2)
 	@ManyToMany
 	private List<Role> roles;
-	@OneToMany
+	@OneToMany//(mappedBy = "billing_item")
 	@JoinColumn(name = "sub_billing_item")
 	private List<BillingItem> billingItems;
 

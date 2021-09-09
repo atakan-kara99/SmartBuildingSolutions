@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
@@ -35,14 +36,14 @@ public class User {
 	// ---- Associations ----//
 	// It is only ONE role allowed. Otherwise we have a problem with authorisation.
 	// The SysAdmin will get an exception in authorisation.
-	@ManyToOne(cascade = {CascadeType.MERGE})
+	@ManyToOne//(cascade = {CascadeType.MERGE})
+	@JoinColumn(name = "role_id")
 	private Role role;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
 
-	// TODO: Do we really want to allow this? Good for testing. (nka)
 	public User() {
 	}
 

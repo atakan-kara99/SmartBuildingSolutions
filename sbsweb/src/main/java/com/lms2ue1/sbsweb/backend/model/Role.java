@@ -34,7 +34,7 @@ public class Role {
 	@ManyToOne // (cascade = CascadeType.MERGE)
 	@JoinColumn(name = "organisation_id")
 	private Organisation organisation;
-	@OneToMany(mappedBy="role")
+	@OneToMany(mappedBy = "role")
 	private List<User> users;
 	@ManyToMany
 	private List<Contract> contracts;
