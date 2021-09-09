@@ -118,6 +118,7 @@ public class AuthorisationCheck {
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
 	public boolean checkBillingUnit(String username, long buID) {
+		// TODO: Verschachtelung
 		// Has the user the permission to access an associated billing item?
 		// First: The root billingItems.
 		// Second: The other nodes.
@@ -136,6 +137,7 @@ public class AuthorisationCheck {
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
 	public boolean checkBillingItem(String username, long bID) {
+		// TODO: Verschachtelung
 		// We have billing items in billing items.
 		// First: The root billingItems.
 		// Second: The other nodes.
@@ -160,13 +162,13 @@ public class AuthorisationCheck {
 	// ---------- User management ------------- //
 
 	/**
-	 * Is the given user allowed to do anything with the other user?
+	 * Is the given user allowed to manage the user?
 	 * 
 	 * @param username = the user, who wants to work with it.
 	 * @param uID      = the other user to manage.
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
-	public boolean checkUser(String username, long uID) {
+	public boolean manageUser(String username, long uID) {
 		// TODO: Implement me!
 		return false;
 	}
@@ -178,18 +180,18 @@ public class AuthorisationCheck {
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
 	public boolean isSysAdmin(String username) {
-		return getRole(username).getName() == "SysAdmin";
+		return getRole(username).getName().equals("SysAdmin");
 	}
 
 	/**
-	 * Is the given user a OrgAdmin?
+	 * Is the given user an OrgAdmin or even SysAdmin?
 	 * 
 	 * @param username = the user in question.
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
 	public boolean isOrgAdmin(String username) {
 		// A SysAdmin is also an OrgAdmin.
-		return getRole(username).getName() == "SysAdmin" || getRole(username).getName() == "OrgAdmin";
+		return getRole(username).getName().equals("SysAdmin") || getRole(username).getName().equals("OrgAdmin");
 	}
 
 	// TODO: The status => Different issue.

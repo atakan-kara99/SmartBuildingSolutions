@@ -1,52 +1,62 @@
 package com.lms2ue1.sbsweb.backend.model;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.lms2ue1.sbsweb.backend.repository.*;
+import com.lms2ue1.sbsweb.backend.security.AuthorisationCheck;
 
 @SpringBootTest
 class AuthorisationCheckTest {
 
 	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-	@Autowired
+	@MockBean
 	private RoleRepository roleMock;
-	@Autowired
+	@MockBean
 	private OrganisationRepository orgMock;
-	@Autowired
+	@MockBean
 	private UserRepository userMock;
+
+	@InjectMocks
+	private AuthorisationCheck authCheck;
+	private AutoCloseable closeable;
 
 	@BeforeEach
 	public void init() {
-		Organisation org0 = new Organisation("SBS");
-		Organisation org1 = new Organisation("Tiefbau");
+		closeable = MockitoAnnotations.openMocks(this);
 
-		orgMock.save(org0);
-		orgMock.save(org1);
+		/*Organisation org0 = new Organisation("SBS");
+		Organisation org1 = new Organisation("Tiefbau");
 
 		Role role0 = new Role("SysAdmin", null, null, null, org0);
 		Role role1 = new Role("OrgAdmin", null, null, null, org1);
 
-		roleMock.save(role0);
-		roleMock.save(role1);
-
-		User user0 = new User("Peter", "Müller", role0, "root", passwordEncoder.encode("admin"));
-		userMock.save(user0);
+		User user0 = new User("Peter", "Müller", role0, "root", passwordEncoder.encode("admin"));*/
+	}
+	
+	@AfterEach
+	private void close() throws Exception {
+		closeable.close();
 	}
 
 	// ------------------ Getter-Tests --------------//
 	@Test
 	void getUserOverRole() {
 		// Can we find the user in the user List from the role entity?
-		// assertTrue(roleMock.findByName("SysAdmin").getUsers().contains(userMock.findByUsername("root")));
-		assertTrue(true);
+		//assertTrue(roleMock.findByName("SysAdmin").getUsers().contains(userMock.findByUsername("root")));
+		//when(roleMock.findByName("SysAdmin").getUsers()).thenReturn(userMock.findByUsername("root"));
+		//assertTrue(true);
 	}
 
 }

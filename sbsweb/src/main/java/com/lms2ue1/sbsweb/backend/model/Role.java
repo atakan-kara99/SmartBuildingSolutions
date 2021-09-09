@@ -1,11 +1,11 @@
 package com.lms2ue1.sbsweb.backend.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -24,13 +24,17 @@ public class Role {
 	private long id;
 	@NotEmpty
 	private String name;
+	private boolean manageUser;
+
+
 
 	// ---- Associations ----//
 	@ManyToMany
 	private List<Project> projects;
-	@ManyToOne//(cascade = CascadeType.MERGE)
+	@ManyToOne // (cascade = CascadeType.MERGE)
+	@JoinColumn(name = "organisation_id")
 	private Organisation organisation;
-	@OneToMany
+	@OneToMany(mappedBy="role")
 	private List<User> users;
 	@ManyToMany
 	private List<Contract> contracts;
@@ -51,13 +55,16 @@ public class Role {
 	 * @param contracts    the associated contracts.
 	 * @param billingItems the associated billing items.
 	 * @param organisation the associated organisation.
+	 * @param manageUser   whether the role is allowed to manage user or not.
 	 */
-	public Role(String name, List<Project> projects, List<Contract> contracts, List<BillingItem> billingItems, Organisation organisation) {
+	public Role(String name, List<Project> projects, List<Contract> contracts, List<BillingItem> billingItems,
+			Organisation organisation, boolean manageUser) {
 		this.name = name;
 		this.projects = projects;
 		this.contracts = contracts;
 		this.billingItems = billingItems;
 		this.organisation = organisation;
+		this.manageUser = manageUser;
 	}
 
 	// ----------------------------//
@@ -91,6 +98,10 @@ public class Role {
 		return this.billingItems;
 	}
 
+	public boolean isManageUser() {
+		return manageUser;
+	}
+	
 	// ----------------------------//
 	// ---------- Setter ----------//
 	// ----------------------------//
@@ -122,4 +133,7 @@ public class Role {
 		this.billingItems = bs;
 	}
 
+	public void setManageUser(boolean manageUser) {
+		this.manageUser = manageUser;
+	}
 }

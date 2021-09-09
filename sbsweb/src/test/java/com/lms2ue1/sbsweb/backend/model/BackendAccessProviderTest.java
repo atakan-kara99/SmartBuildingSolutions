@@ -66,8 +66,8 @@ public class BackendAccessProviderTest {
     public void initFields() {
 	closeable = MockitoAnnotations.openMocks(this);
 
-	organisation1 = new Organisation("Fritz Müller GmbH");
-	organisation2 = new Organisation("Fritz Müller-Schulz GmbH");
+	organisation1 = new Organisation("Fritz Mï¿½ller GmbH");
+	organisation2 = new Organisation("Fritz Mï¿½ller-Schulz GmbH");
 	address1 = new Address("Main Street", 1337, 14, "NY City", "Deutschland");
 	address2 = new Address("2nd Street", 42, 15, "GBR City", "France");
 	project1 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01", Status.OK,
@@ -78,13 +78,13 @@ public class BackendAccessProviderTest {
 		project1);
 	contract2 = new Contract("Kosten klein halten", "Teuer", null, null, null, List.of(organisation2), project2);
 	billingUnit1 = new BillingUnit("sd", null, "kg", "1973", "2001", 2.1, 7, contract1);
-	billingUnit2 = new BillingUnit("sssdad", null, "€", "15999", "2201", 1, 0, contract2);
+	billingUnit2 = new BillingUnit("sssdad", null, "ï¿½", "15999", "2201", 1, 0, contract2);
 	billingItem1 = new BillingItem("Heizung montieren", 2, "Heizko B7-2 fensternah einbauen.", Status.OPEN, 0, null,
 		7, null, null, billingUnit1, null);
 	billingItem2 = new BillingItem("Fenster einbauen", 0, null, null, 99, null, 0, null, null, billingUnit2, null);
-	role1 = new Role("Bauherr", List.of(), List.of(), List.of(), organisation1);
-	role2 = new Role("Handwerker", null, null, null, organisation2);
-	user1 = new User("Fritz", "Müller", null, "f.mueller", "fritzi");
+	role1 = new Role("Bauherr", List.of(), List.of(), List.of(), organisation1, false);
+	role2 = new Role("Handwerker", null, null, null, organisation2, false);
+	user1 = new User("Fritz", "Mï¿½ller", null, "f.mueller", "fritzi");
 	user2 = new User("Hans", "Schulz", null, "hs", "hansss");
     }
 
