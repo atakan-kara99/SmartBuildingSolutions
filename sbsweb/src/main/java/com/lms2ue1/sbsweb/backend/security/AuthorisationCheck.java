@@ -1,6 +1,8 @@
 package com.lms2ue1.sbsweb.backend.security;
 
+import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -119,7 +121,10 @@ public class AuthorisationCheck {
 	public boolean checkBillingUnit(String username, long buID) {
 		// Has the user the permission to access an associated billing item?
 		return getRole(username).getBillingItems().stream().map(b -> b.getBillingUnit()).collect(Collectors.toList())
-				.contains(billUnitRepo.findById(buID).get());
+				.contains(billUnitRepo.findById(buID).get())
+				|| getRole(username).getBillingItems().stream().map(b -> b.getBillingItems()).flatMap(List::stream)
+						.map(b -> b.getBillingUnit()).collect(Collectors.toList())
+						.contains(billUnitRepo.findById(buID).get());
 	}
 
 	/**
@@ -130,8 +135,10 @@ public class AuthorisationCheck {
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
 	public boolean checkBillingItem(String username, long bID) {
-		// TODO: Achtung: BillingItems sind verschachtelt! Nochmal überarbeiten!
-		return getRole(username).getBillingItems().contains(billItemRepo.findById(bID).get());
+		// We have billing items in billing items.
+		return getRole(username).getBillingItems().contains(billItemRepo.findById(bID).get())
+				|| getRole(username).getBillingItems().stream().map(b -> b.getBillingItems()).flatMap(List::stream)
+						.collect(Collectors.toList()).contains(billItemRepo.findById(bID).get());
 	}
 
 	/**
