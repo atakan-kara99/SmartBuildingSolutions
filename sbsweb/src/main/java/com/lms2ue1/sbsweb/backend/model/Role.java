@@ -6,14 +6,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 import java.util.List;
 
 @Entity
+@Table(name = "ROLE")
 public class Role {
 	// A few adaptations to make the data model actually work (nka).
 
@@ -29,16 +32,16 @@ public class Role {
 
 
 	// ---- Associations ----//
-	@ManyToMany
+	@ManyToMany(mappedBy = "roles")
 	private List<Project> projects;
 	@ManyToOne // (cascade = CascadeType.MERGE)
 	@JoinColumn(name = "organisation_id")
 	private Organisation organisation;
 	@OneToMany(mappedBy = "role")
 	private List<User> users;
-	@ManyToMany
+	@ManyToMany(mappedBy = "roles")
 	private List<Contract> contracts;
-	@ManyToMany
+	@ManyToMany(mappedBy = "roles")
 	private List<BillingItem> billingItems;
 
 	// ----------------------------------//

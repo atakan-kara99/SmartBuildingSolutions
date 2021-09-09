@@ -138,7 +138,7 @@ public class DatabaseInitService {
 	    // -----------------------------//
 	    // ------------- Role ----------//
 	    // -----------------------------//
-	    Role role0 = new Role("SysAdmin", List.of(pro3, pro4, pro5), null, null, org0, true);
+	    Role role0 = new Role("SysAdmin", List.of(pro3, pro4, pro5), List.of(con3, con4, con5, con6), List.of(billItem1, billItem2), org0, true);
 	    Role role1 = new Role("OrgAdmin", null, null, null, org1, true);
 	    Role r1 = new Role("Bauherr", null, null, null, org5, false);
 	    Role r2 = new Role("Bauherr", null, null, null, org3, false);

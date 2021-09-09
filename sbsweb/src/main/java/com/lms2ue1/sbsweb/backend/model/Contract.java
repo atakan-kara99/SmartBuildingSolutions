@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -32,9 +33,13 @@ public class Contract {
 	// ---- Associations ----//
 	@Size(min = 2, max = 2)
 	@ManyToMany
+	@JoinTable(name = "CONTRACT_ORGANISATIONS", joinColumns = { @JoinColumn(name = "CONTRACT_ID") }, inverseJoinColumns = {
+	            @JoinColumn(name = "ORGANISATIONS_ID") })
 	private List<Organisation> organisations;
 	@Size(min = 2)
 	@ManyToMany
+	@JoinTable(name = "CONTRACT_ROLES", joinColumns = { @JoinColumn(name = "CONTRACT_ID") }, inverseJoinColumns = {
+	            @JoinColumn(name = "ROLES_ID") })
 	private List<Role> roles;
 	@ManyToOne//(cascade = { CascadeType.ALL }) try to remove
 	@JoinColumn(name = "project_id")

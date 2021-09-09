@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -37,15 +38,16 @@ public class BillingItem {
 	private BillingUnit billingUnit;
 	@Size(min = 2)
 	@ManyToMany
+	@JoinTable(name = "BILLING_ITEM_ROLES", joinColumns = { @JoinColumn(name = "BILLING_ITEM_ID") }, inverseJoinColumns = {
+	            @JoinColumn(name = "ROLES_ID") })
 	private List<Role> roles;
-	@OneToMany//(mappedBy = "billing_item")
+	@OneToMany
 	@JoinColumn(name = "sub_billing_item")
 	private List<BillingItem> billingItems;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
-	// TODO: Do we really want to allow this? Good for testing. (nka)
 	public BillingItem() {
 	}
 
