@@ -60,7 +60,7 @@ public class UserManagementController {
         List<Role> roles = roleRepository.findByOrganisationOrderByNameAsc(organisation);
         for (User user : userRepository.findAll()) {
             for(Role role : roles) {
-                if(user.getRole() != null && user.getRole().getId() == role.getId()) {
+                if(user.getRole().getId() == role.getId()) {
                     users.add(user);
                 }
             }

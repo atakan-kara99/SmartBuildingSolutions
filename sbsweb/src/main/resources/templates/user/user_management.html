@@ -40,8 +40,7 @@
                             </tr>
                             <tr th:each="user : ${users}">
                                 <td class="text-center"><span th:text="${user.username}"> Benutzername </span></td>
-                                <td class="text-center" th:if="${user.role == null}"><span> Keine Rolle zugewiesen </span></td>
-                                <td class="text-center" th:if="${user.role != null}"><span th:text="${user.role.name}"> Rolle </span></td>
+                                <td class="text-center"><span th:text="${user.role.name}"> Rolle </span></td>
                                 <td class="text-center">
                                     <span>
                                         <div class="row justify-content-center">
