@@ -1,54 +1,68 @@
 package com.lms2ue1.sbsweb.backend.model;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.lms2ue1.sbsweb.backend.repository.*;
 
 @SpringBootTest
 public class BackendAccessProviderTest {
 
-    private static final BackendAccessProvider BAP = BackendAccessProvider.getInstance();
+    //// Mocks
 
-    @Autowired
+    @MockBean
     private AddressRepository addresses;
-    @Autowired
+    @MockBean
     private ProjectRepository projects;
-    @Autowired
+    @MockBean
     private ContractRepository contracts;
-    @Autowired
+    @MockBean
     private BillingUnitRepository billingUnits;
-    @Autowired
+    @MockBean
     private BillingItemRepository billingItems;
-    @Autowired
+    @MockBean
     private OrganisationRepository organisations;
-    @Autowired
+    @MockBean
     private UserRepository users;
-    @Autowired
+    @MockBean
     private RoleRepository roles;
+    @InjectMocks
+    private BackendAccessProvider BAP;
+
+    private AutoCloseable closeable;
+
+    //// Fields to use per test
+    private Address address1;
+    private Address address2;
+    private Project project1;
+    private Project project2;
+    private Contract contract1;
+    private Contract contract2;
+    private BillingUnit billingUnit1;
+    private BillingUnit billingUnit2;
+    private BillingItem billingItem1;
+    private BillingItem billingItem2;
+    private Organisation organisation1;
+    private Organisation organisation2;
+    private User user1;
+    private User user2;
+    private Role role1;
+    private Role role2;
+    private String rootUsername = "root";
 
     @BeforeEach
-    public void resetRepos() {
-	// Clear repos
-	billingItems.deleteAll();
-	billingUnits.deleteAll();
-	contracts.deleteAll();
-	projects.deleteAll();
-	addresses.deleteAll();
-	users.deleteAll();
-	roles.deleteAll();
-	organisations.deleteAll();
+    public void initFields() {
+	closeable = MockitoAnnotations.openMocks(this);
 
-	// Init fields
 	organisation1 = new Organisation("Fritz Müller GmbH");
 	organisation2 = new Organisation("Fritz Müller-Schulz GmbH");
 	address1 = new Address("Main Street", 1337, 14, "NY City", "Deutschland");
@@ -71,137 +85,80 @@ public class BackendAccessProviderTest {
 	user2 = new User("Hans", "Schulz", null, "hs", "hansss");
     }
 
-    //// Fields to use per test
-    private Address address1;
-    private Address address2;
-    private Project project1;
-    private Project project2;
-    private Contract contract1;
-    private Contract contract2;
-    private BillingUnit billingUnit1;
-    private BillingUnit billingUnit2;
-    private BillingItem billingItem1;
-    private BillingItem billingItem2;
-    private Organisation organisation1;
-    private Organisation organisation2;
-    private User user1;
-    private User user2;
-    private Role role1;
-    private Role role2;
+    @AfterEach
+    public void releaseMocks() throws Exception {
+	closeable.close();
+    }
 
     //// Organisation
 
     @Test
     public void testAddOrganisation() {
-	String username = "root";
-	BAP.addOrganisation(username, organisation1);
-	assertDoesNotThrow(() -> organisations.findById(organisation1.getId()).get(), "Organisation wasn't added!");
-	assertEquals(organisations.findById(organisation1.getId()).get(), organisation1,
-		"Another organisation with same id is present!");
+	BAP.addOrganisation(rootUsername, organisation1);
+	verify(organisations).save(organisation1);
     }
 
     @Test
     public void testRemoveOrganisation() {
-	// Add
-	String username = "root";
-	BAP.addOrganisation(username, organisation1);
-	assertDoesNotThrow(() -> organisations.findById(organisation1.getId()).get(), "Organisation wasn't added!");
-	// Remove
-	BAP.removeOrganisation(username, organisation1.getId());
-	assertTrue(organisations.findById(organisation1.getId()).isEmpty(), "Organisation wasn't removed!");
+	BAP.removeOrganisation(rootUsername, organisation1.getId());
+	verify(organisations).deleteById(organisation1.getId());
     }
 
     @Test
     public void testUpdateOrganisation() {
-	// Add
-	String username = "root";
-	BAP.addOrganisation(username, organisation1);
-	assertDoesNotThrow(() -> organisations.findById(organisation1.getId()).get(), "Organisation wasn't added!");
-	// Update
-	BAP.updateOrganisation(username, organisation1.getId(), organisation2);
-	assertThrows(NoSuchElementException.class, () -> organisations.findById(organisation1.getId()),
-		"Old organisation wasn't removed");
-	assertDoesNotThrow(() -> organisations.findById(organisation2.getId()).get(), "Organisation wasn't updated!");
-	assertEquals(organisations.findById(organisation2.getId()).get(), organisation2,
-		"Another organisation with same id is present!");
+	// TODO
+	BAP.updateOrganisation(rootUsername, organisation1.getId(), organisation2);
+	assertTrue(false);
     }
 
     //// User
 
     @Test
     public void testAddUser() {
-	String username = "root";
-	BAP.addUser(username, user1);
-	assertDoesNotThrow(() -> users.findById(user1.getId()).get(), "User wasn't added!");
-	assertEquals(users.findById(user1.getId()).get(), user1, "Another user with same id is present!");
+	BAP.addUser(rootUsername, user1);
+	verify(users).save(user1);
     }
 
     @Test
     public void testRemoveUser() {
-	// Add
-	String username = "root";
-	BAP.addUser(username, user1);
-	assertDoesNotThrow(() -> users.findById(user1.getId()).get(), "User wasn't added!");
-	// Remove
-	BAP.removeUser(username, user1.getId());
-	assertTrue(users.findById(user1.getId()).isEmpty(), "User wasn't removed!");
+	BAP.removeUser(rootUsername, user1.getId());
+	verify(users).deleteById(user1.getId());
     }
 
     @Test
     public void testUpdateUser() {
-	// Add
-	String username = "root";
-	BAP.addUser(username, user1);
-	assertDoesNotThrow(() -> users.findById(user1.getId()).get(), "User wasn't added!");
-	// Update
-	BAP.updateUser(username, user1.getId(), user2);
-	assertThrows(NoSuchElementException.class, () -> users.findById(user1.getId()), "Old user wasn't removed");
-	assertDoesNotThrow(() -> users.findById(user2.getId()).get(), "User wasn't updated!");
-	assertEquals(users.findById(user2.getId()).get(), user2, "Another user with same id is present!");
+	// TODO
+	BAP.updateUser(rootUsername, user1.getId(), user2);
+	assertTrue(false);
     }
 
     //// Role
 
     @Test
     public void testAddRole() {
-	String username = "root";
-	BAP.addRole(username, role1);
-	assertDoesNotThrow(() -> roles.findById(role1.getId()).get(), "Role wasn't added!");
-	assertEquals(roles.findById(role1.getId()).get(), role1, "Another role with same id is present!");
+	BAP.addRole(rootUsername, role1);
+	verify(roles).save(role1);
     }
 
     @Test
     public void testRemoveRole() {
-	// Add
-	String username = "root";
-	BAP.addRole(username, role1);
-	assertDoesNotThrow(() -> roles.findById(role1.getId()).get(), "Role wasn't added!");
-	// Remove
-	BAP.removeRole(username, role1.getId());
-	assertTrue(roles.findById(role1.getId()).isEmpty(), "Role wasn't removed!");
+	BAP.removeRole(rootUsername, role1.getId());
+	verify(roles).deleteById(role1.getId());
     }
 
     @Test
     public void testUpdateRole() {
-	// Add
-	String username = "root";
-	BAP.addRole(username, role1);
-	assertDoesNotThrow(() -> roles.findById(role1.getId()).get(), "Role wasn't added!");
-	// Update
-	BAP.updateRole(username, role1.getId(), role2);
-	assertThrows(NoSuchElementException.class, () -> roles.findById(role1.getId()), "Old role wasn't removed");
-	assertDoesNotThrow(() -> roles.findById(role2.getId()).get(), "Role wasn't updated!");
-	assertEquals(roles.findById(role2.getId()).get(), role2, "Another role with same id is present!");
+	// TODO
+	BAP.updateRole(rootUsername, role1.getId(), role2);
+	assertTrue(false);
     }
+
+    //// Get by ID
 
     @Test
     public void testGetProjectById() {
-	// Add
 	String username = "root";
-	organisations.save(organisation1);
-	addresses.save(address1);
-	projects.save(project1);
-	assertEquals(projects.findById(project1.getId()).get(), null);//BAP.getProjectById(username, project1.getId()),
-//		"The project wasn't found!");
+	when(projects.findById(project1.getId())).thenReturn(Optional.of(project1));
+	assertEquals(project1, BAP.getProjectById(username, project1.getId()), "The project wasn't found!");
     }
 }
