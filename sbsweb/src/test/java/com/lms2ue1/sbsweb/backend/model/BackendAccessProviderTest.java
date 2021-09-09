@@ -193,4 +193,15 @@ public class BackendAccessProviderTest {
 	assertDoesNotThrow(() -> roles.findById(role2.getId()).get(), "Role wasn't updated!");
 	assertEquals(roles.findById(role2.getId()).get(), role2, "Another role with same id is present!");
     }
+
+    @Test
+    public void testGetProjectById() {
+	// Add
+	String username = "root";
+	organisations.save(organisation1);
+	addresses.save(address1);
+	projects.save(project1);
+	assertEquals(projects.findById(project1.getId()).get(), null);//BAP.getProjectById(username, project1.getId()),
+//		"The project wasn't found!");
+    }
 }
