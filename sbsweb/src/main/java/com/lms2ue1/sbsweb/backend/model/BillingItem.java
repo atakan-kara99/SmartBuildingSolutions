@@ -37,9 +37,7 @@ public class BillingItem {
 	@JoinColumn(name = "billing_unit_id")
 	private BillingUnit billingUnit;
 	@Size(min = 2)
-	@ManyToMany
-	@JoinTable(name = "BILLING_ITEM_ROLES", joinColumns = { @JoinColumn(name = "BILLING_ITEM_ID") }, inverseJoinColumns = {
-	            @JoinColumn(name = "ROLES_ID") })
+	@ManyToMany(mappedBy = "billingItems")
 	private List<Role> roles;
 	@OneToMany
 	@JoinColumn(name = "sub_billing_item")

@@ -32,16 +32,22 @@ public class Role {
 
 
 	// ---- Associations ----//
-	@ManyToMany(mappedBy = "roles")
+	@ManyToMany
+	@JoinTable(name = "PROJECT_ROLES", joinColumns = { @JoinColumn(name = "ROLES_ID") }, inverseJoinColumns = {
+	            @JoinColumn(name = "PROJECTS_ID") })
 	private List<Project> projects;
 	@ManyToOne // (cascade = CascadeType.MERGE)
 	@JoinColumn(name = "organisation_id")
 	private Organisation organisation;
 	@OneToMany(mappedBy = "role")
 	private List<User> users;
-	@ManyToMany(mappedBy = "roles")
+	@ManyToMany
+	@JoinTable(name = "CONTRACT_ROLES", joinColumns = { @JoinColumn(name = "ROLES_ID") }, inverseJoinColumns = {
+	            @JoinColumn(name = "CONTRACT_ID") })
 	private List<Contract> contracts;
-	@ManyToMany(mappedBy = "roles")
+	@ManyToMany
+	@JoinTable(name = "BILLING_ITEM_ROLES", joinColumns = { @JoinColumn(name = "ROLES_ID") }, inverseJoinColumns = {
+	            @JoinColumn(name = "BILLING_ITEM_ID") })
 	private List<BillingItem> billingItems;
 
 	// ----------------------------------//

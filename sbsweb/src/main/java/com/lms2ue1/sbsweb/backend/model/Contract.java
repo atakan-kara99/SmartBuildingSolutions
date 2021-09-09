@@ -37,9 +37,7 @@ public class Contract {
 	            @JoinColumn(name = "ORGANISATIONS_ID") })
 	private List<Organisation> organisations;
 	@Size(min = 2)
-	@ManyToMany
-	@JoinTable(name = "CONTRACT_ROLES", joinColumns = { @JoinColumn(name = "CONTRACT_ID") }, inverseJoinColumns = {
-	            @JoinColumn(name = "ROLES_ID") })
+	@ManyToMany(mappedBy = "contracts")
 	private List<Role> roles;
 	@ManyToOne//(cascade = { CascadeType.ALL }) try to remove
 	@JoinColumn(name = "project_id")
