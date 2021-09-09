@@ -1,5 +1,12 @@
 package com.lms2ue1.sbsweb.backend.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.lms2ue1.sbsweb.backend.model.*;
+import com.lms2ue1.sbsweb.backend.repository.OrganisationRepository;
+import com.lms2ue1.sbsweb.backend.repository.RoleRepository;
+import com.lms2ue1.sbsweb.backend.repository.UserRepository;
+
 /**
  * This class provides predicates to say, whether a user is allowed to do
  * something.
@@ -29,6 +36,26 @@ public class AuthorisationCheck {
 		return instance;
 	}
 
+	// ---------- Repositories ------------- //
+	@Autowired
+	RoleRepository roleRepo;
+	@Autowired
+	UserRepository userRepo;
+	@Autowired
+	OrganisationRepository orgRepo;
+
+	// ---------- Misc ------------- //
+
+	/**
+	 * Get the role of the given user.
+	 * 
+	 * @param username = the given user.
+	 * @return the associated role.
+	 */
+	public Role getRole(String username) {
+		return userRepo.findByUsername(username).getRole();
+	}
+
 	// ---------- Organisation and stuff ------------- //
 
 	/**
@@ -38,9 +65,9 @@ public class AuthorisationCheck {
 	 * @param oID      = the organisation in question.
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
-	public boolean checkOrganisation(String username, long oID) {
-		// TODO: Implement me!
-		return false;
+	public boolean checkOrganisation(String username, Long oID) {
+		// Does the user belong to the given organisation?
+		return getRole(username).getOrganisation().equals(orgRepo.findById(oID).get());
 	}
 
 	/**
@@ -51,7 +78,9 @@ public class AuthorisationCheck {
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
 	public boolean checkProject(String username, long pID) {
-		// TODO: Implement me!
+		// Does the role of the given user has the permission to access the given
+		// project?
+
 		return false;
 	}
 
@@ -71,7 +100,7 @@ public class AuthorisationCheck {
 	 * Is the given user allowed to do anything with the billing unit?
 	 * 
 	 * @param username = the user, who wants to work with it.
-	 * @param buID      = the billing unit in question.
+	 * @param buID     = the billing unit in question.
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
 	public boolean checkBillingUnit(String username, long buID) {
@@ -104,6 +133,19 @@ public class AuthorisationCheck {
 		// TODO: Implement me!
 		return false;
 	}
+
+	/**
+	 * Is the given user allowed to do anything with the address?
+	 * 
+	 * @param username = the user, who wants to work with it.
+	 * @param aID      = the given address.
+	 * @return true = yes, he*she is. false = no, he*she isn't.
+	 */
+	public boolean checkAddress(String username, long aID) {
+		// TODO: Implement me!
+		return false;
+	}
+
 	// TODO: The status => Different issue.
 
 }
