@@ -3,7 +3,9 @@ package com.lms2ue1.sbsweb.backend.security;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lms2ue1.sbsweb.backend.model.*;
+import com.lms2ue1.sbsweb.backend.repository.ContractRepository;
 import com.lms2ue1.sbsweb.backend.repository.OrganisationRepository;
+import com.lms2ue1.sbsweb.backend.repository.ProjectRepository;
 import com.lms2ue1.sbsweb.backend.repository.RoleRepository;
 import com.lms2ue1.sbsweb.backend.repository.UserRepository;
 
@@ -43,6 +45,10 @@ public class AuthorisationCheck {
 	UserRepository userRepo;
 	@Autowired
 	OrganisationRepository orgRepo;
+	@Autowired
+	ProjectRepository proRepo;
+	@Autowired
+	ContractRepository conRepo;
 
 	// ---------- Misc ------------- //
 
@@ -78,10 +84,7 @@ public class AuthorisationCheck {
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
 	public boolean checkProject(String username, long pID) {
-		// Does the role of the given user has the permission to access the given
-		// project?
-
-		return false;
+		return getRole(username).getProjects().contains(proRepo.findById(pID).get());
 	}
 
 	/**
@@ -92,8 +95,7 @@ public class AuthorisationCheck {
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
 	public boolean checkContract(String username, long cID) {
-		// TODO: Implement me!
-		return false;
+		return getRole(username).getContracts().contains(conRepo.findById(cID).get());
 	}
 
 	/**
@@ -104,6 +106,7 @@ public class AuthorisationCheck {
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
 	public boolean checkBillingUnit(String username, long buID) {
+		// return getRole(username).get;
 		// TODO: Implement me!
 		return false;
 	}
@@ -116,6 +119,18 @@ public class AuthorisationCheck {
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
 	public boolean checkBillingItem(String username, long bID) {
+		// TODO: Implement me!
+		return false;
+	}
+
+	/**
+	 * Is the given user allowed to do anything with the address?
+	 * 
+	 * @param username = the user, who wants to work with it.
+	 * @param aID      = the given address.
+	 * @return true = yes, he*she is. false = no, he*she isn't.
+	 */
+	public boolean checkAddress(String username, long aID) {
 		// TODO: Implement me!
 		return false;
 	}
@@ -135,13 +150,23 @@ public class AuthorisationCheck {
 	}
 
 	/**
-	 * Is the given user allowed to do anything with the address?
+	 * Is the given user a SysAdmin?
 	 * 
-	 * @param username = the user, who wants to work with it.
-	 * @param aID      = the given address.
+	 * @param username = the user in question.
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
-	public boolean checkAddress(String username, long aID) {
+	public boolean isSysAdmin(String username) {
+		// TODO: Implement me!
+		return false;
+	}
+	
+	/**
+	 * Is the given user a OrgAdmin?
+	 * 
+	 * @param username = the user in question.
+	 * @return true = yes, he*she is. false = no, he*she isn't.
+	 */
+	public boolean isOrgAdmin(String username) {
 		// TODO: Implement me!
 		return false;
 	}
