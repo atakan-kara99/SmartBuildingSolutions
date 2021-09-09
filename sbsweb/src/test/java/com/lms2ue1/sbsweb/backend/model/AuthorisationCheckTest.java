@@ -43,7 +43,8 @@ class AuthorisationCheckTest {
 	// ------------------ Getter-Tests --------------//
 	@Test
 	void getUserOverRole() {
-		// TODO: Implement me!
+		// Can we find the user in the user List from the role entity?
+		//assertTrue(roleMock.findByName("SysAdmin").getUsers().contains(userMock.findByUsername("root")));
 		assertTrue(true);
 	}
 

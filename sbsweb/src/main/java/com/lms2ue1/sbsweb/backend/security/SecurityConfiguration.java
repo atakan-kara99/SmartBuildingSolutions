@@ -23,6 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
+	// TODO: Sysadmin und Orgadmin abgrenzen
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http

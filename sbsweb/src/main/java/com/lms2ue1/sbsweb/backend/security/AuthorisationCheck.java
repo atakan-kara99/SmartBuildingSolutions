@@ -1,5 +1,7 @@
 package com.lms2ue1.sbsweb.backend.security;
 
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lms2ue1.sbsweb.backend.model.*;
@@ -115,9 +117,9 @@ public class AuthorisationCheck {
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
 	public boolean checkBillingUnit(String username, long buID) {
-		// return getRole(username).get;
-		// TODO: Implement me!
-		return false;
+		// Has the user the permission to access an associated billing item?
+		return getRole(username).getBillingItems().stream().map(b -> b.getBillingUnit()).collect(Collectors.toList())
+				.contains(billUnitRepo.findById(buID).get());
 	}
 
 	/**
@@ -128,7 +130,7 @@ public class AuthorisationCheck {
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
 	public boolean checkBillingItem(String username, long bID) {
-		// TODO: Achtung: BillingItems sind verschachtelt! Nochmal überarbeiten.
+		// TODO: Achtung: BillingItems sind verschachtelt! Nochmal überarbeiten!
 		return getRole(username).getBillingItems().contains(billItemRepo.findById(bID).get());
 	}
 
@@ -140,8 +142,9 @@ public class AuthorisationCheck {
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
 	public boolean checkAddress(String username, long aID) {
-		// TODO: Implement me!
-		return false;
+		// Has the user the permission to see the project?
+		Project project = addRepo.findById(aID).get().getProject();
+		return checkProject(username, project.getId());
 	}
 
 	// ---------- User management ------------- //
