@@ -2,7 +2,6 @@ package com.lms2ue1.sbsweb.backend.security;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -120,6 +119,8 @@ public class AuthorisationCheck {
 	 */
 	public boolean checkBillingUnit(String username, long buID) {
 		// Has the user the permission to access an associated billing item?
+		// First: The root billingItems.
+		// Second: The other nodes.
 		return getRole(username).getBillingItems().stream().map(b -> b.getBillingUnit()).collect(Collectors.toList())
 				.contains(billUnitRepo.findById(buID).get())
 				|| getRole(username).getBillingItems().stream().map(b -> b.getBillingItems()).flatMap(List::stream)
@@ -136,6 +137,8 @@ public class AuthorisationCheck {
 	 */
 	public boolean checkBillingItem(String username, long bID) {
 		// We have billing items in billing items.
+		// First: The root billingItems.
+		// Second: The other nodes.
 		return getRole(username).getBillingItems().contains(billItemRepo.findById(bID).get())
 				|| getRole(username).getBillingItems().stream().map(b -> b.getBillingItems()).flatMap(List::stream)
 						.collect(Collectors.toList()).contains(billItemRepo.findById(bID).get());
