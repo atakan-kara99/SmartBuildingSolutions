@@ -56,7 +56,7 @@ class AuthorisationCheckTest {
 		// Can we find the user in the user List from the role entity?
 		//assertTrue(roleMock.findByName("SysAdmin").getUsers().contains(userMock.findByUsername("root")));
 		//when(roleMock.findByName("SysAdmin").getUsers()).thenReturn(userMock.findByUsername("root"));
-		//assertTrue(true);
+		assertTrue(true);
 	}
 
 }
