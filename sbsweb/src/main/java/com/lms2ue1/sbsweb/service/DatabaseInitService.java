@@ -58,9 +58,9 @@ public class DatabaseInitService {
 //	    // -----------------------------//
 //	    // ------------- User ----------//
 //	    // -----------------------------//
-	    User user0 = new User("Peter", "Müller", role0, "root", passwordEncoder.encode("admin"));
-
-	    userRepo.save(user0);
+//	    User user0 = new User("Peter", "Müller", role0, "root", passwordEncoder.encode("admin"));
+//
+//	    userRepo.save(user0);
 //
 //	    // -----------------------------//
 //	    // ------------- Address -------//
