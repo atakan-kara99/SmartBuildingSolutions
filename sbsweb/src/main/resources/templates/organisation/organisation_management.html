@@ -37,30 +37,30 @@
                     <thead>
                     <tr>
                         <th class="text-center" style="width: 45%" scope="col"> Organisation</th>
-                        <th class="text-center" style="width: 45%" scope="col"> Administratoren</th>
-                        <th class="text-center" style="width: 45%" scope="col"> Mitglieder</th>
+<!--                        <th class="text-center" style="width: 45%" scope="col"> Administratoren</th>-->
+<!--                        <th class="text-center" style="width: 45%" scope="col"> Mitglieder</th>-->
                         <th class="text-center" style="width: 45%" scope="col"> Optionen</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="organisation : ${organisations}">
-                        <td class="text-center"><span th:text="${organisation?.orgName}"> Organisation </span></td>
-                        <td class="text-center"><span
-                                th:text="${organisation?.getAdministrator()}"> Administratoren </span></td>
-                        <td class="text-center"><span
-                                th:text="${organisation?.getUsers().size()}"> Mitglieder </span>
-                        </td>
+                        <td class="text-center"><span th:text="${organisation?.name}"> Organisation </span></td>
+<!--                        <td class="text-center"><span-->
+<!--                                th:text="${organisation?.getAdministrator()}"> Administratoren </span></td>-->
+<!--                        <td class="text-center"><span-->
+<!--                                th:text="${organisation?.getUsers().size()}"> Mitglieder </span>-->
+<!--                        </td>-->
                         <td class="text-center">
                          <span>
                              <div class="row justify-content-center">
 <!--                                 <div class="col-12">-->
-                                    <a th:href="@{'/organisation/' + ${organisation.oId} + '/edit'}" class="icon-link">
+                                    <a th:href="@{'/organisation/' + ${organisation.getId()} + '/edit'}" class="icon-link">
                                          <i class="bi bi-pencil" style="font-size: medium; color: black;"
                                             title="Bearbeiten"></i>
                                      </a>
                                  <!--                                 </div>-->
                                  <div class="col align-self-end">
-                                     <a th:href="@{'/organisation/' + ${organisation.oId} + '/delete'}"
+                                     <a th:href="@{'/organisation/' + ${organisation.getId()} + '/delete'}"
                                         class="icon-link"><i class="bi bi-trash"
                                                              style="font-size: medium; color: black;"
                                                              title="Löschen"></i>
@@ -68,7 +68,7 @@
                                  </div>
                                    <div class="row justify-content-center">
                                   <div class="col align-self-end">
-                                     <a th:href="@{'/organisation/' + ${organisation.oId} + '/users'}"
+                                     <a th:href="@{'/organisation/' + ${organisation.getId()} + '/users'}"
                                         class="icon-link"><i class="bi bi-person"
                                                              style="font-size: medium; color: black;"
                                                              title="Mitglieder anzeigen"></i>

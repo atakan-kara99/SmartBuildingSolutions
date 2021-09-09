@@ -2,19 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Navigation Bar</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Navigation Bar</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light" th:fragment="navbar">
-		<div class="navbar-nav">
-			<th:block sec:authorize="isAuthenticated()">
-			<a class="nav-item nav-link" th:href="@{/contracts}">Vertragsdaten</a>
-			<a class="nav-item nav-link" th:href="@{/projects}">Projekte</a>
-			<a class="nav-item nav-link" th:href="@{/user_management}">Benutzerverwaltung</a>
-			<a class="nav-item nav-link" th:href="@{/organisations}">Organisationen</a>
-			<!-- Logout must be performed as a POST request, i. e., via a form button.
+
+    <nav class="navbar navbar-expand-lg navbar-light" th:fragment="navbar">
+        <div class="navbar-collapse collapse">
+            <div class="navbar-nav">
+                <th:block sec:authorize="isAuthenticated()">
+                    <a class="nav-item nav-link" th:href="@{/project_overview}">Projekte</a>
+                    <a class="nav-item nav-link" th:href="@{/organisations}">Organisation</a>
+                    <!-- Logout must be performed as a POST request, i. e., via a form button.
 			     For visual consistency, we use a hidden form submitted by a link here. -->
                     <a class="nav-item nav-link" href="javascript:document.logoutForm.submit()">Logout</a>
                     <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
