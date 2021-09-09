@@ -306,6 +306,20 @@ public class BackendAccessProvider {
 	return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
     }
 
+    /**
+     * Returns the status with the given id.
+     * 
+     * @param username the username of the user requesting this operation.
+     * @param statusId the status' id.
+     * @return the status with the given id.
+     * @throws AuthenticationException  if the user has insufficient rights.
+     * @throws IllegalArgumentException if the operation failed.
+     */
+    public Status getStatusById(String username, Long statusId) {
+	// TODO
+	return null;
+    }
+
     //////////////////////// Getters for lists ////////////////////////
 
     /**
@@ -433,6 +447,18 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<Role> getAllAccessibleRoles(String username) {
+	// TODO
+	return null;
+    }
+
+    //////////////////////// All stati ////////////////////////
+
+    /**
+     * Returns all stati.
+     * 
+     * @return all stati.
+     */
+    public List<Status> getAllStati() {
 	// TODO
 	return null;
     }
