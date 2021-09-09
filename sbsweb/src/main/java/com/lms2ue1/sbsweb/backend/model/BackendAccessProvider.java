@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.naming.AuthenticationException;
 
@@ -194,6 +195,7 @@ public class BackendAccessProvider {
 
     //////////////////////// Getters per id ////////////////////////
 
+    @Deprecated
     /**
      * Returns the address with the given id.
      * 
@@ -293,6 +295,7 @@ public class BackendAccessProvider {
 	return users.findById(userId).orElseThrow(IllegalArgumentException::new);
     }
 
+    @Deprecated
     /**
      * Returns the role with the given id.
      * 
@@ -420,6 +423,9 @@ public class BackendAccessProvider {
 	// TODO can't handle the sysadmin's swag yet,
 	// orgadmin and user should be ok
 	try {
+//	    if (isSysAdmin(username)) {
+//		return StreamSupport.stream(organisations.findAll().spliterator(), false).collect(Collectors.toList());
+//	    }
 	    return List.of(users.findByUsername(username).getRole().getOrganisation());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
@@ -439,7 +445,17 @@ public class BackendAccessProvider {
 	// sysadmin: all
 	// orgadmin: all per organisation
 	// user: user himself
-	return null;
+	try {
+//	    if (isSysAdmin(username)) {
+//		return StreamSupport.stream(users.findAll().spliterator(), false).collect(Collectors.toList());
+//	    } else if (isOrgAdmin(username)) {
+//		return users.findByUsername(username).getRole().getOrganisation().getRoles().stream()
+//			.map(r -> r.getUsers()).flatMap(List::stream).collect(Collectors.toList());
+//	    }
+	    return List.of(users.findByUsername(username));
+	} catch (NullPointerException e) {
+	    throw new IllegalArgumentException();
+	}
     }
 
     /**
@@ -455,7 +471,16 @@ public class BackendAccessProvider {
 	// sysadmin: all
 	// orgadmin: all per organisation
 	// user: own role
-	return null;
+	try {
+//	    if (isSysAdmin(username)) {
+//		return StreamSupport.stream(roles.findAll().spliterator(), false).collect(Collectors.toList());
+//	    } else if (isOrgAdmin(username)) {
+//		return users.findByUsername(username).getRole().getOrganisation().getRoles();
+//	    }
+	    return List.of(users.findByUsername(username).getRole());
+	} catch (NullPointerException e) {
+	    throw new IllegalArgumentException();
+	}
     }
 
     //////////////////////// Convenience methods ////////////////////////
