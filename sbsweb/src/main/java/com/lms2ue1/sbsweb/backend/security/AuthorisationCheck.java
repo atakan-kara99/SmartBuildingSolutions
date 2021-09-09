@@ -3,6 +3,9 @@ package com.lms2ue1.sbsweb.backend.security;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lms2ue1.sbsweb.backend.model.*;
+import com.lms2ue1.sbsweb.backend.repository.AddressRepository;
+import com.lms2ue1.sbsweb.backend.repository.BillingItemRepository;
+import com.lms2ue1.sbsweb.backend.repository.BillingUnitRepository;
 import com.lms2ue1.sbsweb.backend.repository.ContractRepository;
 import com.lms2ue1.sbsweb.backend.repository.OrganisationRepository;
 import com.lms2ue1.sbsweb.backend.repository.ProjectRepository;
@@ -49,6 +52,12 @@ public class AuthorisationCheck {
 	ProjectRepository proRepo;
 	@Autowired
 	ContractRepository conRepo;
+	@Autowired
+	BillingItemRepository billItemRepo;
+	@Autowired
+	BillingUnitRepository billUnitRepo;
+	@Autowired
+	AddressRepository addRepo;
 
 	// ---------- Misc ------------- //
 
@@ -58,7 +67,7 @@ public class AuthorisationCheck {
 	 * @param username = the given user.
 	 * @return the associated role.
 	 */
-	public Role getRole(String username) {
+	private Role getRole(String username) {
 		return userRepo.findByUsername(username).getRole();
 	}
 
@@ -119,8 +128,8 @@ public class AuthorisationCheck {
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
 	public boolean checkBillingItem(String username, long bID) {
-		// TODO: Implement me!
-		return false;
+		// TODO: Achtung: BillingItems sind verschachtelt! Nochmal überarbeiten.
+		return getRole(username).getBillingItems().contains(billItemRepo.findById(bID).get());
 	}
 
 	/**
@@ -156,10 +165,9 @@ public class AuthorisationCheck {
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
 	public boolean isSysAdmin(String username) {
-		// TODO: Implement me!
-		return false;
+		return getRole(username).getName() == "SysAdmin";
 	}
-	
+
 	/**
 	 * Is the given user a OrgAdmin?
 	 * 
@@ -167,8 +175,8 @@ public class AuthorisationCheck {
 	 * @return true = yes, he*she is. false = no, he*she isn't.
 	 */
 	public boolean isOrgAdmin(String username) {
-		// TODO: Implement me!
-		return false;
+		// A SysAdmin is also an OrgAdmin.
+		return getRole(username).getName() == "SysAdmin" || getRole(username).getName() == "OrgAdmin";
 	}
 
 	// TODO: The status => Different issue.
