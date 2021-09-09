@@ -12,21 +12,12 @@ import javax.validation.constraints.Size;
 
 import java.util.List;
 
-/**
- * Class of organizations. Each organization is associated to one or more
- * contracts, two or more users, one or more projects and two or more roles.
- * 
- * @author juliusdaum
- *
- */
 @Entity
 public class Organisation {
-	// A few adaptations to make the data model actually work (nka).
-
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable = false, unique = true)
+	@Column(updatable = false)
 	private long id;
 	@NotEmpty
 	@Column(unique = true)
@@ -37,7 +28,7 @@ public class Organisation {
 	@OneToMany(mappedBy = "organisation")
 	private List<Project> projects;
 	@Size(min = 2)
-	@OneToMany
+	@OneToMany(mappedBy="organisation") // Mapping is necessary!
 	private List<Role> roles;
 	@Size(min = 1)
 	@ManyToMany
@@ -53,6 +44,7 @@ public class Organisation {
 
 	/**
 	 * Constructor to insert the data of the rest api json request.
+	 * Only the parameters of the constructor are columns (plus the FKs).
 	 * 
 	 * @param name  = name of the organisation.
 	 */

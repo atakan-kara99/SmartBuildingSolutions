@@ -2,7 +2,6 @@ package com.lms2ue1.sbsweb.backend.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,13 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
-/**
- * Billing Item of a project. Associated to two or more roles, one billing unit
- * and two itself.
- * 
- * @author juliusdaum
- *
- */
 @Entity
 public class BillingItem {
 	// ---- Attributes ----//
@@ -40,7 +32,7 @@ public class BillingItem {
 	private String shortDesLinkedIFC;
 
 	// ---- Associations ----//
-	@ManyToOne(cascade = { CascadeType.ALL })
+	@ManyToOne//(cascade = { CascadeType.ALL }) tried w/ cascading
 	private BillingUnit billingUnit;
 	@Size(min = 2)
 	@ManyToMany
@@ -58,6 +50,7 @@ public class BillingItem {
 
 	/**
 	 * Initializes a billing item.
+	 * Only the parameters of the constructor are columns (plus the FKs).
 	 * 
 	 * @param name         = name of the user
 	 * @param price        = price
