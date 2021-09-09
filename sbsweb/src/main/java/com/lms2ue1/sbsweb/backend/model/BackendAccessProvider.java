@@ -495,6 +495,8 @@ public class BackendAccessProvider {
 	return null;
     }
 
+    //////////////////////// Frontend people love this stuff! ////////////////////////
+
     /**
      * Returns all users in the organisation with the given id.
      * 
