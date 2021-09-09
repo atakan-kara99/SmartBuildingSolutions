@@ -48,14 +48,14 @@ public class ProjectController {
 	model.addAttribute("projects", projects.findAll());
 
 	// TODO: Debug
-	for (Role r : roleRepo.findAll()) {
+	/*for (Role r : roleRepo.findAll()) {
 	    System.out
 		    .println("Users: " + r.getUsers().stream().map(u -> u.getUsername()).collect(Collectors.toList()));
 	    System.out.println("List of Users is empty: " + r.getUsers().isEmpty());
 	    System.out.println(
 		    "Projects: " + r.getProjects().stream().map(p -> p.getName()).collect(Collectors.toList()));
 	    System.out.println("List of projects is empty: " + r.getProjects().isEmpty());
-	}
+	}*/
 
 	return "project/project_overview";
 
