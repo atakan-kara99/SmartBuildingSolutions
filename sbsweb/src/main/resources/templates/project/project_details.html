@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+<title th:text="${project.name}"></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link th:href="@{/css/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <th:block th:fragment="content">
+        <div class="container">
+            <div class="text-center">
+                <h1 th:text="${project.name}"></h1>
+                <div class="padding-50"></div>
+                <p th:text="${project.description}"></p>
+                <p>
+                    Status:
+                    <b th:text="${project.status}"></b>
+                </p>
+                <a th:href="@{'/project/' + ${pID} + '/diagrams'}">
+                    <button type="button" class="btn btn-outline-success">Diagramme anzeigen</button>
+                </a>
+            </div>
+        </div>
+        <div class="padding-50"></div>
+        <div class="text-center">
+            <h4 th:if="${contracts.empty}">Keine Verträge verfügbar.</h4>
+            <div class="container" th:unless="${contracts.empty}">
+                <table class="table">
+                    <tbody>
+                        <tr th:each="_, row : ${contracts}" th:if="${row.count % 4 == 0 or row.last}">
+                            <span th:each="x : ${ {3,2,1,0} }">
+                                <td th:if="${row.count % 4 == 0}" th:with="contract=${contracts[row.index - x]}">
+                                    <a th:href="@{'/project/' + ${pID} + '/contract/' + ${contract.id} + '/show'}" class="icon-link">
+                                        <i class="bi bi-book" style="font-size: 300%; color: black;" th:title="${contract.name}"></i>
+                                        <span th:text="${contract.name}" style="font-size: 175%; color: black; display: block;"></span>
+                                    </a>
+                                </td>
+                                <td th:if="${row.count % 4 != 0} and ${row.last} and ${x < row.count % 4}" th:with="contract=${contracts[row.index - x]}">
+                                    <a th:href="@{'/project/' + ${pID} + '/contract/' + ${contract.id} + '/show'}" class="icon-link">
+                                        <i class="bi bi-book" style="font-size: 300%; color: black;" th:title="${contract.name}"></i>
+                                        <span th:text="${contract.name}" style="font-size: 175%; color: black; display: block;"></span>
+                                    </a>
+                                </td>
+                            </span>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </th:block>
+</body>
+
+</html>

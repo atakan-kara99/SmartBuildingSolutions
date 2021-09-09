@@ -1,24 +1,33 @@
 package com.lms2ue1.sbsweb.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.lms2ue1.sbsweb.backend.model.BillingItem;
+import com.lms2ue1.sbsweb.backend.model.Status;
+import com.lms2ue1.sbsweb.backend.repository.BillingItemRepository;
+
 @Controller
 public class BillingItemController {
 
-    /** Shows an overview of all billing items. */
-    @GetMapping("/billing_item_overview")
-    public String showBillingItemOverview(Model model) {
-	return "billingitem/billing_item_overview";
-    }
+    @Autowired
+    BillingItemRepository billingItems;
 
     /** Shows the specified billing item's details. */
     @GetMapping("/project/{pID}/contract/{cID}/billing_item/{bID}/show")
     public String showBillingItemDetails(@PathVariable Long pID, @PathVariable Long cID, @PathVariable Long bID,
 	    Model model) {
-	// TODO
+	model.addAttribute("pID", pID);
+	model.addAttribute("cID", cID);
+	model.addAttribute("bID", bID);
+//	model.addAttribute("billingItem", BackendAccessProvider.getBillingItemById(username, bID));
+	model.addAttribute("billingItem", billingItems.findById(bID).get());
 	return "billingitem/billing_item_details";
     }
 }
