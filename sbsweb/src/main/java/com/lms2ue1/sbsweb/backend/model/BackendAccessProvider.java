@@ -46,6 +46,7 @@ public class BackendAccessProvider {
 	return instance;
     }
 
+    /** Disable public default constructor. */
     private BackendAccessProvider() {
     }
 
@@ -389,7 +390,7 @@ public class BackendAccessProvider {
     }
 
     /**
-     * Returns a list of all billing items the user can access <b> not </b>
+     * Returns a list of all billing items the user can access, <b> not </b>
      * including nested billing items.
      * 
      * @param username the username of the user requesting this operation.
@@ -398,7 +399,6 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<BillingItem> getAllAccessibleBillingItems(String username) {
-	// TODO also return billing items in billing items? Not yet implemented
 	try {
 	    return users.findByUsername(username).getRole().getContracts().stream().map(c -> c.getBillingUnits())
 		    .flatMap(List::stream).map(bu -> bu.getBillingItems()).flatMap(List::stream)
@@ -417,7 +417,8 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<Organisation> getAllAccessibleOrganisations(String username) {
-	// TODO can't handle the sysadmin's swag yet
+	// TODO can't handle the sysadmin's swag yet,
+	// orgadmin and user should be ok
 	try {
 	    return List.of(users.findByUsername(username).getRole().getOrganisation());
 	} catch (NullPointerException e) {
@@ -435,6 +436,9 @@ public class BackendAccessProvider {
      */
     public List<User> getAllAccessibleUsers(String username) {
 	// TODO
+	// sysadmin: all
+	// orgadmin: all per organisation
+	// user: user himself
 	return null;
     }
 
@@ -448,10 +452,13 @@ public class BackendAccessProvider {
      */
     public List<Role> getAllAccessibleRoles(String username) {
 	// TODO
+	// sysadmin: all
+	// orgadmin: all per organisation
+	// user: own role
 	return null;
     }
 
-    //////////////////////// All stati ////////////////////////
+    //////////////////////// Convenience methods ////////////////////////
 
     /**
      * Returns all stati.
@@ -461,6 +468,20 @@ public class BackendAccessProvider {
     public List<Status> getAllStati() {
 	// TODO
 	return null;
+    }
+
+    /**
+     * Returns all users in the organisation with the given id.
+     * 
+     * @param username       the username of the user requesting this operation.
+     * @param organisationId the organisation's id.
+     * @return all users in the organisation with the given id.
+     * @throws AuthenticationException  if the user has insufficient rights.
+     * @throws IllegalArgumentException if the operation failed.
+     */
+    public List<User> getAllUsersByOrganisationId(String username, Long organisationId) {
+	return getOrganisationById(username, organisationId).getRoles().stream().map(r -> r.getUsers())
+		.flatMap(List::stream).collect(Collectors.toList());
     }
 
     //////////////////////// Stuff to JSON ////////////////////////

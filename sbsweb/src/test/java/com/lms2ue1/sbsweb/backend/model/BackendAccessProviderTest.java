@@ -1,7 +1,11 @@
 package com.lms2ue1.sbsweb.backend.model;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,16 +54,34 @@ public class BackendAccessProviderTest {
 	String username = "root";
 	Organisation organisation = new Organisation("Fritz Müller GmbH");
 	BAP.addOrganisation(username, organisation);
-	assertDoesNotThrow(() -> organisations.findById(organisation.getId()).get(), "Organisation couldn't be added");
+	assertDoesNotThrow(() -> organisations.findById(organisation.getId()).get(), "Organisation couldn't be added!");
+	assertEquals(organisations.findById(organisation.getId()).get(), organisation,
+		"Another organisation with same id is present!");
     }
 
     @Test
     public void testRemoveOrganisation() {
+	// Add
 	String username = "root";
 	Organisation organisation = new Organisation("Fritz Müller GmbH");
 	BAP.addOrganisation(username, organisation);
-	assertDoesNotThrow(() -> organisations.findById(organisation.getId()).get(), "Organisation couldn't be added");
+	assertDoesNotThrow(() -> organisations.findById(organisation.getId()).get(), "Organisation couldn't be added!");
+	// Remove
 	BAP.removeOrganisation(username, organisation.getId());
-	assertTrue(organisations.findById(organisation.getId()).isEmpty());
+	assertTrue(organisations.findById(organisation.getId()).isEmpty(), "Organisation wasn't removed!");
+    }
+
+    @Test
+    public void testUpdateOrganisation() {
+	// Add
+	String username = "root";
+	Organisation organisation = new Organisation("Fritz Müller GmbH");
+	BAP.addOrganisation(username, organisation);
+	assertDoesNotThrow(() -> organisations.findById(organisation.getId()).get(), "Organisation couldn't be added!");
+	// Update
+	Organisation newOrganisation = new Organisation("Fritz Müller-Schulz GmbH");
+	BAP.updateOrganisation(username, organisation.getId(), newOrganisation);
+	assertThrows(NoSuchElementException.class, () -> organisations.findById(organisation.getId()),
+		"Old organisation wasn't removed");
     }
 }
