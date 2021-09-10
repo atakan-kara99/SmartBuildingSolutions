@@ -71,8 +71,8 @@ public class BackendAccessProviderTest {
 	closeable = MockitoAnnotations.openMocks(this);
 	when(auth.isSysAdmin(rootUsername)).thenReturn(true);
 	when(auth.isSysAdmin(failUsername)).thenReturn(false);
-	when(auth.isOrgAdmin(rootUsername)).thenReturn(true);
-	when(auth.isOrgAdmin(failUsername)).thenReturn(false);
+	when(auth.getOrgAdminID(rootUsername)).thenReturn(0L);
+	when(auth.getOrgAdminID(failUsername)).thenReturn(null);
 
 	organisation1 = new Organisation("Fritz M�ller GmbH");
 	organisation2 = new Organisation("Fritz M�ller-Schulz GmbH");

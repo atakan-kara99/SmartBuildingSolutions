@@ -156,10 +156,24 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void addRole(String username, Role newRole) throws AuthenticationException {
-	if (auth.isSysAdmin(username) || newRole != null && newRole.getId() == (auth.getOrgAdminID(username))) {
-	    roles.save(newRole);
+	if (newRole == null) {
+	    throw new IllegalArgumentException();
+	}
+
+	boolean canSave = false;
+	if (auth.isSysAdmin(username)) {
+	    canSave = true;
 	} else {
-	    throw new AuthenticationException();
+	    Long oID = auth.getOrgAdminID(username);
+	    if (oID != null && newRole.getOrganisation().getId() == oID.longValue()) {
+		canSave = true;
+	    } else {
+		throw new AuthenticationException();
+	    }
+	}
+
+	if (canSave) {
+	    roles.save(newRole);
 	}
     }
 
@@ -172,10 +186,24 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void removeRole(String username, Long roleId) throws AuthenticationException {
-	if (auth.isSysAdmin(username) || roleId != null && roleId.equals(auth.getOrgAdminID(username))) {
-	    roles.deleteById(roleId);
+	if (roleId == null) {
+	    throw new IllegalArgumentException();
+	}
+
+	boolean canDelete = false;
+	if (auth.isSysAdmin(username)) {
+	    canDelete = true;
 	} else {
+	    long oID1 = roles.findById(roleId).orElseThrow(IllegalArgumentException::new).getOrganisation().getId();
+	    Long oID2 = auth.getOrgAdminID(username);
+	    if (oID2 != null && oID1 == oID2.longValue()) {
+		canDelete = true;
+	    }
 	    throw new AuthenticationException();
+	}
+
+	if (canDelete) {
+	    roles.deleteById(roleId);
 	}
     }
 
@@ -189,12 +217,26 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void updateRole(String username, Long oldRoleId, Role updatedRole) throws AuthenticationException {
+	if (updatedRole == null) {
+	    throw new IllegalArgumentException();
+	}
 	Role oldRole = roles.findById(oldRoleId).orElseThrow(IllegalArgumentException::new);
-	if (auth.isSysAdmin(username) || oldRole.getId() == auth.getOrgAdminID(username)) {
+
+	boolean canUpdate = false;
+	if (auth.isSysAdmin(username)) {
+	    canUpdate = true;
+	} else {
+	    Long oID = auth.getOrgAdminID(username);
+	    if (oID != null && oldRole.getOrganisation().getId() == oID) {
+		canUpdate = true;
+	    } else {
+		throw new AuthenticationException();
+	    }
+	}
+
+	if (canUpdate) {
 	    oldRole.setName(updatedRole.getName());
 	    oldRole.setManageUser(updatedRole.isManageUser());
-	} else {
-	    throw new AuthenticationException();
 	}
     }
 
