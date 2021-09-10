@@ -33,9 +33,10 @@ public class BillingItem {
 
 	// ---- Associations ----//
 	@ManyToOne//(cascade = { CascadeType.ALL }) tried w/ cascading
+	@JoinColumn(name = "billing_unit_id")
 	private BillingUnit billingUnit;
 	@Size(min = 2)
-	@ManyToMany
+	@ManyToMany(mappedBy = "billingItems")
 	private List<Role> roles;
 	@OneToMany
 	@JoinColumn(name = "sub_billing_item")
@@ -44,7 +45,6 @@ public class BillingItem {
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
-	// TODO: Do we really want to allow this? Good for testing. (nka)
 	public BillingItem() {
 	}
 

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -40,9 +41,10 @@ public class Project {
 	@OneToMany(mappedBy = "project", orphanRemoval = true)
 	private List<Contract> contracts;
 	@ManyToOne
+	@JoinColumn(name = "organisation_id")
 	private Organisation organisation;
 	@Size(min = 2)
-	@ManyToMany
+	@ManyToMany(mappedBy = "projects")
 	private List<Role> roles;
 
 	// ----------------------------------//
@@ -84,6 +86,7 @@ public class Project {
 		this.address = address;
 		this.organisation = organisation;
 	}
+	
 
 	// ----------------------------//
 	// ---------- Getter ----------//
