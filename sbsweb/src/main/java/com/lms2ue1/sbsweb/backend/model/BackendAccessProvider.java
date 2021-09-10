@@ -109,10 +109,10 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void addUser(String username, User newUser) throws AuthenticationException {
-	// TODO check if:
-	// username not yet in user repo (case insensitive)
-	if (newUser == null || users.findByUsernameIgnoreCase(username) == null) {
+	if (newUser == null) {
 	    throw new IllegalArgumentException();
+	} else if (users.findByUsernameIgnoreCase(username) == null) {
+	    throw new IllegalArgumentException("username is already taken!");
 	}
 
 	if (auth.manageUser(username, newUser.getId())) {
@@ -131,7 +131,15 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void removeUser(String username, Long userId) throws AuthenticationException {
-	// TODO
+	if (userId == null) {
+	    throw new IllegalArgumentException();
+	}
+	
+	if (auth.manageUser(username, userId)) {
+	    users.deleteById(userId);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -145,7 +153,19 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void updateUser(String username, Long oldUserId, User updatedUser) throws AuthenticationException {
-	// TODO
+	if (oldUserId == null || updatedUser == null) {
+	    throw new IllegalArgumentException();
+	}
+	
+	if (auth.manageUser(username, oldUserId)) {
+	    User oldUser = users.findById(oldUserId).orElseThrow(IllegalArgumentException::new);
+	    oldUser.setForename(updatedUser.getForename());
+	    oldUser.setLastname(updatedUser.getLastname());
+	    oldUser.setUsername(updatedUser.getUsername());
+	    oldUser.setPassword(updatedUser.getPassword());
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     //////// Roles
@@ -220,7 +240,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void updateRole(String username, Long oldRoleId, Role updatedRole) throws AuthenticationException {
-	if (updatedRole == null) {
+	if (oldRoleId == null || updatedRole == null) {
 	    throw new IllegalArgumentException();
 	}
 	Role oldRole = roles.findById(oldRoleId).orElseThrow(IllegalArgumentException::new);
