@@ -33,7 +33,7 @@ public class AuthorisationCheck {
 	 * 
 	 * @return the instance
 	 */
-	public static AuthorisationCheck getAuthInstance() {
+	public static AuthorisationCheck getInstance() {
 		if (instance == null) {
 			synchronized (AuthorisationCheck.class) {
 				if (instance == null) {
@@ -46,21 +46,21 @@ public class AuthorisationCheck {
 
 	// ---------- Repositories ------------- //
 	@Autowired
-	RoleRepository roleRepo;
+	private RoleRepository roleRepo;
 	@Autowired
-	UserRepository userRepo;
+	private UserRepository userRepo;
 	@Autowired
-	OrganisationRepository orgRepo;
+	private OrganisationRepository orgRepo;
 	@Autowired
-	ProjectRepository proRepo;
+	private ProjectRepository proRepo;
 	@Autowired
-	ContractRepository conRepo;
+	private ContractRepository conRepo;
 	@Autowired
-	BillingItemRepository billItemRepo;
+	private BillingItemRepository billItemRepo;
 	@Autowired
-	BillingUnitRepository billUnitRepo;
+	private BillingUnitRepository billUnitRepo;
 	@Autowired
-	AddressRepository addRepo;
+	private AddressRepository addRepo;
 
 	// ---------- Misc ------------- //
 

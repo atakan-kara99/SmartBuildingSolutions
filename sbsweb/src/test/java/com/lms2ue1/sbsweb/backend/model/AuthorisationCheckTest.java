@@ -46,17 +46,21 @@ class AuthorisationCheckTest {
 	}
 	
 	@AfterEach
-	private void close() throws Exception {
+	public void close() throws Exception {
 		closeable.close();
 	}
 
 	// ------------------ Getter-Tests --------------//
 	@Test
-	void getUserOverRole() {
+	public void testGetUserOverRole() {
 		// Can we find the user in the user List from the role entity?
 		//assertTrue(roleMock.findByName("SysAdmin").getUsers().contains(userMock.findByUsername("root")));
 		//when(roleMock.findByName("SysAdmin").getUsers()).thenReturn(userMock.findByUsername("root"));
 		assertTrue(true);
 	}
+	
+	// TODO
+	// When running this test, there's an error at DatabaseInitService.java:82
+	// -> saving the projects causes an error
 
 }
