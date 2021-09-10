@@ -20,7 +20,7 @@ import com.lms2ue1.sbsweb.backend.repository.UserRepository;
  * something.
  */
 public class AuthorisationCheck {
-    
+
     private AuthorisationCheck() {
     }
 
@@ -76,7 +76,8 @@ public class AuthorisationCheck {
      */
     public boolean checkOrganisation(String username, Long oID) {
 	// Does the user belong to the given organisation?
-	return getRole(username).getOrganisation().equals(orgRepo.findById(oID).get());
+	return getRole(username).getOrganisation()
+		.equals(orgRepo.findById(oID).orElseThrow(IllegalArgumentException::new));
     }
 
     /**
@@ -87,7 +88,8 @@ public class AuthorisationCheck {
      * @return true = yes, he*she is. false = no, he*she isn't.
      */
     public boolean checkProject(String username, long pID) {
-	return getRole(username).getProjects().contains(proRepo.findById(pID).get());
+	return getRole(username).getProjects()
+		.contains(proRepo.findById(pID).orElseThrow(IllegalArgumentException::new));
     }
 
     /**
@@ -98,7 +100,8 @@ public class AuthorisationCheck {
      * @return true = yes, he*she is. false = no, he*she isn't.
      */
     public boolean checkContract(String username, long cID) {
-	return getRole(username).getContracts().contains(conRepo.findById(cID).get());
+	return getRole(username).getContracts()
+		.contains(conRepo.findById(cID).orElseThrow(IllegalArgumentException::new));
     }
 
     /**
@@ -114,10 +117,10 @@ public class AuthorisationCheck {
 	// First: The root billingItems.
 	// Second: The other nodes.
 	return getRole(username).getBillingItems().stream().map(b -> b.getBillingUnit()).collect(Collectors.toList())
-		.contains(billUnitRepo.findById(buID).get())
+		.contains(billUnitRepo.findById(buID).orElseThrow(IllegalArgumentException::new))
 		|| getRole(username).getBillingItems().stream().map(b -> b.getBillingItems()).flatMap(List::stream)
 			.map(b -> b.getBillingUnit()).collect(Collectors.toList())
-			.contains(billUnitRepo.findById(buID).get());
+			.contains(billUnitRepo.findById(buID).orElseThrow(IllegalArgumentException::new));
     }
 
     /**
@@ -132,9 +135,11 @@ public class AuthorisationCheck {
 	// We have billing items in billing items.
 	// First: The root billingItems.
 	// Second: The other nodes.
-	return getRole(username).getBillingItems().contains(billItemRepo.findById(bID).get())
+	return getRole(username).getBillingItems()
+		.contains(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::new))
 		|| getRole(username).getBillingItems().stream().map(b -> b.getBillingItems()).flatMap(List::stream)
-			.collect(Collectors.toList()).contains(billItemRepo.findById(bID).get());
+			.collect(Collectors.toList())
+			.contains(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::new));
     }
 
     /**
@@ -146,7 +151,7 @@ public class AuthorisationCheck {
      */
     public boolean checkAddress(String username, long aID) {
 	// Has the user the permission to see the project?
-	Project project = addRepo.findById(aID).get().getProject();
+	Project project = addRepo.findById(aID).orElseThrow(IllegalArgumentException::new).getProject();
 	return checkProject(username, project.getId());
     }
 
@@ -160,8 +165,11 @@ public class AuthorisationCheck {
      * @return true = yes, he*she is. false = no, he*she isn't.
      */
     public boolean manageUser(String username, long uID) {
-	// First: The given 
-	return false;
+	// First: The given user has to have the permission to manage user per default.
+	// Second: Both user have to be in the same organisation.
+	return isSysAdmin(username) || (getRole(username).isManageUser() && getRole(username).getOrganisation()
+		.getId() == getRole(userRepo.findById(uID).orElseThrow(IllegalArgumentException::new).getUsername())
+			.getOrganisation().getId());
     }
 
     /**
