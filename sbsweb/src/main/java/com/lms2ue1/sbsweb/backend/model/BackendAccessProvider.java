@@ -2,6 +2,7 @@ package com.lms2ue1.sbsweb.backend.model;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.naming.AuthenticationException;
 
@@ -392,14 +393,13 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public User getUserById(String username, Long userId) throws AuthenticationException {
-//	if (auth.check(username, userId)) {
-//	    return users.findById(userId).orElseThrow(IllegalArgumentException::new);
-//	} else {
-//	    throw new AuthenticationException();
-//	}
+	if (auth.manageUser(username, userId)) {
+	    return users.findById(userId).orElseThrow(IllegalArgumentException::new);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
-    @Deprecated
     /**
      * Returns the role with the given id.
      * 
@@ -409,9 +409,14 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public Role getRoleById(String username, Long roleId) {
-	// TODO check if username is allowed to access
-	return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
+    public Role getRoleById(String username, Long roleId) throws AuthenticationException {
+	Long oID = auth.getOrgAdminID(username);
+	Role role = roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
+	if (oID != null && role.getId() == oID.longValue()) {
+	    return role;
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -522,12 +527,12 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<Organisation> getAllOrganisations(String username) {
-	// TODO can't handle the sysadmin's swag yet,
-	// orgadmin and user should be ok
 	try {
-//	    if (isSysAdmin(username)) {
-//		return StreamSupport.stream(organisations.findAll().spliterator(), false).collect(Collectors.toList());
-//	    }
+	    if (auth.isSysAdmin(username)) {
+		// All organisations
+		return StreamSupport.stream(organisations.findAll().spliterator(), false).collect(Collectors.toList());
+	    }
+	    // Own organisation
 	    return List.of(users.findByUsername(username).getRole().getOrganisation());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
@@ -543,17 +548,16 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<User> getAllUsers(String username) {
-	// TODO
-	// sysadmin: all
-	// orgadmin: all per organisation
-	// user: user himself
 	try {
-//	    if (isSysAdmin(username)) {
-//		return StreamSupport.stream(users.findAll().spliterator(), false).collect(Collectors.toList());
-//	    } else if (isOrgAdmin(username)) {
-//		return users.findByUsername(username).getRole().getOrganisation().getRoles().stream()
-//			.map(r -> r.getUsers()).flatMap(List::stream).collect(Collectors.toList());
-//	    }
+	    if (auth.isSysAdmin(username)) {
+		// All users
+		return StreamSupport.stream(users.findAll().spliterator(), false).collect(Collectors.toList());
+	    } else if (auth.getOrgAdminID(username) != null) {
+		// Users in organisation
+		return users.findByUsername(username).getRole().getOrganisation().getRoles().stream()
+			.map(r -> r.getUsers()).flatMap(List::stream).collect(Collectors.toList());
+	    }
+	    // Just the user
 	    return List.of(users.findByUsername(username));
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
@@ -569,16 +573,15 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<Role> getAllRoles(String username) {
-	// TODO
-	// sysadmin: all
-	// orgadmin: all per organisation
-	// user: own role
 	try {
-//	    if (isSysAdmin(username)) {
-//		return StreamSupport.stream(roles.findAll().spliterator(), false).collect(Collectors.toList());
-//	    } else if (isOrgAdmin(username)) {
-//		return users.findByUsername(username).getRole().getOrganisation().getRoles();
-//	    }
+	    if (auth.isSysAdmin(username)) {
+		// All roles
+		return StreamSupport.stream(roles.findAll().spliterator(), false).collect(Collectors.toList());
+	    } else if (auth.getOrgAdminID(username) != null) {
+		// Roles in organisation
+		return users.findByUsername(username).getRole().getOrganisation().getRoles();
+	    }
+	    // Own role
 	    return List.of(users.findByUsername(username).getRole());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
@@ -610,7 +613,7 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public List<User> getAllUsersByOrganisationId(String username, Long organisationId) {
+    public List<User> getAllUsersByOrganisationId(String username, Long organisationId) throws AuthenticationException {
 	return getOrganisationById(username, organisationId).getRoles().stream().map(r -> r.getUsers())
 		.flatMap(List::stream).collect(Collectors.toList());
     }
