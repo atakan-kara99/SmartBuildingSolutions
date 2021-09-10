@@ -41,22 +41,41 @@ public class RoleManagementController {
         return "role/role_management";
     }
 
-    /** Shows the page to add a new role to an organisation. */
+    /**
+     * Shows the page to add a new role to the specified organisation.
+     * 
+     * @param oID ID of the relevant organisation
+     * @param model Spring model to provide instances to the web page
+     * @return URI of the HTML role new page
+     */
     @GetMapping("/organisation/{oID}/role_management/role_new")
     public String showNewRoleForm(@PathVariable long oID, Model model) {
-        model.addAttribute("organisation", organisationRepository.findById(oID).get());
-        model.addAttribute("role", new Role());
+        Organisation organisation = organisationRepository.findById(oID).get();
+        Role newRole = new Role();
+        newRole.setManageUser(true);
+        model.addAttribute("organisation", organisation);
+        model.addAttribute("role", newRole);
         return "role/role_new";
     }
 
-    /** Will save the new role if no problems were encountered. Will also redirect to role management. */
+    /**
+     * POST mapping to add a new role to an organisation.
+     * 
+     * @param oID ID of the relevant organisation
+     * @param role Instance of Role to add
+     * @param bindingResult Binding results used for error checking
+     * @param model Spring model to provide instances to the web page
+     * @return When errors are found the URI to the HTML role new page is returned. Else a redirect to the organisation's role management page will be returned
+     */
     @PostMapping("/organisation/{oID}/role_management/role_save")
     public String addNewRole(@PathVariable long oID, @Valid Role role, BindingResult bindingResult, Model model) {
-        //More checks needed
+        Organisation organisation = organisationRepository.findById(oID).get();
         if(bindingResult.hasErrors()) {
             model.addAttribute("role", role);
-            return "role_new";
+            model.addAttribute("organisation", organisation);
+            return "role/role_new";
         }
+        role.setOrganisation(organisation);
         roleRepository.save(role);
         return "redirect:/organisation/{oID}/role_management";
     }
@@ -125,47 +144,26 @@ public class RoleManagementController {
                 }
             }
         }
+        model.addAttribute("organisation", organisation);
+        model.addAttribute("role", roleRepository.findById(rID).get());
         model.addAttribute("roleUsers", roleUsers);
         model.addAttribute("availableUsers", availableUsers);
         return "role/role_edit_users";
     }
 
     /**
-     * POST mapping to add a new user to the relevant role.
+     * GET mapping to add a new user to the relevant role. This actually sort of works like a post mapping.
      * 
      * @param oID ID of the relevant organisation
      * @param rID ID of the relevant role
      * @param uID ID of the specified user
      * @return Redirect to role edit users page
      */
-    @PostMapping("/organisation/{oID}/role_management/role/{rID}/user/{uID}/role_add_user")
+    @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_add_user/user/{uID}")
     public String addUserToRole(@PathVariable long oID, @PathVariable long rID, @PathVariable long uID) {
-        Role role = roleRepository.findById(rID).get();
-        List<User> roleUsers = role.getUsers();
-        User newRoleUser = userRepository.findById(uID).get();
-        newRoleUser.getRole().getUsers().remove(newRoleUser);
-        newRoleUser.setRole(role);
-        roleUsers.add(newRoleUser);
-        role.setUsers(roleUsers);
-        return "redirect:/organisation/{oID}/role_management/role/{rID}/role_edit_users";
-    }
-
-    /**
-     * POST mapping to remove a user from the relevant role.
-     * 
-     * @param oID ID of the relevant organisation
-     * @param rID ID of the relevant role
-     * @param uID ID of the specified user
-     * @return Redirect to role edit users page
-     */
-    @PostMapping("/organisation/{oID}/role_management/role/{rID}/user/{uID}/role_remove_user")
-    public String removeUserFromRole(@PathVariable long oID, @PathVariable long rID, @PathVariable long uID) {
-        Role role = roleRepository.findById(rID).get();
-        List<User> roleUsers = role.getUsers();
-        User roleUser = userRepository.findById(uID).get();
-        roleUser.setRole(null);
-        roleUsers.remove(roleUser);
-        role.setUsers(roleUsers);
+        User user = userRepository.findById(uID).get();
+        user.setRole(roleRepository.findById(rID).get());
+        userRepository.save(user);
         return "redirect:/organisation/{oID}/role_management/role/{rID}/role_edit_users";
     }
 }
