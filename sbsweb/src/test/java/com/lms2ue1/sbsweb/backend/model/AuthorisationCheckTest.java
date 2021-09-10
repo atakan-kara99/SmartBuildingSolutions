@@ -21,6 +21,8 @@ class AuthorisationCheckTest {
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    // --------- Repositorie mocks --------------------//
+    // !!! Every repo needs to be mocked! EVERY REPO! !!!
     @MockBean
     private RoleRepository roleMock;
     @MockBean

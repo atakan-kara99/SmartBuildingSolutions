@@ -1,8 +1,6 @@
 package com.lms2ue1.sbsweb.backend.security;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
