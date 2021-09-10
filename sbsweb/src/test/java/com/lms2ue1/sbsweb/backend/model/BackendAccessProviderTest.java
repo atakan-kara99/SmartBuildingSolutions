@@ -160,20 +160,20 @@ public class BackendAccessProviderTest {
 
     @Test
     public void testAddRole() {
-	BAP.addRole(rootUsername, role1);
+//	BAP.addRole(rootUsername, role1);
 	verify(roles).save(role1);
     }
 
     @Test
     public void testRemoveRole() {
-	BAP.removeRole(rootUsername, role1.getId());
+//	BAP.removeRole(rootUsername, role1.getId());
 	verify(roles).deleteById(role1.getId());
     }
 
     @Test
     public void testUpdateRole() {
 	// TODO
-	BAP.updateRole(rootUsername, role1.getId(), role2);
+//	BAP.updateRole(rootUsername, role1.getId(), role2);
 	assertTrue(false);
     }
 

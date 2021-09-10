@@ -156,11 +156,11 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void addRole(String username, Role newRole) throws AuthenticationException {
-	if (auth.isSysAdmin(username) || newRole != null && newRole.getId().equals(auth.getOrgAdminID(username))) {
-	    roles.save(newRole);
-	} else {
-	    throw new AuthenticationException();
-	}
+//	if (auth.isSysAdmin(username) || newRole != null && newRole.getId().equals(auth.getOrgAdminID(username))) {
+//	    roles.save(newRole);
+//	} else {
+//	    throw new AuthenticationException();
+//	}
     }
 
     /**
@@ -172,11 +172,11 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void removeRole(String username, Long roleId) throws AuthenticationException {
-	if (auth.isSysAdmin(username) || roleId != null && roleId.equals(auth.getOrgAdminID(username))) {
-	    roles.deleteById(roleId);
-	} else {
-	    throw new AuthenticationException();
-	}
+//	if (auth.isSysAdmin(username) || roleId != null && roleId.equals(auth.getOrgAdminID(username))) {
+//	    roles.deleteById(roleId);
+//	} else {
+//	    throw new AuthenticationException();
+//	}
     }
 
     /**
