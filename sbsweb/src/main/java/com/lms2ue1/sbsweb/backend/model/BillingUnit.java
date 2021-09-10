@@ -17,7 +17,7 @@ public class BillingUnit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, unique = true)
-	private long id;
+	private Long id;
 	private String shortDescription;
 	private String longDescription;
 	private String unit;
@@ -27,12 +27,13 @@ public class BillingUnit {
 	private double totalPrice;
 
 	// ---- Associations ----//
-	/* Got problems with merging with contracts */
-	@ManyToOne//(cascade = { CascadeType.MERGE }) // try to run w/
+	@ManyToOne
 	private Contract contract;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "billingUnit", orphanRemoval = true)
 	private List<BillingItem> billingItems;
+	@OneToMany(mappedBy="billingUnit")
+	private Status status;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
@@ -68,7 +69,7 @@ public class BillingUnit {
 	// ----------------------------//
 	// ---------- Getter ----------//
 	// ----------------------------//
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
@@ -108,6 +109,9 @@ public class BillingUnit {
 		return this.billingItems;
 	}
 
+	public Status getStatus() {
+		return this.status;
+	}
 	// ----------------------------//
 	// ---------- Setter ----------//
 	// ----------------------------//
@@ -149,5 +153,8 @@ public class BillingUnit {
 
 	public void setBillingItems(List<BillingItem> bis) {
 		this.billingItems = bis;
+	}
+	public void setStatus(Status s) {
+		this.status = s;
 	}
 }
