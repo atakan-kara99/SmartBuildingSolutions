@@ -99,6 +99,7 @@ public class BackendAccessProviderTest {
     public void testAddOrganisation() {
 	BAP.addOrganisation(rootUsername, organisation1);
 	verify(organisations).save(organisation1);
+	// TODO also verify unauthorized users cannot do this
     }
 
     @Test
@@ -211,4 +212,6 @@ public class BackendAccessProviderTest {
 	assertThrows(AuthenticationException.class, () -> BAP.getUserById(failUsername, id),
 		"An unauthorized user was granted access!");
     }
+
+    //// Get all accessible
 }

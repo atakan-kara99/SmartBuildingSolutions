@@ -334,10 +334,10 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public List<Address> getAllAccessibleAddresses(String username) {
+    public List<Address> getAllAddresses(String username) {
 	try {
-	    return users.findByUsername(username).getRole().getContracts().stream()
-		    .map(c -> c.getProject().getAddress()).collect(Collectors.toList());
+	    return users.findByUsername(username).getRole().getProjects().stream().map(p -> p.getAddress())
+		    .collect(Collectors.toList());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -351,7 +351,7 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public List<Project> getAllAccessibleProjects(String username) {
+    public List<Project> getAllProjects(String username) {
 	try {
 	    return users.findByUsername(username).getRole().getProjects();
 	} catch (NullPointerException e) {
@@ -367,7 +367,7 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public List<Contract> getAllAccessibleContracts(String username) {
+    public List<Contract> getAllContracts(String username) {
 	try {
 	    return users.findByUsername(username).getRole().getContracts();
 	} catch (NullPointerException e) {
@@ -383,10 +383,10 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public List<BillingUnit> getAllAccessibleBillingUnits(String username) {
+    public List<BillingUnit> getAllBillingUnits(String username) {
 	try {
-	    return users.findByUsername(username).getRole().getContracts().stream().map(c -> c.getBillingUnits())
-		    .flatMap(List::stream).collect(Collectors.toList());
+	    return users.findByUsername(username).getRole().getBillingItems().stream().map(bi -> bi.getBillingUnit())
+		    .collect(Collectors.toList());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -401,11 +401,9 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public List<BillingItem> getAllAccessibleBillingItems(String username) {
+    public List<BillingItem> getAllBillingItems(String username) {
 	try {
-	    return users.findByUsername(username).getRole().getContracts().stream().map(c -> c.getBillingUnits())
-		    .flatMap(List::stream).map(bu -> bu.getBillingItems()).flatMap(List::stream)
-		    .collect(Collectors.toList());
+	    return users.findByUsername(username).getRole().getBillingItems();
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -419,7 +417,7 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public List<Organisation> getAllAccessibleOrganisations(String username) {
+    public List<Organisation> getAllOrganisations(String username) {
 	// TODO can't handle the sysadmin's swag yet,
 	// orgadmin and user should be ok
 	try {
@@ -440,7 +438,7 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public List<User> getAllAccessibleUsers(String username) {
+    public List<User> getAllUsers(String username) {
 	// TODO
 	// sysadmin: all
 	// orgadmin: all per organisation
@@ -466,7 +464,7 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public List<Role> getAllAccessibleRoles(String username) {
+    public List<Role> getAllRoles(String username) {
 	// TODO
 	// sysadmin: all
 	// orgadmin: all per organisation
