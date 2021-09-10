@@ -63,22 +63,20 @@ public class RoleManagementController {
     }
 
     /** Shows the role edit page */
-    @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_edit")
+    @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_edit_name")
     public String showRoleEditFormById(@PathVariable long oID, @PathVariable long rID, Model model) {
         model.addAttribute("role", roleRepository.findById(rID).get());
         model.addAttribute("organisation", organisationRepository.findById(oID).get());
-        return "role/role_edit";
+        return "role/role_edit_name";
     }
 
     /** Updates the role with the new data that was specified. Will redirect to role management if everything went well. */
-    @PostMapping("/organisation/{oID}/role_management/role/{rID}/role_update")
+    @PostMapping("/organisation/{oID}/role_management/role/{rID}/role_update_name")
     public String editRoleById(@PathVariable long oID, @PathVariable long rID, @Valid Role role, BindingResult bindingResult, Model model) {
-        //More checks needed
         if(bindingResult.hasErrors()) {
             model.addAttribute("role", role);
             return "role/role_edit";
         }
-        role.setId(rID);
         roleRepository.save(role);
         return "redirect:/organisation/{oID}/role_management";
     }

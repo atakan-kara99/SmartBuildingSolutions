@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <th:block th:fragment="content">
+        <div class="container">
+            <div class="text-center">
+                <h1> Rollennamen bearbeiten </h1>
+                <div class="padding-50"></div>
+                <form action="#" th:action="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/role_update_name'}" th:object="${role}" method="post">
+                    <div class="row justify-content-center">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="name"> Rollenname </label>
+                                <input type="text" class="form-control" id="name" th:field="*{name}" th:errorclass="is-invalid" />
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" th:field="*{id}" />
+                    <input type="hidden" th:field="*{organisation}" />
+                    <input type="hidden" th:field="*{users}" />
+                    <input type="hidden" th:field="*{projects}" />
+                    <input type="hidden" th:field="*{contracts}" />
+                    <input type="hidden" th:field="*{billingItems}" />
+                    <div class="padding-50"></div>
+                    <button type="submit" class="btn btn-success"> Änderungen speichern </button>
+                </form>
+            </div>
+        </div>
+    </th:block>
+</body>
+
+</html>
