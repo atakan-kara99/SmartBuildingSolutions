@@ -1,5 +1,6 @@
 package com.lms2ue1.sbsweb.backend.security;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,12 +58,17 @@ public class AuthorisationCheck {
     /**
      * Flatten the list of lists in one huge list.
      * 
-     * @param hugeList = The list of lists to flatten.
-     * @return The flattend list.
+     * @param hugeList       the future result.
+     * @param currentElement the current element.
+     * @return The flattened list.
      */
-    private <T> List<T> flattenBillingItems(List<T> hugeList) {
-	// TODO: Implement me!
-	return null;
+    private List<BillingItem> flattenBillingItems(List<BillingItem> hugeList, BillingItem currentElement) {
+	// Using a dfs:
+	hugeList.add(currentElement);
+	for (BillingItem nextElement : currentElement.getBillingItems()) {
+	    flattenBillingItems(hugeList, nextElement);
+	}
+	return hugeList;
     }
 
     // ---------- Organisation and stuff ------------- //
