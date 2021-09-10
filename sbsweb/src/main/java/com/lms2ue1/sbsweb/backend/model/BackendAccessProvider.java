@@ -156,11 +156,11 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void addRole(String username, Role newRole) throws AuthenticationException {
-//	if (auth.isSysAdmin(username) || newRole != null && newRole.getId().equals(auth.getOrgAdminID(username))) {
-//	    roles.save(newRole);
-//	} else {
-//	    throw new AuthenticationException();
-//	}
+	if (auth.isSysAdmin(username) || newRole != null && newRole.getId() == (auth.getOrgAdminID(username))) {
+	    roles.save(newRole);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -172,11 +172,11 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void removeRole(String username, Long roleId) throws AuthenticationException {
-//	if (auth.isSysAdmin(username) || roleId != null && roleId.equals(auth.getOrgAdminID(username))) {
-//	    roles.deleteById(roleId);
-//	} else {
-//	    throw new AuthenticationException();
-//	}
+	if (auth.isSysAdmin(username) || roleId != null && roleId.equals(auth.getOrgAdminID(username))) {
+	    roles.deleteById(roleId);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -189,8 +189,8 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void updateRole(String username, Long oldRoleId, Role updatedRole) throws AuthenticationException {
-	if (auth.isSysAdmin(username) || (auth.isOrgAdmin(username)) && false) { // TODO orgadmin.oid == role.oid
-	    Role oldRole = roles.findById(oldRoleId).orElseThrow(IllegalArgumentException::new);
+	Role oldRole = roles.findById(oldRoleId).orElseThrow(IllegalArgumentException::new);
+	if (auth.isSysAdmin(username) || oldRole.getId() == auth.getOrgAdminID(username)) {
 	    oldRole.setName(updatedRole.getName());
 	    oldRole.setManageUser(updatedRole.isManageUser());
 	} else {
