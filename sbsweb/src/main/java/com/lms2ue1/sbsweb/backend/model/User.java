@@ -11,7 +11,6 @@ import javax.validation.constraints.NotEmpty;
 
 /**
  * User will be created at the frontend side of the application.
- * 
  */
 @Entity
 public class User {
