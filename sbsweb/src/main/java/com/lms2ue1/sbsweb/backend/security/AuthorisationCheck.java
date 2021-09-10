@@ -1,18 +1,13 @@
 package com.lms2ue1.sbsweb.backend.security;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lms2ue1.sbsweb.backend.model.*;
-import com.lms2ue1.sbsweb.backend.repository.AddressRepository;
-import com.lms2ue1.sbsweb.backend.repository.BillingItemRepository;
-import com.lms2ue1.sbsweb.backend.repository.BillingUnitRepository;
-import com.lms2ue1.sbsweb.backend.repository.ContractRepository;
-import com.lms2ue1.sbsweb.backend.repository.OrganisationRepository;
-import com.lms2ue1.sbsweb.backend.repository.ProjectRepository;
-import com.lms2ue1.sbsweb.backend.repository.RoleRepository;
-import com.lms2ue1.sbsweb.backend.repository.UserRepository;
+import com.lms2ue1.sbsweb.backend.repository.*;
 
 /**
  * This class provides predicates to say, whether a user is allowed to do
@@ -24,8 +19,6 @@ public class AuthorisationCheck {
     }
 
     // ---------- Repositories ------------- //
-    @Autowired
-    private RoleRepository roleRepo;
     @Autowired
     private UserRepository userRepo;
     @Autowired
@@ -116,16 +109,9 @@ public class AuthorisationCheck {
      * @return true = yes, the user is. false = no, the user isn't.
      */
     public boolean checkBillingUnit(String username, long buID) {
-	// TODO: Verschachtelung
-	// Has the user the permission to access an associated billing item?
-	// First: The root billingItems.
-	// Second: The other nodes.
-	/*return getRole(username).getBillingItems().stream().map(b -> b.getBillingUnit()).collect(Collectors.toList())
-		.contains(billUnitRepo.findById(buID).orElseThrow(IllegalArgumentException::new))
-		|| getRole(username).getBillingItems().stream().map(b -> b.getBillingItems()).flatMap(List::stream)
-			.map(b -> b.getBillingUnit()).collect(Collectors.toList())
-			.contains(billUnitRepo.findById(buID).orElseThrow(IllegalArgumentException::new));*/
-	return false;
+	// Every billing item in another billing item are part of the same billing unit.
+	return getRole(username).getBillingItems().stream().map(bi -> bi.getBillingUnit()).collect(Collectors.toList())
+		.contains(billUnitRepo.findById(buID).orElseThrow(IllegalArgumentException::new));
     }
 
     /**
@@ -136,16 +122,13 @@ public class AuthorisationCheck {
      * @return true = yes, the user is. false = no, the user isn't.
      */
     public boolean checkBillingItem(String username, long bID) {
-	// TODO: Verschachtelung
 	// We have billing items in billing items.
 	// First: The root billingItems.
 	// Second: The other nodes.
-	/*return getRole(username).getBillingItems()
-		.contains(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::new))
-		|| getRole(username).getBillingItems().stream().map(b -> b.getBillingItems()).flatMap(List::stream)
-			.collect(Collectors.toList())
-			.contains(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::new));*/
-	return false;
+	return getRole(username).getBillingItems().stream()
+		.map(bi -> flattenBillingItemsList(new ArrayList<BillingItem>(), bi)).flatMap(List::stream)
+		.collect(Collectors.toList())
+		.contains(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::new));
     }
 
     /**
