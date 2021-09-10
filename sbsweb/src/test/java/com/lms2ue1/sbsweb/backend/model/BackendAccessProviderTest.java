@@ -84,7 +84,7 @@ public class BackendAccessProviderTest {
 	billingItem2 = new BillingItem("Fenster einbauen", 0, null, null, 99, null, 0, null, null, billingUnit2, null);
 	role1 = new Role("Bauherr", List.of(), List.of(), List.of(), organisation1, false);
 	role2 = new Role("Handwerker", null, null, null, organisation2, false);
-	user1 = new User("Fritz", "Mï¿½ller", null, "f.mueller", "fritzi");
+	user1 = new User("Fritz", "Müller", null, "f.mueller", "fritzi");
 	user2 = new User("Hans", "Schulz", null, "hs", "hansss");
     }
 
@@ -97,21 +97,20 @@ public class BackendAccessProviderTest {
 
     @Test
     public void testAddOrganisation() {
-	BAP.addOrganisation(rootUsername, organisation1);
+	assertDoesNotThrow(() -> BAP.addOrganisation(rootUsername, organisation1), "TODO");
 	verify(organisations).save(organisation1);
 	// TODO also verify unauthorized users cannot do this
     }
 
     @Test
     public void testRemoveOrganisation() {
-	BAP.removeOrganisation(rootUsername, organisation1.getId());
+	assertDoesNotThrow(() -> BAP.removeOrganisation(rootUsername, organisation1.getId()), "TODO");
 	verify(organisations).deleteById(organisation1.getId());
     }
 
     @Test
     public void testUpdateOrganisation() {
-	// TODO
-	BAP.updateOrganisation(rootUsername, organisation1.getId(), organisation2);
+	assertDoesNotThrow(() -> BAP.updateOrganisation(rootUsername, organisation1.getId(), organisation2), "TODO");
 	assertTrue(false);
     }
 

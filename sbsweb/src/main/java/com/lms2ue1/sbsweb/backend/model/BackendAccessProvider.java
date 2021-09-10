@@ -1,6 +1,7 @@
 package com.lms2ue1.sbsweb.backend.model;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import javax.naming.AuthenticationException;
@@ -8,6 +9,7 @@ import javax.naming.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lms2ue1.sbsweb.backend.repository.*;
+import com.lms2ue1.sbsweb.backend.security.AuthorisationCheck;
 
 /** Provides communication between Frontend and Backend. */
 public class BackendAccessProvider {
@@ -34,6 +36,7 @@ public class BackendAccessProvider {
     //////////////////////// Singleton ////////////////////////
 
     private static BackendAccessProvider instance;
+    private static final AuthorisationCheck AUTH = AuthorisationCheck.getInstance();
 
     /** Singleton creational pattern to get a BAP. */
     public static synchronized BackendAccessProvider getInstance() {
@@ -59,8 +62,12 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void addOrganisation(String username, Organisation newOrganisation) {
-	// TODO sysadmin only
+    public void addOrganisation(String username, Organisation newOrganisation) throws AuthenticationException {
+	if (AUTH.isSysAdmin(username)) {
+	    organisations.save(newOrganisation);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -71,12 +78,17 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void removeOrganisation(String username, Long organisationId) {
-	// TODO sysadmin only
+    public void removeOrganisation(String username, Long organisationId) throws AuthenticationException {
+	if (AUTH.isSysAdmin(username)) {
+	    organisations.deleteById(organisationId);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
-     * Updates an organisation.
+     * Updates an organisation. <b> Does not </b> update the associated projects,
+     * contracts or roles.
      * 
      * @param username            the username of the user requesting this
      *                            operation.
@@ -85,8 +97,15 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void updateOrganisation(String username, Long oldOrganisationId, Organisation updatedOrganisation) {
-	// TODO sysadmin only
+    public void updateOrganisation(String username, Long oldOrganisationId, Organisation updatedOrganisation)
+	    throws AuthenticationException {
+	if (AUTH.isSysAdmin(username)) {
+	    Organisation oldOrganisation = organisations.findById(oldOrganisationId)
+		    .orElseThrow(IllegalArgumentException::new);
+	    oldOrganisation.setName(updatedOrganisation.getName());
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     //////// Users
@@ -489,7 +508,8 @@ public class BackendAccessProvider {
 	return null;
     }
 
-    //////////////////////// Frontend people love this stuff! ////////////////////////
+    //////////////////////// Frontend people love this stuff!
+    //////////////////////// ////////////////////////
     //////////////////////// (Backend people too) ////////////////////////
 
     /**
