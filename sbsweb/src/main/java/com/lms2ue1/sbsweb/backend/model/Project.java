@@ -47,6 +47,9 @@ public class Project {
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
+	
+	public Project() {
+	}
 
 	/**
 	 * Constructor to insert the data of the rest api json request.

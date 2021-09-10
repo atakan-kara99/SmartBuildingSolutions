@@ -2,18 +2,43 @@
 <html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
 
 <head>
-    <title>Nutzerverwaltung</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link th:href="@{/css/main.css}" rel="stylesheet" />
+<title>Projekte</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link th:href="@{/css/main.css}" rel="stylesheet" />
 </head>
 
 <body>
     <th:block th:fragment="content">
         <div class="container">
-            <h2>Projekte</h2>
-            <form th:action="@{/billing_Items_Overview}">
-            	<button type="submit">Projekt ausgewählt</button>
-            </form>
+            <div class="text-center">
+                <h1>Projekte</h1>
+            </div>
+        </div>
+        <div class="padding-50"></div>
+        <div class="text-center">
+            <h4 th:if="${projects.empty}">Keine Projekte verfügbar.</h4>
+            <div class="container" th:unless="${projects.empty}">
+                <table class="table">
+                    <tbody>
+                        <tr th:each="_, row : ${projects}" th:if="${row.count % 4 == 0 or row.last}">
+                            <span th:each="x : ${ {3,2,1,0} }">
+                                <td th:if="${row.count % 4 == 0}" th:with="project=${projects[row.index - x]}">
+                                    <a th:href="@{'/project/' + ${project.id} + '/show'}" class="icon-link">
+                                        <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="${project.name}"></i>
+                                        <span th:text="${project.name}" style="font-size: 175%; color: black; display: block;"></span>
+                                    </a>
+                                </td>
+                                <td th:if="${row.count % 4 != 0} and ${row.last} and ${x < row.count % 4}" th:with="project=${projects[row.index - x]}">
+                                    <a th:href="@{'/project/' + ${project.id} + '/show'}" class="icon-link">
+                                        <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="${project.name}"></i>
+                                        <span th:text="${project.name}" style="font-size: 175%; color: black; display: block;"></span>
+                                    </a>
+                                </td>
+                            </span>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </th:block>
 </body>

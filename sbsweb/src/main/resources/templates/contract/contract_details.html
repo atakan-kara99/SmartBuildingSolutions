@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+<title th:text="${contract.name}"></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link th:href="@{/css/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <th:block th:fragment="content">
+        <div class="container">
+            <div class="text-center">
+                <h1 th:text="${contract.name}"></h1>
+                <div class="padding-50"></div>
+                <p th:text="${contract.description}"></p>
+                <p>
+                    Status:
+                    <b th:text="${contract.status}"></b>
+                </p>
+                <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/diagrams'}">
+                    <button type="button" class="btn btn-outline-success">Diagramme anzeigen</button>
+                </a>
+            </div>
+        </div>
+        <div class="padding-50"></div>
+        <div class="text-center">
+            <h4 th:if="${billingItems.empty}">Keine Leistungspositionen verfügbar.</h4>
+            <div class="container" th:unless="${billingItems.empty}">
+                <table class="table">
+                    <tbody>
+                        <tr th:each="_, row : ${billingItems}" th:if="${row.count % 4 == 0 or row.last}">
+                            <span th:each="x : ${ {3,2,1,0} }">
+                                <td th:if="${row.count % 4 == 0}" th:with="billingItem=${billingItems[row.index - x]}">
+                                    <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + ${billingItem.id} + '/show'}"
+                                        class="icon-link">
+                                        <i class="bi bi-exclamation-circle" style="font-size: 300%; color: black;" th:title="${billingItem.name}"></i>
+                                        <span th:text="${billingItem.name}" style="font-size: 175%; color: black; display: block;"></span>
+                                    </a>
+                                </td>
+                                <td th:if="${row.count % 4 != 0} and ${row.last} and ${x < row.count % 4}" th:with="billingItem=${billingItems[row.index - x]}">
+                                    <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + ${billingItem.id} + '/show'}"
+                                        class="icon-link">
+                                        <i class="bi bi-exclamation-circle" style="font-size: 300%; color: black;" th:title="${billingItem.name}"></i>
+                                        <span th:text="${billingItem.name}" style="font-size: 175%; color: black; display: block;"></span>
+                                    </a>
+                                </td>
+                            </span>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </th:block>
+</body>
+
+</html>
