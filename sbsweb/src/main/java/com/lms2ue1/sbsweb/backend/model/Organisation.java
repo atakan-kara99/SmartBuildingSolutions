@@ -1,5 +1,6 @@
 package com.lms2ue1.sbsweb.backend.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,17 +29,15 @@ public class Organisation {
 	@OneToMany(mappedBy = "organisation")
 	private List<Project> projects;
 	@Size(min = 2)
-	@OneToMany(mappedBy="organisation") // Mapping is necessary!
+	@OneToMany(mappedBy = "organisation") // Mapping is necessary!
 	private List<Role> roles;
 	@Size(min = 1)
-	@ManyToMany
+	@ManyToMany(mappedBy = "organisations")
 	private List<Contract> contracts;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
-
-	// TODO: Do we really want to allow this? Good for testing. (nka)
 	public Organisation() {
 	}
 

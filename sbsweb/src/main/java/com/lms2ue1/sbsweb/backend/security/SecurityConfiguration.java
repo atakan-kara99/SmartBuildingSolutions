@@ -23,6 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
+	// TODO: Sysadmin und Orgadmin abgrenzen
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -30,8 +31,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers("/h2-console/**").permitAll() // We can't get locked out.
 			.anyRequest().authenticated()
 			.and()
+			//.antMatchers("/organisation_*/**")
 			.formLogin().loginPage("/login").permitAll()
-			.defaultSuccessUrl("/organisation/0/user_management", true)
+			.defaultSuccessUrl("/organisations", true)
 			.and().logout().permitAll();
 		
 		// Comment in to enable H2 console on test server (not recommended for release version!)
