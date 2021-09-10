@@ -1,13 +1,16 @@
 package com.lms2ue1.sbsweb.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import com.lms2ue1.sbsweb.backend.model.Organisation;
 import com.lms2ue1.sbsweb.backend.model.Role;
+import com.lms2ue1.sbsweb.backend.model.User;
 import com.lms2ue1.sbsweb.backend.repository.OrganisationRepository;
 import com.lms2ue1.sbsweb.backend.repository.RoleRepository;
+import com.lms2ue1.sbsweb.backend.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class RoleManagementController {
+    @Autowired
+    UserRepository userRepository;
+
     @Autowired
     RoleRepository roleRepository;
 
@@ -62,7 +68,14 @@ public class RoleManagementController {
         return "redirect:/organisation/{oID}/role_management";
     }
 
-    /** Shows the role edit page */
+    /**
+     * Displays web page with a form to edit the selected role's name.
+     * 
+     * @param oID ID of the relevant organisation
+     * @param rID ID of the selected role
+     * @param model Spring model to provide instances to the web page
+     * @return URI of the HTML role name edit page
+     */
     @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_edit_name")
     public String showRoleEditFormById(@PathVariable long oID, @PathVariable long rID, Model model) {
         model.addAttribute("role", roleRepository.findById(rID).get());
@@ -70,7 +83,16 @@ public class RoleManagementController {
         return "role/role_edit_name";
     }
 
-    /** Updates the role with the new data that was specified. Will redirect to role management if everything went well. */
+    /**
+     * POST mapping to update the name of the relevant role.
+     * 
+     * @param oID ID of the relevant organisation
+     * @param rID ID of the selected role
+     * @param role Role instance containing updated name
+     * @param bindingResult Binding results used for error checking
+     * @param model Spring model to provide instances to the web page
+     * @return Redirect to role management page
+     */
     @PostMapping("/organisation/{oID}/role_management/role/{rID}/role_update_name")
     public String editRoleById(@PathVariable long oID, @PathVariable long rID, @Valid Role role, BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()) {
@@ -79,5 +101,71 @@ public class RoleManagementController {
         }
         roleRepository.save(role);
         return "redirect:/organisation/{oID}/role_management";
+    }
+
+    /**
+     * Displays the user editation page for the specified role.
+     * 
+     * @param oID ID of the relevant organisation
+     * @param rID ID of the relevant role
+     * @param model Spring model to provide instances to the web page
+     * @return Redirect to role edit users page
+     */
+    @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_edit_users")
+    public String showRoleUserEditPage(@PathVariable long oID, @PathVariable long rID, Model model) {
+        List<User> roleUsers = roleRepository.findById(rID).get().getUsers();
+
+        List<User> availableUsers = new ArrayList<User>();
+        Organisation organisation = organisationRepository.findById(oID).get();
+        List<Role> roles = roleRepository.findByOrganisationOrderByNameAsc(organisation);
+        for (User user : userRepository.findAll()) {
+            for(Role role : roles) {
+                if(user.getRole().getId() == role.getId() && user.getRole().getId() != rID) {
+                    availableUsers.add(user);
+                }
+            }
+        }
+        model.addAttribute("roleUsers", roleUsers);
+        model.addAttribute("availableUsers", availableUsers);
+        return "role/role_edit_users";
+    }
+
+    /**
+     * POST mapping to add a new user to the relevant role.
+     * 
+     * @param oID ID of the relevant organisation
+     * @param rID ID of the relevant role
+     * @param uID ID of the specified user
+     * @return Redirect to role edit users page
+     */
+    @PostMapping("/organisation/{oID}/role_management/role/{rID}/user/{uID}/role_add_user")
+    public String addUserToRole(@PathVariable long oID, @PathVariable long rID, @PathVariable long uID) {
+        Role role = roleRepository.findById(rID).get();
+        List<User> roleUsers = role.getUsers();
+        User newRoleUser = userRepository.findById(uID).get();
+        newRoleUser.getRole().getUsers().remove(newRoleUser);
+        newRoleUser.setRole(role);
+        roleUsers.add(newRoleUser);
+        role.setUsers(roleUsers);
+        return "redirect:/organisation/{oID}/role_management/role/{rID}/role_edit_users";
+    }
+
+    /**
+     * POST mapping to remove a user from the relevant role.
+     * 
+     * @param oID ID of the relevant organisation
+     * @param rID ID of the relevant role
+     * @param uID ID of the specified user
+     * @return Redirect to role edit users page
+     */
+    @PostMapping("/organisation/{oID}/role_management/role/{rID}/user/{uID}/role_remove_user")
+    public String removeUserFromRole(@PathVariable long oID, @PathVariable long rID, @PathVariable long uID) {
+        Role role = roleRepository.findById(rID).get();
+        List<User> roleUsers = role.getUsers();
+        User roleUser = userRepository.findById(uID).get();
+        roleUser.setRole(null);
+        roleUsers.remove(roleUser);
+        role.setUsers(roleUsers);
+        return "redirect:/organisation/{oID}/role_management/role/{rID}/role_edit_users";
     }
 }
