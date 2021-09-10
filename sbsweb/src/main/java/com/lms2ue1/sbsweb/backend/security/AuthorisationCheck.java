@@ -20,28 +20,8 @@ import com.lms2ue1.sbsweb.backend.repository.UserRepository;
  * something.
  */
 public class AuthorisationCheck {
-    /**
-     * This class is a singleton.
-     */
-    private static AuthorisationCheck instance;
-
+    
     private AuthorisationCheck() {
-    }
-
-    /**
-     * Method to get the instance.
-     * 
-     * @return the instance
-     */
-    public static AuthorisationCheck getInstance() {
-	if (instance == null) {
-	    synchronized (AuthorisationCheck.class) {
-		if (instance == null) {
-		    instance = new AuthorisationCheck();
-		}
-	    }
-	}
-	return instance;
     }
 
     // ---------- Repositories ------------- //
@@ -180,7 +160,7 @@ public class AuthorisationCheck {
      * @return true = yes, he*she is. false = no, he*she isn't.
      */
     public boolean manageUser(String username, long uID) {
-	// TODO: Implement me!
+	// First: The given 
 	return false;
     }
 
