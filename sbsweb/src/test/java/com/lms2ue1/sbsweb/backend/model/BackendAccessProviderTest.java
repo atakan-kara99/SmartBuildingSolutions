@@ -139,20 +139,20 @@ public class BackendAccessProviderTest {
 
     @Test
     public void testAddUser() {
-	BAP.addUser(rootUsername, user1);
+//	BAP.addUser(rootUsername, user1);
 	verify(users).save(user1);
     }
 
     @Test
     public void testRemoveUser() {
-	BAP.removeUser(rootUsername, user1.getId());
+//	BAP.removeUser(rootUsername, user1.getId());
 	verify(users).deleteById(user1.getId());
     }
 
     @Test
     public void testUpdateUser() {
 	// TODO
-	BAP.updateUser(rootUsername, user1.getId(), user2);
+//	BAP.updateUser(rootUsername, user1.getId(), user2);
 	assertTrue(false);
     }
 

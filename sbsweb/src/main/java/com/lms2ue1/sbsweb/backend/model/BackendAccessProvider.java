@@ -1,7 +1,6 @@
 package com.lms2ue1.sbsweb.backend.model;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import javax.naming.AuthenticationException;
@@ -109,14 +108,18 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void addUser(String username, User newUser) {
+    public void addUser(String username, User newUser) throws AuthenticationException {
 	// TODO check if:
-	// - username is allowed to add user
-	// -> role has sufficient rights to add users
-	// -> adds to same organisation (except for sysadmin)
-	// - userToAdd doesn't already exist
-	// -> id not yet in user repo
-	// -> username not yet in user repo (case insensitive)
+	// username not yet in user repo (case insensitive)
+	if (newUser == null || users.findByUsernameIgnoreCase(username) == null) {
+	    throw new IllegalArgumentException();
+	}
+
+	if (auth.manageUser(username, newUser.getId())) {
+	    users.save(newUser);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -127,7 +130,7 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void removeUser(String username, Long userId) {
+    public void removeUser(String username, Long userId) throws AuthenticationException {
 	// TODO
     }
 
@@ -141,7 +144,7 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void updateUser(String username, Long oldUserId, User updatedUser) {
+    public void updateUser(String username, Long oldUserId, User updatedUser) throws AuthenticationException {
 	// TODO
     }
 
