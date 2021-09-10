@@ -97,8 +97,10 @@ public class RoleManagementController {
      */
     @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_edit_name")
     public String showRoleEditFormById(@PathVariable long oID, @PathVariable long rID, Model model) {
-        model.addAttribute("role", roleRepository.findById(rID).get());
-        model.addAttribute("organisation", organisationRepository.findById(oID).get());
+        Organisation organisation = organisationRepository.findById(oID).get();
+        Role role = roleRepository.findById(rID).get();
+        model.addAttribute("role", role);
+        model.addAttribute("organisation", organisation);
         return "role/role_edit_name";
     }
 
@@ -116,7 +118,8 @@ public class RoleManagementController {
     public String editRoleById(@PathVariable long oID, @PathVariable long rID, @Valid Role role, BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()) {
             model.addAttribute("role", role);
-            return "role/role_edit";
+            model.addAttribute("organisation", organisationRepository.findById(oID).get());
+            return "role/role_edit_name";
         }
         roleRepository.save(role);
         return "redirect:/organisation/{oID}/role_management";
