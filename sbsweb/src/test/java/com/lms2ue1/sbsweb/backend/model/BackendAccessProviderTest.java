@@ -104,7 +104,7 @@ public class BackendAccessProviderTest {
     //// Organisation
 
     @Test
-    public void testAddOrganisationRoot() {
+    public void testAddOrganisation() {
 	assertDoesNotThrow(() -> BAP.addOrganisation(rootUsername, organisation1),
 		"Root couldn't add the organisation!");
 	verify(organisations).save(organisation1);

@@ -79,8 +79,7 @@ public class BackendAccessProvider {
     }
 
     /**
-     * Updates an organisation. <b> Does not </b> update the associated projects,
-     * contracts or roles.
+     * Updates an organisation. Does <b>not</b> update association fields.
      * 
      * @param username            the username of the user requesting this
      *                            operation.
@@ -133,7 +132,7 @@ public class BackendAccessProvider {
     }
 
     /**
-     * Updates a user.
+     * Updates a user. Does <b>not</b> update association fields.
      * 
      * @param username    the username of the user requesting this operation.
      * @param oldUserId   the user's old id.
@@ -156,8 +155,12 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void addRole(String username, Role newRole) {
-	// TODO
+    public void addRole(String username, Role newRole) throws AuthenticationException {
+	if (auth.isSysAdmin(username) || newRole != null && newRole.getId().equals(auth.getOrgAdminID(username))) {
+	    roles.save(newRole);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -168,12 +171,16 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void removeRole(String username, Long roleId) {
-	// TODO
+    public void removeRole(String username, Long roleId) throws AuthenticationException {
+	if (auth.isSysAdmin(username) || roleId != null && roleId.equals(auth.getOrgAdminID(username))) {
+	    roles.deleteById(roleId);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
-     * Updates a role.
+     * Updates a role. Does <b>not</b> update association fields.
      * 
      * @param username    the username of the user requesting this operation.
      * @param oldRoleId   the role's old id.
@@ -181,8 +188,14 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void updateRole(String username, Long oldRoleId, Role updatedRole) {
-	// TODO
+    public void updateRole(String username, Long oldRoleId, Role updatedRole) throws AuthenticationException {
+	if (auth.isSysAdmin(username) || (auth.isOrgAdmin(username)) && false) { // TODO orgadmin.oid == role.oid
+	    Role oldRole = roles.findById(oldRoleId).orElseThrow(IllegalArgumentException::new);
+	    oldRole.setName(updatedRole.getName());
+	    oldRole.setManageUser(updatedRole.isManageUser());
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     //////// BillingItem status
