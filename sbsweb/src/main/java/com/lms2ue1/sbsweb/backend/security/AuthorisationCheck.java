@@ -62,11 +62,11 @@ public class AuthorisationCheck {
      * @param currentElement the current element.
      * @return The flattened list.
      */
-    private List<BillingItem> flattenBillingItems(List<BillingItem> hugeList, BillingItem currentElement) {
+    private List<BillingItem> flattenBillingItemsList(List<BillingItem> hugeList, BillingItem currentElement) {
 	// Using a dfs:
 	hugeList.add(currentElement);
 	for (BillingItem nextElement : currentElement.getBillingItems()) {
-	    flattenBillingItems(hugeList, nextElement);
+	    flattenBillingItemsList(hugeList, nextElement);
 	}
 	return hugeList;
     }
@@ -78,7 +78,7 @@ public class AuthorisationCheck {
      * 
      * @param username = the user, who wants to work with it.
      * @param oID      = the organisation in question.
-     * @return true = yes, he*she is. false = no, he*she isn't.
+     * @return true = yes, the user is. false = no, the user isn't.
      */
     public boolean checkOrganisation(String username, Long oID) {
 	// Does the user belong to the given organisation?
@@ -91,7 +91,7 @@ public class AuthorisationCheck {
      * 
      * @param username = the user, who wants to work with it.
      * @param pID      = the project in question.
-     * @return true = yes, he*she is. false = no, he*she isn't.
+     * @return true = yes, the user is. false = no, the user isn't.
      */
     public boolean checkProject(String username, long pID) {
 	return getRole(username).getProjects()
@@ -103,7 +103,7 @@ public class AuthorisationCheck {
      * 
      * @param username = the user, who wants to work with it.
      * @param cID      = the contract in question.
-     * @return true = yes, he*she is. false = no, he*she isn't.
+     * @return true = yes, the user is. false = no, the user isn't.
      */
     public boolean checkContract(String username, long cID) {
 	return getRole(username).getContracts()
@@ -115,18 +115,19 @@ public class AuthorisationCheck {
      * 
      * @param username = the user, who wants to work with it.
      * @param buID     = the billing unit in question.
-     * @return true = yes, he*she is. false = no, he*she isn't.
+     * @return true = yes, the user is. false = no, the user isn't.
      */
     public boolean checkBillingUnit(String username, long buID) {
 	// TODO: Verschachtelung
 	// Has the user the permission to access an associated billing item?
 	// First: The root billingItems.
 	// Second: The other nodes.
-	return getRole(username).getBillingItems().stream().map(b -> b.getBillingUnit()).collect(Collectors.toList())
+	/*return getRole(username).getBillingItems().stream().map(b -> b.getBillingUnit()).collect(Collectors.toList())
 		.contains(billUnitRepo.findById(buID).orElseThrow(IllegalArgumentException::new))
 		|| getRole(username).getBillingItems().stream().map(b -> b.getBillingItems()).flatMap(List::stream)
 			.map(b -> b.getBillingUnit()).collect(Collectors.toList())
-			.contains(billUnitRepo.findById(buID).orElseThrow(IllegalArgumentException::new));
+			.contains(billUnitRepo.findById(buID).orElseThrow(IllegalArgumentException::new));*/
+	return false;
     }
 
     /**
@@ -134,18 +135,19 @@ public class AuthorisationCheck {
      * 
      * @param username = the user, who wants to work with it.
      * @param bID      = the billing item in question.
-     * @return true = yes, he*she is. false = no, he*she isn't.
+     * @return true = yes, the user is. false = no, the user isn't.
      */
     public boolean checkBillingItem(String username, long bID) {
 	// TODO: Verschachtelung
 	// We have billing items in billing items.
 	// First: The root billingItems.
 	// Second: The other nodes.
-	return getRole(username).getBillingItems()
+	/*return getRole(username).getBillingItems()
 		.contains(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::new))
 		|| getRole(username).getBillingItems().stream().map(b -> b.getBillingItems()).flatMap(List::stream)
 			.collect(Collectors.toList())
-			.contains(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::new));
+			.contains(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::new));*/
+	return false;
     }
 
     /**
@@ -153,7 +155,7 @@ public class AuthorisationCheck {
      * 
      * @param username = the user, who wants to work with it.
      * @param aID      = the given address.
-     * @return true = yes, he*she is. false = no, he*she isn't.
+     * @return true = yes, the user is. false = no, the user isn't.
      */
     public boolean checkAddress(String username, long aID) {
 	// Has the user the permission to see the project?
@@ -168,7 +170,7 @@ public class AuthorisationCheck {
      * 
      * @param username = the user, who wants to work with it.
      * @param uID      = the other user to manage.
-     * @return true = yes, he*she is. false = no, he*she isn't.
+     * @return true = yes, the user is. false = no, the user isn't.
      */
     public boolean manageUser(String username, long uID) {
 	// First: The given user has to have the permission to manage user per default.
@@ -182,7 +184,7 @@ public class AuthorisationCheck {
      * Is the given user a SysAdmin?
      * 
      * @param username = the user in question.
-     * @return true = yes, he*she is. false = no, he*she isn't.
+     * @return true = yes, the user is. false = no, the user isn't.
      */
     public boolean isSysAdmin(String username) {
 	return getRole(username).getName().equals("SysAdmin");
