@@ -1,19 +1,100 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+<html xmlns:th="http://thymeleaf.org" th:include="layout :: page">
 
 <head>
     <title>Nutzerverwaltung</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link th:href="@{/css/main.css}" rel="stylesheet" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 
 <body>
-    <th:block th:fragment="content">
-        <div class="container">
-            <h2>Organisationsverwaltung</h2>
-			<p>Nur SysAdmin hat Zugriff, aber als Dummyseite hat jeder Zugriff</p>
+<th:block th:fragment="content">
+    <div class="container">
+        <div class="text-center">
+            <h1>Organisationen verwalten</h1>
         </div>
-    </th:block>
+    </div>
+    <div class="padding-50"></div>
+    <div class="container">
+        <p class="alert alert-info">Füge eine neue Organisationen hinzu oder bearbeite bestehende.</p>
+    </div>
+    <div class="padding-50"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <a th:href="@{/organisations/new}">
+                    <button class="btn btn-success">Organisation hinzufügen</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="padding-50"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <!--            <div class="col-sm-6"><p class="float-start"></p>-->
+                <table class="table table-striped table-hover table-bordered"
+                       th:unless="${organisations.isEmpty()}">
+                    <thead>
+                    <tr>
+                        <th class="text-center" style="width: 45%" scope="col"> Organisation</th>
+<!--                        <th class="text-center" style="width: 45%" scope="col"> Administratoren</th>-->
+<!--                        <th class="text-center" style="width: 45%" scope="col"> Mitglieder</th>-->
+                        <th class="text-center" style="width: 45%" scope="col"> Optionen</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="organisation : ${organisations}">
+                        <td class="text-center"><span th:text="${organisation?.name}"> Organisation </span></td>
+<!--                        <td class="text-center"><span-->
+<!--                                th:text="${organisation?.getAdministrator()}"> Administratoren </span></td>-->
+<!--                        <td class="text-center"><span-->
+<!--                                th:text="${organisation?.getUsers().size()}"> Mitglieder </span>-->
+<!--                        </td>-->
+                        <td class="text-center">
+                         <span>
+                             <div class="row justify-content-center">
+<!--                                 <div class="col-12">-->
+                                    <a th:href="@{'/organisation/' + ${organisation.getId()} + '/edit'}" class="icon-link">
+                                         <i class="bi bi-pencil" style="font-size: medium; color: black;"
+                                            title="Bearbeiten"></i>
+                                     </a>
+                                 <!--                                 </div>-->
+                                 <div class="col align-self-end">
+                                     <a th:href="@{'/organisation/' + ${organisation.getId()} + '/delete'}"
+                                        class="icon-link"><i class="bi bi-trash"
+                                                             style="font-size: medium; color: black;"
+                                                             title="Löschen"></i>
+                                     </a>
+                                 </div>
+                                   <div class="row justify-content-center">
+                                  <div class="col align-self-end">
+                                     <a th:href="@{'/organisation/' + ${organisation.getId()} + '/users'}"
+                                        class="icon-link"><i class="bi bi-person"
+                                                             style="font-size: medium; color: black;"
+                                                             title="Mitglieder anzeigen"></i>
+                                     </a>
+                                 </div>
+                                   </div>
+                             </div>
+                         </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--            </div>-->
+            </div>
+        </div>
+        <div class="padding-50"></div>
+        <div class="container">
+            <div class="row btn-row justify-content-end align-items-center">
+                <div class="col-12 text-center">
+                    <a th:href="@{/organisations}">
+                        <button type="button" class="btn btn-outline-success">Alle Organisationen anzeigen</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
 </body>
-
 </html>

@@ -1,6 +1,7 @@
 package com.lms2ue1.sbsweb.controller;
 
 import java.security.Principal;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -10,16 +11,19 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.lms2ue1.sbsweb.backend.model.Contract;
 import com.lms2ue1.sbsweb.backend.model.Project;
+import com.lms2ue1.sbsweb.backend.model.Role;
 import com.lms2ue1.sbsweb.backend.model.Status;
 import com.lms2ue1.sbsweb.backend.model.User;
 import com.lms2ue1.sbsweb.backend.repository.ContractRepository;
 import com.lms2ue1.sbsweb.backend.repository.ProjectRepository;
+import com.lms2ue1.sbsweb.backend.repository.RoleRepository;
 
 @Controller
 public class ProjectController {
@@ -34,13 +38,27 @@ public class ProjectController {
     ProjectRepository projects;
     @Autowired
     ContractRepository contracts;
+    @Autowired
+    RoleRepository roleRepo;
 
     /** Shows an overview of all projects. */
     @GetMapping("/project_overview")
     public String showProjectOverview(Model model) {
 //	model.addAttribute("projects", BackendAccessProvider.getAccessibleProjects(principal.getName()));
 	model.addAttribute("projects", projects.findAll());
+
+	// TODO: Debug
+	/*for (Role r : roleRepo.findAll()) {
+	    System.out
+		    .println("Users: " + r.getUsers().stream().map(u -> u.getUsername()).collect(Collectors.toList()));
+	    System.out.println("List of Users is empty: " + r.getUsers().isEmpty());
+	    System.out.println(
+		    "Projects: " + r.getProjects().stream().map(p -> p.getName()).collect(Collectors.toList()));
+	    System.out.println("List of projects is empty: " + r.getProjects().isEmpty());
+	}*/
+
 	return "project/project_overview";
+
 //	TODO get username via:
 //	"@AuthenticationPrincipal User user" in method params, doesn't work yet
 //	Working solutions:
