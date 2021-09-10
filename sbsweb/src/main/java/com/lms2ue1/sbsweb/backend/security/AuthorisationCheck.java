@@ -20,7 +20,7 @@ import com.lms2ue1.sbsweb.backend.repository.UserRepository;
  * something.
  */
 public class AuthorisationCheck {
-    
+
     private AuthorisationCheck() {
     }
 
@@ -160,8 +160,10 @@ public class AuthorisationCheck {
      * @return true = yes, he*she is. false = no, he*she isn't.
      */
     public boolean manageUser(String username, long uID) {
-	// First: The given 
-	return false;
+	// First: The given user has to have the permission to manage user per default.
+	// Second: Both user have to be in the same organisation.
+	return getRole(username).isManageUser() && getRole(username).getOrganisation()
+		.equals(getRole(userRepo.findById(uID).get().getUsername()).getOrganisation());
     }
 
     /**
