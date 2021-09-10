@@ -134,7 +134,7 @@ public class BackendAccessProvider {
 	if (userId == null) {
 	    throw new IllegalArgumentException();
 	}
-	
+
 	if (auth.manageUser(username, userId)) {
 	    users.deleteById(userId);
 	} else {
@@ -156,7 +156,7 @@ public class BackendAccessProvider {
 	if (oldUserId == null || updatedUser == null) {
 	    throw new IllegalArgumentException();
 	}
-	
+
 	if (auth.manageUser(username, oldUserId)) {
 	    User oldUser = users.findById(oldUserId).orElseThrow(IllegalArgumentException::new);
 	    oldUser.setForename(updatedUser.getForename());
@@ -280,7 +280,6 @@ public class BackendAccessProvider {
 
     //////////////////////// Getters per id ////////////////////////
 
-    @Deprecated
     /**
      * Returns the address with the given id.
      * 
@@ -290,10 +289,12 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public Address getAddressById(String username, Long addressId) {
-	// TODO check if username is allowed to access
-	// Direkt an natalie weiterleiten
-	return addresses.findById(addressId).orElseThrow(IllegalArgumentException::new);
+    public Address getAddressById(String username, Long addressId) throws AuthenticationException {
+	if (auth.checkAddress(username, addressId)) {
+	    return addresses.findById(addressId).orElseThrow(IllegalArgumentException::new);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -305,9 +306,12 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public Project getProjectById(String username, Long projectId) {
-	// TODO check if username is allowed to access
-	return projects.findById(projectId).orElseThrow(IllegalArgumentException::new);
+    public Project getProjectById(String username, Long projectId) throws AuthenticationException {
+	if (auth.checkProject(username, projectId)) {
+	    return projects.findById(projectId).orElseThrow(IllegalArgumentException::new);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -319,9 +323,12 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public Contract getContractById(String username, Long contractId) {
-	// TODO check if username is allowed to access
-	return contracts.findById(contractId).orElseThrow(IllegalArgumentException::new);
+    public Contract getContractById(String username, Long contractId) throws AuthenticationException {
+	if (auth.checkContract(username, contractId)) {
+	    return contracts.findById(contractId).orElseThrow(IllegalArgumentException::new);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -333,9 +340,12 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public BillingUnit getBillingUnitById(String username, Long billingUnitId) {
-	// TODO check if username is allowed to access
-	return billingUnits.findById(billingUnitId).orElseThrow(IllegalArgumentException::new);
+    public BillingUnit getBillingUnitById(String username, Long billingUnitId) throws AuthenticationException {
+	if (auth.checkBillingUnit(username, billingUnitId)) {
+	    return billingUnits.findById(billingUnitId).orElseThrow(IllegalArgumentException::new);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -347,9 +357,12 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public BillingItem getBillingItemById(String username, Long billingItemId) {
-	// TODO check if username is allowed to access
-	return billingItems.findById(billingItemId).orElseThrow(IllegalArgumentException::new);
+    public BillingItem getBillingItemById(String username, Long billingItemId) throws AuthenticationException {
+	if (auth.checkBillingItem(username, billingItemId)) {
+	    return billingItems.findById(billingItemId).orElseThrow(IllegalArgumentException::new);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -361,9 +374,12 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public Organisation getOrganisationById(String username, Long organisationId) {
-	// TODO check if username is allowed to access
-	return organisations.findById(organisationId).orElseThrow(IllegalArgumentException::new);
+    public Organisation getOrganisationById(String username, Long organisationId) throws AuthenticationException {
+	if (auth.checkOrganisation(username, organisationId)) {
+	    return organisations.findById(organisationId).orElseThrow(IllegalArgumentException::new);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -375,9 +391,12 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public User getUserById(String username, Long userId) {
-	// TODO check if username is allowed to access
-	return users.findById(userId).orElseThrow(IllegalArgumentException::new);
+    public User getUserById(String username, Long userId) throws AuthenticationException {
+//	if (auth.check(username, userId)) {
+//	    return users.findById(userId).orElseThrow(IllegalArgumentException::new);
+//	} else {
+//	    throw new AuthenticationException();
+//	}
     }
 
     @Deprecated
