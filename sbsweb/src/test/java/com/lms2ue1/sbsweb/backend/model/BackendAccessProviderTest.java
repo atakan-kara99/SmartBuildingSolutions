@@ -10,11 +10,13 @@ import javax.naming.AuthenticationException;
 
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.lms2ue1.sbsweb.backend.repository.*;
+import com.lms2ue1.sbsweb.backend.security.AuthorisationCheck;
 
 @SpringBootTest
 public class BackendAccessProviderTest {
@@ -37,6 +39,8 @@ public class BackendAccessProviderTest {
     private UserRepository users;
     @MockBean
     private RoleRepository roles;
+    @Mock
+    private AuthorisationCheck auth;
     @InjectMocks
     private BackendAccessProvider BAP;
 
@@ -65,6 +69,10 @@ public class BackendAccessProviderTest {
     @BeforeEach
     public void initFields() {
 	closeable = MockitoAnnotations.openMocks(this);
+	when(auth.isSysAdmin(rootUsername)).thenReturn(true);
+	when(auth.isSysAdmin(failUsername)).thenReturn(false);
+	when(auth.isOrgAdmin(rootUsername)).thenReturn(true);
+	when(auth.isOrgAdmin(failUsername)).thenReturn(false);
 
 	organisation1 = new Organisation("Fritz M�ller GmbH");
 	organisation2 = new Organisation("Fritz M�ller-Schulz GmbH");
@@ -96,22 +104,35 @@ public class BackendAccessProviderTest {
     //// Organisation
 
     @Test
-    public void testAddOrganisation() {
-	assertDoesNotThrow(() -> BAP.addOrganisation(rootUsername, organisation1), "TODO");
+    public void testAddOrganisationRoot() {
+	assertDoesNotThrow(() -> BAP.addOrganisation(rootUsername, organisation1),
+		"Root couldn't add the organisation!");
 	verify(organisations).save(organisation1);
-	// TODO also verify unauthorized users cannot do this
+	assertThrows(AuthenticationException.class, () -> BAP.addOrganisation(failUsername, organisation2),
+		"Fail added the organisation!");
+	verify(organisations, never()).save(organisation2);
     }
 
     @Test
-    public void testRemoveOrganisation() {
-	assertDoesNotThrow(() -> BAP.removeOrganisation(rootUsername, organisation1.getId()), "TODO");
-	verify(organisations).deleteById(organisation1.getId());
+    public void testRemoveOrganisationRoot() {
+	Long id = organisation1.getId();
+	assertDoesNotThrow(() -> BAP.removeOrganisation(rootUsername, id), "Root couldn't remove the organisation!");
+	verify(organisations).deleteById(id);
+    }
+
+    @Test
+    public void testRemoveOrganisationFail() {
+	Long id = organisation2.getId();
+	assertThrows(AuthenticationException.class, () -> BAP.removeOrganisation(failUsername, id),
+		"Fail removed the organisation!");
+	verify(organisations, never()).deleteById(id);
     }
 
     @Test
     public void testUpdateOrganisation() {
-	assertDoesNotThrow(() -> BAP.updateOrganisation(rootUsername, organisation1.getId(), organisation2), "TODO");
-	assertTrue(false);
+	assertDoesNotThrow(() -> BAP.updateOrganisation(rootUsername, organisation1.getId(), organisation2),
+		"Root couldn't update the organisation!");
+	assertTrue(false); // TODO
     }
 
     //// User

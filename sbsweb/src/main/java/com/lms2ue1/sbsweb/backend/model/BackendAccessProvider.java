@@ -33,18 +33,10 @@ public class BackendAccessProvider {
     @Autowired
     private RoleRepository roles;
 
-    //////////////////////// Singleton ////////////////////////
+    //////////////////////// Singleton using @Autowired ////////////////////////
 
-    private static BackendAccessProvider instance;
-    private static final AuthorisationCheck AUTH = AuthorisationCheck.getInstance();
-
-    /** Singleton creational pattern to get a BAP. */
-    public static synchronized BackendAccessProvider getInstance() {
-	if (instance == null) {
-	    instance = new BackendAccessProvider();
-	}
-	return instance;
-    }
+    @Autowired
+    private AuthorisationCheck auth;
 
     /** Disable public default constructor. */
     private BackendAccessProvider() {
@@ -63,7 +55,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void addOrganisation(String username, Organisation newOrganisation) throws AuthenticationException {
-	if (AUTH.isSysAdmin(username)) {
+	if (auth.isSysAdmin(username)) {
 	    organisations.save(newOrganisation);
 	} else {
 	    throw new AuthenticationException();
@@ -79,7 +71,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void removeOrganisation(String username, Long organisationId) throws AuthenticationException {
-	if (AUTH.isSysAdmin(username)) {
+	if (auth.isSysAdmin(username)) {
 	    organisations.deleteById(organisationId);
 	} else {
 	    throw new AuthenticationException();
@@ -99,7 +91,7 @@ public class BackendAccessProvider {
      */
     public void updateOrganisation(String username, Long oldOrganisationId, Organisation updatedOrganisation)
 	    throws AuthenticationException {
-	if (AUTH.isSysAdmin(username)) {
+	if (auth.isSysAdmin(username)) {
 	    Organisation oldOrganisation = organisations.findById(oldOrganisationId)
 		    .orElseThrow(IllegalArgumentException::new);
 	    oldOrganisation.setName(updatedOrganisation.getName());
