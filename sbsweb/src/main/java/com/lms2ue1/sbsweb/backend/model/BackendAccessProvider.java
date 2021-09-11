@@ -414,7 +414,7 @@ public class BackendAccessProvider {
     public Role getRoleById(String username, Long roleId) throws AuthenticationException {
 	Long oID = auth.getOrgAdminID(username);
 	Role role = roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
-	if (oID != null && role.getId() == oID.longValue()) {
+	if ((oID != null && role.getId() == oID.longValue()) || auth.isSysAdmin(username)) {
 	    return role;
 	} else {
 	    throw new AuthenticationException();

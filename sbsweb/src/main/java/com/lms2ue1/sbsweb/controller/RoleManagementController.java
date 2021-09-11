@@ -1,16 +1,21 @@
 package com.lms2ue1.sbsweb.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.AuthenticationException;
 import javax.validation.Valid;
 
+import com.lms2ue1.sbsweb.backend.model.BackendAccessProvider;
 import com.lms2ue1.sbsweb.backend.model.Organisation;
 import com.lms2ue1.sbsweb.backend.model.Role;
 import com.lms2ue1.sbsweb.backend.model.User;
+import com.lms2ue1.sbsweb.backend.model.Project;
 import com.lms2ue1.sbsweb.backend.repository.OrganisationRepository;
 import com.lms2ue1.sbsweb.backend.repository.RoleRepository;
 import com.lms2ue1.sbsweb.backend.repository.UserRepository;
+import com.lms2ue1.sbsweb.backend.security.AuthorisationCheck;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,13 +28,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class RoleManagementController {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
-    OrganisationRepository organisationRepository;
+    private OrganisationRepository organisationRepository;
+
+    @Autowired
+    private BackendAccessProvider backendAccessProvider;
+
+    @Autowired
+    private AuthorisationCheck auth;
 
     /** Shows an overview of <b> ALL </b> organisations' roles. */
     @GetMapping("/organisation/{oID}/role_management")
@@ -44,9 +55,9 @@ public class RoleManagementController {
     /**
      * Shows the page to add a new role to the specified organisation.
      * 
-     * @param oID ID of the relevant organisation
-     * @param model Spring model to provide instances to the web page
-     * @return URI of the HTML role new page
+     * @param  oID   ID of the relevant organisation
+     * @param  model Spring model to provide instances to the web page
+     * @return       URI of the HTML role new page
      */
     @GetMapping("/organisation/{oID}/role_management/role_new")
     public String showNewRoleForm(@PathVariable long oID, Model model) {
@@ -61,16 +72,17 @@ public class RoleManagementController {
     /**
      * POST mapping to add a new role to an organisation.
      * 
-     * @param oID ID of the relevant organisation
-     * @param role Instance of Role to add
-     * @param bindingResult Binding results used for error checking
-     * @param model Spring model to provide instances to the web page
-     * @return When errors are found the URI to the HTML role new page is returned. Else a redirect to the organisation's role management page will be returned
+     * @param  oID           ID of the relevant organisation
+     * @param  role          Instance of Role to add
+     * @param  bindingResult Binding results used for error checking
+     * @param  model         Spring model to provide instances to the web page
+     * @return               When errors are found the URI to the HTML role new page is returned. Else a redirect to the organisation's role management page
+     *                       will be returned
      */
     @PostMapping("/organisation/{oID}/role_management/role_save")
     public String addNewRole(@PathVariable long oID, @Valid Role role, BindingResult bindingResult, Model model) {
         Organisation organisation = organisationRepository.findById(oID).get();
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("role", role);
             model.addAttribute("organisation", organisation);
             return "role/role_new";
@@ -90,10 +102,10 @@ public class RoleManagementController {
     /**
      * Displays web page with a form to edit the selected role's name.
      * 
-     * @param oID ID of the relevant organisation
-     * @param rID ID of the selected role
-     * @param model Spring model to provide instances to the web page
-     * @return URI of the HTML role name edit page
+     * @param  oID   ID of the relevant organisation
+     * @param  rID   ID of the selected role
+     * @param  model Spring model to provide instances to the web page
+     * @return       URI of the HTML role name edit page
      */
     @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_edit_name")
     public String showRoleEditFormById(@PathVariable long oID, @PathVariable long rID, Model model) {
@@ -107,16 +119,16 @@ public class RoleManagementController {
     /**
      * POST mapping to update the name of the relevant role.
      * 
-     * @param oID ID of the relevant organisation
-     * @param rID ID of the selected role
-     * @param role Role instance containing updated name
-     * @param bindingResult Binding results used for error checking
-     * @param model Spring model to provide instances to the web page
-     * @return Redirect to role management page
+     * @param  oID           ID of the relevant organisation
+     * @param  rID           ID of the selected role
+     * @param  role          Role instance containing updated name
+     * @param  bindingResult Binding results used for error checking
+     * @param  model         Spring model to provide instances to the web page
+     * @return               Redirect to role management page
      */
     @PostMapping("/organisation/{oID}/role_management/role/{rID}/role_update_name")
     public String editRoleById(@PathVariable long oID, @PathVariable long rID, @Valid Role role, BindingResult bindingResult, Model model) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("role", role);
             model.addAttribute("organisation", organisationRepository.findById(oID).get());
             return "role/role_edit_name";
@@ -128,10 +140,10 @@ public class RoleManagementController {
     /**
      * Displays the user editation page for the specified role.
      * 
-     * @param oID ID of the relevant organisation
-     * @param rID ID of the relevant role
-     * @param model Spring model to provide instances to the web page
-     * @return Redirect to role edit users page
+     * @param  oID   ID of the relevant organisation
+     * @param  rID   ID of the relevant role
+     * @param  model Spring model to provide instances to the web page
+     * @return       Redirect to role edit users page
      */
     @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_edit_users")
     public String showRoleUserEditPage(@PathVariable long oID, @PathVariable long rID, Model model) {
@@ -141,8 +153,8 @@ public class RoleManagementController {
         Organisation organisation = organisationRepository.findById(oID).get();
         List<Role> roles = roleRepository.findByOrganisationOrderByNameAsc(organisation);
         for (User user : userRepository.findAll()) {
-            for(Role role : roles) {
-                if(user.getRole().getId() == role.getId() && user.getRole().getId() != rID) {
+            for (Role role : roles) {
+                if (user.getRole().getId() == role.getId() && user.getRole().getId() != rID) {
                     availableUsers.add(user);
                 }
             }
@@ -157,10 +169,10 @@ public class RoleManagementController {
     /**
      * GET mapping to add a new user to the relevant role. This actually sort of works like a post mapping.
      * 
-     * @param oID ID of the relevant organisation
-     * @param rID ID of the relevant role
-     * @param uID ID of the specified user
-     * @return Redirect to role edit users page
+     * @param  oID ID of the relevant organisation
+     * @param  rID ID of the relevant role
+     * @param  uID ID of the specified user
+     * @return     Redirect to role edit users page
      */
     @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_add_user/user/{uID}")
     public String addUserToRole(@PathVariable long oID, @PathVariable long rID, @PathVariable long uID) {
@@ -170,13 +182,35 @@ public class RoleManagementController {
         return "redirect:/organisation/{oID}/role_management/role/{rID}/role_edit_users";
     }
 
+    /**
+     * 
+     * @param  principal
+     * @param  oID
+     * @param  rID
+     * @param  model
+     * @return
+     */
     @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_edit_access_projects")
-    public String showProjectAccessPage(@PathVariable long oID, @PathVariable long rID, Model model) {
-        Organisation organisation = organisationRepository.findById(oID).get();
-        Role role = roleRepository.findById(rID).get();
+    public String showProjectAccessPage(Principal principal, @PathVariable long oID, @PathVariable long rID, Model model) {
+        Organisation organisation = null;
+        Role role = null;
+        List<Project> availableProjects = backendAccessProvider.getAllProjects(principal.getName());
+        try {
+            organisation = backendAccessProvider.getOrganisationById(principal.getName(), oID);
+        } catch (AuthenticationException authException) {
+            authException.printStackTrace();
+        }
+        try {
+            role = backendAccessProvider.getRoleById(principal.getName(), rID);
+        } catch (AuthenticationException authException) {
+            authException.printStackTrace();
+        }
+        backendAccessProvider.getAllProjects(principal.getName());
+        model.addAttribute("user", userRepository.findByUsername(principal.getName()));
+        model.addAttribute("adminPrivileges", auth.isSysAdmin(principal.getName()));
         model.addAttribute("organisation", organisation);
         model.addAttribute("role", role);
-        model.addAttribute("projects", organisation.getProjects());
+        model.addAttribute("availableProjects", availableProjects);
         model.addAttribute("accessibleProjects", role.getProjects());
         return "role/role_edit_access_projects";
     }
