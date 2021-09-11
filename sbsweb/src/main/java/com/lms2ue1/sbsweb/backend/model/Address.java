@@ -24,8 +24,8 @@ public class Address {
     private String country;
 
     // ---- Associations ----//
-    @OneToOne
-    @JoinColumn(name = "project_id")
+    @OneToOne(mappedBy = "address")
+    //@JoinColumn(name = "project_id")
     private Project project;
 
     // ----------------------------------//

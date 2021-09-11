@@ -35,7 +35,9 @@ public class Project {
     private String imageFileName;
 
     // ------ Associations ------//
+    // TODO: Joined nicht! Join überprüfen!
     @OneToOne // (cascade = {CascadeType.ALL}) try w/ cascading
+    @JoinColumn(name = "address_id")
     private Address address;
     @Size(min = 1)
     @OneToMany(mappedBy = "project", orphanRemoval = true)
