@@ -44,7 +44,7 @@ public class AuthorisationCheck {
      * @param username = the given user.
      * @return the associated role.
      */
-    private Role getRole(String username) {
+    public Role getRole(String username) {
 	return userRepo.findByUsername(username).getRole();
     }
 
