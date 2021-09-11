@@ -15,8 +15,19 @@
                 <div class="padding-50"></div>
                 <p th:text="${billingItem.shortDescription}"></p>
                 <p>
-                    Status: <b th:text="${billingItem.status}"></b>
+                    Status:
+                    <b th:text="${billingItem.status}"></b>
                 </p>
+            </div>
+        </div>
+        <div class="container">
+            <div style="padding-top: 12px"></div>
+            <div class="row">
+                <div class="col">
+                    <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/show'}">
+                        <button type="button" class="btn btn-outline-success">Zurück zum Vertrag</button>
+                    </a>
+                </div>
             </div>
         </div>
     </th:block>
