@@ -18,7 +18,7 @@ public class BillingItemController {
     @Autowired
     private BackendAccessProvider BAP;
 
-    /** Shows the specified billing item's details. */
+    /** Shows the specified billing item's details and potential nested billing items. */
     @GetMapping("/project/{pID}/contract/{cID}/billing_item/{bID}/show")
     public String showBillingItemDetails(@PathVariable long pID, @PathVariable long cID, @PathVariable long bID,
 	    Principal principal, Model model) {
