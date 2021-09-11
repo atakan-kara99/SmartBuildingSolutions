@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
@@ -27,7 +28,13 @@ public class BillingUnit {
 	private double totalPrice;
 
 	// ---- Associations ----//
+<<<<<<< HEAD
 	@ManyToOne
+=======
+	/* Got problems with merging with contracts */
+	@ManyToOne//(cascade = { CascadeType.MERGE }) // try to run w/
+	@JoinColumn(name = "contract_id")
+>>>>>>> web-dev
 	private Contract contract;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "billingUnit", orphanRemoval = true)

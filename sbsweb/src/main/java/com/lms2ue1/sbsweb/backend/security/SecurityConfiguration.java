@@ -23,6 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
+	// TODO: Sysadmin und Orgadmin abgrenzen
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -30,6 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers("/h2-console/**").permitAll() // We can't get locked out.
 			.anyRequest().authenticated()
 			.and()
+			//.antMatchers("/organisation_*/**")
 			.formLogin().loginPage("/login").permitAll()
 			.defaultSuccessUrl("/organisations", true)
 			.and().logout().permitAll();
