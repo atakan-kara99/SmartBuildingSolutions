@@ -39,7 +39,7 @@
                                         <td class="text-center">
                                             <span>
                                                 <div class="row justify-content-center">
-                                                    <div class="col-6"
+                                                    <div class="col-4"
                                                         th:if="${adminPrivileges == false || (adminPrivileges == true && #lists.contains(role.users, user) == false)}">
                                                         <div class="form-check" th:if="${#lists.contains(accessibleProjects, project)}">
                                                             <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/role_remove_project/project/' + ${project.id}}"
@@ -55,11 +55,18 @@
                                                             </a>
                                                         </div>
                                                     </div>
-                                                    <div class="col-6">
+                                                    <div class="col-4">
                                                         <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/project/' + ${project.id} + '/role_edit_access_contracts'}"
                                                             class="icon-link">
                                                             <i class="bi bi-box-arrow-in-right" style="font-size: large; color: black;"
                                                                 title="Zu untergeordneten Verträgen"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <a th:href="@{'/project/' + ${pID} + '/show'}"
+                                                            class="icon-link">
+                                                            <i class="bi bi-info-circle" style="font-size: large; color: black;"
+                                                                title="Informationen zum Projekt"></i>
                                                         </a>
                                                     </div>
                                                 </div>

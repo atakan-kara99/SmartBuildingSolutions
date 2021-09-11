@@ -132,7 +132,7 @@ public class RoleManagementController {
      * @param  oID   ID of the relevant organisation
      * @param  rID   ID of the relevant role
      * @param  model Spring model to provide instances to the web page
-     * @return       Redirect to role edit users page
+     * @return       URI of the HTML role edit users page
      */
     @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_edit_users")
     public String showRoleUserEditPage(@PathVariable long oID, @PathVariable long rID, Model model) {
