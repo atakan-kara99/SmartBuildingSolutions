@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 /**
- * Controller managing web page for access management of a role
+ * Controller managing web page for project related access management of a role
  * 
  * @author Luca Anthony Schwarz (sunfl0w)
  */
@@ -38,12 +38,12 @@ public class RoleProjectsController {
     /**
      * Displays the project access web page.
      * 
-     * @param  principal Security principal to access current user's name
-     * @param  oID ID of the relevant organisation
-     * @param  rID ID of the relevant role
-     * @param  model Spring model to provide instances to the web page
+     * @param  principal               Security principal to access current user's name
+     * @param  oID                     ID of the relevant organisation
+     * @param  rID                     ID of the relevant role
+     * @param  model                   Spring model to provide instances to the web page
      * @throws AuthenticationException Thrown when current user ist not allowed to access specified organisation and role
-     * @return URI of the HTML role edit project access page
+     * @return                         URI of the HTML role edit project access page
      */
     @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_edit_access_projects")
     public String showProjectAccessPage(Principal principal, @PathVariable long oID, @PathVariable long rID, Model model) {
@@ -60,7 +60,6 @@ public class RoleProjectsController {
         } catch (AuthenticationException authException) {
             authException.printStackTrace();
         }
-        backendAccessProvider.getAllProjects(principal.getName());
         // TODO Get user by name form BAP
         model.addAttribute("user", userRepository.findByUsername(principal.getName()));
         model.addAttribute("adminPrivileges", auth.isSysAdmin(principal.getName()));
@@ -72,15 +71,14 @@ public class RoleProjectsController {
     }
 
     /**
-     * GET mapping wotking a bit like a post mapping but without passed object.
-     * Adds a project to a given role by the IDs specified in the path.
+     * GET mapping wotking a bit like a post mapping but without passed object. Adds a project to a given role by the IDs specified in the path.
      * 
-     * @param principal Security principal to access current user's name
-     * @param oID ID of the relevant organisation
-     * @param rID ID of the relevant role
-     * @param pID ID of the relevant project
+     * @param  principal               Security principal to access current user's name
+     * @param  oID                     ID of the relevant organisation
+     * @param  rID                     ID of the relevant role
+     * @param  pID                     ID of the relevant project
      * @throws AuthenticationException Thrown when current user ist not allowed to access specified organisation and role
-     * @return Redirect to the role edit project access page
+     * @return                         Redirect to the role edit project access page
      */
     @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_add_project/project/{pID}")
     public String addProjectToRole(Principal principal, @PathVariable long oID, @PathVariable long rID, @PathVariable long pID) {
@@ -98,7 +96,8 @@ public class RoleProjectsController {
         }
         List<Project> accessibleProjects = new ArrayList<Project>(role.getProjects());
         accessibleProjects.add(project);
-        Role updatedRole = new Role(role.getName(), accessibleProjects, role.getContracts(), role.getBillingItems(), role.getOrganisation(), role.isManageUser());
+        Role updatedRole =
+        new Role(role.getName(), accessibleProjects, role.getContracts(), role.getBillingItems(), role.getOrganisation(), role.isManageUser());
         try {
             backendAccessProvider.updateRole(principal.getName(), role.getId(), updatedRole);
         } catch (AuthenticationException authException) {
@@ -106,17 +105,16 @@ public class RoleProjectsController {
         }
         return "redirect:/organisation/{oID}/role_management/role/{rID}/role_edit_access_projects";
     }
-    
+
     /**
-     * GET mapping wotking a bit like a post mapping but without passed object.
-     * Removes a project of a given role by the IDs specified in the path.
+     * GET mapping wotking a bit like a post mapping but without passed object. Removes a project of a given role by the IDs specified in the path.
      * 
-     * @param principal Security principal to access current user's name
-     * @param oID ID of the relevant organisation
-     * @param rID ID of the relevant role
-     * @param pID ID of the relevant project
+     * @param  principal               Security principal to access current user's name
+     * @param  oID                     ID of the relevant organisation
+     * @param  rID                     ID of the relevant role
+     * @param  pID                     ID of the relevant project
      * @throws AuthenticationException Thrown when current user ist not allowed to access specified organisation and role
-     * @return Redirect to the role edit project access page
+     * @return                         Redirect to the role edit project access page
      */
     @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_remove_project/project/{pID}")
     public String removeProjectFromRole(Principal principal, @PathVariable long oID, @PathVariable long rID, @PathVariable long pID) {
@@ -134,7 +132,8 @@ public class RoleProjectsController {
         }
         List<Project> accessibleProjects = new ArrayList<Project>(role.getProjects());
         accessibleProjects.remove(project);
-        Role updatedRole = new Role(role.getName(), accessibleProjects, role.getContracts(), role.getBillingItems(), role.getOrganisation(), role.isManageUser());
+        Role updatedRole =
+        new Role(role.getName(), accessibleProjects, role.getContracts(), role.getBillingItems(), role.getOrganisation(), role.isManageUser());
         try {
             backendAccessProvider.updateRole(principal.getName(), role.getId(), updatedRole);
         } catch (AuthenticationException authException) {

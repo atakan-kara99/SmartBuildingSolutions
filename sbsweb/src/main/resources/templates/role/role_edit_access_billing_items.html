@@ -9,7 +9,7 @@
     <th:block th:fragment="content">
         <div class="container">
             <div class="text-center">
-                <h1> Verträge </h1>
+                <h1> Leistungspositionen </h1>
                 <div class="padding-50"></div>
                 <div class="container">
                     <div class="row justify-content-center">
@@ -17,55 +17,49 @@
                             <table class="table table-striped table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th class="text-center" style="width: 75%" scope="col"> Verträge </th>
+                                        <th class="text-center" style="width: 75%" scope="col"> Leistungspositionen </th>
                                         <th class="text-center" style="width: 10%" scope="col"> Zugriffsstatus </th>
                                         <th class="text-center" style="width: 15%" scope="col"> Optionen </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:if="${availableContracts.empty}" class="text-center">
-                                        <td colspan="3"> Kein Vertrag verfügbar </td>
+                                    <tr th:if="${availableBillingItems.empty}" class="text-center">
+                                        <td colspan="3"> Keine Leistungsposition verfügbar </td>
                                     </tr>
-                                    <tr th:each="contract : ${availableContracts}">
-                                        <td class="text-center"><span th:text="${contract.name}"> Vertrag </span></td>
+                                    <tr th:each="billingItem : ${availableBillingItems}">
+                                        <td class="text-center"><span th:text="${billingItem.name}"> Leistungsposition </span></td>
                                         <td class="text-center">
                                             <span>
-                                                <i th:if="${#lists.contains(accessibleContracts, contract)}" class="bi bi-eye"
+                                                <i th:if="${#lists.contains(accessibleContracts, billingItem)}" class="bi bi-eye"
                                                     style="font-size: large; color: rgb(21, 255, 0);" title="Vollständiger Zugriff"></i>
-                                                <i th:if="${#lists.contains(accessibleContracts, contract) == false}" class="bi bi-eye"
+                                                <i th:if="${#lists.contains(accessibleContracts, billingItem) == false}" class="bi bi-eye"
                                                     style="font-size: large; color: rgb(255, 60, 60);" title="Kein Zugriff"></i>
                                             </span>
                                         </td>
                                         <td class="text-center">
                                             <span>
                                                 <div class="row justify-content-center">
-                                                    <div class="col-4"
+                                                    <div class="col-6"
                                                         th:if="${adminPrivileges == false || (adminPrivileges == true && #lists.contains(role.users, user) == false)}">
-                                                        <div class="form-check" th:if="${#lists.contains(accessibleContracts, contract)}">
-                                                            <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/project/' + ${project.id} + '/role_remove_contract/contract/' + ${contract.id}}"
+                                                        <div class="form-check" th:if="${#lists.contains(accessibleBillingItems, billingItem)}">
+                                                            <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/project/' + ${project.id} + '/contract/' + ${contract.id} + '/role_remove_billing_item/billing_item/' + ${billingItem.id}}"
                                                                 class="icon-link">
                                                                 <i class="bi bi-dash-circle" style="font-size: large; color: rgb(255, 60, 60);"
                                                                     title="Zugriff entziehen"></i>
                                                             </a>
                                                         </div>
-                                                        <div class="form-check" th:if="${#lists.contains(accessibleContracts, contract) == false}">
-                                                            <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/project/' + ${project.id} + '/role_add_contract/contract/' + ${contract.id}}"
+                                                        <div class="form-check" th:if="${#lists.contains(accessibleBillingItems, billingItem) == false}">
+                                                            <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/project/' + ${project.id} + '/contract/' + ${contract.id} + '/role_add_billing_item/billing_item/' + ${billingItem.id}}"
                                                                 class="icon-link">
                                                                 <i class="bi bi-plus-circle" style="font-size: large; color: black;" title="Zugriff geben"></i>
                                                             </a>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
-                                                        <a th:href="@{'/project/' + ${project.id} + '/contract/' + ${contract.id} + '/show'}" class="icon-link">
-                                                            <i class="bi bi-info-circle" style="font-size: large; color: black;"
-                                                                title="Informationen zum Vertrag"></i>
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/project/' + ${project.id} + '/contract/' + ${contract.id} + '/role_edit_access_billing_items'}"
+                                                    <div class="col-6">
+                                                        <a th:href="@{'/project/' + ${project.id} + '/contract/' + ${contract.id} + '/billing_item/' + ${billingItem.id} + '/show'}"
                                                             class="icon-link">
-                                                            <i class="bi bi-box-arrow-in-right" style="font-size: large; color: black;"
-                                                                title="Zu untergeordneten Leistungspositionen"></i>
+                                                            <i class="bi bi-info-circle" style="font-size: large; color: black;"
+                                                                title="Informationen zur Leistungsposition"></i>
                                                         </a>
                                                     </div>
                                                 </div>
