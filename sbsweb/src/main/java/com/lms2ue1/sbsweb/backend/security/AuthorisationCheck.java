@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import com.lms2ue1.sbsweb.backend.model.*;
 import com.lms2ue1.sbsweb.backend.repository.*;
 
-
 @Component
 /**
  * This class provides predicates to say, whether a user is allowed to do
@@ -45,10 +44,11 @@ public class AuthorisationCheck {
      * @param username = the given user.
      * @return the associated role.
      */
-    private Role getRole(String username) {
+    public Role getRole(String username) {
 	return userRepo.findByUsername(username).getRole();
     }
 
+    // TODO: Effizienter direkt nach dem bID zu suchen.
     /**
      * Flatten the list of lists in one huge list.
      * 
@@ -126,8 +126,9 @@ public class AuthorisationCheck {
      */
     public boolean checkBillingItem(String username, long bID) {
 	// We have billing items in billing items.
-	// First: The root billingItems.
-	// Second: The other nodes.
+	// First: Get the the allowed "root" billing items of the role.
+	// Second: Get the other leafs and flatten them to get one huge list.
+	// Third: Check, whether the given billing item is part of that list.
 	return getRole(username).getBillingItems().stream()
 		.map(bi -> flattenBillingItemsList(new ArrayList<BillingItem>(), bi)).flatMap(List::stream)
 		.collect(Collectors.toList())
@@ -157,11 +158,12 @@ public class AuthorisationCheck {
      * @return true = yes, the user is. false = no, the user isn't.
      */
     public boolean manageUser(String username, long uID) {
+	// The SysAdmin is allowed to manage every user.
 	// First: The given user has to have the permission to manage user per default.
 	// Second: Both user have to be in the same organisation.
 	return isSysAdmin(username) || (getRole(username).isManageUser() && getRole(username).getOrganisation()
-		.getId() == getRole(userRepo.findById(uID).orElseThrow(IllegalArgumentException::new).getUsername())
-			.getOrganisation().getId());
+		.equals(getRole(userRepo.findById(uID).orElseThrow(IllegalArgumentException::new).getUsername())
+			.getOrganisation()));
     }
 
     /**
