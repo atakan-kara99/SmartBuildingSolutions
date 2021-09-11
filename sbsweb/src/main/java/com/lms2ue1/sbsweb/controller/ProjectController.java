@@ -32,8 +32,6 @@ public class ProjectController {
     public String showProjectOverview(Principal principal, Model model) {
 	try {
 	    String username = principal.getName();
-//	    System.out.println(username);
-//	    System.out.println(BAP.getAllProjects(username)); TODO this is empty when not given in the role constructor?
 	    model.addAttribute("projects", BAP.getAllProjects(username));
 	    return "project/project_overview";
 	} catch (IllegalArgumentException e) {
