@@ -60,7 +60,7 @@
                                                     <i class="bi bi-pencil" style="font-size: medium; color: black;" title="Rollennamen editieren"></i>
                                                 </a>
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col-3" th:if="${#lists.size(role.users) == 0}">
                                                 <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/role_delete'}"
                                                     class="icon-link">
                                                     <i class="bi bi-trash" style="font-size: medium; color: rgb(255, 60, 60);" title="Rolle löschen"></i>
