@@ -23,7 +23,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:if="${availableContracts == null || availableContracts.empty}" class="text-center">
+                                    <tr th:if="${availableContracts.empty}" class="text-center">
                                         <td colspan="3"> Kein Vertrag verfügbar </td>
                                     </tr>
                                     <tr th:each="contract : ${availableContracts}">
@@ -40,7 +40,7 @@
                                             <span>
                                                 <div class="row justify-content-center">
                                                     <div class="col-4"
-                                                        th:if="${adminPrivileges == false || (adminPrivileges == true && #lists.contains(role.users, user) == false)}">
+                                                        th:if="${adminPrivileges == true && #lists.contains(role.users, user) == false}">
                                                         <div th:if="${#lists.contains(accessibleContracts, contract)}">
                                                             <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/project/' + ${project.id} + '/role_remove_contract/contract/' + ${contract.id}}"
                                                                 class="icon-link">
