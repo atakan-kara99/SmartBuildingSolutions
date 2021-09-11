@@ -45,7 +45,7 @@ public class UserManagementController {
     }
 
     /** Will save the new user if no problems were encountered. Will also redirect to user management. */
-    @PostMapping("/organisation/{oID}/user_management/user_save")
+    /*@PostMapping("/organisation/{oID}/user_management/user_save")
     public String addNewUser(@PathVariable Long oID, @Valid User user, BindingResult bindingResult, Model model) {
         //More checks needed
         if(bindingResult.hasErrors()) {
@@ -59,7 +59,7 @@ public class UserManagementController {
         
         userRepository.save(user);
         return "redirect:/organisation/{oID}/user_management";
-    }
+    }*/
 
     /** Deletes the specified user and redirects to user management. */
     @GetMapping("/organisation/{oID}/user_management/user/{uID}/delete")
@@ -76,7 +76,7 @@ public class UserManagementController {
     }
 
     /** Updates the user with the new data that was specified. Will redirect to user management if everything went well. */
-    @PostMapping("/organisation/{oID}/user_management/user/{uID}/user_update")
+    /*@PostMapping("/organisation/{oID}/user_management/user/{uID}/user_update")
     public String editUserById(@PathVariable Long oID, @PathVariable Long uID, @Valid User user, BindingResult bindingResult, Model model) {
         //More checks needed
         if(bindingResult.hasErrors()) {
@@ -86,5 +86,5 @@ public class UserManagementController {
         user.setId(uID);
         userRepository.save(user);
         return "redirect:/organisation/{oID}/user_management";
-    }
+    }*/
 }

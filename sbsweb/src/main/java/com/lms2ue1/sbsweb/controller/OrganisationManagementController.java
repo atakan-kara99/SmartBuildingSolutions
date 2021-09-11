@@ -65,7 +65,7 @@ public class OrganisationManagementController {
         return "organisation/organisation_edit";
     }
 
-    @PostMapping("/organisation/{oId}/edit")
+    /*@PostMapping("/organisation/{oId}/edit")
     public String updateOrganisationById(@PathVariable Long oId,
                                          @Valid Organisation organisation, BindingResult bindingResult, Model model) {
         // Check if all constraints are met
@@ -77,5 +77,5 @@ public class OrganisationManagementController {
         organisationRepository.save(organisation);
         return "redirect:/organisations";
 
-    }
+    }*/
 }
