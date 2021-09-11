@@ -83,9 +83,9 @@ class AuthorisationCheckTest {
 	contract1 = new Contract("Kosten klein halten", "Teuer", null, null, null, List.of(org1), project1);
 	billingUnit0 = new BillingUnit("sd", null, "kg", "1973", "2001", 2.1, 7, contract0);
 	billingUnit1 = new BillingUnit("sssdad", null, "�", "15999", "2201", 1, 0, contract1);
-	billingItem0 = new BillingItem("Heizung montieren", 2, "Heizko B7-2 fensternah einbauen.", Status.OPEN, 0, null,
-		7, null, null, billingUnit0, null);
 	billingItem1 = new BillingItem("Fenster einbauen", 0, null, null, 99, null, 0, null, null, billingUnit1, null);
+	billingItem0 = new BillingItem("Heizung montieren", 2, "Heizko B7-2 fensternah einbauen.", Status.OPEN, 0, null,
+		7, null, null, billingUnit0, List.of(billingItem1));
 	role0 = new Role("SysAdmin", List.of(project0, project1), List.of(contract0, contract1),
 		List.of(billingItem0, billingItem1), org0, true);
 	role1 = new Role("OrgAdmin", null, null, null, org1, true);
@@ -102,43 +102,65 @@ class AuthorisationCheckTest {
     /// ---------------------- Role tests
 
     @Test
+    @DisplayName("testGetRole")
     public void testGetRole() {
 	when(roleMock.findById(role0.getId())).thenReturn(Optional.of(role0));
 	assertTrue(authCheck.getRole("root").equals(role0));
     }
 
     // ----------------------- Role Join tests
+    // TODO: Test user without permission.
     
-    // TODO: Project is null!
-    /*@Test
+    // !! Inverse join ist nicht testbar !!
+   /* @Test
+    @DisplayName("testCheckAddress")
     public void testCheckAddress() {
 	when(addMock.findById(address0.getId())).thenReturn(Optional.of(address0));
 	when(proMock.findById(project0.getId())).thenReturn(Optional.of(project0));
+	System.out.println(address0.getProject());
 	assertTrue(authCheck.checkAddress("root", address0.getId()));
     }*/
 
     @Test
+    @DisplayName("testCheckOrganisation")
     public void testCheckOrganisation() {
 	when(orgMock.findById(org0.getId())).thenReturn(Optional.of(org0));
 	assertTrue(authCheck.checkOrganisation("root", org0.getId()));
     }
 
     @Test
+    @DisplayName("testCheckProject")
     public void testCheckProject() {
 	when(proMock.findById(project0.getId())).thenReturn(Optional.of(project0));
 	assertTrue(authCheck.checkProject("root", project0.getId()));
     }
     
     @Test
+    @DisplayName("testCheckContract")
     public void testCheckContract() {
 	when(conMock.findById(contract0.getId())).thenReturn(Optional.of(contract0));
 	assertTrue(authCheck.checkContract("root", contract0.getId()));
     }
     
     @Test
-    public void testcheckBillingUnit() {
+    @DisplayName("testCheckBillingUnit")
+    public void testCheckBillingUnit() {
 	when(billUnitMock.findById(billingUnit0.getId())).thenReturn(Optional.of(billingUnit0));
 	assertTrue(authCheck.checkBillingUnit("root", billingUnit0.getId()));
+    }
+    
+    @Test
+    @DisplayName("testCheckRootBillingItem")
+    public void testCheckRootBillingItem() {
+	when(billItemMock.findById(billingItem0.getId())).thenReturn(Optional.of(billingItem0));
+	assertTrue(authCheck.checkBillingItem("root", billingItem0.getId()));
+    }
+    
+    @Test
+    public void testCheckLeafBillingItem() {
+	when(billItemMock.findById(1l)).thenReturn(Optional.of(billingItem0));
+	when(billItemMock.findById(0l)).thenReturn(Optional.of(billingItem1));
+	assertTrue(authCheck.checkBillingItem("root", 0l));
     }
 
 }

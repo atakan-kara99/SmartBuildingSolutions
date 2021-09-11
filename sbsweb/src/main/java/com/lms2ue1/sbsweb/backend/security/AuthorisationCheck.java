@@ -59,8 +59,10 @@ public class AuthorisationCheck {
     private List<BillingItem> flattenBillingItemsList(List<BillingItem> hugeList, BillingItem currentElement) {
 	// Using a dfs:
 	hugeList.add(currentElement);
-	for (BillingItem nextElement : currentElement.getBillingItems()) {
-	    flattenBillingItemsList(hugeList, nextElement);
+	if (currentElement.getBillingItems() != null) {
+	    for (BillingItem nextElement : currentElement.getBillingItems()) {
+		flattenBillingItemsList(hugeList, nextElement);
+	    }
 	}
 	return hugeList;
     }
@@ -129,10 +131,13 @@ public class AuthorisationCheck {
 	// First: Get the the allowed "root" billing items of the role.
 	// Second: Get the other leafs and flatten them to get one huge list.
 	// Third: Check, whether the given billing item is part of that list.
-	return getRole(username).getBillingItems().stream()
+	/*return getRole(username).getBillingItems().stream()
 		.map(bi -> flattenBillingItemsList(new ArrayList<BillingItem>(), bi)).flatMap(List::stream)
 		.collect(Collectors.toList())
-		.contains(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::new));
+		.contains(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::new));*/
+	return getRole(username).getBillingItems().stream()
+		.map(bi -> flattenBillingItemsList(new ArrayList<BillingItem>(), bi)).flatMap(List::stream)
+		.anyMatch(bi -> bi.equals(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::new)));
     }
 
     /**
@@ -142,6 +147,7 @@ public class AuthorisationCheck {
      * @param aID      = the given address.
      * @return true = yes, the user is. false = no, the user isn't.
      */
+    @Deprecated
     public boolean checkAddress(String username, long aID) {
 	// Has the user the permission to see the project?
 	Project project = addRepo.findById(aID).orElseThrow(IllegalArgumentException::new).getProject();

@@ -16,11 +16,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.lms2ue1.sbsweb.backend.model.Address;
 import com.lms2ue1.sbsweb.backend.model.Contract;
 import com.lms2ue1.sbsweb.backend.model.Project;
 import com.lms2ue1.sbsweb.backend.model.Role;
 import com.lms2ue1.sbsweb.backend.model.Status;
 import com.lms2ue1.sbsweb.backend.model.User;
+import com.lms2ue1.sbsweb.backend.repository.AddressRepository;
 import com.lms2ue1.sbsweb.backend.repository.ContractRepository;
 import com.lms2ue1.sbsweb.backend.repository.ProjectRepository;
 import com.lms2ue1.sbsweb.backend.repository.RoleRepository;
@@ -40,6 +42,10 @@ public class ProjectController {
     ContractRepository contracts;
     @Autowired
     RoleRepository roleRepo;
+    
+    // TODO: DEBUG
+    @Autowired
+    AddressRepository addRepo;
 
     /** Shows an overview of all projects. */
     @GetMapping("/project_overview")
@@ -48,13 +54,16 @@ public class ProjectController {
 	model.addAttribute("projects", projects.findAll());
 
 	// TODO: Debug
-	/*for (Role r : roleRepo.findAll()) {
-	    System.out
+	/*for (Address a : addRepo.findAll()) {
+	    /*System.out
 		    .println("Users: " + r.getUsers().stream().map(u -> u.getUsername()).collect(Collectors.toList()));
 	    System.out.println("List of Users is empty: " + r.getUsers().isEmpty());
 	    System.out.println(
 		    "Projects: " + r.getProjects().stream().map(p -> p.getName()).collect(Collectors.toList()));
 	    System.out.println("List of projects is empty: " + r.getProjects().isEmpty());
+	    if (a.getProject() != null) {
+		System.out.println("Project of address: " + a.getProject().getName());
+	    }
 	}*/
 
 	return "project/project_overview";
