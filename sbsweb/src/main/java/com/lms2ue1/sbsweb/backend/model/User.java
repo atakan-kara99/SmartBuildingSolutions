@@ -14,107 +14,119 @@ import javax.validation.constraints.NotEmpty;
  */
 @Entity
 public class User {
-	// A few adaptations to make the data model actually work.
-	
-	// ---- Attributes ----//
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable = false, unique = true)
-	private long id;
-	@NotEmpty
-	private String forename;
-	@NotEmpty
-	private String lastname;
-	@NotEmpty
-	@Column(unique = true)
-	private String username;
-	@NotEmpty
-	private String password;
+    // A few adaptations to make the data model actually work.
 
-	// ---- Associations ----//
-	// It is only ONE role allowed. Otherwise we have a problem with authorisation.
-	// The SysAdmin will get an exception in authorisation.
-	@ManyToOne//(cascade = {CascadeType.MERGE})
-	@JoinColumn(name = "role_id")
-	private Role role;
+    // ---- Attributes ----//
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(updatable = false, unique = true)
+    private long id;
+    @NotEmpty
+    private String forename;
+    @NotEmpty
+    private String lastname;
+    @NotEmpty
+    @Column(unique = true)
+    private String username;
+    @NotEmpty
+    private String password;
 
-	// ----------------------------------//
-	// ---------- Constructors ----------//
-	// ----------------------------------//
+    // ---- Associations ----//
+    // It is only ONE role allowed. Otherwise we have a problem with authorisation.
+    // The SysAdmin will get an exception in authorisation.
+    @ManyToOne // (cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "role_id")
+    private Role role;
 
-	public User() {
+    // ----------------------------------//
+    // ---------- Constructors ----------//
+    // ----------------------------------//
+
+    public User() {
+    }
+
+    /**
+     * Constructor for OrgAdmin. He can create users.
+     * 
+     * @param firstname first name of the user.
+     * @param lastname  last name of the user.
+     * @param role      the role of the user.
+     * @param username  user name.
+     * @param password  password of the user (encrypted).
+     */
+    public User(String firstname, String lastname, Role role, String username, String password) {
+	this.forename = firstname;
+	this.lastname = lastname;
+	this.role = role;
+	this.username = username;
+	this.password = password;
+    }
+
+    // ----------------------------//
+    // ---------- Getter ----------//
+    // ----------------------------//
+    public Long getId() {
+	return this.id;
+    }
+
+    public String getForename() {
+	return this.forename;
+    }
+
+    public String getLastname() {
+	return this.lastname;
+    }
+
+    public String getUsername() {
+	return this.username;
+    }
+
+    public Role getRole() {
+	return this.role;
+    }
+
+    public String getPassword() {
+	return this.password;
+    }
+
+    // ----------------------------//
+    // ---------- Setter ----------//
+    // ----------------------------//
+    public void setId(Long id) {
+	this.id = id;
+    }
+
+    public void setForename(String fname) {
+	this.forename = fname;
+    }
+
+    public void setLastname(String lname) {
+	this.lastname = lname;
+    }
+
+    public void setUsername(String uname) {
+	this.username = uname;
+    }
+
+    public void setRole(Role rs) {
+	this.role = rs;
+    }
+
+    public void setPassword(String p) {
+	this.password = p;
+    }
+
+    // ----------------------------//
+    // ---------- Misc ------------//
+    // ----------------------------//
+
+    @Override
+    public boolean equals(Object obj) {
+	if (obj instanceof User) {
+	    User tmpUser = (User) obj;
+	    return tmpUser.getId() == this.id;
 	}
-
-	/**
-	 * Constructor for OrgAdmin. He can create users.
-	 * 
-	 * @param firstname     first name of the user.
-	 * @param lastname      last name of the user.
-	 * @param role          the role of the user.
-	 * @param username      user name.
-	 * @param password      password of the user (encrypted).
-	 */
-	public User(String firstname, String lastname, Role role, String username,
-			String password) {
-		this.forename = firstname;
-		this.lastname = lastname;
-		this.role = role;
-		this.username = username;
-		this.password = password;
-	}
-
-	// ----------------------------//
-	// ---------- Getter ----------//
-	// ----------------------------//
-	public Long getId() {
-		return this.id;
-	}
-
-	public String getForename() {
-		return this.forename;
-	}
-
-	public String getLastname() {
-		return this.lastname;
-	}
-
-	public String getUsername() {
-		return this.username;
-	}
-
-	public Role getRole() {
-		return this.role;
-	}
-
-	public String getPassword() {
-		return this.password;
-	}
-
-	// ----------------------------//
-	// ---------- Setter ----------//
-	// ----------------------------//
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setForename(String fname) {
-		this.forename = fname;
-	}
-
-	public void setLastname(String lname) {
-		this.lastname = lname;
-	}
-
-	public void setUsername(String uname) {
-		this.username = uname;
-	}
-
-	public void setRole(Role rs) {
-		this.role = rs;
-	}
-
-	public void setPassword(String p) {
-		this.password = p;
-	}
+	return false;
+    }
 
 }

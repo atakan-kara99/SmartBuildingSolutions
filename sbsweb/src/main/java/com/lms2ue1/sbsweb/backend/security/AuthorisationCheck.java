@@ -162,8 +162,8 @@ public class AuthorisationCheck {
 	// First: The given user has to have the permission to manage user per default.
 	// Second: Both user have to be in the same organisation.
 	return isSysAdmin(username) || (getRole(username).isManageUser() && getRole(username).getOrganisation()
-		.getId() == getRole(userRepo.findById(uID).orElseThrow(IllegalArgumentException::new).getUsername())
-			.getOrganisation().getId());
+		.equals(getRole(userRepo.findById(uID).orElseThrow(IllegalArgumentException::new).getUsername())
+			.getOrganisation()));
     }
 
     /**

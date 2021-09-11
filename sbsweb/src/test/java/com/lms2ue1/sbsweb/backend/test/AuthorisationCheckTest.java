@@ -3,8 +3,11 @@ package com.lms2ue1.sbsweb.backend.test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
@@ -44,18 +47,25 @@ class AuthorisationCheckTest {
     @InjectMocks
     private AuthorisationCheck authCheck;
     private AutoCloseable closeable;
+    
+    // Invars
+    private Organisation org0;
+    private Organisation org1;
+    private Role role0;
+    private Role role1;
+    private User user0;
 
     @BeforeEach
     public void init() {
 	closeable = MockitoAnnotations.openMocks(this);
 
-	Organisation org0 = new Organisation("SBS");
-	Organisation org1 = new Organisation("Tiefbau");
+	org0 = new Organisation("SBS");
+	org1 = new Organisation("Tiefbau");
 
-	Role role0 = new Role("SysAdmin", null, null, null, org0, true);
-	Role role1 = new Role("OrgAdmin", null, null, null, org1, true);
+	role0 = new Role("SysAdmin", null, null, null, org0, true);
+	role1 = new Role("OrgAdmin", null, null, null, org1, true);
 
-	User user0 = new User("Peter", "Müller", role0, "root", passwordEncoder.encode("admin"));
+	user0 = new User("Peter", "Müller", role0, "root", passwordEncoder.encode("admin"));
     }
 
     @AfterEach
@@ -66,8 +76,10 @@ class AuthorisationCheckTest {
     /// Role tests
     
     @Test
+    @DisplayName("Role of root == SysAdmin")
     public void testGetRole() {
-	//assertTrue(authCheck.getRole("SysAdmin"));
+	when(userMock.findByUsername("root")).thenReturn(user0);
+	assertTrue(authCheck.getRole("root").equals(role0));
     }
 
 }
