@@ -64,8 +64,10 @@ class AuthorisationCheckTest {
     private Organisation org1;
     private Role role0;
     private Role role1;
+    private Role role2;
     private User user0;
     private User user1;
+    private User user2;
 
     @BeforeEach
     public void init() {
@@ -89,9 +91,11 @@ class AuthorisationCheckTest {
 		7, null, null, billingUnit0, List.of(billingItem1));
 	role0 = new Role("SysAdmin", List.of(project0, project1), List.of(contract0, contract1),
 		List.of(billingItem0, billingItem1), org0, true);
-	role1 = new Role("OrgAdmin", null, null, null, org1, true);
+	role1 = new Role("OrgAdmin", org1.getProjects(), org1.getContracts(), null, org1, true);
+	role2 = new Role("YouShallNotPass", null, null, null, org1, false);
 	user0 = new User("Peter", "Müller", role0, "root", passwordEncoder.encode("admin"));
 	user1 = new User("Hans", "Frans", role1, "orgadmin", passwordEncoder.encode("org"));
+	user2 = new User("Hasel", "Nuss", role2, "nut", passwordEncoder.encode("squirrel"));
 
 	when(userMock.findByUsername(user0.getUsername())).thenReturn(user0);
     }
@@ -180,11 +184,35 @@ class AuthorisationCheckTest {
 	when(userMock.findByUsername(user1.getUsername())).thenReturn(user1);
 	assertTrue(authCheck.getOrgAdminID(user1.getUsername()) == user1.getId());
     }
+    
+    @Test
+    public void testGetOrgAdminFalse() {
+	when(userMock.findByUsername(user2.getUsername())).thenReturn(user2);
+	assertFalse(authCheck.getOrgAdminID(user2.getUsername()) == user1.getId());
+    }
 
     @Test
     public void testManageUserSysAdmin() {
 	when(userMock.findById(user1.getId())).thenReturn(Optional.of(user1));
 	assertTrue(authCheck.canManageUser(user0.getUsername(), user1.getId()));
+    }
+    
+    @Test
+    public void testManageUserOrgAdmin() {
+	when(userMock.findByUsername(user1.getUsername())).thenReturn(user1);
+	when(userMock.findByUsername(user2.getUsername())).thenReturn(user2);
+	when(userMock.findById(user2.getId())).thenReturn(Optional.of(user2));
+	assertTrue(authCheck.canManageUser(user1.getUsername(), user1.getId()));
+    }
+    
+    // TODO: Der sollte nicht funktionieren!
+    // Expected <false> but was <true>
+    @Test
+    public void testManageUserNo() {
+	when(userMock.findById(user1.getId())).thenReturn(Optional.of(user1));
+	when(userMock.findByUsername(user1.getUsername())).thenReturn(user1);
+	when(userMock.findByUsername(user2.getUsername())).thenReturn(user2);
+	assertFalse(authCheck.canManageUser(user2.getUsername(), user1.getId()));
     }
 
     // TODO: Tests für den Status => Eigener Issue
