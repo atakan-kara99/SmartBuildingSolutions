@@ -7,10 +7,12 @@ import java.util.stream.StreamSupport;
 import javax.naming.AuthenticationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.lms2ue1.sbsweb.backend.repository.*;
 import com.lms2ue1.sbsweb.backend.security.AuthorisationCheck;
 
+@Component
 /** Provides communication between Frontend and Backend. */
 public class BackendAccessProvider {
 
