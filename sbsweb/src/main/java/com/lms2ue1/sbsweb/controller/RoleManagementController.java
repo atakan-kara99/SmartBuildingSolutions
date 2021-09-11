@@ -169,4 +169,15 @@ public class RoleManagementController {
         userRepository.save(user);
         return "redirect:/organisation/{oID}/role_management/role/{rID}/role_edit_users";
     }
+
+    @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_edit_access_projects")
+    public String showProjectAccessPage(@PathVariable long oID, @PathVariable long rID, Model model) {
+        Organisation organisation = organisationRepository.findById(oID).get();
+        Role role = roleRepository.findById(rID).get();
+        model.addAttribute("organisation", organisation);
+        model.addAttribute("role", role);
+        model.addAttribute("projects", organisation.getProjects());
+        model.addAttribute("accessibleProjects", role.getProjects());
+        return "role/role_edit_access_projects";
+    }
 }

@@ -9,7 +9,7 @@
     <th:block th:fragment="content">
         <div class="container">
             <div class="text-center">
-                <h1> Rollenzugriffsverwaltung: <span th:text="{role.name}"> Rolle </span></h1>
+                <h1> Projekte </h1>
                 <div class="padding-50"></div>
                 <div class="container">
                     <div class="row justify-content-center">
@@ -18,36 +18,37 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center" style="width: 70%" scope="col"> Projekte </th>
-                                        <th class="text-center" style="width: 30%" scope="col"> Optionen </th>
+                                        <th class="text-center" style="width: 15%" scope="col"> Zugriffsstatus </th>
+                                        <th class="text-center" style="width: 15%" scope="col"> Optionen </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr th:if="${projects.empty}" class="text-center">
-                                        <td colspan="2"> Kein Projekte verfügbar </td>
+                                        <td colspan="3"> Kein Projekte verfügbar </td>
                                     </tr>
                                     <tr th:each="project : ${projects}">
                                         <td class="text-center"><span th:text="${project.name}"> Projekt </span></td>
                                         <td class="text-center">
                                             <span>
+                                                <i th:if="${#lists.contains(accessibleProjects, project)}" class="bi bi-eye" style="font-size: medium; color: rgb(21, 255, 0);" title="Zugriffsrechte"></i>
+                                                <i th:if="${#lists.contains(accessibleProjects, project) == false}" class="bi bi-eye" style="font-size: medium; color: rgb(255, 60, 60);" title="Zugriffsrechte"></i>
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span>
                                                 <div class="row justify-content-center">
-                                                    <div class="col-4">
-                                                        <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/edit_users'}"
-                                                            class="icon-link">
-                                                            <i class="bi bi-people" style="font-size: medium; color: black;"
-                                                                title="Nutzer der Rolle editieren"></i>
-                                                        </a>
+                                                    <div class="col-6">
+                                                        <form th:action="@{/userFile}" method="post" enctype="multipart/form-data">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value="" id="checkProject">
+                                                            </div>
+                                                        </form>
                                                     </div>
-                                                    <div class="col-4">
-                                                        <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/edit_access'}"
-                                                            class="icon-link">
-                                                            <i class="bi bi-pencil" style="font-size: medium; color: black;" title="Rolle editieren"></i>
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-4">
+                                                    <div class="col-6">
                                                         <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/delete'}"
                                                             class="icon-link">
-                                                            <i class="bi bi-trash" style="font-size: medium; color: rgb(255, 60, 60);"
-                                                                title="Rolle löschen"></i>
+                                                            <i class="bi bi-play" style="font-size: medium; color: black;"
+                                                                title="Zu untergeordneten Verträgen"></i>
                                                         </a>
                                                     </div>
                                                 </div>
