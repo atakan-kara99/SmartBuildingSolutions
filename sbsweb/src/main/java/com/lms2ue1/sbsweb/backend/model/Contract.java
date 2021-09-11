@@ -16,7 +16,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 public class Contract {
-	// A few adaptations to make the data model actually work (nka).
 	
 	// ---- Attributes ----//
 	@Id
@@ -26,11 +25,13 @@ public class Contract {
 	@Column(unique = true)
 	private String name;
 	private String description;
-	private Status status;
 	private String consignee;
 	private String contractor;
 
 	// ---- Associations ----//
+	@ManyToOne
+	@JoinColumn(name = "status_id")
+	private Status status;
 	@Size(min = 2, max = 2)
 	@ManyToMany
 	@JoinTable(name = "CONTRACT_ORGANISATIONS", joinColumns = { @JoinColumn(name = "CONTRACT_ID") }, inverseJoinColumns = {
@@ -39,7 +40,7 @@ public class Contract {
 	@Size(min = 2)
 	@ManyToMany(mappedBy = "contracts")
 	private List<Role> roles;
-	@ManyToOne//(cascade = { CascadeType.ALL }) try to remove
+	@ManyToOne
 	@JoinColumn(name = "project_id")
 	private Project project;
 	@Size(min = 1)

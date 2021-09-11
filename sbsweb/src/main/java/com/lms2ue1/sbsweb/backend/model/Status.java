@@ -1,6 +1,5 @@
 package com.lms2ue1.sbsweb.backend.model;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,10 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
-import org.hibernate.mapping.Map;
 
 @Entity
 public class Status {
@@ -22,20 +20,19 @@ public class Status {
 	@NotEmpty
 	private String name;
 	
-	/* next statuses */
-	private List<Status> nextStatuses = new Map<Status>();
-
+	// TODO: list of next stati of the current status -> via self join?
+	
 	// ---- Associations ---- //
-	@ManyToOne
-	private Project project;
-	@ManyToOne
-	private Contract contract;
-	@ManyToMany
-	private Organisation organisation;
-	@ManyToOne
-	private BillingUnit billingUnit;
-	@ManyToOne
-	private BillingItem billingItem;
+	@OneToMany(mappedBy="status")
+	private List<Project> projects;
+	@ManyToMany(mappedBy="stati")
+	private List<Organisation> organisations;
+	@OneToMany(mappedBy="status")
+	private List<Contract> contracts;
+	@OneToMany(mappedBy="status")
+	private List<BillingUnit> billingUnits;
+	@OneToMany(mappedBy="status")
+	private List<BillingItem> billingItems;
 	
 	
 	// ----------------------------------//
@@ -52,25 +49,45 @@ public class Status {
 	public String getName() {
 		return this.name;
 	}
-	public Project getProject() {
-		return this.project;
+	public List<Project> getProject() {
+		return this.projects;
 	}
-	public Contract getContract() {
-		return this.contract;
+	public List<Contract> getContract() {
+		return this.contracts;
 	}
-	public Organisation getOrganisation() {
-		return this.organisation;
+	public List<Organisation> getOrganisation() {
+		return this.organisations;
 	}
-	public BillingUnit getBillingUnit() {
-		return this.billingUnit;
+	public List<BillingUnit> getBillingUnit() {
+		return this.billingUnits;
 	}
-	public BillingItem getBillingItem() {
-		return this.billingItem;
+	public List<BillingItem> getBillingItem() {
+		return this.billingItems;
 	}
 	// ----------------------------//
 	// ---------- Setter ----------//
 	// ----------------------------//
-	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public void setName(String n) {
+		this.name = n;
+	}
+	public void setProject(List<Project> ps) {
+		this.projects = ps;
+	}
+	public void setContract(List<Contract> cs) {
+		this.contracts = cs;
+	}
+	public void setOrganisation(List<Organisation> os) {
+		this.organisations = os;
+	}
+	public void setBillingUnit(List<BillingUnit> bus) {
+		this.billingUnits = bus;
+	}
+	public void setBillingItem(List<BillingItem> bis) {
+		this.billingItems = bis;
+	}
 	
 
 }

@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
@@ -24,11 +26,15 @@ public class Organisation {
 	private String name;
 
 	// ---- Associations ----//
+	@ManyToMany
+	@JoinTable(name = "organisation_status", joinColumns = { @JoinColumn(name = "organisation_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "status_id") })
+	private List<Status> stati;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "organisation")
 	private List<Project> projects;
 	@Size(min = 2)
-	@OneToMany(mappedBy = "organisation") // Mapping is necessary!
+	@OneToMany(mappedBy = "organisation")
 	private List<Role> roles;
 	@Size(min = 1)
 	@ManyToMany(mappedBy = "organisations")
@@ -60,6 +66,10 @@ public class Organisation {
 	public String getName() {
 		return this.name;
 	}
+	
+	public List<Status> getStatus() {
+		return this.stati;
+	}
 
 	public List<Project> getProjects() {
 		return this.projects;
@@ -82,6 +92,10 @@ public class Organisation {
 
 	public void setName(String n) {
 		this.name = n;
+	}
+	
+	public void setStatus(List<Status> stati) {
+		this.stati = stati;
 	}
 
 	public void setProjects(List<Project> p) {

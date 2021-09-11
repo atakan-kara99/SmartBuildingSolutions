@@ -24,7 +24,6 @@ public class BillingItem {
 	@Column(unique = true)
 	private String name;
 	private String shortDescription;
-	private Status status;
 	private double quantities;
 	private String unit;
 	private double unitPrice;
@@ -32,7 +31,10 @@ public class BillingItem {
 	private String shortDesLinkedIFC;
 
 	// ---- Associations ----//
-	@ManyToOne//(cascade = { CascadeType.ALL }) tried w/ cascading
+	@ManyToOne
+	@JoinColumn(name = "status_id")
+	private Status status;
+	@ManyToOne
 	@JoinColumn(name = "billing_unit_id")
 	private BillingUnit billingUnit;
 	@Size(min = 2)

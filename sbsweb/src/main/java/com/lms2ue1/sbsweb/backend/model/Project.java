@@ -26,7 +26,6 @@ public class Project {
 	private String description;
 	private String creationDate;
 	private String completionDate;
-	private Status status;
 	private double overallCosts;
 	private String creator;
 	// -- These attributes are not important for our use. --//
@@ -35,7 +34,10 @@ public class Project {
 	private String imageFileName;
 
 	// ------ Associations ------//
-	@OneToOne//(cascade = {CascadeType.ALL}) try w/ cascading
+	@ManyToOne
+	@JoinColumn(name = "status_id")
+	private Status status;
+	@OneToOne
 	private Address address;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "project", orphanRemoval = true)

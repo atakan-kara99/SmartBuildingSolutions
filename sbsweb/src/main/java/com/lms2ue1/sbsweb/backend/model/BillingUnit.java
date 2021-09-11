@@ -28,30 +28,24 @@ public class BillingUnit {
 	private double totalPrice;
 
 	// ---- Associations ----//
-<<<<<<< HEAD
 	@ManyToOne
-=======
-	/* Got problems with merging with contracts */
-	@ManyToOne//(cascade = { CascadeType.MERGE }) // try to run w/
-	@JoinColumn(name = "contract_id")
->>>>>>> web-dev
 	private Contract contract;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "billingUnit", orphanRemoval = true)
 	private List<BillingItem> billingItems;
-	@OneToMany(mappedBy="billingUnit")
+	@ManyToOne
+	@JoinColumn(name = "status_id")
 	private Status status;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
-	// TODO: Do we actually want to allow this?
 	public BillingUnit() {
 	}
 
 	/**
-	 * Initializes a billing unit object.
-	 * Only the parameters of the constructor are columns (plus the FKs).
+	 * Initializes a billing unit object. Only the parameters of the constructor are
+	 * columns (plus the FKs).
 	 * 
 	 * @param sDesc              = short description
 	 * @param lDesc              = long description
@@ -62,7 +56,8 @@ public class BillingUnit {
 	 * @param totalPrice         = total price
 	 * @param contract           = contract
 	 */
-	public BillingUnit(String sDesc, String lDesc, String unit, String completionDate, String ownContractDefined, double totalQuantity, double totalPrice, Contract contract) {
+	public BillingUnit(String sDesc, String lDesc, String unit, String completionDate, String ownContractDefined,
+			double totalQuantity, double totalPrice, Contract contract, Status status) {
 		this.shortDescription = sDesc;
 		this.longDescription = lDesc;
 		this.unit = unit;
@@ -71,6 +66,7 @@ public class BillingUnit {
 		this.totalQuantity = totalQuantity;
 		this.totalPrice = totalPrice;
 		this.contract = contract;
+		this.status = status;
 	}
 
 	// ----------------------------//
@@ -119,6 +115,7 @@ public class BillingUnit {
 	public Status getStatus() {
 		return this.status;
 	}
+
 	// ----------------------------//
 	// ---------- Setter ----------//
 	// ----------------------------//
@@ -161,6 +158,7 @@ public class BillingUnit {
 	public void setBillingItems(List<BillingItem> bis) {
 		this.billingItems = bis;
 	}
+
 	public void setStatus(Status s) {
 		this.status = s;
 	}
