@@ -163,7 +163,7 @@ public class AuthorisationCheck {
      * @param uID      = the other user to manage.
      * @return true = yes, the user is. false = no, the user isn't.
      */
-    public boolean manageUser(String username, long uID) {
+    public boolean canManageUser(String username, long uID) {
 	// The SysAdmin is allowed to manage every user.
 	// First: The given user has to have the permission to manage user per default.
 	// Second: Both user have to be in the same organisation.

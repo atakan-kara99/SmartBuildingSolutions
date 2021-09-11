@@ -92,27 +92,27 @@ public class User {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    public void setId(Long id) {
+    protected void setId(Long id) {
 	this.id = id;
     }
 
-    public void setForename(String fname) {
+    protected void setForename(String fname) {
 	this.forename = fname;
     }
 
-    public void setLastname(String lname) {
+    protected void setLastname(String lname) {
 	this.lastname = lname;
     }
 
-    public void setUsername(String uname) {
+    protected void setUsername(String uname) {
 	this.username = uname;
     }
 
-    public void setRole(Role rs) {
+    protected void setRole(Role rs) {
 	this.role = rs;
     }
 
-    public void setPassword(String p) {
+    protected void setPassword(String p) {
 	this.password = p;
     }
 

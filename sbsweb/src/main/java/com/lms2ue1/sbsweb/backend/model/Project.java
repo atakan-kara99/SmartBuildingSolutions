@@ -155,63 +155,63 @@ public class Project {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    public void setId(long pId) {
+    protected void setId(long pId) {
 	this.id = pId;
     }
 
-    public void setName(String n) {
+    protected void setName(String n) {
 	this.name = n;
     }
 
-    public void setDescription(String desc) {
+    protected void setDescription(String desc) {
 	this.description = desc;
     }
 
-    public void setCreationDate(String creationDate) {
+    protected void setCreationDate(String creationDate) {
 	this.creationDate = creationDate;
     }
 
-    public void setCompletionDate(String completionDate) {
+    protected void setCompletionDate(String completionDate) {
 	this.completionDate = completionDate;
     }
 
-    public void setStatus(Status s) {
+    protected void setStatus(Status s) {
 	this.status = s;
     }
 
-    public void setOverallCosts(double oC) {
+    protected void setOverallCosts(double oC) {
 	this.overallCosts = oC;
     }
 
-    public void setImage(String img) {
+    protected void setImage(String img) {
 	this.image = img;
     }
 
-    public void setImageType(String imgType) {
+    protected void setImageType(String imgType) {
 	this.imageType = imgType;
     }
 
-    public void setImageFileName(String imgFileName) {
+    protected void setImageFileName(String imgFileName) {
 	this.imageFileName = imgFileName;
     }
 
-    public void setAddress(Address a) {
+    protected void setAddress(Address a) {
 	this.address = a;
     }
 
-    public void setContracts(List<Contract> cs) {
+    protected void setContracts(List<Contract> cs) {
 	this.contracts = cs;
     }
 
-    public void setOrganisation(Organisation o) {
+    protected void setOrganisation(Organisation o) {
 	this.organisation = o;
     }
 
-    public void setRoles(List<Role> roles) {
+    protected void setRoles(List<Role> roles) {
 	this.roles = roles;
     }
 
-    public void setCreator(String creator) {
+    protected void setCreator(String creator) {
 	this.creator = creator;
     }
 

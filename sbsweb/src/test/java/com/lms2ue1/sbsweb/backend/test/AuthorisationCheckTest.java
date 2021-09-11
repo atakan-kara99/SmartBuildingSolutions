@@ -65,6 +65,7 @@ class AuthorisationCheckTest {
     private Role role0;
     private Role role1;
     private User user0;
+    private User user1;
 
     @BeforeEach
     public void init() {
@@ -90,6 +91,7 @@ class AuthorisationCheckTest {
 		List.of(billingItem0, billingItem1), org0, true);
 	role1 = new Role("OrgAdmin", null, null, null, org1, true);
 	user0 = new User("Peter", "Müller", role0, "root", passwordEncoder.encode("admin"));
+	user1 = new User("Hans", "Frans", role1, "orgadmin", passwordEncoder.encode("org"));
 
 	when(userMock.findByUsername("root")).thenReturn(user0);
     }
@@ -157,10 +159,22 @@ class AuthorisationCheckTest {
     }
     
     @Test
+    @DisplayName("testCheckLeafBillingItem")
     public void testCheckLeafBillingItem() {
 	when(billItemMock.findById(1l)).thenReturn(Optional.of(billingItem0));
 	when(billItemMock.findById(0l)).thenReturn(Optional.of(billingItem1));
 	assertTrue(authCheck.checkBillingItem("root", 0l));
     }
+    
+    // TODO: Tests für die User Checks
+    // --------------- User Check Tests
+    
+    @Test
+    public void testManageUserSysAdmin() {
+	when(userMock.findByUsername("orgAdmin"));
+	//assertTrue(authCheck.manageUser("root", ));
+    }
+    
+    // TODO: Tests für den Status => Eigener Issue
 
 }

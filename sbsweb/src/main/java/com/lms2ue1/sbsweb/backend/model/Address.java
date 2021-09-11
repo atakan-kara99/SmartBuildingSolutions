@@ -87,31 +87,31 @@ public class Address {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    public void setAddressId(long aId) {
+    protected void setAddressId(long aId) {
 	this.id = aId;
     }
 
-    public void setStreet(String s) {
+    protected void setStreet(String s) {
 	this.street = s;
     }
 
-    public void setHouseNumber(int hNum) {
+    protected void setHouseNumber(int hNum) {
 	this.houseNumber = hNum;
     }
 
-    public void setZipCode(int zCd) {
+    protected void setZipCode(int zCd) {
 	this.zipCode = zCd;
     }
 
-    public void setCity(String c) {
+    protected void setCity(String c) {
 	this.city = c;
     }
 
-    public void setCountry(String cntry) {
+    protected void setCountry(String cntry) {
 	this.country = cntry;
     }
 
-    public void setProject(Project p) {
+    protected void setProject(Project p) {
 	this.project = p;
     }
 
