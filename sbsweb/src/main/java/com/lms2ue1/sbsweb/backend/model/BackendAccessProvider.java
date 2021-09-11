@@ -81,7 +81,7 @@ public class BackendAccessProvider {
     }
 
     /**
-     * Updates an organisation. Does <b>not</b> update association fields.
+     * Updates an organisation.
      * 
      * @param username            the username of the user requesting this
      *                            operation.
@@ -146,7 +146,7 @@ public class BackendAccessProvider {
     }
 
     /**
-     * Updates a user. Does <b>not</b> update association fields.
+     * Updates a user, including its role.
      * 
      * @param username    the username of the user requesting this operation.
      * @param oldUserId   the user's old id.
@@ -166,6 +166,7 @@ public class BackendAccessProvider {
 	    oldUser.setLastname(updatedUser.getLastname());
 	    oldUser.setUsername(updatedUser.getUsername());
 	    oldUser.setPassword(updatedUser.getPassword());
+	    oldUser.setRole(updatedUser.getRole());
 	} else {
 	    throw new AuthenticationException();
 	}
@@ -234,7 +235,8 @@ public class BackendAccessProvider {
     }
 
     /**
-     * Updates a role. Does <b>not</b> update association fields.
+     * Updates a role, including its associated projects, contracts and billing
+     * items.
      * 
      * @param username    the username of the user requesting this operation.
      * @param oldRoleId   the role's old id.
@@ -263,6 +265,10 @@ public class BackendAccessProvider {
 	if (canUpdate) {
 	    oldRole.setName(updatedRole.getName());
 	    oldRole.setManageUser(updatedRole.isManageUser());
+	    oldRole.setName(updatedRole.getName());
+	    oldRole.setProjects(updatedRole.getProjects());
+	    oldRole.setContracts(updatedRole.getContracts());
+	    oldRole.setBillingItems(updatedRole.getBillingItems());
 	}
     }
 
