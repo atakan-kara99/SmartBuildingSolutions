@@ -2,12 +2,14 @@ package com.lms2ue1.sbsweb.backend.model;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.naming.AuthenticationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.lms2ue1.sbsweb.backend.repository.*;
+import com.lms2ue1.sbsweb.backend.security.AuthorisationCheck;
 
 /** Provides communication between Frontend and Backend. */
 public class BackendAccessProvider {
@@ -31,17 +33,10 @@ public class BackendAccessProvider {
     @Autowired
     private RoleRepository roles;
 
-    //////////////////////// Singleton ////////////////////////
+    //////////////////////// Singleton using @Autowired ////////////////////////
 
-    private static BackendAccessProvider instance;
-
-    /** Singleton creational pattern to get a BAP. */
-    public static synchronized BackendAccessProvider getInstance() {
-	if (instance == null) {
-	    instance = new BackendAccessProvider();
-	}
-	return instance;
-    }
+    @Autowired
+    private AuthorisationCheck auth;
 
     /** Disable public default constructor. */
     private BackendAccessProvider() {
@@ -59,8 +54,12 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void addOrganisation(String username, Organisation newOrganisation) {
-	// TODO sysadmin only
+    public void addOrganisation(String username, Organisation newOrganisation) throws AuthenticationException {
+	if (auth.isSysAdmin(username)) {
+	    organisations.save(newOrganisation);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -71,12 +70,16 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void removeOrganisation(String username, Long organisationId) {
-	// TODO sysadmin only
+    public void removeOrganisation(String username, Long organisationId) throws AuthenticationException {
+	if (auth.isSysAdmin(username)) {
+	    organisations.deleteById(organisationId);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
-     * Updates an organisation.
+     * Updates an organisation. Does <b>not</b> update association fields.
      * 
      * @param username            the username of the user requesting this
      *                            operation.
@@ -85,8 +88,15 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void updateOrganisation(String username, Long oldOrganisationId, Organisation updatedOrganisation) {
-	// TODO sysadmin only
+    public void updateOrganisation(String username, Long oldOrganisationId, Organisation updatedOrganisation)
+	    throws AuthenticationException {
+	if (auth.isSysAdmin(username)) {
+	    Organisation oldOrganisation = organisations.findById(oldOrganisationId)
+		    .orElseThrow(IllegalArgumentException::new);
+	    oldOrganisation.setName(updatedOrganisation.getName());
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     //////// Users
@@ -99,14 +109,18 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void addUser(String username, User newUser) {
-	// TODO check if:
-	// - username is allowed to add user
-	// -> role has sufficient rights to add users
-	// -> adds to same organisation (except for sysadmin)
-	// - userToAdd doesn't already exist
-	// -> id not yet in user repo
-	// -> username not yet in user repo (case insensitive)
+    public void addUser(String username, User newUser) throws AuthenticationException {
+	if (newUser == null) {
+	    throw new IllegalArgumentException();
+	} else if (users.findByUsernameIgnoreCase(username) == null) {
+	    throw new IllegalArgumentException("username is already taken!");
+	}
+
+	if (auth.manageUser(username, newUser.getId())) {
+	    users.save(newUser);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -117,12 +131,20 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void removeUser(String username, Long userId) {
-	// TODO
+    public void removeUser(String username, Long userId) throws AuthenticationException {
+	if (userId == null) {
+	    throw new IllegalArgumentException();
+	}
+
+	if (auth.manageUser(username, userId)) {
+	    users.deleteById(userId);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
-     * Updates a user.
+     * Updates a user. Does <b>not</b> update association fields.
      * 
      * @param username    the username of the user requesting this operation.
      * @param oldUserId   the user's old id.
@@ -131,8 +153,20 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void updateUser(String username, Long oldUserId, User updatedUser) {
-	// TODO
+    public void updateUser(String username, Long oldUserId, User updatedUser) throws AuthenticationException {
+	if (oldUserId == null || updatedUser == null) {
+	    throw new IllegalArgumentException();
+	}
+
+	if (auth.manageUser(username, oldUserId)) {
+	    User oldUser = users.findById(oldUserId).orElseThrow(IllegalArgumentException::new);
+	    oldUser.setForename(updatedUser.getForename());
+	    oldUser.setLastname(updatedUser.getLastname());
+	    oldUser.setUsername(updatedUser.getUsername());
+	    oldUser.setPassword(updatedUser.getPassword());
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     //////// Roles
@@ -145,8 +179,26 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void addRole(String username, Role newRole) {
-	// TODO
+    public void addRole(String username, Role newRole) throws AuthenticationException {
+	if (newRole == null) {
+	    throw new IllegalArgumentException();
+	}
+
+	boolean canSave = false;
+	if (auth.isSysAdmin(username)) {
+	    canSave = true;
+	} else {
+	    Long oID = auth.getOrgAdminID(username);
+	    if (oID != null && newRole.getOrganisation().getId() == oID.longValue()) {
+		canSave = true;
+	    } else {
+		throw new AuthenticationException();
+	    }
+	}
+
+	if (canSave) {
+	    roles.save(newRole);
+	}
     }
 
     /**
@@ -157,12 +209,30 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void removeRole(String username, Long roleId) {
-	// TODO
+    public void removeRole(String username, Long roleId) throws AuthenticationException {
+	if (roleId == null) {
+	    throw new IllegalArgumentException();
+	}
+
+	boolean canDelete = false;
+	if (auth.isSysAdmin(username)) {
+	    canDelete = true;
+	} else {
+	    long oID1 = roles.findById(roleId).orElseThrow(IllegalArgumentException::new).getOrganisation().getId();
+	    Long oID2 = auth.getOrgAdminID(username);
+	    if (oID2 != null && oID1 == oID2.longValue()) {
+		canDelete = true;
+	    }
+	    throw new AuthenticationException();
+	}
+
+	if (canDelete) {
+	    roles.deleteById(roleId);
+	}
     }
 
     /**
-     * Updates a role.
+     * Updates a role. Does <b>not</b> update association fields.
      * 
      * @param username    the username of the user requesting this operation.
      * @param oldRoleId   the role's old id.
@@ -170,8 +240,28 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void updateRole(String username, Long oldRoleId, Role updatedRole) {
-	// TODO
+    public void updateRole(String username, Long oldRoleId, Role updatedRole) throws AuthenticationException {
+	if (oldRoleId == null || updatedRole == null) {
+	    throw new IllegalArgumentException();
+	}
+	Role oldRole = roles.findById(oldRoleId).orElseThrow(IllegalArgumentException::new);
+
+	boolean canUpdate = false;
+	if (auth.isSysAdmin(username)) {
+	    canUpdate = true;
+	} else {
+	    Long oID = auth.getOrgAdminID(username);
+	    if (oID != null && oldRole.getOrganisation().getId() == oID) {
+		canUpdate = true;
+	    } else {
+		throw new AuthenticationException();
+	    }
+	}
+
+	if (canUpdate) {
+	    oldRole.setName(updatedRole.getName());
+	    oldRole.setManageUser(updatedRole.isManageUser());
+	}
     }
 
     //////// BillingItem status
@@ -191,7 +281,6 @@ public class BackendAccessProvider {
 
     //////////////////////// Getters per id ////////////////////////
 
-    @Deprecated
     /**
      * Returns the address with the given id.
      * 
@@ -201,10 +290,12 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public Address getAddressById(String username, Long addressId) {
-	// TODO check if username is allowed to access
-	// Direkt an natalie weiterleiten
-	return addresses.findById(addressId).orElseThrow(IllegalArgumentException::new);
+    public Address getAddressById(String username, Long addressId) throws AuthenticationException {
+	if (auth.checkAddress(username, addressId)) {
+	    return addresses.findById(addressId).orElseThrow(IllegalArgumentException::new);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -216,9 +307,12 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public Project getProjectById(String username, Long projectId) {
-	// TODO check if username is allowed to access
-	return projects.findById(projectId).orElseThrow(IllegalArgumentException::new);
+    public Project getProjectById(String username, Long projectId) throws AuthenticationException {
+	if (auth.checkProject(username, projectId)) {
+	    return projects.findById(projectId).orElseThrow(IllegalArgumentException::new);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -230,9 +324,12 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public Contract getContractById(String username, Long contractId) {
-	// TODO check if username is allowed to access
-	return contracts.findById(contractId).orElseThrow(IllegalArgumentException::new);
+    public Contract getContractById(String username, Long contractId) throws AuthenticationException {
+	if (auth.checkContract(username, contractId)) {
+	    return contracts.findById(contractId).orElseThrow(IllegalArgumentException::new);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -244,9 +341,12 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public BillingUnit getBillingUnitById(String username, Long billingUnitId) {
-	// TODO check if username is allowed to access
-	return billingUnits.findById(billingUnitId).orElseThrow(IllegalArgumentException::new);
+    public BillingUnit getBillingUnitById(String username, Long billingUnitId) throws AuthenticationException {
+	if (auth.checkBillingUnit(username, billingUnitId)) {
+	    return billingUnits.findById(billingUnitId).orElseThrow(IllegalArgumentException::new);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -258,9 +358,12 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public BillingItem getBillingItemById(String username, Long billingItemId) {
-	// TODO check if username is allowed to access
-	return billingItems.findById(billingItemId).orElseThrow(IllegalArgumentException::new);
+    public BillingItem getBillingItemById(String username, Long billingItemId) throws AuthenticationException {
+	if (auth.checkBillingItem(username, billingItemId)) {
+	    return billingItems.findById(billingItemId).orElseThrow(IllegalArgumentException::new);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -272,9 +375,12 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public Organisation getOrganisationById(String username, Long organisationId) {
-	// TODO check if username is allowed to access
-	return organisations.findById(organisationId).orElseThrow(IllegalArgumentException::new);
+    public Organisation getOrganisationById(String username, Long organisationId) throws AuthenticationException {
+	if (auth.checkOrganisation(username, organisationId)) {
+	    return organisations.findById(organisationId).orElseThrow(IllegalArgumentException::new);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -286,12 +392,14 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public User getUserById(String username, Long userId) {
-	// TODO check if username is allowed to access
-	return users.findById(userId).orElseThrow(IllegalArgumentException::new);
+    public User getUserById(String username, Long userId) throws AuthenticationException {
+	if (auth.manageUser(username, userId)) {
+	    return users.findById(userId).orElseThrow(IllegalArgumentException::new);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
-    @Deprecated
     /**
      * Returns the role with the given id.
      * 
@@ -301,9 +409,14 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public Role getRoleById(String username, Long roleId) {
-	// TODO check if username is allowed to access
-	return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
+    public Role getRoleById(String username, Long roleId) throws AuthenticationException {
+	Long oID = auth.getOrgAdminID(username);
+	Role role = roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
+	if (oID != null && role.getId() == oID.longValue()) {
+	    return role;
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -330,10 +443,10 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public List<Address> getAllAccessibleAddresses(String username) {
+    public List<Address> getAllAddresses(String username) {
 	try {
-	    return users.findByUsername(username).getRole().getContracts().stream()
-		    .map(c -> c.getProject().getAddress()).collect(Collectors.toList());
+	    return users.findByUsername(username).getRole().getProjects().stream().map(p -> p.getAddress())
+		    .collect(Collectors.toList());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -347,7 +460,7 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public List<Project> getAllAccessibleProjects(String username) {
+    public List<Project> getAllProjects(String username) {
 	try {
 	    return users.findByUsername(username).getRole().getProjects();
 	} catch (NullPointerException e) {
@@ -363,7 +476,7 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public List<Contract> getAllAccessibleContracts(String username) {
+    public List<Contract> getAllContracts(String username) {
 	try {
 	    return users.findByUsername(username).getRole().getContracts();
 	} catch (NullPointerException e) {
@@ -379,10 +492,10 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public List<BillingUnit> getAllAccessibleBillingUnits(String username) {
+    public List<BillingUnit> getAllBillingUnits(String username) {
 	try {
-	    return users.findByUsername(username).getRole().getContracts().stream().map(c -> c.getBillingUnits())
-		    .flatMap(List::stream).collect(Collectors.toList());
+	    return users.findByUsername(username).getRole().getBillingItems().stream().map(bi -> bi.getBillingUnit())
+		    .collect(Collectors.toList());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -397,11 +510,9 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public List<BillingItem> getAllAccessibleBillingItems(String username) {
+    public List<BillingItem> getAllBillingItems(String username) {
 	try {
-	    return users.findByUsername(username).getRole().getContracts().stream().map(c -> c.getBillingUnits())
-		    .flatMap(List::stream).map(bu -> bu.getBillingItems()).flatMap(List::stream)
-		    .collect(Collectors.toList());
+	    return users.findByUsername(username).getRole().getBillingItems();
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -415,13 +526,13 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public List<Organisation> getAllAccessibleOrganisations(String username) {
-	// TODO can't handle the sysadmin's swag yet,
-	// orgadmin and user should be ok
+    public List<Organisation> getAllOrganisations(String username) {
 	try {
-//	    if (isSysAdmin(username)) {
-//		return StreamSupport.stream(organisations.findAll().spliterator(), false).collect(Collectors.toList());
-//	    }
+	    if (auth.isSysAdmin(username)) {
+		// All organisations
+		return StreamSupport.stream(organisations.findAll().spliterator(), false).collect(Collectors.toList());
+	    }
+	    // Own organisation
 	    return List.of(users.findByUsername(username).getRole().getOrganisation());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
@@ -436,18 +547,17 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public List<User> getAllAccessibleUsers(String username) {
-	// TODO
-	// sysadmin: all
-	// orgadmin: all per organisation
-	// user: user himself
+    public List<User> getAllUsers(String username) {
 	try {
-//	    if (isSysAdmin(username)) {
-//		return StreamSupport.stream(users.findAll().spliterator(), false).collect(Collectors.toList());
-//	    } else if (isOrgAdmin(username)) {
-//		return users.findByUsername(username).getRole().getOrganisation().getRoles().stream()
-//			.map(r -> r.getUsers()).flatMap(List::stream).collect(Collectors.toList());
-//	    }
+	    if (auth.isSysAdmin(username)) {
+		// All users
+		return StreamSupport.stream(users.findAll().spliterator(), false).collect(Collectors.toList());
+	    } else if (auth.getOrgAdminID(username) != null) {
+		// Users in organisation
+		return users.findByUsername(username).getRole().getOrganisation().getRoles().stream()
+			.map(r -> r.getUsers()).flatMap(List::stream).collect(Collectors.toList());
+	    }
+	    // Just the user
 	    return List.of(users.findByUsername(username));
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
@@ -462,17 +572,16 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public List<Role> getAllAccessibleRoles(String username) {
-	// TODO
-	// sysadmin: all
-	// orgadmin: all per organisation
-	// user: own role
+    public List<Role> getAllRoles(String username) {
 	try {
-//	    if (isSysAdmin(username)) {
-//		return StreamSupport.stream(roles.findAll().spliterator(), false).collect(Collectors.toList());
-//	    } else if (isOrgAdmin(username)) {
-//		return users.findByUsername(username).getRole().getOrganisation().getRoles();
-//	    }
+	    if (auth.isSysAdmin(username)) {
+		// All roles
+		return StreamSupport.stream(roles.findAll().spliterator(), false).collect(Collectors.toList());
+	    } else if (auth.getOrgAdminID(username) != null) {
+		// Roles in organisation
+		return users.findByUsername(username).getRole().getOrganisation().getRoles();
+	    }
+	    // Own role
 	    return List.of(users.findByUsername(username).getRole());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
@@ -491,7 +600,8 @@ public class BackendAccessProvider {
 	return null;
     }
 
-    //////////////////////// Frontend people love this stuff! ////////////////////////
+    //////////////////////// Frontend people love this stuff!
+    //////////////////////// ////////////////////////
     //////////////////////// (Backend people too) ////////////////////////
 
     /**
@@ -503,7 +613,7 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public List<User> getAllUsersByOrganisationId(String username, Long organisationId) {
+    public List<User> getAllUsersByOrganisationId(String username, Long organisationId) throws AuthenticationException {
 	return getOrganisationById(username, organisationId).getRoles().stream().map(r -> r.getUsers())
 		.flatMap(List::stream).collect(Collectors.toList());
     }
