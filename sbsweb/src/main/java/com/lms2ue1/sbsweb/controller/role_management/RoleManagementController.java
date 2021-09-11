@@ -1,21 +1,16 @@
-package com.lms2ue1.sbsweb.controller;
+package com.lms2ue1.sbsweb.controller.role_management;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.AuthenticationException;
 import javax.validation.Valid;
 
-import com.lms2ue1.sbsweb.backend.model.BackendAccessProvider;
 import com.lms2ue1.sbsweb.backend.model.Organisation;
 import com.lms2ue1.sbsweb.backend.model.Role;
 import com.lms2ue1.sbsweb.backend.model.User;
-import com.lms2ue1.sbsweb.backend.model.Project;
 import com.lms2ue1.sbsweb.backend.repository.OrganisationRepository;
 import com.lms2ue1.sbsweb.backend.repository.RoleRepository;
 import com.lms2ue1.sbsweb.backend.repository.UserRepository;
-import com.lms2ue1.sbsweb.backend.security.AuthorisationCheck;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,12 +30,6 @@ public class RoleManagementController {
 
     @Autowired
     private OrganisationRepository organisationRepository;
-
-    @Autowired
-    private BackendAccessProvider backendAccessProvider;
-
-    @Autowired
-    private AuthorisationCheck auth;
 
     /** Shows an overview of <b> ALL </b> organisations' roles. */
     @GetMapping("/organisation/{oID}/role_management")
@@ -180,38 +169,5 @@ public class RoleManagementController {
         user.setRole(roleRepository.findById(rID).get());
         userRepository.save(user);
         return "redirect:/organisation/{oID}/role_management/role/{rID}/role_edit_users";
-    }
-
-    /**
-     * 
-     * @param  principal
-     * @param  oID
-     * @param  rID
-     * @param  model
-     * @return
-     */
-    @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_edit_access_projects")
-    public String showProjectAccessPage(Principal principal, @PathVariable long oID, @PathVariable long rID, Model model) {
-        Organisation organisation = null;
-        Role role = null;
-        List<Project> availableProjects = backendAccessProvider.getAllProjects(principal.getName());
-        try {
-            organisation = backendAccessProvider.getOrganisationById(principal.getName(), oID);
-        } catch (AuthenticationException authException) {
-            authException.printStackTrace();
-        }
-        try {
-            role = backendAccessProvider.getRoleById(principal.getName(), rID);
-        } catch (AuthenticationException authException) {
-            authException.printStackTrace();
-        }
-        backendAccessProvider.getAllProjects(principal.getName());
-        model.addAttribute("user", userRepository.findByUsername(principal.getName()));
-        model.addAttribute("adminPrivileges", auth.isSysAdmin(principal.getName()));
-        model.addAttribute("organisation", organisation);
-        model.addAttribute("role", role);
-        model.addAttribute("availableProjects", availableProjects);
-        model.addAttribute("accessibleProjects", role.getProjects());
-        return "role/role_edit_access_projects";
     }
 }
