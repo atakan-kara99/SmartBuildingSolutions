@@ -23,7 +23,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:if="${availableProjects.empty}" class="text-center">
+                                    <tr th:if="${availableProjects == null || availableProjects.empty}" class="text-center">
                                         <td colspan="3"> Kein Projekte verfügbar </td>
                                     </tr>
                                     <tr th:each="project : ${availableProjects}">
@@ -39,25 +39,27 @@
                                         <td class="text-center">
                                             <span>
                                                 <div class="row justify-content-center">
-                                                    <div class="col-4"
-                                                        th:if="${adminPrivileges == false || (adminPrivileges == true && #lists.contains(role.users, user) == false)}">
-                                                        <div class="form-check" th:if="${#lists.contains(accessibleProjects, project)}">
-                                                            <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/role_remove_project/project/' + ${project.id}}"
-                                                                class="icon-link">
-                                                                <i class="bi bi-dash-circle" style="font-size: large; color: rgb(255, 60, 60);"
-                                                                    title="Zugriff entziehen"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="form-check" th:if="${#lists.contains(accessibleProjects, project) == false}">
-                                                            <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/role_add_project/project/' + ${project.id}}"
-                                                                class="icon-link">
-                                                                <i class="bi bi-plus-circle" style="font-size: large; color: black;" title="Zugriff geben"></i>
-                                                            </a>
+                                                    <div class="col-4">
+                                                        <div
+                                                            th:if="${adminPrivileges == false || (adminPrivileges == true && #lists.contains(role.users, user) == false)}">
+                                                            <div th:if="${#lists.contains(accessibleProjects, project)}">
+                                                                <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/role_remove_project/project/' + ${project.id}}"
+                                                                    class="icon-link">
+                                                                    <i class="bi bi-dash-circle" style="font-size: large; color: rgb(255, 60, 60);"
+                                                                        title="Zugriff entziehen"></i>
+                                                                </a>
+                                                            </div>
+                                                            <div th:if="${#lists.contains(accessibleProjects, project) == false}">
+                                                                <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/role_add_project/project/' + ${project.id}}"
+                                                                    class="icon-link">
+                                                                    <i class="bi bi-plus-circle" style="font-size: large; color: black;"
+                                                                        title="Zugriff geben"></i>
+                                                                </a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-4">
-                                                        <a th:href="@{'/project/' + ${project.id} + '/show'}"
-                                                            class="icon-link">
+                                                        <a th:href="@{'/project/' + ${project.id} + '/show'}" class="icon-link">
                                                             <i class="bi bi-info-circle" style="font-size: large; color: black;"
                                                                 title="Informationen zum Projekt"></i>
                                                         </a>

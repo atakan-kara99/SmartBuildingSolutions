@@ -23,7 +23,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:if="${availableBillingItems.empty}" class="text-center">
+                                    <tr th:if="${availableBillingItems == null || availableBillingItems.empty}" class="text-center">
                                         <td colspan="3"> Keine Leistungsposition verfügbar </td>
                                     </tr>
                                     <tr th:each="billingItem : ${availableBillingItems}">
@@ -41,14 +41,14 @@
                                                 <div class="row justify-content-center">
                                                     <div class="col-6"
                                                         th:if="${adminPrivileges == false || (adminPrivileges == true && #lists.contains(role.users, user) == false)}">
-                                                        <div class="form-check" th:if="${#lists.contains(accessibleBillingItems, billingItem)}">
+                                                        <div th:if="${#lists.contains(accessibleBillingItems, billingItem)}">
                                                             <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/project/' + ${project.id} + '/contract/' + ${contract.id} + '/role_remove_billing_item/billing_item/' + ${billingItem.id}}"
                                                                 class="icon-link">
                                                                 <i class="bi bi-dash-circle" style="font-size: large; color: rgb(255, 60, 60);"
                                                                     title="Zugriff entziehen"></i>
                                                             </a>
                                                         </div>
-                                                        <div class="form-check" th:if="${#lists.contains(accessibleBillingItems, billingItem) == false}">
+                                                        <div th:if="${#lists.contains(accessibleBillingItems, billingItem) == false}">
                                                             <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/project/' + ${project.id} + '/contract/' + ${contract.id} + '/role_add_billing_item/billing_item/' + ${billingItem.id}}"
                                                                 class="icon-link">
                                                                 <i class="bi bi-plus-circle" style="font-size: large; color: black;" title="Zugriff geben"></i>

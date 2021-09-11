@@ -23,7 +23,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:if="${availableContracts.empty}" class="text-center">
+                                    <tr th:if="${availableContracts == null || availableContracts.empty}" class="text-center">
                                         <td colspan="3"> Kein Vertrag verfügbar </td>
                                     </tr>
                                     <tr th:each="contract : ${availableContracts}">
@@ -41,14 +41,14 @@
                                                 <div class="row justify-content-center">
                                                     <div class="col-4"
                                                         th:if="${adminPrivileges == false || (adminPrivileges == true && #lists.contains(role.users, user) == false)}">
-                                                        <div class="form-check" th:if="${#lists.contains(accessibleContracts, contract)}">
+                                                        <div th:if="${#lists.contains(accessibleContracts, contract)}">
                                                             <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/project/' + ${project.id} + '/role_remove_contract/contract/' + ${contract.id}}"
                                                                 class="icon-link">
                                                                 <i class="bi bi-dash-circle" style="font-size: large; color: rgb(255, 60, 60);"
                                                                     title="Zugriff entziehen"></i>
                                                             </a>
                                                         </div>
-                                                        <div class="form-check" th:if="${#lists.contains(accessibleContracts, contract) == false}">
+                                                        <div th:if="${#lists.contains(accessibleContracts, contract) == false}">
                                                             <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/project/' + ${project.id} + '/role_add_contract/contract/' + ${contract.id}}"
                                                                 class="icon-link">
                                                                 <i class="bi bi-plus-circle" style="font-size: large; color: black;" title="Zugriff geben"></i>
