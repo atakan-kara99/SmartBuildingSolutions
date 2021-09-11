@@ -16,7 +16,7 @@ import com.lms2ue1.sbsweb.backend.model.*;
 public class BillingItemController {
 
     @Autowired
-    BackendAccessProvider BAP;
+    private BackendAccessProvider BAP;
 
     /** Shows the specified billing item's details. */
     @GetMapping("/project/{pID}/contract/{cID}/billing_item/{bID}/show")
@@ -27,6 +27,8 @@ public class BillingItemController {
 	    model.addAttribute("pID", pID);
 	    model.addAttribute("cID", cID);
 	    model.addAttribute("bID", bID);
+	    model.addAttribute("project", BAP.getProjectById(username, pID));
+	    model.addAttribute("contract", BAP.getContractById(username, cID));
 	    model.addAttribute("billingItem", BAP.getBillingItemById(username, bID));
 	    return "billingitem/billing_item_details";
 	} catch (AuthenticationException | IllegalArgumentException e) {

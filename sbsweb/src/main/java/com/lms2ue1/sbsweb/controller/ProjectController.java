@@ -25,7 +25,7 @@ public class ProjectController {
     // 5. Success: billing_item_details
 
     @Autowired
-    BackendAccessProvider BAP;
+    private BackendAccessProvider BAP;
 
     /** Shows an overview of all projects. */
     @GetMapping("/project_overview")

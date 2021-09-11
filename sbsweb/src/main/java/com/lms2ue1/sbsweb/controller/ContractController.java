@@ -18,7 +18,7 @@ import com.lms2ue1.sbsweb.backend.model.*;
 public class ContractController {
 
     @Autowired
-    BackendAccessProvider BAP;
+    private BackendAccessProvider BAP;
 
     /** Shows the specified contract's details, e.g. its billing items. */
     @GetMapping("/project/{pID}/contract/{cID}/show")
@@ -28,6 +28,7 @@ public class ContractController {
 	    String username = principal.getName();
 	    model.addAttribute("pID", pID);
 	    model.addAttribute("cID", cID);
+	    model.addAttribute("project", BAP.getProjectById(username, pID));
 	    model.addAttribute("contract", BAP.getContractById(username, cID));
 	    List<BillingItem> billingItems = BAP.getAllBillingItems(username);
 	    model.addAttribute("billingItems",

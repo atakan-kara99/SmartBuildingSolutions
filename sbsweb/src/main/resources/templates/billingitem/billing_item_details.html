@@ -20,7 +20,7 @@
                 </p>
                 <div style="padding-top: 20px"></div>
                 <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/show'}">
-                    <button type="button" class="btn btn-outline-success">Zurück zum Vertrag</button>
+                    <button type="button" class="btn btn-outline-success" th:text="'Zurück zum Vertrag: ' + ${contract.name}">Zurück zum Vertrag</button>
                 </a>
             </div>
         </div>
