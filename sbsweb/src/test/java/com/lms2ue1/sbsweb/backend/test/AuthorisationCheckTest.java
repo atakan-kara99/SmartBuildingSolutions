@@ -93,7 +93,7 @@ class AuthorisationCheckTest {
 	user0 = new User("Peter", "Müller", role0, "root", passwordEncoder.encode("admin"));
 	user1 = new User("Hans", "Frans", role1, "orgadmin", passwordEncoder.encode("org"));
 
-	when(userMock.findByUsername("root")).thenReturn(user0);
+	when(userMock.findByUsername(user0.getUsername())).thenReturn(user0);
     }
 
     @AfterEach
@@ -107,74 +107,86 @@ class AuthorisationCheckTest {
     @DisplayName("testGetRole")
     public void testGetRole() {
 	when(roleMock.findById(role0.getId())).thenReturn(Optional.of(role0));
-	assertTrue(authCheck.getRole("root").equals(role0));
+	assertTrue(authCheck.getRole(user0.getUsername()).equals(role0));
     }
 
     // ----------------------- Role Join tests
     // TODO: Test user without permission.
-    
+
     // !! Inverse join ist nicht testbar !!
-   /* @Test
-    @DisplayName("testCheckAddress")
-    public void testCheckAddress() {
-	when(addMock.findById(address0.getId())).thenReturn(Optional.of(address0));
-	when(proMock.findById(project0.getId())).thenReturn(Optional.of(project0));
-	System.out.println(address0.getProject());
-	assertTrue(authCheck.checkAddress("root", address0.getId()));
-    }*/
+    /*
+     * @Test
+     * 
+     * @DisplayName("testCheckAddress") public void testCheckAddress() {
+     * when(addMock.findById(address0.getId())).thenReturn(Optional.of(address0));
+     * when(proMock.findById(project0.getId())).thenReturn(Optional.of(project0));
+     * System.out.println(address0.getProject());
+     * assertTrue(authCheck.checkAddress("root", address0.getId())); }
+     */
 
     @Test
     @DisplayName("testCheckOrganisation")
     public void testCheckOrganisation() {
 	when(orgMock.findById(org0.getId())).thenReturn(Optional.of(org0));
-	assertTrue(authCheck.checkOrganisation("root", org0.getId()));
+	assertTrue(authCheck.checkOrganisation(user0.getUsername(), org0.getId()));
     }
 
     @Test
     @DisplayName("testCheckProject")
     public void testCheckProject() {
 	when(proMock.findById(project0.getId())).thenReturn(Optional.of(project0));
-	assertTrue(authCheck.checkProject("root", project0.getId()));
+	assertTrue(authCheck.checkProject(user0.getUsername(), project0.getId()));
     }
-    
+
     @Test
     @DisplayName("testCheckContract")
     public void testCheckContract() {
 	when(conMock.findById(contract0.getId())).thenReturn(Optional.of(contract0));
-	assertTrue(authCheck.checkContract("root", contract0.getId()));
+	assertTrue(authCheck.checkContract(user0.getUsername(), contract0.getId()));
     }
-    
+
     @Test
     @DisplayName("testCheckBillingUnit")
     public void testCheckBillingUnit() {
 	when(billUnitMock.findById(billingUnit0.getId())).thenReturn(Optional.of(billingUnit0));
-	assertTrue(authCheck.checkBillingUnit("root", billingUnit0.getId()));
+	assertTrue(authCheck.checkBillingUnit(user0.getUsername(), billingUnit0.getId()));
     }
-    
+
     @Test
     @DisplayName("testCheckRootBillingItem")
     public void testCheckRootBillingItem() {
 	when(billItemMock.findById(billingItem0.getId())).thenReturn(Optional.of(billingItem0));
-	assertTrue(authCheck.checkBillingItem("root", billingItem0.getId()));
+	assertTrue(authCheck.checkBillingItem(user0.getUsername(), billingItem0.getId()));
     }
-    
+
     @Test
     @DisplayName("testCheckLeafBillingItem")
     public void testCheckLeafBillingItem() {
 	when(billItemMock.findById(1l)).thenReturn(Optional.of(billingItem0));
 	when(billItemMock.findById(0l)).thenReturn(Optional.of(billingItem1));
-	assertTrue(authCheck.checkBillingItem("root", 0l));
+	assertTrue(authCheck.checkBillingItem(user0.getUsername(), 0l));
     }
-    
+
     // TODO: Tests für die User Checks
     // --------------- User Check Tests
-    
+
+    @Test
+    public void testIsSysAdmin() {
+	assertTrue(authCheck.isSysAdmin(user0.getUsername()));
+    }
+
+    @Test
+    public void testGetOrgAdminTrue() {
+	when(userMock.findByUsername(user1.getUsername())).thenReturn(user1);
+	assertTrue(authCheck.getOrgAdminID(user1.getUsername()) == user1.getId());
+    }
+
     @Test
     public void testManageUserSysAdmin() {
-	when(userMock.findByUsername("orgAdmin"));
-	//assertTrue(authCheck.manageUser("root", ));
+	when(userMock.findById(user1.getId())).thenReturn(Optional.of(user1));
+	assertTrue(authCheck.canManageUser(user0.getUsername(), user1.getId()));
     }
-    
+
     // TODO: Tests für den Status => Eigener Issue
 
 }
