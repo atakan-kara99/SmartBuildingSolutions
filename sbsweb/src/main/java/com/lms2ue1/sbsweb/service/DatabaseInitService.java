@@ -85,8 +85,8 @@ public class DatabaseInitService {
 	    
 	    Project pro3 = new Project("Schule sanieren", null, null, null, null, 0, null, null, null, null, null,
 		    org0);
-	    Project pro4 = new Project("Hausbau", "Haus an der Lindenallee 37 wird gebaut", null, null,
-		    Status.NO_STATUS, 0, null, null, null, null, null, org0);
+	    Project pro4 = new Project("Hausbau", "Haus an der Lindenallee 37 wird gebaut", "23.08.2021", "19.09.2021",
+		    Status.NO_STATUS, 0, "AG Haustechnik", null, null, null, add1, org0);
 	    Project pro5 = new Project("Feierabend XTREME", null, null, null, null, 0, null, null, null, null, null,
 		    org0);
 	    proRepo.saveAll(List.of(pro3, pro4, pro5));

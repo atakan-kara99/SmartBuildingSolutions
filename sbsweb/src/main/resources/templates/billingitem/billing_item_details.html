@@ -12,22 +12,16 @@
         <div class="container">
             <div class="text-center">
                 <h1 th:text="${billingItem.name}"></h1>
-                <div class="padding-50"></div>
+                <div style="padding-top: 30px"></div>
                 <p th:text="${billingItem.shortDescription}"></p>
                 <p>
                     Status:
                     <b th:text="${billingItem.status}"></b>
                 </p>
-            </div>
-        </div>
-        <div class="container">
-            <div style="padding-top: 12px"></div>
-            <div class="row">
-                <div class="col">
-                    <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/show'}">
-                        <button type="button" class="btn btn-outline-success">Zurück zum Vertrag</button>
-                    </a>
-                </div>
+                <div style="padding-top: 20px"></div>
+                <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/show'}">
+                    <button type="button" class="btn btn-outline-success">Zurück zum Vertrag</button>
+                </a>
             </div>
         </div>
     </th:block>
