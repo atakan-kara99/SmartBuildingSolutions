@@ -24,6 +24,34 @@
                 </a>
             </div>
         </div>
+        <div class="padding-50"></div>
+        <div class="text-center">
+            <div class="container" th:unless="${billingItem.billingItems.empty}">
+            <p>a</p>
+                <table class="table">
+                    <tbody>
+<!--                         <tr th:each="_, row : ${billingItems}" th:if="${row.count % 4 == 0 or row.last}"> -->
+<!--                             <span th:each="x : ${ {3,2,1,0} }"> -->
+<!--                                 <td th:if="${row.count % 4 == 0}" th:with="billingItem=${billingItems[row.index - x]}"> -->
+<!--                                     <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + ${billingItem.id} + '/show'}" -->
+<!--                                         class="icon-link"> -->
+<!--                                         <i class="bi bi-exclamation-circle" style="font-size: 300%; color: black;" th:title="${billingItem.name}"></i> -->
+<!--                                         <span th:text="${billingItem.name}" style="font-size: 175%; color: black; display: block;"></span> -->
+<!--                                     </a> -->
+<!--                                 </td> -->
+<!--                                 <td th:if="${row.count % 4 != 0} and ${row.last} and ${x < row.count % 4}" th:with="billingItem=${billingItems[row.index - x]}"> -->
+<!--                                     <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + ${billingItem.id} + '/show'}" -->
+<!--                                         class="icon-link"> -->
+<!--                                         <i class="bi bi-exclamation-circle" style="font-size: 300%; color: black;" th:title="${billingItem.name}"></i> -->
+<!--                                         <span th:text="${billingItem.name}" style="font-size: 175%; color: black; display: block;"></span> -->
+<!--                                     </a> -->
+<!--                                 </td> -->
+<!--                             </span> -->
+<!--                         </tr> -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </th:block>
 </body>
 

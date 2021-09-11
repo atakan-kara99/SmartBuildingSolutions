@@ -126,11 +126,14 @@ public class DatabaseInitService {
 	    // ------------------------------//
 	    BillingItem billItem0 = new BillingItem("bill0", 0, null, Status.NO_STATUS, 0, null, 0, null, null,
 		    billUnit0, null);
+	    BillingItem nested = new BillingItem("Schrauben kaufen", 0, "Sind leer.",
+		    Status.OPEN, 0, null, 0, null, null, billUnit1, List.of());
 	    
 	    billItemRepo.save(billItem0);
+	    billItemRepo.save(nested);
 	    
-	    BillingItem billItem1 = new BillingItem("Heizung montieren", 0, "Heizkï¿½rper B7-2 fensternah einbauen.",
-		    Status.OPEN, 0, null, 0, null, null, billUnit1, null);
+	    BillingItem billItem1 = new BillingItem("Heizung montieren", 0, "Heizkörper B7-2 fensternah einbauen.",
+		    Status.OPEN, 0, null, 0, null, null, billUnit1, List.of(nested));
 	    BillingItem billItem2 = new BillingItem("Fenster einbauen", 0, null, null, 0, null, 0, null, null,
 		    billUnit1, null);
 	    billItemRepo.saveAll(List.of(billItem1, billItem2));
