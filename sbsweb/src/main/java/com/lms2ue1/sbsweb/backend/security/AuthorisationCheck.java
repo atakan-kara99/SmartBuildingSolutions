@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.lms2ue1.sbsweb.backend.model.*;
 import com.lms2ue1.sbsweb.backend.repository.*;
 
+@Component
 /**
  * This class provides predicates to say, whether a user is allowed to do
  * something.
