@@ -29,7 +29,7 @@
             <div class="container" th:unless="${billingItem.billingItems.empty}">
                 <table class="table table-borderless">
                     <tbody>
-                        <tr th:each="_, row : ${billingItem.billingItems}" th:if="${row.count % 4 == 0 or row.last}">
+                        <tr th:each="_, row : ${billingItem.billingItems}" th:with="cols=4" th:if="#{row.count % ${cols} == 0 or row.last}">
                             <span th:each="x : ${ {3,2,1,0} }">
                                 <td th:if="${row.count % 4 == 0}" th:with="nested=${billingItem.billingItems[row.index - x]}">
                                     <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + ${nested.id} + '/show'}" class="icon-link">

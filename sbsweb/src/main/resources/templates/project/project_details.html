@@ -41,7 +41,7 @@
             <div class="container" th:unless="${contracts.empty}">
                 <table class="table table-borderless">
                     <tbody>
-                        <tr th:each="_, row : ${contracts}" th:if="${row.count % 4 == 0 or row.last}">
+                        <tr th:each="_, row : ${contracts}" th:with="cols=4" th:if="#{row.count % ${cols} == 0 or row.last}">
                             <span th:each="x : ${ {3,2,1,0} }">
                                 <td th:if="${row.count % 4 == 0}" th:with="contract=${contracts[row.index - x]}">
                                     <a th:href="@{'/project/' + ${pID} + '/contract/' + ${contract.id} + '/show'}" class="icon-link">
