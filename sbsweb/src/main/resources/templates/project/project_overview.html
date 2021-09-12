@@ -16,19 +16,19 @@
         </div>
         <div class="padding-50"></div>
         <div class="text-center">
-            <h4 th:if="${projects.empty}">Keine Projekte verfügbar.</h4>
-            <div class="container" th:unless="${projects.empty}">
+            <h4 th:if="${projects?.empty}">Keine Projekte verfügbar.</h4>
+            <div class="container" th:unless="${projects?.empty}">
                 <table class="table table-borderless" th:with="cols=4">
                     <tr th:each="_, row : ${projects}" th:if="${row.count % cols == 0 or row.last}">
                         <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
-                            <td th:if="${row.count % cols == 0}" th:object="${projects[row.index - x]}">
-                                <a th:href="@{'/project/' + *{id} + '/show'}" class="icon-link">
+                            <td th:if="${row.count % cols == 0}">
+                                <a th:object="${projects[row.index - x]}" th:href="@{'/project/' + *{id} + '/show'}" class="icon-link">
                                     <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="*{name}"></i>
                                     <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
                                 </a>
                             </td>
-                            <td th:if="${row.count % cols != 0} and ${row.last} and ${x < row.count % cols}" th:object="${projects[row.index - x]}">
-                                <a th:href="@{'/project/' + *{id} + '/show'}" class="icon-link">
+                            <td th:if="${row.count % cols != 0} and ${row.last} and ${x < row.count % cols}">
+                                <a th:object="${projects[row.index - x]}" th:href="@{'/project/' + *{id} + '/show'}" class="icon-link">
                                     <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="*{name}"></i>
                                     <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
                                 </a>

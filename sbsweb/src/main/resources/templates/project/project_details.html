@@ -37,27 +37,25 @@
         </div>
         <div class="padding-50"></div>
         <div class="text-center">
-            <h4 th:if="${contracts.empty}">Keine Verträge verfügbar.</h4>
-            <div class="container" th:unless="${contracts.empty}">
-                <table class="table table-borderless">
-                    <tbody>
-                        <tr th:each="_, row : ${contracts}" th:with="cols=4" th:if="#{row.count % ${cols} == 0 or row.last}">
-                            <span th:each="x : ${ {3,2,1,0} }">
-                                <td th:if="${row.count % 4 == 0}" th:with="contract=${contracts[row.index - x]}">
-                                    <a th:href="@{'/project/' + ${pID} + '/contract/' + ${contract.id} + '/show'}" class="icon-link">
-                                        <i class="bi bi-book" style="font-size: 300%; color: black;" th:title="${contract.name}"></i>
-                                        <span th:text="${contract.name}" style="font-size: 175%; color: black; display: block;"></span>
-                                    </a>
-                                </td>
-                                <td th:if="${row.count % 4 != 0} and ${row.last} and ${x < row.count % 4}" th:with="contract=${contracts[row.index - x]}">
-                                    <a th:href="@{'/project/' + ${pID} + '/contract/' + ${contract.id} + '/show'}" class="icon-link">
-                                        <i class="bi bi-book" style="font-size: 300%; color: black;" th:title="${contract.name}"></i>
-                                        <span th:text="${contract.name}" style="font-size: 175%; color: black; display: block;"></span>
-                                    </a>
-                                </td>
-                            </span>
-                        </tr>
-                    </tbody>
+            <h4 th:if="${contracts?.empty}">Keine Verträge verfügbar.</h4>
+            <div class="container" th:unless="${contracts?.empty}">
+                <table class="table table-borderless" th:with="cols=4">
+                    <tr th:each="_, row : ${contracts}" th:if="${row.count % cols == 0 or row.last}">
+                        <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
+                            <td th:if="${row.count % cols == 0}">
+                                <a th:object="${contracts[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + *{id} + '/show'}" class="icon-link">
+                                    <i class="bi bi-book" style="font-size: 300%; color: black;" th:title="*{name}"></i>
+                                    <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
+                                </a>
+                            </td>
+                            <td th:if="${row.count % cols != 0} and ${row.last} and ${x < row.count % cols}">
+                                <a th:object="${contracts[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + *{id} + '/show'}" class="icon-link">
+                                    <i class="bi bi-book" style="font-size: 300%; color: black;" th:title="*{name}"></i>
+                                    <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
+                                </a>
+                            </td>
+                        </th:block>
+                    </tr>
                 </table>
             </div>
         </div>

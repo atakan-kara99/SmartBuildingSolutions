@@ -25,28 +25,27 @@
             </div>
         </div>
         <div class="padding-50"></div>
-        <div class="text-center">
-            <div class="container" th:unless="${billingItem.billingItems.empty}">
-                <table class="table table-borderless">
-                    <tbody>
-                        <tr th:each="_, row : ${billingItem.billingItems}" th:with="cols=4" th:if="#{row.count % ${cols} == 0 or row.last}">
-                            <span th:each="x : ${ {3,2,1,0} }">
-                                <td th:if="${row.count % 4 == 0}" th:with="nested=${billingItem.billingItems[row.index - x]}">
-                                    <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + ${nested.id} + '/show'}" class="icon-link">
-                                        <i class="bi bi-exclamation-circle" style="font-size: 300%; color: black;" th:title="${nested.name}"></i>
-                                        <span th:text="${nested.name}" style="font-size: 175%; color: black; display: block;"></span>
-                                    </a>
-                                </td>
-                                <td th:if="${row.count % 4 != 0} and ${row.last} and ${x < row.count % 4}"
-                                    th:with="nested=${billingItem.billingItems[row.index - x]}">
-                                    <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + ${nested.id} + '/show'}" class="icon-link">
-                                        <i class="bi bi-exclamation-circle" style="font-size: 300%; color: black;" th:title="${nested.name}"></i>
-                                        <span th:text="${nested.name}" style="font-size: 175%; color: black; display: block;"></span>
-                                    </a>
-                                </td>
-                            </span>
-                        </tr>
-                    </tbody>
+        <div class="text-center" th:object="${billingItem}">
+            <div class="container" th:unless="*{billingItems?.empty}">
+                <table class="table table-borderless" th:with="cols=4">
+                    <tr th:each="_, row : *{billingItems}" th:if="${row.count % cols == 0 or row.last}">
+                        <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
+                            <td th:if="${row.count % cols == 0}">
+                                <a th:object="${billingItem.billingItems[row.index - x]}"
+                                    th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{id} + '/show'}" class="icon-link">
+                                    <i class="bi bi-exclamation-circle" style="font-size: 300%; color: black;" th:title="*{name}"></i>
+                                    <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
+                                </a>
+                            </td>
+                            <td th:if="${row.count % cols != 0} and ${row.last} and ${x < row.count % cols}">
+                                <a th:object="${billingItem.billingItems[row.index - x]}"
+                                    th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{id} + '/show'}" class="icon-link">
+                                    <i class="bi bi-exclamation-circle" style="font-size: 300%; color: black;" th:title="*{name}"></i>
+                                    <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
+                                </a>
+                            </td>
+                        </th:block>
+                    </tr>
                 </table>
             </div>
         </div>
