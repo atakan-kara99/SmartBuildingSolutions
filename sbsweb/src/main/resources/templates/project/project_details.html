@@ -39,7 +39,7 @@
         <div class="text-center">
             <h4 th:if="${contracts.empty}">Keine Verträge verfügbar.</h4>
             <div class="container" th:unless="${contracts.empty}">
-                <table class="table">
+                <table class="table table-borderless">
                     <tbody>
                         <tr th:each="_, row : ${contracts}" th:if="${row.count % 4 == 0 or row.last}">
                             <span th:each="x : ${ {3,2,1,0} }">

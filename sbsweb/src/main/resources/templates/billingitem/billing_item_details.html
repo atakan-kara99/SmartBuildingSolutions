@@ -27,7 +27,7 @@
         <div class="padding-50"></div>
         <div class="text-center">
             <div class="container" th:unless="${billingItem.billingItems.empty}">
-                <table class="table">
+                <table class="table table-borderless">
                     <tbody>
                         <tr th:each="_, row : ${billingItem.billingItems}" th:if="${row.count % 4 == 0 or row.last}">
                             <span th:each="x : ${ {3,2,1,0} }">

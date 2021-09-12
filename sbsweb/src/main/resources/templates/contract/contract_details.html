@@ -37,7 +37,7 @@
         <div class="text-center">
             <h4 th:if="${billingItems.empty}">Keine Leistungspositionen verfügbar.</h4>
             <div class="container" th:unless="${billingItems.empty}">
-                <table class="table">
+                <table class="table table-borderless">
                     <tbody>
                         <tr th:each="_, row : ${billingItems}" th:if="${row.count % 4 == 0 or row.last}">
                             <span th:each="x : ${ {3,2,1,0} }">
