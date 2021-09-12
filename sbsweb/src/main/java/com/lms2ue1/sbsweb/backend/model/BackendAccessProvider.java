@@ -402,8 +402,13 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public User getUserById(String username, Long userId) throws AuthenticationException {
+	User user = users.findById(userId).orElseThrow(IllegalArgumentException::new);
 	if (auth.manageUser(username, userId)) {
-	    return users.findById(userId).orElseThrow(IllegalArgumentException::new);
+	    // Sys- or OrgAdmin
+	    return user;
+	} else if (userId != null && user.getId() == userId.longValue()) {
+	    // User
+	    return user;
 	} else {
 	    throw new AuthenticationException();
 	}
