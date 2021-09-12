@@ -40,12 +40,15 @@ public class ProjectController {
     ContractRepository contracts;
     @Autowired
     RoleRepository roleRepo;
+    
+    //List of temp stati
+	List<String> listOfStatus = List.of("OK","OK","NO_STATUS","OPEN","OPEN","DENY","OPEN","OK","OK","OK","NO_STATUS","OK","OK","OK","OPEN","OK","OK","DENY");
 
     /** Shows an overview of all projects. */
     @GetMapping("/project_overview")
     public String showProjectOverview(Model model) {
-//	model.addAttribute("projects", BackendAccessProvider.getAccessibleProjects(principal.getName()));
-	model.addAttribute("projects", projects.findAll());
+//		model.addAttribute("projects", BackendAccessProvider.getAccessibleProjects(principal.getName()));
+		model.addAttribute("projects", projects.findAll());
 
 	// TODO: Debug
 	/*for (Role r : roleRepo.findAll()) {
@@ -69,13 +72,14 @@ public class ProjectController {
     /** Shows the specified project's details, e.g. its contracts. */
     @GetMapping("/project/{pID}/show")
     public String showProjectDetails(@PathVariable Long pID, Model model) {
-	model.addAttribute("pID", pID);
-//	model.addAttribute("project", BackendAccessProvider.getProjectById(username, pID));
-//	List<Contract> contracts = BackendAccessProvider.getAccessibleContracts(username);
-//	model.addAttribute("contracts", contracts.stream().filter(contract -> contract.getPID() == pID).collect(Collectors.toList()));
-	model.addAttribute("project", projects.findById(pID).get());
-	model.addAttribute("contracts", StreamSupport.stream(contracts.findAll().spliterator(), false)
-		.filter(contract -> contract.getProject().getId() == pID).collect(Collectors.toList()));
-	return "project/project_details";
+    	model.addAttribute("pID", pID);
+//		model.addAttribute("project", BackendAccessProvider.getProjectById(username, pID));
+//		List<Contract> contracts = BackendAccessProvider.getAccessibleContracts(username);
+//		model.addAttribute("contracts", contracts.stream().filter(contract -> contract.getPID() == pID).collect(Collectors.toList()));
+		model.addAttribute("project", projects.findById(pID).get());
+		model.addAttribute("contracts", StreamSupport.stream(contracts.findAll().spliterator(), false)
+			.filter(contract -> contract.getProject().getId() == pID).collect(Collectors.toList()));
+	    model.addAttribute("listOfStatus",listOfStatus);
+		return "project/project_details";
     }
 }
