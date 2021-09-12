@@ -131,10 +131,13 @@ public class AuthorisationCheck {
 	// First: Get the the allowed "root" billing items of the role.
 	// Second: Get the other leafs and flatten them to get one huge list.
 	// Third: Check, whether the given billing item is part of that list.
-	/*return getRole(username).getBillingItems().stream()
-		.map(bi -> flattenBillingItemsList(new ArrayList<BillingItem>(), bi)).flatMap(List::stream)
-		.collect(Collectors.toList())
-		.contains(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::new));*/
+	/*
+	 * return getRole(username).getBillingItems().stream() .map(bi ->
+	 * flattenBillingItemsList(new ArrayList<BillingItem>(),
+	 * bi)).flatMap(List::stream) .collect(Collectors.toList())
+	 * .contains(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::
+	 * new));
+	 */
 	return getRole(username).getBillingItems().stream()
 		.map(bi -> flattenBillingItemsList(new ArrayList<BillingItem>(), bi)).flatMap(List::stream)
 		.anyMatch(bi -> bi.equals(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::new)));

@@ -205,11 +205,10 @@ class AuthorisationCheckTest {
 	assertTrue(authCheck.canManageUser(user1.getUsername(), user1.getId()));
     }
     
-    // TODO: Der sollte nicht funktionieren!
-    // Expected <false> but was <true>
     @Test
     public void testManageUserNo() {
-	when(userMock.findById(user1.getId())).thenReturn(Optional.of(user1));
+	when(userMock.findById(1l)).thenReturn(Optional.of(user1));
+	when(userMock.findById(2l)).thenReturn(Optional.of(user2));
 	when(userMock.findByUsername(user1.getUsername())).thenReturn(user1);
 	when(userMock.findByUsername(user2.getUsername())).thenReturn(user2);
 	assertFalse(authCheck.canManageUser(user2.getUsername(), user1.getId()));
