@@ -553,8 +553,8 @@ public class BackendAccessProvider {
     }
 
     /**
-     * Returns a list of all billing items the user can access, <b> not </b>
-     * including nested billing items.
+     * Returns a list of all billing items the user can access, including nested
+     * billing items.
      * 
      * @param username the username of the user requesting this operation.
      * @return a list of all billing items the user can access.
@@ -575,7 +575,9 @@ public class BackendAccessProvider {
 //			.map(bi -> auth.flattenBillingItemsList(new ArrayList<>(), bi)).flatMap(List::stream)
 //			.collect(Collectors.toList());
 //	    }
-//	    return users.findByUsername(username).getRole().getBillingItems();
+//	    return users.findByUsername(username).getRole().getBillingItems().stream()
+//		    .map(bi -> auth.flattenBillingItemsList(new ArrayList<>(), bi)).flatMap(List::stream)
+//		    .collect(Collectors.toList());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}

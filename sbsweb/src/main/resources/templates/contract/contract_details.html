@@ -23,7 +23,7 @@
             <div class="row justify-content-center">
                 <div class="col-2">
                     <a th:href="@{'/project/' + ${pID} + '/show'}">
-                        <button type="button" class="btn btn-outline-success" th:text="'Zurück zum Projekt: ' + ${project.name}">Zurück zum Projekt</button>
+                        <button type="button" class="btn btn-outline-success" th:text="'Zurück zum Projekt: ' + ${project?.name}">Zurück zum Projekt</button>
                     </a>
                 </div>
                 <div class="col-2">
