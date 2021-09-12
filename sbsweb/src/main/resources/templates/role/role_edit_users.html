@@ -11,6 +11,16 @@
             <div class="text-center">
                 <h1> Rollennutzer bearbeiten </h1>
                 <div class="padding-50"></div>
+                <div class="container">
+                    <div class="row btn-row justify-content-end align-items-center">
+                        <div class="col-4 text-center">
+                            <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management'}">
+                                <button type="button" class="btn btn-outline-secondary"> Zurück zur Rollenverwaltung </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="padding-50"></div>
                 <h2> Nutzer in der Rolle </h2>
                 <div class="padding-50"></div>
                 <div class="row justify-content-center">

@@ -11,6 +11,16 @@
             <div class="text-center">
                 <h1> Rollennamen bearbeiten </h1>
                 <div class="padding-50"></div>
+                <div class="container">
+                    <div class="row btn-row justify-content-end align-items-center">
+                        <div class="col-4 text-center">
+                            <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management'}">
+                                <button type="button" class="btn btn-outline-secondary"> Zurück zur Rollenverwaltung </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="padding-50"></div>
                 <form action="#" th:action="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/role_update_name'}" th:object="${role}" method="post">
                     <div class="row justify-content-center">
                         <div class="col-3">

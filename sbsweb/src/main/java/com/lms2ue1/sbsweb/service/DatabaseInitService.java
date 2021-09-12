@@ -106,7 +106,7 @@ public class DatabaseInitService {
 	    
 	    Contract con3 = new Contract("Wohnzimmer bauen", "Sachen m�ssen erledigt werden", null, null, null, null,
 		    pro4);
-	    Contract con4 = new Contract("K�che installieren", null, null, null, null, null, pro4);
+	    Contract con4 = new Contract("Küche installieren", null, null, null, null, null, pro4);
 	    Contract con5 = new Contract("Baby beruhigen", null, null, null, null, null, pro4);
 	    Contract con6 = new Contract("Kosten klein halten", null, null, null, null, null, pro4);
 	    conRepo.saveAll(List.of(con3, con4, con5, con6));
@@ -129,7 +129,7 @@ public class DatabaseInitService {
 	    
 	    billItemRepo.save(billItem0);
 	    
-	    BillingItem billItem1 = new BillingItem("Heizung montieren", 0, "Heizk�rper B7-2 fensternah einbauen.",
+	    BillingItem billItem1 = new BillingItem("Heizung montieren", 0, "Heizkörper B7-2 fensternah einbauen.",
 		    Status.OPEN, 0, null, 0, null, null, billUnit1, null);
 	    BillingItem billItem2 = new BillingItem("Fenster einbauen", 0, null, null, 0, null, 0, null, null,
 		    billUnit1, null);
