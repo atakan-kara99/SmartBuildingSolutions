@@ -39,7 +39,6 @@ public class DiagramController {
     public String showProjectDiagramOverview(@PathVariable Long pID, Model model) {
     	
     	model.addAttribute("project", proRepo.findById(pID).get());
-    	model.addAttribute("projectName", "Projekt A");
     	model.addAttribute("labels", labels);
     	model.addAttribute("listOfStatus",listOfStatus);
     	
