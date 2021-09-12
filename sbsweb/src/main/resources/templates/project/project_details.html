@@ -10,119 +10,78 @@
 <body>
   <th:block th:fragment="content">
     <div class="container">
-      <div class="row">
-        <div class="col">
-          <div class="text-center">
-            <h1 th:text="${project.name}"></h1>
-            <div class="padding-50"></div>
+      <div class="text-center">
+        <h1 th:text="${project.name}"></h1>
+        <div style="padding-top: 30px"></div>
+        <p th:text="'Auftraggeber: ' + ${project.creator}"></p>
+      </div>
+      <div style="padding-top: 50px"></div>
+      <table width="100%">
+        <tr>
+          <th style="min-width:120px"></th>
+          <th style="min-width:60px"></th>
+        </tr>
+        <tr>
+          <td valign="top" style="width:70%">
+            <a th:href="@{'/project_overview'}">
+              <button type="button" class="btn btn-outline-success">Projektübersicht</button>
+            </a>
+            <div style="padding-top: 30px"></div>
             <p th:text="${project.description}"></p>
+            <p th:text="${project.creationDate} + ' - ' + ${project.completionDate}"></p>
             <p>
               Status:
               <b th:text="${project.status}"></b>
             </p>
+          </td>
+          <td align="center" style="width:30%">
+            <a th:href="@{'/project/' + ${pID} + '/diagrams'}">
+              <button align="right" type="button" class="btn btn-outline-success">Detailetes Diagramm erstellen</button>
+            </a>
+            <div style="padding-top: 20px"></div>
+            <div class="container" style="height: 250px">
+              <canvas id="diagram" align="right"></canvas>
+            </div>
+            <div class="text-center">
+              <div class="padding-20"></div>
+              <h3>Fortschritt</h3>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <div class="padding-50"></div>
+      <div class="text-center">
+        <h4 th:if="${contracts?.empty}">Keine Verträge verfügbar.</h4>
+        <div class="container" th:unless="${contracts?.empty}">
+          <table class="table table-borderless" th:with="cols=4">
+            <tr th:each="_, row : ${contracts}" th:if="${row.count % cols == 0 or row.last}">
+              <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
+                            <!-- Full row -->
+                            <td th:if="${row.count % cols == 0}">
+                                <a th:object="${contracts[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + *{id} + '/show'}" class="icon-link">
+                                    <i class="bi bi-book" style="font-size: 300%; color: black;" th:title="*{name}"></i>
+                                    <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
+                                </a>
+                            </td>
+                            <!-- Last row might not be full -->
+                            <td th:if="${row.last and x < row.count % cols}">
+                                <a th:object="${contracts[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + *{id} + '/show'}" class="icon-link">
+                                    <i class="bi bi-book" style="font-size: 300%; color: black;" th:title="*{name}"></i>
+                                    <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
+                                </a>
+                            </td>
+                        </th:block>
+                    </tr>
+                </table>
+            </div>
           </div>
         </div>
-        <div class="col-auto">
-          <a th:href="@{'/project/' + ${pID} + '/diagrams'}">
-            <button type="button" class="btn btn-outline-success">Detailiertes Diagramm anzeigen</button>
-          </a>
-          <div class="padding-50"></div>
-          <div class="chartBox" style="height: 300px">
-            <canvas id="diagram"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="padding-50"></div>
-    <div class="text-center">
-      <h4 th:if="${contracts.empty}">Keine Verträge verfügbar.</h4>
-      <div class="container" th:unless="${contracts.empty}">
-        <table class="table">
-          <tbody>
-            <tr th:each="_, row : ${contracts}" th:if="${row.count % 4 == 0 or row.last}">
-              <span th:each="x : ${ {3,2,1,0} }">
-                <td th:if="${row.count % 4 == 0}" th:with="contract=${contracts[row.index - x]}">
-                  <a th:href="@{'/project/' + ${pID} + '/contract/' + ${contract.id} + '/show'}" class="icon-link">
-                    <i class="bi bi-book" style="font-size: 300%; color: black;" th:title="${contract.name}"></i>
-                    <span th:text="${contract.name}" style="font-size: 175%; color: black; display: block;"></span>
-                  </a>
-                </td>
-                <td th:if="${row.count % 4 != 0} and ${row.last} and ${x < row.count % 4}" th:with="contract=${contracts[row.index - x]}">
-                  <a th:href="@{'/project/' + ${pID} + '/contract/' + ${contract.id} + '/show'}" class="icon-link">
-                    <i class="bi bi-book" style="font-size: 300%; color: black;" th:title="${contract.name}"></i>
-                    <span th:text="${contract.name}" style="font-size: 175%; color: black; display: block;"></span>
-                  </a>
-                </td>
-              </span>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script th:inline="javascript">
       //Daten von users holen
       var listOfStatus = /*[[${listOfStatus}]]*/ "listOfStatus";
-
-      //calculate diffrent datasets.
-      //not to confuse with another diffrent data variable
-      function createData() {
-
-        var data = [];
-        var ok = 0;
-        n = listOfStatus.length;
-
-        //counting the frequency of stati
-        for (i = 0; i < n; i++) {
-          if (listOfStatus[i] == "OK") {
-            ok++;
-          }
-        }
-
-        //push to the data
-        data.push(ok);
-        data.push(n - ok);
-
-        var datasets = [{
-          label: "Fortschritt",
-          data,
-          backgroundColor: [
-            "#56d798",
-            "#ff8397"
-          ],
-          borderWidth: 1
-        }];
-
-        return {
-          labels: ["OK", "andere"],
-          datasets
-        };
-      }
-
-      //calculate the progress
-      const data = createData();
-
-
-      //erstellt ein neues Chart Objekt zu einem Objekt von list
-      function createNewChart(ctx) {
-
-        return new Chart(ctx, {
-          type: "doughnut",
-          //calculated beforehand
-          data,
-          options: {
-            responsive: true,
-            maintainAspectRatio: false
-          }
-        });
-      }
-
-      //Auf den canvas referenzieren
-      var ctx = document.getElementById("diagram").getContext('2d');
-
-      var myChart = createNewChart(ctx, 0);
     </script>
-
+    <script type="text/javascript " defer th:src="@{/js/createProgressDiagram.js} "></script>
   </th:block>
 </body>
 

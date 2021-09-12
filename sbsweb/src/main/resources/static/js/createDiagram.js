@@ -85,9 +85,9 @@
           data,
           backgroundColor: [
             "#f38b4a",
+            "#6970d5",
             "#56d798",
-            "#ff8397",
-            "#6970d5"
+            "#ff8397"
           ],
           borderWidth: 1
         }];

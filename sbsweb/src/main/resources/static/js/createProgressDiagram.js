@@ -3,22 +3,19 @@
 function createData() {
 
   var data = [];
-  var ok    = 0;
-  var other = 0;
+  var ok = 0;
   n = listOfStatus.length;
 
   //counting the frequency of stati
   for (i = 0; i < n; i++) {
-    if(listOfStatus[i] == "OK"){
+    if (listOfStatus[i] == "OK") {
       ok++;
     }
   }
-  <!--
-  <script type="text/javascript " defer th:src="@{/js/createProgrssDiagram.js} "></script>
--->
+
   //push to the data
   data.push(ok);
-  data.push(other);
+  data.push(n - ok);
 
   var datasets = [{
     label: "Fortschritt",
@@ -31,7 +28,7 @@ function createData() {
   }];
 
   return {
-    ["OK","andere"],
+    labels: ["OK", "andere"],
     datasets
   };
 }
@@ -39,22 +36,17 @@ function createData() {
 //calculate the progress
 const data = createData();
 
-
-//erstellt ein neues Chart Objekt zu einem Objekt von list
-function createNewChart(ctx) {
-
-  return new Chart(ctx, {
-    type: "doughnut",
-    //calculated beforehand
-    data,
-    options: {
-      responsive: true,
-      maintainAspectRatio: false
-    }
-  });
-}
-
 //Auf den canvas referenzieren
 var ctx = document.getElementById("diagram").getContext('2d');
 
-var myChart = createNewChart(ctx, 0);
+var myChart =
+  new Chart(ctx,
+            { type: "doughnut",
+              //calculated beforehand
+              data,
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: { position: 'bottom'},
+              }
+            });

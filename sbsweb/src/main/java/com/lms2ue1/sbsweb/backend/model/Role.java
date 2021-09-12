@@ -145,4 +145,17 @@ public class Role {
 	public void setManageUser(boolean manageUser) {
 		this.manageUser = manageUser;
 	}
+	
+	// ----------------------------//
+       // ---------- Misc ------------//
+      // ----------------------------//
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if(obj instanceof Role) {
+		Role tmpRole = (Role) obj;
+		return tmpRole.getId() == this.id;
+	    }
+	    return false;
+	}
 }
