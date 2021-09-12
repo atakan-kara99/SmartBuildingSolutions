@@ -40,17 +40,16 @@ public class ControllerTest {
 		.andExpect(view().name("organisation/organisation_management"));
     }
 
-    // Random person
+    // Random person, no roles
 
     @Test
-    @WithMockUser(username = "hans", roles = { "Unwichtig" })
+    @WithMockUser(username = "hans")
     public void testProjectOverviewRandom() throws Exception {
-	mvc.perform(get("/project_overview")).andExpect(status().isOk())
-		.andExpect(view().name("project/project_overview"));
+	mvc.perform(get("/project_overview")).andExpect(view().name("error"));
     }
 
     @Test
-    @WithMockUser(username = "hans", roles = { "Unwichtig" })
+    @WithMockUser(username = "hans")
     public void testOrganisationOverviewRandom() throws Exception {
 	mvc.perform(get("/organisations")).andExpect(view().name("error"));
     }
@@ -71,14 +70,14 @@ public class ControllerTest {
 		.andExpect(redirectedUrlPattern("**/login"));
     }
 
+    // TODO
     @Test
 //    @WithMockUser(username = "root", roles = { "SysAdmin" })
     @WithMockUser(username = "hans", roles = { "Unwichtig" })
     public void testIfHomePageCanBeShown() throws Exception {
-	// TODO
 	List<Project> projects = List.of(
 		new Project("Name", "Beschreibung", "2020", "2021", null, 1.29, "Hans", null, null, null, null, null));
 	ResultMatcher model = MockMvcResultMatchers.model().attribute("projects", projects);
-	mvc.perform(get("/project_overview")).andExpect(status().isOk()).andExpect(model().attributeExists("projects"));
+	mvc.perform(get("/project_overview")).andExpect(status().isOk()).andExpect(model);
     }
 }
