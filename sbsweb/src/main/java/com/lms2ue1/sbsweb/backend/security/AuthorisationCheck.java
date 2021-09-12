@@ -44,10 +44,11 @@ public class AuthorisationCheck {
      * @param username = the given user.
      * @return the associated role.
      */
-    private Role getRole(String username) {
+    public Role getRole(String username) {
 	return userRepo.findByUsername(username).getRole();
     }
 
+    // TODO: Effizienter direkt nach dem bID zu suchen.
     /**
      * Flatten the list of lists in one huge list.
      * 
@@ -55,7 +56,7 @@ public class AuthorisationCheck {
      * @param currentElement the current element.
      * @return The flattened list.
      */
-    private List<BillingItem> flattenBillingItemsList(List<BillingItem> hugeList, BillingItem currentElement) {
+    public List<BillingItem> flattenBillingItemsList(List<BillingItem> hugeList, BillingItem currentElement) {
 	// Using a dfs:
 	hugeList.add(currentElement);
 	for (BillingItem nextElement : currentElement.getBillingItems()) {
@@ -75,7 +76,7 @@ public class AuthorisationCheck {
      */
     public boolean checkOrganisation(String username, Long oID) {
 	// Does the user belong to the given organisation?
-	return getRole(username).getOrganisation()
+	return isSysAdmin(username) || getRole(username).getOrganisation()
 		.equals(orgRepo.findById(oID).orElseThrow(IllegalArgumentException::new));
     }
 
@@ -87,7 +88,7 @@ public class AuthorisationCheck {
      * @return true = yes, the user is. false = no, the user isn't.
      */
     public boolean checkProject(String username, long pID) {
-	return getRole(username).getProjects()
+	return isSysAdmin(username) || getRole(username).getProjects()
 		.contains(proRepo.findById(pID).orElseThrow(IllegalArgumentException::new));
     }
 
@@ -99,7 +100,7 @@ public class AuthorisationCheck {
      * @return true = yes, the user is. false = no, the user isn't.
      */
     public boolean checkContract(String username, long cID) {
-	return getRole(username).getContracts()
+	return isSysAdmin(username) || getRole(username).getContracts()
 		.contains(conRepo.findById(cID).orElseThrow(IllegalArgumentException::new));
     }
 
@@ -112,7 +113,7 @@ public class AuthorisationCheck {
      */
     public boolean checkBillingUnit(String username, long buID) {
 	// Every billing item in another billing item are part of the same billing unit.
-	return getRole(username).getBillingItems().stream().map(bi -> bi.getBillingUnit()).collect(Collectors.toList())
+	return isSysAdmin(username) || getRole(username).getBillingItems().stream().map(bi -> bi.getBillingUnit()).collect(Collectors.toList())
 		.contains(billUnitRepo.findById(buID).orElseThrow(IllegalArgumentException::new));
     }
 
@@ -125,9 +126,10 @@ public class AuthorisationCheck {
      */
     public boolean checkBillingItem(String username, long bID) {
 	// We have billing items in billing items.
-	// First: The root billingItems.
-	// Second: The other nodes.
-	return getRole(username).getBillingItems().stream()
+	// First: Get the the allowed "root" billing items of the role.
+	// Second: Get the other leafs and flatten them to get one huge list.
+	// Third: Check, whether the given billing item is part of that list.
+	return isSysAdmin(username) || getRole(username).getBillingItems().stream()
 		.map(bi -> flattenBillingItemsList(new ArrayList<BillingItem>(), bi)).flatMap(List::stream)
 		.collect(Collectors.toList())
 		.contains(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::new));
@@ -156,11 +158,12 @@ public class AuthorisationCheck {
      * @return true = yes, the user is. false = no, the user isn't.
      */
     public boolean manageUser(String username, long uID) {
+	// The SysAdmin is allowed to manage every user.
 	// First: The given user has to have the permission to manage user per default.
 	// Second: Both user have to be in the same organisation.
 	return isSysAdmin(username) || (getRole(username).isManageUser() && getRole(username).getOrganisation()
-		.getId() == getRole(userRepo.findById(uID).orElseThrow(IllegalArgumentException::new).getUsername())
-			.getOrganisation().getId());
+		.equals(getRole(userRepo.findById(uID).orElseThrow(IllegalArgumentException::new).getUsername())
+			.getOrganisation()));
     }
 
     /**
