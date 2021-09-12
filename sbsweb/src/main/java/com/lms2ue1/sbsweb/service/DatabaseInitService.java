@@ -84,11 +84,11 @@ public class DatabaseInitService {
 	    proRepo.save(pro2);
 	    
 	    Project pro3 = new Project("Schule sanieren", null, null, null, null, 0, null, null, null, null, null,
-		    null);
-	    Project pro4 = new Project("Hausbau", "Haus an der Lindenallee 37 wird gebaut", null, null,
-		    Status.NO_STATUS, 0, null, null, null, null, null, null);
+		    org0);
+	    Project pro4 = new Project("Hausbau", "Haus an der Lindenallee 37 wird gebaut", "23.08.2021", "19.09.2021",
+		    Status.NO_STATUS, 0, "AG Haustechnik", null, null, null, add1, org0);
 	    Project pro5 = new Project("Feierabend XTREME", null, null, null, null, 0, null, null, null, null, null,
-		    null);
+		    org0);
 	    proRepo.saveAll(List.of(pro3, pro4, pro5));
 	    
 	    // ------------------------------//
@@ -126,11 +126,14 @@ public class DatabaseInitService {
 	    // ------------------------------//
 	    BillingItem billItem0 = new BillingItem("bill0", 0, null, Status.NO_STATUS, 0, null, 0, null, null,
 		    billUnit0, null);
+	    BillingItem nested = new BillingItem("Schrauben kaufen", 0, "Sind leer.",
+		    Status.OPEN, 0, null, 0, null, null, billUnit1, List.of());
 	    
 	    billItemRepo.save(billItem0);
+	    billItemRepo.save(nested);
 	    
-	    BillingItem billItem1 = new BillingItem("Heizung montieren", 0, "Heizkï¿½rper B7-2 fensternah einbauen.",
-		    Status.OPEN, 0, null, 0, null, null, billUnit1, null);
+	    BillingItem billItem1 = new BillingItem("Heizung montieren", 0, "Heizkörper B7-2 fensternah einbauen.",
+		    Status.OPEN, 0, null, 0, null, null, billUnit1, List.of(nested));
 	    BillingItem billItem2 = new BillingItem("Fenster einbauen", 0, null, null, 0, null, 0, null, null,
 		    billUnit1, null);
 	    billItemRepo.saveAll(List.of(billItem1, billItem2));
