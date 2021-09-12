@@ -24,33 +24,33 @@
                 </a>
             </div>
         </div>
-<!--         <div class="padding-50"></div> -->
-<!--         <div class="text-center" th:object="${billingItem}"> -->
-<!--             <div class="container" th:unless="*{billingItems?.empty}"> -->
-<!--                 <table class="table table-borderless" th:with="cols=4"> -->
-<!--                     <tr th:each="_, row : *{billingItems}" th:if="${row.count % cols == 0 or row.last}"> -->
-<!--                         <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}"> -->
-<!--                             Full row -->
-<!--                             <td th:if="${row.count % cols == 0}"> -->
-<!--                                 <a th:object="${billingItem.billingItems[row.index - x]}" -->
-<!--                                     th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{id} + '/show'}" class="icon-link"> -->
-<!--                                     <i class="bi bi-exclamation-circle" style="font-size: 300%; color: black;" th:title="*{name}"></i> -->
-<!--                                     <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span> -->
-<!--                                 </a> -->
-<!--                             </td> -->
-<!--                             Last row might not be full -->
-<!--                             <td th:if="${row.last and x < row.count % cols}"> -->
-<!--                                 <a th:object="${billingItem.billingItems[row.index - x]}" -->
-<!--                                     th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{id} + '/show'}" class="icon-link"> -->
-<!--                                     <i class="bi bi-exclamation-circle" style="font-size: 300%; color: black;" th:title="*{name}"></i> -->
-<!--                                     <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span> -->
-<!--                                 </a> -->
-<!--                             </td> -->
-<!--                         </th:block> -->
-<!--                     </tr> -->
-<!--                 </table> -->
-<!--             </div> -->
-<!--         </div> -->
+        <div class="padding-50"></div>
+        <div class="text-center" th:object="${billingItem}">
+            <div class="container" th:unless="*{billingItems?.empty}">
+                <table class="table table-borderless" th:with="cols=4">
+                    <tr th:each="_, row : *{billingItems}" th:if="${row.count % cols == 0 or row.last}">
+                        <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
+                            <!-- Full row -->
+                            <td th:if="${row.count % cols == 0}">
+                                <a th:object="${billingItem.billingItems[row.index - x]}"
+                                    th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{id} + '/show'}" class="icon-link">
+                                    <i class="bi bi-exclamation-circle" style="font-size: 300%; color: black;" th:title="*{name}"></i>
+                                    <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
+                                </a>
+                            </td>
+                            <!-- Last row might not be full -->
+                            <td th:if="${row.last and x < row.count % cols}">
+                                <a th:object="${billingItem.billingItems[row.index - x]}"
+                                    th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{id} + '/show'}" class="icon-link">
+                                    <i class="bi bi-exclamation-circle" style="font-size: 300%; color: black;" th:title="*{name}"></i>
+                                    <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
+                                </a>
+                            </td>
+                        </th:block>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </th:block>
 </body>
 

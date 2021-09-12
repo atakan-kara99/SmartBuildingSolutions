@@ -1,6 +1,7 @@
 package com.lms2ue1.sbsweb.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,11 +31,25 @@ public class ContractController {
 	    model.addAttribute("cID", cID);
 	    model.addAttribute("project", BAP.getProjectById(username, pID));
 	    model.addAttribute("contract", BAP.getContractById(username, cID));
-	    List<BillingItem> billingItems = BAP.getAllBillingItems(username);
-	    model.addAttribute("billingItems",
-		    billingItems.stream()
-			    .filter(billingItem -> billingItem.getBillingUnit().getContract().getId() == cID)
-			    .collect(Collectors.toList()));
+	    List<BillingItem> billingItems = BAP.getAllBillingItems(username).stream()
+		    .filter(b -> b.getBillingUnit().getContract().getId() == cID)
+		    .collect(Collectors.toCollection(ArrayList::new));
+	    List<Integer> removes = new ArrayList<>(billingItems.size());
+	    for (int i = 0; i < billingItems.size(); i++) {
+		BillingItem bill = billingItems.get(i);
+		for (int j = 0; j < billingItems.size(); j++) {
+		    if (j != i) {
+			long bID = billingItems.get(j).getId();
+			if (bill.getBillingItems().stream().anyMatch(b -> b.getId() == bID)) {
+			    removes.add(j);
+			}
+		    }
+		}
+	    }
+	    for (int i = 0; i < removes.size(); i++) {
+		billingItems.remove((int) removes.get(i));
+	    }
+	    model.addAttribute("billingItems", billingItems);
 	    return "contract/contract_details";
 	} catch (AuthenticationException | IllegalArgumentException e) {
 	    return "error";
