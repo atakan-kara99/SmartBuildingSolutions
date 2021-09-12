@@ -56,7 +56,7 @@ public class AuthorisationCheck {
      * @param currentElement the current element.
      * @return The flattened list.
      */
-    private List<BillingItem> flattenBillingItemsList(List<BillingItem> hugeList, BillingItem currentElement) {
+    public List<BillingItem> flattenBillingItemsList(List<BillingItem> hugeList, BillingItem currentElement) {
 	// Using a dfs:
 	hugeList.add(currentElement);
 	if (currentElement.getBillingItems() != null) {
