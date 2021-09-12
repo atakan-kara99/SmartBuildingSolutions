@@ -1,5 +1,6 @@
 package com.lms2ue1.sbsweb.backend.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -418,6 +419,14 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public Role getRoleById(String username, Long roleId) throws AuthenticationException {
+	if (auth.isSysAdmin(username)) {
+	    // Allmighty SysAdmin
+	    return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
+	} else if (users.findByUsername(username).getRole().getId() == roleId) {
+	    // View own role
+	    return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
+	}
+	// OrgAdmin
 	Long oID = auth.getOrgAdminID(username);
 	Role role = roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
 	if (oID != null && role.getId() == oID.longValue()) {
@@ -453,8 +462,15 @@ public class BackendAccessProvider {
      */
     public List<Address> getAllAddresses(String username) {
 	try {
-	    return users.findByUsername(username).getRole().getProjects().stream().map(p -> p.getAddress())
-		    .collect(Collectors.toList());
+	    return getAllProjects(username).stream().map(p -> p.getAddress()).collect(Collectors.toList());
+//	    if (auth.isSysAdmin(username)) {
+//		return StreamSupport.stream(addresses.findAll().spliterator(), false).collect(Collectors.toList());
+//	    } else if (auth.getOrgAdminID(username) != null) {
+//		return users.findByUsername(username).getRole().getOrganisation().getProjects().stream()
+//			.map(p -> p.getAddress()).collect(Collectors.toList());
+//	    }
+//	    return users.findByUsername(username).getRole().getProjects().stream().map(p -> p.getAddress())
+//		    .collect(Collectors.toList());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -470,6 +486,11 @@ public class BackendAccessProvider {
      */
     public List<Project> getAllProjects(String username) {
 	try {
+	    if (auth.isSysAdmin(username)) {
+		return StreamSupport.stream(projects.findAll().spliterator(), false).collect(Collectors.toList());
+	    } else if (auth.getOrgAdminID(username) != null) {
+		return users.findByUsername(username).getRole().getOrganisation().getProjects();
+	    }
 	    return users.findByUsername(username).getRole().getProjects();
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
@@ -486,7 +507,15 @@ public class BackendAccessProvider {
      */
     public List<Contract> getAllContracts(String username) {
 	try {
-	    return users.findByUsername(username).getRole().getContracts();
+	    return getAllProjects(username).stream().map(p -> p.getContracts()).flatMap(List::stream)
+		    .collect(Collectors.toList());
+//	    if (auth.isSysAdmin(username)) {
+//		return StreamSupport.stream(contracts.findAll().spliterator(), false).collect(Collectors.toList());
+//	    } else if (auth.getOrgAdminID(username) != null) {
+//		return users.findByUsername(username).getRole().getOrganisation().getProjects().stream()
+//			.map(p -> p.getContracts()).flatMap(List::stream).collect(Collectors.toList());
+//	    }
+//	    return users.findByUsername(username).getRole().getContracts();
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -502,8 +531,17 @@ public class BackendAccessProvider {
      */
     public List<BillingUnit> getAllBillingUnits(String username) {
 	try {
-	    return users.findByUsername(username).getRole().getBillingItems().stream().map(bi -> bi.getBillingUnit())
+	    return getAllContracts(username).stream().map(c -> c.getBillingUnits()).flatMap(List::stream)
 		    .collect(Collectors.toList());
+//	    if (auth.isSysAdmin(username)) {
+//		return StreamSupport.stream(billingUnits.findAll().spliterator(), false).collect(Collectors.toList());
+//	    } else if (auth.getOrgAdminID(username) != null) {
+//		return users.findByUsername(username).getRole().getOrganisation().getProjects().stream()
+//			.map(p -> p.getContracts()).flatMap(List::stream).map(c -> c.getBillingUnits())
+//			.flatMap(List::stream).collect(Collectors.toList());
+//	    }
+//	    return users.findByUsername(username).getRole().getBillingItems().stream().map(bi -> bi.getBillingUnit())
+//		    .collect(Collectors.toList());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -520,7 +558,19 @@ public class BackendAccessProvider {
      */
     public List<BillingItem> getAllBillingItems(String username) {
 	try {
-	    return users.findByUsername(username).getRole().getBillingItems();
+	    return getAllBillingUnits(username).stream().map(bu -> bu.getBillingItems()).flatMap(List::stream)
+		    .map(bi -> auth.flattenBillingItemsList(new ArrayList<>(), bi)).flatMap(List::stream)
+		    .collect(Collectors.toList());
+//	    if (auth.isSysAdmin(username)) {
+//		return StreamSupport.stream(billingItems.findAll().spliterator(), false).collect(Collectors.toList());
+//	    } else if (auth.getOrgAdminID(username) != null) {
+//		return users.findByUsername(username).getRole().getOrganisation().getProjects().stream()
+//			.map(p -> p.getContracts()).flatMap(List::stream).map(c -> c.getBillingUnits())
+//			.flatMap(List::stream).map(bu -> bu.getBillingItems()).flatMap(List::stream)
+//			.map(bi -> auth.flattenBillingItemsList(new ArrayList<>(), bi)).flatMap(List::stream)
+//			.collect(Collectors.toList());
+//	    }
+//	    return users.findByUsername(username).getRole().getBillingItems();
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
