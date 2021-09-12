@@ -3,10 +3,14 @@ package com.lms2ue1.sbsweb.controller.role_management;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.naming.AuthenticationException;
 
 import com.lms2ue1.sbsweb.backend.model.BackendAccessProvider;
+import com.lms2ue1.sbsweb.backend.model.BillingItem;
+import com.lms2ue1.sbsweb.backend.model.BillingUnit;
+import com.lms2ue1.sbsweb.backend.model.Contract;
 import com.lms2ue1.sbsweb.backend.model.Organisation;
 import com.lms2ue1.sbsweb.backend.model.Project;
 import com.lms2ue1.sbsweb.backend.model.Role;
@@ -62,7 +66,7 @@ public class RoleProjectsController {
         }
         // TODO Get user by name form BAP
         model.addAttribute("user", userRepository.findByUsername(principal.getName()));
-        model.addAttribute("adminPrivileges", auth.isSysAdmin(principal.getName()));
+        model.addAttribute("adminPrivileges", auth.isSysAdmin(principal.getName()) || auth.getOrgAdminID(principal.getName()) != null);
         model.addAttribute("organisation", organisation);
         model.addAttribute("role", role);
         model.addAttribute("availableProjects", availableProjects);
@@ -96,8 +100,17 @@ public class RoleProjectsController {
         }
         List<Project> accessibleProjects = new ArrayList<Project>(role.getProjects());
         accessibleProjects.add(project);
+        List<Contract> accessibleContracts = new ArrayList<Contract>(role.getContracts());
+        accessibleContracts.addAll(new ArrayList<Contract>(project.getContracts()));
+        List<BillingItem> accessibleBillingItems = new ArrayList<BillingItem>(role.getBillingItems());
+        for (Contract contract : project.getContracts()) {
+            // TODO: Fix this mess somehow :D
+            List<BillingItem> billingItemsToAdd = contract.getBillingUnits().stream().map(bu -> bu.getBillingItems()).flatMap(List::stream)
+            .map(bi -> auth.flattenBillingItemsList(new ArrayList<>(), bi)).flatMap(List::stream).collect(Collectors.toList());
+            accessibleBillingItems.addAll(billingItemsToAdd);
+        }
         Role updatedRole =
-        new Role(role.getName(), accessibleProjects, role.getContracts(), role.getBillingItems(), role.getOrganisation(), role.isManageUser());
+        new Role(role.getName(), accessibleProjects, accessibleContracts, accessibleBillingItems, role.getOrganisation(), role.isManageUser());
         try {
             backendAccessProvider.updateRole(principal.getName(), role.getId(), updatedRole);
         } catch (AuthenticationException authException) {
@@ -132,8 +145,17 @@ public class RoleProjectsController {
         }
         List<Project> accessibleProjects = new ArrayList<Project>(role.getProjects());
         accessibleProjects.remove(project);
+        List<Contract> accessibleContracts = new ArrayList<Contract>(role.getContracts());
+        accessibleContracts.removeAll(new ArrayList<Contract>(project.getContracts()));
+        List<BillingItem> accessibleBillingItems = new ArrayList<BillingItem>(role.getBillingItems());
+        for (Contract contract : project.getContracts()) {
+            // TODO: Fix this mess somehow :D
+            List<BillingItem> billingItemsToRemove = contract.getBillingUnits().stream().map(bu -> bu.getBillingItems()).flatMap(List::stream)
+            .map(bi -> auth.flattenBillingItemsList(new ArrayList<>(), bi)).flatMap(List::stream).collect(Collectors.toList());
+            accessibleBillingItems.removeAll(billingItemsToRemove);
+        }
         Role updatedRole =
-        new Role(role.getName(), accessibleProjects, role.getContracts(), role.getBillingItems(), role.getOrganisation(), role.isManageUser());
+        new Role(role.getName(), accessibleProjects, accessibleContracts, accessibleBillingItems, role.getOrganisation(), role.isManageUser());
         try {
             backendAccessProvider.updateRole(principal.getName(), role.getId(), updatedRole);
         } catch (AuthenticationException authException) {

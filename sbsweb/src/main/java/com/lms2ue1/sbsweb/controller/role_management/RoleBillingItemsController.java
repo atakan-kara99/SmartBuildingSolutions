@@ -3,6 +3,7 @@ package com.lms2ue1.sbsweb.controller.role_management;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.naming.AuthenticationException;
 
@@ -79,7 +80,7 @@ public class RoleBillingItemsController {
         }
         // TODO Get user by name form BAP
         model.addAttribute("user", userRepository.findByUsername(principal.getName()));
-        model.addAttribute("adminPrivileges", auth.isSysAdmin(principal.getName()));
+        model.addAttribute("adminPrivileges", auth.isSysAdmin(principal.getName()) || auth.getOrgAdminID(principal.getName()) != null);
         model.addAttribute("organisation", organisation);
         model.addAttribute("role", role);
         model.addAttribute("project", project);
@@ -118,6 +119,9 @@ public class RoleBillingItemsController {
         }
         List<BillingItem> accessibleBillingItems = new ArrayList<BillingItem>(role.getBillingItems());
         accessibleBillingItems.add(billingItem);
+        // TODO: Fix this mess somehow :D
+        List<BillingItem> nestedBillingItemsToAdd = billingItem.getBillingItems().stream().map(bi -> auth.flattenBillingItemsList(new ArrayList<>(), bi)).flatMap(List::stream).collect(Collectors.toList());
+        accessibleBillingItems.addAll(nestedBillingItemsToAdd);
         Role updatedRole =
         new Role(role.getName(), role.getProjects(), role.getContracts(), accessibleBillingItems, role.getOrganisation(), role.isManageUser());
         try {
@@ -157,6 +161,9 @@ public class RoleBillingItemsController {
         }
         List<BillingItem> accessibleBillingItems = new ArrayList<BillingItem>(role.getBillingItems());
         accessibleBillingItems.remove(billingItem);
+        // TODO: Fix this mess somehow :D
+        List<BillingItem> nestedBillingItemsToRemove = billingItem.getBillingItems().stream().map(bi -> auth.flattenBillingItemsList(new ArrayList<>(), bi)).flatMap(List::stream).collect(Collectors.toList());
+        accessibleBillingItems.removeAll(nestedBillingItemsToRemove);
         Role updatedRole =
         new Role(role.getName(), role.getProjects(), role.getContracts(), accessibleBillingItems, role.getOrganisation(), role.isManageUser());
         try {

@@ -55,8 +55,8 @@
                                             <span>
                                                 <div class="row justify-content-center">
                                                     <div class="col-4"
-                                                        th:if="${adminPrivileges == true && #lists.contains(role.users, user) == false}">
-                                                        <div th:if="${#lists.contains(accessibleContracts, contract)}">
+                                                        th:if="${adminPrivileges == true}">
+                                                        <div th:if="${#lists.contains(accessibleContracts, contract) && #lists.contains(role.users, user) == false}">
                                                             <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/project/' + ${project.id} + '/role_remove_contract/contract/' + ${contract.id}}"
                                                                 class="icon-link">
                                                                 <i class="bi bi-dash-circle" style="font-size: large; color: rgb(255, 60, 60);"
