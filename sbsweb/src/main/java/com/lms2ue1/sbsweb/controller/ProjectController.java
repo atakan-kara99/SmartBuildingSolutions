@@ -42,38 +42,38 @@ public class ProjectController {
     @Autowired
     RoleRepository roleRepo;
     
-    /** Shows an overview of all projects. */
-    @GetMapping("/project_overview")
-    public ModelAndView showProjectOverview() {
-    	ModelAndView modelAndView = new ModelAndView("project/project_overview");
-    	modelAndView.addObject("projects", projects.findAll());
-    	return modelAndView;
-    }
-
 //    /** Shows an overview of all projects. */
 //    @GetMapping("/project_overview")
-//    public String showProjectOverview(Model model) {
-////	model.addAttribute("projects", BackendAccessProvider.getAccessibleProjects(principal.getName()));
-//	model.addAttribute("projects", projects.findAll());
-//
-//	// TODO: Debug
-//	/*for (Role r : roleRepo.findAll()) {
-//	    System.out
-//		    .println("Users: " + r.getUsers().stream().map(u -> u.getUsername()).collect(Collectors.toList()));
-//	    System.out.println("List of Users is empty: " + r.getUsers().isEmpty());
-//	    System.out.println(
-//		    "Projects: " + r.getProjects().stream().map(p -> p.getName()).collect(Collectors.toList()));
-//	    System.out.println("List of projects is empty: " + r.getProjects().isEmpty());
-//	}*/
-//
-//	return "project/project_overview";
-//
-////	TODO get username via:
-////	"@AuthenticationPrincipal User user" in method params, doesn't work yet
-////	Working solutions:
-////	"Principal principal" in method params
-////	((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+//    public ModelAndView showProjectOverview() {
+//    	ModelAndView modelAndView = new ModelAndView("project/project_overview");
+//    	modelAndView.addObject("projects", projects.findAll());
+//    	return modelAndView;
 //    }
+
+    /** Shows an overview of all projects. */
+    @GetMapping("/project_overview")
+    public String showProjectOverview(Model model) {
+//	model.addAttribute("projects", BackendAccessProvider.getAccessibleProjects(principal.getName()));
+	model.addAttribute("projects", projects.findAll());
+
+	// TODO: Debug
+	/*for (Role r : roleRepo.findAll()) {
+	    System.out
+		    .println("Users: " + r.getUsers().stream().map(u -> u.getUsername()).collect(Collectors.toList()));
+	    System.out.println("List of Users is empty: " + r.getUsers().isEmpty());
+	    System.out.println(
+		    "Projects: " + r.getProjects().stream().map(p -> p.getName()).collect(Collectors.toList()));
+	    System.out.println("List of projects is empty: " + r.getProjects().isEmpty());
+	}*/
+
+	return "project/project_overview";
+
+//	TODO get username via:
+//	"@AuthenticationPrincipal User user" in method params, doesn't work yet
+//	Working solutions:
+//	"Principal principal" in method params
+//	((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+    }
 
     /** Shows the specified project's details, e.g. its contracts. */
     @GetMapping("/project/{pID}/show")
