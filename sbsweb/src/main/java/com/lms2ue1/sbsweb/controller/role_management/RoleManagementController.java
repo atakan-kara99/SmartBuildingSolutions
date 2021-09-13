@@ -52,7 +52,6 @@ public class RoleManagementController {
     public String showNewRoleForm(@PathVariable long oID, Model model) {
         Organisation organisation = organisationRepository.findById(oID).get();
         Role newRole = new Role();
-        newRole.setManageUser(true);
         model.addAttribute("organisation", organisation);
         model.addAttribute("role", newRole);
         return "role/role_new";
@@ -76,8 +75,9 @@ public class RoleManagementController {
             model.addAttribute("organisation", organisation);
             return "role/role_new";
         }
-        role.setOrganisation(organisation);
-        roleRepository.save(role);
+        // TODO: Expand me!
+        Role roleToAdd = new Role(role.getName(), role.getProjects(), role.getContracts(), role.getBillingItems(), organisation, true);
+        roleRepository.save(roleToAdd);
         return "redirect:/organisation/{oID}/role_management";
     }
 
@@ -166,7 +166,7 @@ public class RoleManagementController {
     @GetMapping("/organisation/{oID}/role_management/role/{rID}/role_add_user/user/{uID}")
     public String addUserToRole(@PathVariable long oID, @PathVariable long rID, @PathVariable long uID) {
         User user = userRepository.findById(uID).get();
-        user.setRole(roleRepository.findById(rID).get());
+        User updatedUser = new User(user.getForename(), user.getLastname(), roleRepository.findById(rID).get(), user.getUsername(), user.getPassword());
         userRepository.save(user);
         return "redirect:/organisation/{oID}/role_management/role/{rID}/role_edit_users";
     }
