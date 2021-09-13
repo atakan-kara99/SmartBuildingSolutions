@@ -117,7 +117,7 @@ public class BackendAccessProvider {
             throw new IllegalArgumentException("username is already taken!");
         }
 
-        if (auth.manageUser(username, newUser.getId())) {
+        if (auth.canManageUser(username, newUser.getId())) {
             users.save(newUser);
         } else {
             throw new AuthenticationException();
@@ -137,7 +137,7 @@ public class BackendAccessProvider {
             throw new IllegalArgumentException();
         }
 
-        if (auth.manageUser(username, userId)) {
+        if (auth.canManageUser(username, userId)) {
             users.deleteById(userId);
         } else {
             throw new AuthenticationException();
@@ -154,21 +154,21 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void updateUser(String username, Long oldUserId, User updatedUser) throws AuthenticationException {
-        if (oldUserId == null || updatedUser == null) {
-            throw new IllegalArgumentException();
-        }
+	if (oldUserId == null || updatedUser == null) {
+	    throw new IllegalArgumentException();
+	}
 
-        if (auth.manageUser(username, oldUserId)) {
-            User oldUser = users.findById(oldUserId).orElseThrow(IllegalArgumentException::new);
-            oldUser.setForename(updatedUser.getForename());
-            oldUser.setLastname(updatedUser.getLastname());
-            oldUser.setUsername(updatedUser.getUsername());
-            oldUser.setPassword(updatedUser.getPassword());
-            oldUser.setRole(updatedUser.getRole());
-            users.save(oldUser);
-        } else {
-            throw new AuthenticationException();
-        }
+	if (auth.canManageUser(username, oldUserId)) {
+	    User oldUser = users.findById(oldUserId).orElseThrow(IllegalArgumentException::new);
+	    oldUser.setForename(updatedUser.getForename());
+	    oldUser.setLastname(updatedUser.getLastname());
+	    oldUser.setUsername(updatedUser.getUsername());
+	    oldUser.setPassword(updatedUser.getPassword());
+	    oldUser.setRole(updatedUser.getRole());
+        users.save(updatedUser);
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     //////// Roles
@@ -400,16 +400,16 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public User getUserById(String username, Long userId) throws AuthenticationException {
-        User user = users.findById(userId).orElseThrow(IllegalArgumentException::new);
-        if (auth.manageUser(username, userId)) {
-            // Sys- or OrgAdmin
-            return user;
-        } else if (userId != null && user.getId() == userId.longValue()) {
-            // User
-            return user;
-        } else {
-            throw new AuthenticationException();
-        }
+	User user = users.findById(userId).orElseThrow(IllegalArgumentException::new);
+	if (auth.canManageUser(username, userId)) {
+	    // Sys- or OrgAdmin
+	    return user;
+	} else if (userId != null && user.getId() == userId.longValue()) {
+	    // User
+	    return user;
+	} else {
+	    throw new AuthenticationException();
+	}
     }
 
     /**
@@ -557,24 +557,24 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<BillingItem> getAllBillingItems(String username) {
-        try {
-            return getAllBillingUnits(username).stream().map(bu -> bu.getBillingItems()).flatMap(List::stream)
-            .map(bi -> auth.flattenBillingItemsList(new ArrayList<>(), bi)).flatMap(List::stream).collect(Collectors.toList());
-            // if (auth.isSysAdmin(username)) {
-            // return StreamSupport.stream(billingItems.findAll().spliterator(), false).collect(Collectors.toList());
-            // } else if (auth.getOrgAdminID(username) != null) {
-            // return users.findByUsername(username).getRole().getOrganisation().getProjects().stream()
-            // .map(p -> p.getContracts()).flatMap(List::stream).map(c -> c.getBillingUnits())
-            // .flatMap(List::stream).map(bu -> bu.getBillingItems()).flatMap(List::stream)
-            // .map(bi -> auth.flattenBillingItemsList(new ArrayList<>(), bi)).flatMap(List::stream)
-            // .collect(Collectors.toList());
-            // }
-            // return users.findByUsername(username).getRole().getBillingItems().stream()
-            // .map(bi -> auth.flattenBillingItemsList(new ArrayList<>(), bi)).flatMap(List::stream)
-            // .collect(Collectors.toList());
-        } catch (NullPointerException e) {
-            throw new IllegalArgumentException();
-        }
+	try {
+	    return getAllBillingUnits(username).stream().map(bu -> bu.getBillingItems()).flatMap(List::stream)
+		    .collect(Collectors.toList());
+//	    if (auth.isSysAdmin(username)) {
+//		return StreamSupport.stream(billingItems.findAll().spliterator(), false).collect(Collectors.toList());
+//	    } else if (auth.getOrgAdminID(username) != null) {
+//		return users.findByUsername(username).getRole().getOrganisation().getProjects().stream()
+//			.map(p -> p.getContracts()).flatMap(List::stream).map(c -> c.getBillingUnits())
+//			.flatMap(List::stream).map(bu -> bu.getBillingItems()).flatMap(List::stream)
+//			.map(bi -> auth.flattenBillingItemsList(new ArrayList<>(), bi)).flatMap(List::stream)
+//			.collect(Collectors.toList());
+//	    }
+//	    return users.findByUsername(username).getRole().getBillingItems().stream()
+//		    .map(bi -> auth.flattenBillingItemsList(new ArrayList<>(), bi)).flatMap(List::stream)
+//		    .collect(Collectors.toList());
+	} catch (NullPointerException e) {
+	    throw new IllegalArgumentException();
+	}
     }
 
     /**

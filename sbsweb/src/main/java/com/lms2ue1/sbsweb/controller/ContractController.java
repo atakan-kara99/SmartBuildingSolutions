@@ -1,6 +1,7 @@
 package com.lms2ue1.sbsweb.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,10 @@ public class ContractController {
     @Autowired
     private BackendAccessProvider BAP;
 
+    // List of temp stati for details
+    List<String> listOfStatus = List.of("OK", "OK", "NO_STATUS", "OPEN", "OPEN", "DENY", "OPEN", "OK", "OK", "OK",
+	    "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK", "OK", "DENY");
+
     /** Shows the specified contract's details, e.g. its billing items. */
     @GetMapping("/project/{pID}/contract/{cID}/show")
     public String showContractDetails(@PathVariable long pID, @PathVariable long cID, Principal principal,
@@ -30,11 +35,27 @@ public class ContractController {
 	    model.addAttribute("cID", cID);
 	    model.addAttribute("project", BAP.getProjectById(username, pID));
 	    model.addAttribute("contract", BAP.getContractById(username, cID));
-	    List<BillingItem> billingItems = BAP.getAllBillingItems(username);
-	    model.addAttribute("billingItems",
-		    billingItems.stream()
-			    .filter(billingItem -> billingItem.getBillingUnit().getContract().getId() == cID)
-			    .collect(Collectors.toList()));
+	    List<BillingItem> billingItems = BAP.getAllBillingItems(username).stream()
+		    .filter(b -> b.getBillingUnit().getContract().getId() == cID)
+		    .collect(Collectors.toCollection(ArrayList::new));
+	    model.addAttribute("listOfStatus", listOfStatus);
+	    // Flattened list, keep only high level billing items
+	    List<Integer> removes = new ArrayList<>(billingItems.size());
+	    for (int i = 0; i < billingItems.size(); i++) {
+		BillingItem bill = billingItems.get(i);
+		for (int j = 0; j < billingItems.size(); j++) {
+		    if (j != i) {
+			long bID = billingItems.get(j).getId();
+			if (bill.getBillingItems().stream().anyMatch(b -> b.getId() == bID)) {
+			    removes.add(j);
+			}
+		    }
+		}
+	    }
+	    for (int i = 0; i < removes.size(); i++) {
+		billingItems.remove((int) removes.get(i));
+	    }
+	    model.addAttribute("billingItems", billingItems);
 	    return "contract/contract_details";
 	} catch (AuthenticationException | IllegalArgumentException e) {
 	    return "error";

@@ -1,8 +1,10 @@
 package com.lms2ue1.sbsweb.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.AuthenticationException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.lms2ue1.sbsweb.backend.model.BackendAccessProvider;
 import com.lms2ue1.sbsweb.backend.model.Organisation;
 import com.lms2ue1.sbsweb.backend.model.Role;
 import com.lms2ue1.sbsweb.backend.model.User;
@@ -36,6 +39,9 @@ public class UserManagementController {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    BackendAccessProvider backendAccessProvider;
 
     // This redirect will not work as of now. We will need the backend for this to
     // work properly
@@ -89,6 +95,7 @@ public class UserManagementController {
     /**
      * POST mapping to add a new user to the relevant organisation.
      * 
+     * @param principal Security principal to access current user's name
      * @param oID ID of the relevant organisation
      * @param user The User instance to add
      * @param bindingResult Binding results used for error checking
@@ -96,14 +103,18 @@ public class UserManagementController {
      * @return Redirect to user management
      */
     @PostMapping("/organisation/{oID}/user_management/user_save")
-    public String addNewUser(@PathVariable Long oID, @Valid User user, BindingResult bindingResult, Model model) {
+    public String addNewUser(Principal principal, @PathVariable Long oID, @Valid User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
             return "user/user_new";
         }
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));
-        userRepository.save(user);
+        User newUser = new User(user.getForename(), user.getLastname(), user.getRole(), user.getUsername(), encoder.encode(user.getPassword()));
+        try {
+            backendAccessProvider.addUser(principal.getName(), newUser);
+        } catch (AuthenticationException authException) {
+            authException.printStackTrace();
+        }
         return "redirect:/organisation/{oID}/user_management";
     }
 
@@ -140,6 +151,7 @@ public class UserManagementController {
     /**
      * POST mapping to update user data of the specified user and relevant organisation.
      * 
+     * @param principal Security principal to access current user's name
      * @param oID ID of the relevant organisation
      * @param uID ID of the relevant user
      * @param user User instance with the updated data
@@ -148,15 +160,19 @@ public class UserManagementController {
      * @return Redirect to user management
      */
     @PostMapping("/organisation/{oID}/user_management/user/{uID}/user_update")
-    public String editUserById(@PathVariable Long oID, @PathVariable Long uID, @Valid User user,
+    public String editUserById(Principal principal, @PathVariable Long oID, @PathVariable Long uID, @Valid User user,
             BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
             return "user/user_edit";
         }
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));
-        userRepository.save(user);
+        User updatedUser = new User(user.getForename(), user.getLastname(), user.getRole(), user.getUsername(), encoder.encode(user.getPassword()));
+        try {
+            backendAccessProvider.updateUser(principal.getName(), user.getId(), updatedUser);
+        } catch (AuthenticationException authException) {
+            authException.printStackTrace();
+        }
         return "redirect:/organisation/{oID}/user_management";
     }
 }

@@ -2,25 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
 
 <head>
-<title>Projekte</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link th:href="@{/css/main.css}" rel="stylesheet" />
+  <title>Projekte</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link th:href="@{/css/main.css}" rel="stylesheet" />
 </head>
 
 <body>
-    <th:block th:fragment="content">
-        <div class="container">
-            <div class="text-center">
-                <h1>Projekte</h1>
-            </div>
-        </div>
+  <th:block th:fragment="content">
+    <div class="container">
+      <div class="text-center">
+        <h1>Projekte</h1>
         <div class="padding-50"></div>
-        <div class="text-center">
-            <h4 th:if="${projects?.empty}">Keine Projekte verfügbar.</h4>
-            <div class="container" th:unless="${projects?.empty}">
-                <table class="table table-borderless" th:with="cols=4">
-                    <tr th:each="_, row : ${projects}" th:if="${row.count % cols == 0 or row.last}">
-                        <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
+        <h2>Fortschritt:</h2>
+      </div>
+    </div>
+    <div class="padding-20"></div>
+    <div class="container" style="height: 300px">
+      <canvas id="diagram"></canvas>
+    </div>
+    <div class="padding-50"></div>
+    <div class="text-center">
+      <h4 th:if="${projects?.empty}">Keine Projekte verfügbar.</h4>
+      <div class="container" th:unless="${projects?.empty}">
+        <table class="table table-borderless" th:with="cols=4">
+          <tr th:each="_, row : ${projects}" th:if="${row.count % cols == 0 or row.last}">
+            <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
                             <!-- Full row -->
                             <td th:if="${row.count % cols == 0}">
                                 <a th:object="${projects[row.index - x]}" th:href="@{'/project/' + *{id} + '/show'}" class="icon-link">
@@ -40,6 +46,12 @@
                 </table>
             </div>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script th:inline="javascript">
+          //Daten von users holen
+          var listOfStatus = /*[[${listOfStatus}]]*/ "listOfStatus";
+        </script>
+        <script type="text/javascript " defer th:src="@{/js/createProgressDiagram.js} "></script>
     </th:block>
 </body>
 

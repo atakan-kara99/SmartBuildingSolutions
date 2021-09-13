@@ -114,43 +114,43 @@ public class BillingUnit {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    public void setId(long id) {
+    protected void setId(long id) {
 	this.id = id;
     }
 
-    public void setShortDescription(String sDesc) {
+    protected void setShortDescription(String sDesc) {
 	this.shortDescription = sDesc;
     }
 
-    public void setLongDescription(String lDesc) {
+    protected void setLongDescription(String lDesc) {
 	this.longDescription = lDesc;
     }
 
-    public void setUnit(String u) {
+    protected void setUnit(String u) {
 	this.unit = u;
     }
 
-    public void setCompletionDate(String cD) {
+    protected void setCompletionDate(String cD) {
 	this.completionDate = cD;
     }
 
-    public void setownContractDefined(String oCD) {
+    protected void setownContractDefined(String oCD) {
 	this.ownContractDefined = oCD;
     }
 
-    public void setTotalQuantity(double tQ) {
+    protected void setTotalQuantity(double tQ) {
 	this.totalQuantity = tQ;
     }
 
-    public void setTotalPrice(double tP) {
+    protected void setTotalPrice(double tP) {
 	this.totalPrice = tP;
     }
 
-    public void setContract(Contract c) {
+    protected void setContract(Contract c) {
 	this.contract = c;
     }
 
-    public void setBillingItems(List<BillingItem> bis) {
+    protected void setBillingItems(List<BillingItem> bis) {
 	this.billingItems = bis;
     }
 
