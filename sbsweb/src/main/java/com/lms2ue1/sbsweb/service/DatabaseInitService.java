@@ -114,11 +114,11 @@ public class DatabaseInitService {
 	    // ------------------------------//
 	    // ------------- BillingUnit ----//
 	    // ------------------------------//
-	    BillingUnit billUnit0 = new BillingUnit(null, null, null, null, null, 0, 0, con0);
+	    BillingUnit billUnit0 = new BillingUnit("REST Foundations", null, null, null, null, 0, 0, con0);
 	    
 	    billUnitRepo.save(billUnit0);
 	    
-	    BillingUnit billUnit1 = new BillingUnit(null, null, null, null, null, 0, 0, con3);
+	    BillingUnit billUnit1 = new BillingUnit("GUID Level 1", null, null, null, null, 0, 0, con3);
 	    billUnitRepo.save(billUnit1);
 	    
 	    // ------------------------------//
