@@ -12,9 +12,8 @@ import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.lms2ue1.sbsweb.backend.model.Project;
-import com.lms2ue1.sbsweb.backend.repository.OrganisationRepository;
-import com.lms2ue1.sbsweb.backend.repository.ProjectRepository;
+import com.lms2ue1.sbsweb.backend.model.*;
+import com.lms2ue1.sbsweb.backend.repository.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -23,9 +22,21 @@ public class ControllerTest {
     @Autowired
     private MockMvc mvc;
     @Autowired
+    private AddressRepository addresses;
+    @Autowired
     private ProjectRepository projects;
     @Autowired
+    private ContractRepository contracts;
+    @Autowired
+    private BillingUnitRepository billingUnits;
+    @Autowired
+    private BillingItemRepository billingItems;
+    @Autowired
     private OrganisationRepository organisations;
+    @Autowired
+    private UserRepository users;
+    @Autowired
+    private RoleRepository roles;
 
     // Root
 
@@ -44,8 +55,7 @@ public class ControllerTest {
 	    // findAll() should never return null
 	    mvc.perform(get("/project/" + pro.getId() + "/show")).andExpect(status().isOk())
 		    .andExpect(view().name("project/project_details")).andExpect(model().attributeExists("project"))
-		    .andExpect(model().attribute("project", pro)).andExpect(model().attributeExists("contracts"))
-		    .andExpect(model().attribute("contracts", pro.getContracts()));
+		    .andExpect(model().attribute("project", pro)).andExpect(model().attributeExists("contracts"));
 	}
     }
 
