@@ -180,6 +180,13 @@ class AuthorisationCheckTest {
     }
 
     @Test
+    public void testIsAdmin() {
+	when(userMock.findByUsername(user1.getUsername())).thenReturn(user1);
+	assertTrue(authCheck.isAdmin(user0.getUsername()));
+	assertTrue(authCheck.isAdmin(user1.getUsername()));
+    }
+    
+    @Test
     public void testGetOrgAdminTrue() {
 	when(userMock.findByUsername(user1.getUsername())).thenReturn(user1);
 	assertTrue(authCheck.getOrgAdminID(user1.getUsername()) == user1.getId());
@@ -197,8 +204,9 @@ class AuthorisationCheckTest {
 	assertTrue(authCheck.canManageUser(user0.getUsername(), user1.getId()));
     }
     
+    
     @Test
-    public void testManageUserOrgAdmin() {
+    public void testManageUserOrgAdminID() {
 	when(userMock.findByUsername(user1.getUsername())).thenReturn(user1);
 	when(userMock.findByUsername(user2.getUsername())).thenReturn(user2);
 	when(userMock.findById(user2.getId())).thenReturn(Optional.of(user2));
