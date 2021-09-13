@@ -12,6 +12,7 @@ import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.lms2ue1.sbsweb.backend.model.Project;
 import com.lms2ue1.sbsweb.backend.repository.OrganisationRepository;
 import com.lms2ue1.sbsweb.backend.repository.ProjectRepository;
 
@@ -34,6 +35,18 @@ public class ControllerTest {
 	mvc.perform(get("/project_overview")).andExpect(status().isOk())
 		.andExpect(view().name("project/project_overview")).andExpect(model().attributeExists("projects"))
 		.andExpect(model().attribute("projects", projects.findAll()));
+    }
+
+    @Test
+    @WithMockUser(username = "root", roles = { "SysAdmin" })
+    public void testProjectDetailsRoot() throws Exception {
+	for (Project pro : projects.findAll()) {
+	    // findAll() should never return null
+	    mvc.perform(get("/project/" + pro.getId() + "/show")).andExpect(status().isOk())
+		    .andExpect(view().name("project/project_details")).andExpect(model().attributeExists("project"))
+		    .andExpect(model().attribute("project", pro)).andExpect(model().attributeExists("contracts"))
+		    .andExpect(model().attribute("contracts", pro.getContracts()));
+	}
     }
 
     @Test
