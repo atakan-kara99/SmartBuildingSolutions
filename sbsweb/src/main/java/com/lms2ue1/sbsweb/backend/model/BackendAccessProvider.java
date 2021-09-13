@@ -564,7 +564,6 @@ public class BackendAccessProvider {
     public List<BillingItem> getAllBillingItems(String username) {
 	try {
 	    return getAllBillingUnits(username).stream().map(bu -> bu.getBillingItems()).flatMap(List::stream)
-		    .map(bi -> auth.flattenBillingItemsList(new ArrayList<>(), bi)).flatMap(List::stream)
 		    .collect(Collectors.toList());
 //	    if (auth.isSysAdmin(username)) {
 //		return StreamSupport.stream(billingItems.findAll().spliterator(), false).collect(Collectors.toList());
