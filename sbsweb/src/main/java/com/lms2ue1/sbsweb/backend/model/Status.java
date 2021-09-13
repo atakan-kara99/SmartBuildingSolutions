@@ -1,6 +1,5 @@
 package com.lms2ue1.sbsweb.backend.model;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -12,7 +11,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
-import org.hibernate.mapping.Map;
 
 @Entity
 public class Status {
@@ -51,7 +49,7 @@ public class Status {
 	 * @param name
 	 * @param description
 	 */
-	public Status(String name, String description, HashMap<Role, Status> nextStatus) {
+	public Status(String name, String description, List<Status> nextStatus) {
 		this.name = name;
 		this.description = description;
 		this.nextStatus = nextStatus;

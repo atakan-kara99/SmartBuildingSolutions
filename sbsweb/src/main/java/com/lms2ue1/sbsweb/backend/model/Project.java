@@ -16,7 +16,7 @@ import java.util.List;
 
 @Entity
 public class Project {
-<<<<<<< HEAD
+
 	// ------ Attributes ------//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,10 +35,9 @@ public class Project {
 	private String imageFileName;
 
 	// ------ Associations ------//
-	@ManyToOne
-	@JoinColumn(name = "status_id")
-	private Status status;
-	@OneToOne
+	// TODO: Joined nicht! Join überprüfen!
+	@OneToOne // (cascade = {CascadeType.ALL}) try w/ cascading
+	@JoinColumn(name = "address_id")
 	private Address address;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "project", orphanRemoval = true)
@@ -49,16 +48,18 @@ public class Project {
 	@Size(min = 2)
 	@ManyToMany(mappedBy = "projects")
 	private List<Role> roles;
+	@ManyToOne
+	private Status status;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
-	
+
 	public Project() {
 	}
 
 	/**
-	 * Constructor to insert the data of the rest api json request.
-	 * Only the parameters of the constructor are columns (plus the FKs).
+	 * Constructor to insert the data of the rest api json request. Only the
+	 * parameters of the constructor are columns (plus the FKs).
 	 * 
 	 * @param name           name of the project.
 	 * @param desc           description.
@@ -89,7 +90,6 @@ public class Project {
 		this.address = address;
 		this.organisation = organisation;
 	}
-	
 
 	// ----------------------------//
 	// ---------- Getter ----------//
@@ -157,277 +157,77 @@ public class Project {
 	// ----------------------------//
 	// ---------- Setter ----------//
 	// ----------------------------//
-	public void setId(long pId) {
+	protected void setId(long pId) {
 		this.id = pId;
 	}
 
-	public void setName(String n) {
+	protected void setName(String n) {
 		this.name = n;
 	}
 
-	public void setDescription(String desc) {
+	protected void setDescription(String desc) {
 		this.description = desc;
 	}
 
-	public void setCreationDate(String creationDate) {
+	protected void setCreationDate(String creationDate) {
 		this.creationDate = creationDate;
 	}
 
-	public void setCompletionDate(String completionDate) {
+	protected void setCompletionDate(String completionDate) {
 		this.completionDate = completionDate;
 	}
 
-	public void setStatus(Status s) {
+	protected void setStatus(Status s) {
 		this.status = s;
 	}
 
-	public void setOverallCosts(double oC) {
+	protected void setOverallCosts(double oC) {
 		this.overallCosts = oC;
 	}
 
-	public void setImage(String img) {
+	protected void setImage(String img) {
 		this.image = img;
 	}
 
-	public void setImageType(String imgType) {
+	protected void setImageType(String imgType) {
 		this.imageType = imgType;
 	}
 
-	public void setImageFileName(String imgFileName) {
+	protected void setImageFileName(String imgFileName) {
 		this.imageFileName = imgFileName;
 	}
 
-	public void setAddress(Address a) {
+	protected void setAddress(Address a) {
 		this.address = a;
 	}
 
-	public void setContracts(List<Contract> cs) {
+	protected void setContracts(List<Contract> cs) {
 		this.contracts = cs;
 	}
 
-	public void setOrganisation(Organisation o) {
+	protected void setOrganisation(Organisation o) {
 		this.organisation = o;
 	}
 
-	public void setRoles(List<Role> roles) {
+	protected void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 
-	public void setCreator(String creator) {
+	protected void setCreator(String creator) {
 		this.creator = creator;
 	}
-=======
-    // ------ Attributes ------//
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(updatable = false, unique = true)
-    private long id;
-    @Column(unique = true)
-    private String name;
-    private String description;
-    private String creationDate;
-    private String completionDate;
-    private Status status;
-    private double overallCosts;
-    private String creator;
-    // -- These attributes are not important for our use. --//
-    private String image;
-    private String imageType;
-    private String imageFileName;
 
-    // ------ Associations ------//
-    // TODO: Joined nicht! Join überprüfen!
-    @OneToOne // (cascade = {CascadeType.ALL}) try w/ cascading
-    @JoinColumn(name = "address_id")
-    private Address address;
-    @Size(min = 1)
-    @OneToMany(mappedBy = "project", orphanRemoval = true)
-    private List<Contract> contracts;
-    @ManyToOne
-    @JoinColumn(name = "organisation_id")
-    private Organisation organisation;
-    @Size(min = 2)
-    @ManyToMany(mappedBy = "projects")
-    private List<Role> roles;
+	// ----------------------------//
+	// ---------- Misc ------------//
+	// ----------------------------//
 
-    // ----------------------------------//
-    // ---------- Constructors ----------//
-
-    public Project() {
-    }
-
-    /**
-     * Constructor to insert the data of the rest api json request. Only the
-     * parameters of the constructor are columns (plus the FKs).
-     * 
-     * @param name           name of the project.
-     * @param desc           description.
-     * @param creationDate   date where the project started.
-     * @param completionDate date where the project should be finished.
-     * @param status         current status of the project.
-     * @param costs          overall costs.
-     * @param creator        name of the creator.
-     * @param img            path of the image.
-     * @param imgType        type of the image.
-     * @param imgFileName    name of the image.
-     * @param address        address of the project.
-     * @param organisation   associated organisation.
-     */
-    public Project(String name, String desc, String creationDate, String completionDate, Status status, double costs,
-	    String creator, String img, String imgType, String imgFileName, Address address,
-	    Organisation organisation) {
-	this.name = name;
-	this.description = desc;
-	this.creationDate = creationDate;
-	this.completionDate = completionDate;
-	this.status = status;
-	this.overallCosts = costs;
-	this.creator = creator;
-	this.image = img;
-	this.imageType = imgType;
-	this.imageFileName = imgFileName;
-	this.address = address;
-	this.organisation = organisation;
-    }
-
-    // ----------------------------//
-    // ---------- Getter ----------//
-    // ----------------------------//
-    public long getId() {
-	return this.id;
-    }
-
-    public String getName() {
-	return this.name;
-    }
-
-    public String getDescription() {
-	return this.description;
-    }
-
-    public String getCreationDate() {
-	return this.creationDate;
-    }
-
-    public String getCompletionDate() {
-	return this.completionDate;
-    }
-
-    public Status getStatus() {
-	return this.status;
-    }
-
-    public double getOverallCosts() {
-	return this.overallCosts;
-    }
-
-    public String getCreator() {
-	return this.creator;
-    }
-
-    public String getImage() {
-	return this.image;
-    }
-
-    public String getImageType() {
-	return this.imageType;
-    }
-
-    public String getImageFileName() {
-	return this.imageFileName;
-    }
-
-    public Address getAddress() {
-	return this.address;
-    }
-
-    public List<Contract> getContracts() {
-	return this.contracts;
-    }
-
-    public Organisation getOrganisation() {
-	return this.organisation;
-    }
-
-    public List<Role> getRoles() {
-	return roles;
-    }
-
-    // ----------------------------//
-    // ---------- Setter ----------//
-    // ----------------------------//
-    protected void setId(long pId) {
-	this.id = pId;
-    }
-
-    protected void setName(String n) {
-	this.name = n;
-    }
-
-    protected void setDescription(String desc) {
-	this.description = desc;
-    }
-
-    protected void setCreationDate(String creationDate) {
-	this.creationDate = creationDate;
-    }
-
-    protected void setCompletionDate(String completionDate) {
-	this.completionDate = completionDate;
-    }
-
-    protected void setStatus(Status s) {
-	this.status = s;
-    }
-
-    protected void setOverallCosts(double oC) {
-	this.overallCosts = oC;
-    }
-
-    protected void setImage(String img) {
-	this.image = img;
-    }
-
-    protected void setImageType(String imgType) {
-	this.imageType = imgType;
-    }
-
-    protected void setImageFileName(String imgFileName) {
-	this.imageFileName = imgFileName;
-    }
-
-    protected void setAddress(Address a) {
-	this.address = a;
-    }
-
-    protected void setContracts(List<Contract> cs) {
-	this.contracts = cs;
-    }
-
-    protected void setOrganisation(Organisation o) {
-	this.organisation = o;
-    }
-
-    protected void setRoles(List<Role> roles) {
-	this.roles = roles;
-    }
-
-    protected void setCreator(String creator) {
-	this.creator = creator;
-    }
-
-    // ----------------------------//
-    // ---------- Misc ------------//
-    // ----------------------------//
-
-    @Override
-    public boolean equals(Object obj) {
-	if (obj instanceof Project) {
-	    Project tmpProject = (Project) obj;
-	    return tmpProject.getId() == this.id;
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Project) {
+			Project tmpProject = (Project) obj;
+			return tmpProject.getId() == this.id;
+		}
+		return false;
 	}
-	return false;
-    }
->>>>>>> web-dev
 
 }
