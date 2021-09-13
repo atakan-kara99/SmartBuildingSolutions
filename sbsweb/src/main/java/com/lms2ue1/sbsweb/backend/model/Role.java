@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 @Entity
@@ -30,19 +32,23 @@ public class Role {
 
 
 	// ---- Associations ----//
+    @JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "PROJECT_ROLES", joinColumns = { @JoinColumn(name = "ROLES_ID") }, inverseJoinColumns = {
 	            @JoinColumn(name = "PROJECTS_ID") })
 	private List<Project> projects;
+    @JsonIgnore
 	@ManyToOne // (cascade = CascadeType.MERGE)
 	@JoinColumn(name = "organisation_id")
 	private Organisation organisation;
 	@OneToMany(mappedBy = "role")
 	private List<User> users;
+    @JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "CONTRACT_ROLES", joinColumns = { @JoinColumn(name = "ROLES_ID") }, inverseJoinColumns = {
 	            @JoinColumn(name = "CONTRACT_ID") })
 	private List<Contract> contracts;
+    @JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "BILLING_ITEM_ROLES", joinColumns = { @JoinColumn(name = "ROLES_ID") }, inverseJoinColumns = {
 	            @JoinColumn(name = "BILLING_ITEM_ID") })

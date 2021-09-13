@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * User will be created at the frontend side of the application.
  */
@@ -21,13 +23,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, unique = true)
     private long id;
+    @JsonIgnore
     @NotEmpty
     private String forename;
+    @JsonIgnore
     @NotEmpty
     private String lastname;
     @NotEmpty
     @Column(unique = true)
     private String username;
+    @JsonIgnore
     @NotEmpty
     private String password;
 

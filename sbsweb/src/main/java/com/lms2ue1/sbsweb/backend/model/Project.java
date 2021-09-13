@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 @Entity
@@ -42,9 +44,11 @@ public class Project {
     @Size(min = 1)
     @OneToMany(mappedBy = "project", orphanRemoval = true)
     private List<Contract> contracts;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "organisation_id")
     private Organisation organisation;
+    @JsonIgnore
     @Size(min = 2)
     @ManyToMany(mappedBy = "projects")
     private List<Role> roles;
