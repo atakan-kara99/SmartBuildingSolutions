@@ -80,6 +80,7 @@
           data.push(counter[labels[i]]);
         }
 
+        //create datasets
         var datasets = [{
           label: name,
           data,
@@ -92,30 +93,25 @@
           borderWidth: 1
         }];
 
+        //data object
         return {
           labels,
           datasets
         };
       }
 
+      //calculate the data
       const data = createData();
 
-
-      //erstellt ein neues Chart Objekt zu einem Objekt von list
-      function createNewChart(ctx, chartIndex) {
-
-        return new Chart(ctx, {
-          type: configs[chartIndex].type,
-          //calculated beforehand
-          data,
-          options: configs[chartIndex].options
-        });
-      }
-
-      //Auf den canvas referenzieren
+      //reference canvas element
       var ctx = document.getElementById("diagram").getContext('2d');
 
-      var myChart = createNewChart(ctx, 0);
+      //create first instance
+      var myChart = new Chart(ctx, {
+        type: configs[0].type,
+        data,
+        options: configs[0].options
+      });
 
 
       //change chart type
@@ -124,11 +120,15 @@
       //eventlistener
       chartType.addEventListener('change', changeChartType);
       //function to change the type
-      function changeChartType() {
 
+      function changeChartType() {
         //to change the chart type, you have to delete it first, because
         //the presettings for the current diagram won't disappear, then
         //create it anew
         myChart.destroy();
-        myChart = createNewChart(ctx, chartType.value);
+        myChart = new Chart(ctx, {
+          type: configs[chartType.value].type,
+          data,
+          options: configs[chartType.value].options
+        });
       }
