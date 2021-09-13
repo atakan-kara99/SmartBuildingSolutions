@@ -34,6 +34,7 @@ public class ContractController {
 	    List<BillingItem> billingItems = BAP.getAllBillingItems(username).stream()
 		    .filter(b -> b.getBillingUnit().getContract().getId() == cID)
 		    .collect(Collectors.toCollection(ArrayList::new));
+	    // Flattened list, keep only high level billing items
 	    List<Integer> removes = new ArrayList<>(billingItems.size());
 	    for (int i = 0; i < billingItems.size(); i++) {
 		BillingItem bill = billingItems.get(i);
