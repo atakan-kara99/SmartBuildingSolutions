@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <th:block th:fragment="content">
+        <div class="container">
+            <div class="text-center">
+                <h1> Projekte </h1>
+                <div class="padding-50"></div>
+                <div class="container">
+                    <div class="row btn-row justify-content-end align-items-center">
+                        <div class="col-4 text-center">
+                            <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management'}">
+                                <button type="button" class="btn btn-outline-secondary"> Zurück zur Rollenverwaltung </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="padding-50"></div>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-8">
+                            <table class="table table-striped table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="width: 75%" scope="col"> Projekte </th>
+                                        <th class="text-center" style="width: 10%" scope="col"> Zugriffsstatus </th>
+                                        <th class="text-center" style="width: 15%" scope="col"> Optionen </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:if="${availableProjects.empty}" class="text-center">
+                                        <td colspan="3"> Kein Projekte verfügbar </td>
+                                    </tr>
+                                    <tr th:each="project : ${availableProjects}">
+                                        <td class="text-center"><span th:text="${project.name}"> Projekt </span></td>
+                                        <td class="text-center">
+                                            <span>
+                                                <i th:if="${#lists.contains(accessibleProjects, project)}" class="bi bi-eye"
+                                                    style="font-size: large; color: rgb(21, 255, 0);" title="Vollständiger Zugriff"></i>
+                                                <i th:if="${#lists.contains(accessibleProjects, project) == false}" class="bi bi-eye"
+                                                    style="font-size: large; color: rgb(255, 60, 60);" title="Kein Zugriff"></i>
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-4">
+                                                        <div th:if="${adminPrivileges == true}">
+                                                            <div th:if="${#lists.contains(accessibleProjects, project) && #lists.contains(role.users, user) == false}">
+                                                                <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/role_remove_project/project/' + ${project.id}}"
+                                                                    class="icon-link">
+                                                                    <i class="bi bi-dash-circle" style="font-size: large; color: rgb(255, 60, 60);"
+                                                                        title="Zugriff entziehen"></i>
+                                                                </a>
+                                                            </div>
+                                                            <div th:if="${#lists.contains(accessibleProjects, project) == false}">
+                                                                <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/role_add_project/project/' + ${project.id}}"
+                                                                    class="icon-link">
+                                                                    <i class="bi bi-plus-circle" style="font-size: large; color: black;"
+                                                                        title="Zugriff geben"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <a th:href="@{'/project/' + ${project.id} + '/show'}" class="icon-link">
+                                                            <i class="bi bi-info-circle" style="font-size: large; color: black;"
+                                                                title="Informationen zum Projekt"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/project/' + ${project.id} + '/role_edit_access_contracts'}"
+                                                            class="icon-link">
+                                                            <i class="bi bi-box-arrow-in-right" style="font-size: large; color: black;"
+                                                                title="Zu untergeordneten Verträgen"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</body>
+
+</html>
