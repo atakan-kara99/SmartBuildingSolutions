@@ -1946,7 +1946,7 @@ progress {
   }
 }
 .table {
-  --bs-table-bg: #4e4e4e6c;
+  --bs-table-bg: #e4e4e4;
   --bs-table-accent-bg: transparent;
   --bs-table-striped-color: #3a3a3a;
   --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
