@@ -9,26 +9,28 @@ public class RESTDataRetriever {
 
 	// ---- Methods for accessing the data from REST-API ----//
 	public String fetchProjects() {
-		OkHttpClient client = new OkHttpClient().newBuilder()
+		/*OkHttpClient client = new OkHttpClient().newBuilder()
 				  .build();
 		okhttp3.Request request = new Request.Builder()
 				  .url("localhost:3001/api/v1/project/list")
 				  .method("GET", null)
 				  .build();
-		okhttp3.Response response = client.newCall(request).execute();
+		okhttp3.Response response = client.newCall(request).execute();*/
+	    // TODO: Implement me!
 		return null;
 	}
 
 	public String fetchContracts() {
-		OkHttpClient client = new OkHttpClient().newBuilder()
+		/*OkHttpClient client = new OkHttpClient().newBuilder()
 				  .build();
 				Request request = new Request.Builder()
 				  .url("localhost:3001/api/v1/contracts/:projectId")
 				  .method("GET", null)
 				  *
 				  .build();
-				Response response = client.newCall(request).execute();
-		return null;
+				Response response = client.newCall(request).execute();*/
+	 // TODO: Implement me!
+	    return null;
 	}
 
 	public String fetchBillingUnits() {
