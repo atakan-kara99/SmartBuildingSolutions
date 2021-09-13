@@ -186,6 +186,16 @@ public class AuthorisationCheck {
     }
 
     /**
+     * Is the given user a SysAdmin?
+     * 
+     * @param username = the user in question.
+     * @return true = yes, the user is. false = no, the user isn't.
+     */
+    public boolean isAdmin(String username) {
+	return isSysAdmin(username) || getRole(username).getName().equals("OrgAdmin");
+    }
+
+    /**
      * Get the organisation id, if the given user is an OrgAdmin. Otherwise, return
      * null.
      * 

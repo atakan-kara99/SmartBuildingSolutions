@@ -29,7 +29,6 @@ public class Role {
 	private boolean manageUser;
 
 
-
 	// ---- Associations ----//
 	@ManyToMany
 	@JoinTable(name = "PROJECT_ROLES", joinColumns = { @JoinColumn(name = "ROLES_ID") }, inverseJoinColumns = {
