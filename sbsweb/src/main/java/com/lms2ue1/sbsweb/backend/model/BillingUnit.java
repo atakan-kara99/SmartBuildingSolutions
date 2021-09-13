@@ -59,7 +59,7 @@ public class BillingUnit {
 	 * @param contract           = contract
 	 */
 	public BillingUnit(String sDesc, String lDesc, String unit, String completionDate, String ownContractDefined,
-			double totalQuantity, double totalPrice, Contract contract) {
+			double totalQuantity, double totalPrice, Contract contract, Status status) {
 		this.shortDescription = sDesc;
 		this.longDescription = lDesc;
 		this.unit = unit;
@@ -68,6 +68,7 @@ public class BillingUnit {
 		this.totalQuantity = totalQuantity;
 		this.totalPrice = totalPrice;
 		this.contract = contract;
+		this.status = status;
 	}
 
 	// ----------------------------//
