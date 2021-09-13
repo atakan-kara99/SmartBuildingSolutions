@@ -73,21 +73,21 @@ class AuthorisationCheckTest {
     public void init() {
 	closeable = MockitoAnnotations.openMocks(this);
 
-	org0 = new Organisation("SBS");
-	org1 = new Organisation("Tiefbau");
+	org0 = new Organisation("SBS", null);
+	org1 = new Organisation("Tiefbau", null);
 	address0 = new Address("Main Street", 1337, 14, "NY City", "Deutschland");
 	address1 = new Address("2nd Street", 42, 15, "GBR City", "France");
-	project0 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01", Status.OK,
+	project0 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01", null,
 		234578900, "Die den anderen Turm auch gemacht haben", null, null, null, address0, org0);
-	project1 = new Project("Berliner Flughafen xD", "Morgen ist es soweit", "2010-12-28", "2015-01-01", Status.OPEN,
+	project1 = new Project("Berliner Flughafen xD", "Morgen ist es soweit", "2010-12-28", "2015-01-01", null,
 		1300500000, "Nicht die vom Burj Khalifa", null, null, null, address1, org1);
-	contract0 = new Contract("Baby beruhigen", "Es schreit.", Status.NO_STATUS, "Nanny", "Mutter", List.of(),
+	contract0 = new Contract("Baby beruhigen", "Es schreit.", null, "Nanny", "Mutter", List.of(),
 		project0);
 	contract1 = new Contract("Kosten klein halten", "Teuer", null, null, null, List.of(org1), project1);
-	billingUnit0 = new BillingUnit("sd", null, "kg", "1973", "2001", 2.1, 7, contract0);
-	billingUnit1 = new BillingUnit("sssdad", null, "�", "15999", "2201", 1, 0, contract1);
+	billingUnit0 = new BillingUnit("sd", null, "kg", "1973", "2001", 2.1, 7, contract0, null);
+	billingUnit1 = new BillingUnit("sssdad", null, "�", "15999", "2201", 1, 0, contract1, null);
 	billingItem1 = new BillingItem("Fenster einbauen", 0, null, null, 99, null, 0, null, null, billingUnit1, null);
-	billingItem0 = new BillingItem("Heizung montieren", 2, "Heizko B7-2 fensternah einbauen.", Status.OPEN, 0, null,
+	billingItem0 = new BillingItem("Heizung montieren", 2, "Heizko B7-2 fensternah einbauen.", null, 0, null,
 		7, null, null, billingUnit0, List.of(billingItem1));
 	role0 = new Role("SysAdmin", List.of(project0, project1), List.of(contract0, contract1),
 		List.of(billingItem0, billingItem1), org0, true);
