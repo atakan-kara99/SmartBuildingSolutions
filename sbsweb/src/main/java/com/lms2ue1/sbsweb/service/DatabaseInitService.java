@@ -49,12 +49,12 @@ public class DatabaseInitService {
 			// -----------------------------//
 			// ------------- Orga ----------//
 			// -----------------------------//
-			Organisation org0 = new Organisation("SBS AG");
-			Organisation org1 = new Organisation("Tiefbau Co Kg.");
-			Organisation org3 = new Organisation("Uni-Kiel GmbH");
-			Organisation org4 = new Organisation("Apple INC.");
-			Organisation org5 = new Organisation("Microsoft INC.");
-			Organisation org6 = new Organisation("Pineapple GmbH");
+			Organisation org0 = new Organisation("SBS AG", List.of(s1, s2, s3));
+			Organisation org1 = new Organisation("Tiefbau Co Kg.", List.of(s1, s2, s3));
+			Organisation org3 = new Organisation("Uni-Kiel GmbH", List.of(s1, s2, s3));
+			Organisation org4 = new Organisation("Apple INC.", List.of(s1, s2, s3));
+			Organisation org5 = new Organisation("Microsoft INC.", List.of(s1, s2, s3));
+			Organisation org6 = new Organisation("Pineapple GmbH", List.of(s1, s2, s3));
 
 			orgaRepo.save(org0);
 			orgaRepo.save(org1);
@@ -128,11 +128,11 @@ public class DatabaseInitService {
 			// ------------------------------//
 			// ------------- BillingUnit ----//
 			// ------------------------------//
-			BillingUnit billUnit0 = new BillingUnit(null, null, null, null, null, 0, 0, con0);
+			BillingUnit billUnit0 = new BillingUnit(null, null, null, null, null, 0, 0, con0, s1);
 
 			billUnitRepo.save(billUnit0);
 
-			BillingUnit billUnit1 = new BillingUnit(null, null, null, null, null, 0, 0, con3);
+			BillingUnit billUnit1 = new BillingUnit(null, null, null, null, null, 0, 0, con3, s3);
 			billUnitRepo.save(billUnit1);
 
 			// ------------------------------//
@@ -146,9 +146,9 @@ public class DatabaseInitService {
 			billItemRepo.save(nested);
 
 			BillingItem billItem1 = new BillingItem("Heizung montieren", 0, "Heizkörper B7-2 fensternah einbauen.",
-					null, 0, null, 0, null, null, billUnit1, null);
+					s1, 0, null, 0, null, null, billUnit1,null);
 
-			BillingItem billItem2 = new BillingItem("Fenster einbauen", 0, null, null, 0, null, 0, null, null,
+			BillingItem billItem2 = new BillingItem("Fenster einbauen", 0, null, s3, 0, null, 0, null, null,
 					billUnit1, null);
 			billItemRepo.saveAll(List.of(billItem1, billItem2));
 

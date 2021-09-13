@@ -58,66 +58,66 @@ public class Status {
 	// ----------------------------//
 	// ---------- Getter ----------//
 	// ----------------------------//
-	protected Long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	protected String getName() {
+	public String getName() {
 		return this.name;
 	}
 
-	protected String getDescription() {
+	public String getDescription() {
 		return this.description;
 	}
 
-	protected List<Project> getProject() {
+	public List<Project> getProject() {
 		return this.projects;
 	}
 
-	protected List<Contract> getContract() {
+	public List<Contract> getContract() {
 		return this.contracts;
 	}
 
-	protected List<Organisation> getOrganisation() {
+	public List<Organisation> getOrganisation() {
 		return this.organisations;
 	}
 
-	protected List<BillingUnit> getBillingUnit() {
+	public List<BillingUnit> getBillingUnit() {
 		return this.billingUnits;
 	}
 
-	protected List<BillingItem> getBillingItem() {
+	public List<BillingItem> getBillingItem() {
 		return this.billingItems;
 	}
 
 	// ----------------------------//
 	// ---------- Setter ----------//
 	// ----------------------------//
-	protected void setId(Long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	protected void setName(String n) {
+	public void setName(String n) {
 		this.name = n;
 	}
 
-	protected void setDescription(String desc) {
+	public void setDescription(String desc) {
 		this.description = desc;
 	}
 
-	protected void setProject(List<Project> ps) {
+	public void setProject(List<Project> ps) {
 		this.projects = ps;
 	}
 
-	protected void setContract(List<Contract> cs) {
+	public void setContract(List<Contract> cs) {
 		this.contracts = cs;
 	}
 
-	protected void setOrganisation(List<Organisation> os) {
+	public void setOrganisation(List<Organisation> os) {
 		this.organisations = os;
 	}
 
-	protected void setBillingUnit(List<BillingUnit> bus) {
+	public void setBillingUnit(List<BillingUnit> bus) {
 		this.billingUnits = bus;
 	}
 

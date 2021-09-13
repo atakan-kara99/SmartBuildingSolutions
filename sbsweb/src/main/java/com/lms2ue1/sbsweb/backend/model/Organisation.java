@@ -51,8 +51,9 @@ public class Organisation {
 	 * 
 	 * @param name = name of the organisation.
 	 */
-	public Organisation(String name) {
+	public Organisation(String name, List<Status> stati) {
 		this.name = name;
+		this.stati = stati;
 	}
 
 	// ----------------------------//
