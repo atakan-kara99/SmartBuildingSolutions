@@ -19,6 +19,9 @@ public class ContractController {
 
     @Autowired
     private BackendAccessProvider BAP;
+    
+    //List of temp stati for details
+	List<String> listOfStatus = List.of("OK","OK","NO_STATUS","OPEN","OPEN","DENY","OPEN","OK","OK","OK","NO_STATUS","OK","OK","OK","OPEN","OK","OK","DENY");
 
     /** Shows the specified contract's details, e.g. its billing items. */
     @GetMapping("/project/{pID}/contract/{cID}/show")
@@ -35,6 +38,7 @@ public class ContractController {
 		    billingItems.stream()
 			    .filter(billingItem -> billingItem.getBillingUnit().getContract().getId() == cID)
 			    .collect(Collectors.toList()));
+	    model.addAttribute("listOfStatus",listOfStatus);
 	    return "contract/contract_details";
 	} catch (AuthenticationException | IllegalArgumentException e) {
 	    return "error";
