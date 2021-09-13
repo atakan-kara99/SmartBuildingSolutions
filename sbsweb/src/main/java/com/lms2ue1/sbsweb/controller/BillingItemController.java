@@ -1,6 +1,7 @@
 package com.lms2ue1.sbsweb.controller;
 
 import java.security.Principal;
+import java.util.stream.Collectors;
 
 import javax.naming.AuthenticationException;
 import javax.validation.Valid;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.lms2ue1.sbsweb.backend.model.*;
 
@@ -51,14 +53,17 @@ public class BillingItemController {
 	    model.addAttribute("cID", cID);
 	    model.addAttribute("project", BAP.getProjectById(username, pID));
 	    model.addAttribute("contract", BAP.getContractById(username, cID));
+	    model.addAttribute("billingItem", new BillingItem());
+	    model.addAttribute("billingUnits", BAP.getAllBillingUnits(username).stream()
+		    .filter(bu -> bu.getContract().getId() == cID).collect(Collectors.toList()));
 	    return "billingitem/billing_item_new";
 	} catch (AuthenticationException | IllegalArgumentException e) {
 	    return "error";
 	}
     }
 
-    /** Shows the form to create a new billing item. */
-    @GetMapping("/project/{pID}/contract/{cID}/billing_item_save")
+    /** Tries to save the new billing item. */
+    @PostMapping("/project/{pID}/contract/{cID}/billing_item_save")
     public String addNewBillingItem(@PathVariable long pID, @PathVariable long cID, @Valid BillingItem billingItem,
 	    BindingResult bindingResult, Principal principal, Model model) {
 	if (bindingResult.hasErrors()) {
@@ -66,16 +71,12 @@ public class BillingItemController {
 	    return "billingitem/billing_item_new";
 	}
 
-	try {
-	    String username = principal.getName();
-	    model.addAttribute("pID", pID);
-	    model.addAttribute("cID", cID);
-	    model.addAttribute("project", BAP.getProjectById(username, pID));
-	    model.addAttribute("contract", BAP.getContractById(username, cID));
-	    return "billingitem/billing_item_new";
-	} catch (AuthenticationException | IllegalArgumentException e) {
-	    e.printStackTrace();
-	}
+//	try {
+//	    String username = principal.getName();
+//	    BAP.addBillingItem(username, billingItem);
+//	} catch (AuthenticationException | IllegalArgumentException e) {
+//	    e.printStackTrace();
+//	}
 	return "redirect:/project/{pID}/contract/{cID}/show";
     }
 }
