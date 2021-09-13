@@ -73,7 +73,7 @@ public class ControllerTest {
     public void testOrganisationDetailsRoot() throws Exception {
 	// TODO
 	for (Organisation org : organisations.findAll()) {
-	    mvc.perform(get("/organisation/" + org.getId() + "TODO")).andExpect(status().isOk())
+	    mvc.perform(get("/organisation/" + org.getId() + "TODO")).andExpect(status().isOk());
 //		    .andExpect(view().name("organisation/organisation_management"))
 //		    .andExpect(model().attributeExists("organisations"))
 //		    .andExpect(model().attribute("organisations", organisations.findAll()));
