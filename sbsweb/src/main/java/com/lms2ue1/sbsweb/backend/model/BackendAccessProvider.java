@@ -119,7 +119,7 @@ public class BackendAccessProvider {
 	    throw new IllegalArgumentException("username is already taken!");
 	}
 
-	if (auth.manageUser(username, newUser.getId())) {
+	if (auth.canManageUser(username, newUser.getId())) {
 	    users.save(newUser);
 	} else {
 	    throw new AuthenticationException();
@@ -139,7 +139,7 @@ public class BackendAccessProvider {
 	    throw new IllegalArgumentException();
 	}
 
-	if (auth.manageUser(username, userId)) {
+	if (auth.canManageUser(username, userId)) {
 	    users.deleteById(userId);
 	} else {
 	    throw new AuthenticationException();
@@ -161,7 +161,7 @@ public class BackendAccessProvider {
 	    throw new IllegalArgumentException();
 	}
 
-	if (auth.manageUser(username, oldUserId)) {
+	if (auth.canManageUser(username, oldUserId)) {
 	    User oldUser = users.findById(oldUserId).orElseThrow(IllegalArgumentException::new);
 	    oldUser.setForename(updatedUser.getForename());
 	    oldUser.setLastname(updatedUser.getLastname());
@@ -403,7 +403,7 @@ public class BackendAccessProvider {
      */
     public User getUserById(String username, Long userId) throws AuthenticationException {
 	User user = users.findById(userId).orElseThrow(IllegalArgumentException::new);
-	if (auth.manageUser(username, userId)) {
+	if (auth.canManageUser(username, userId)) {
 	    // Sys- or OrgAdmin
 	    return user;
 	} else if (userId != null && user.getId() == userId.longValue()) {

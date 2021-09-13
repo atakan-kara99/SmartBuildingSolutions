@@ -123,43 +123,43 @@ public class Contract {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    public void setId(Long id) {
+    protected void setId(Long id) {
 	this.id = id;
     }
 
-    public void setName(String n) {
+    protected void setName(String n) {
 	this.name = n;
     }
 
-    public void setDescription(String desc) {
+    protected void setDescription(String desc) {
 	this.description = desc;
     }
 
-    public void setStatus(Status s) {
+    protected void setStatus(Status s) {
 	this.status = s;
     }
 
-    public void setConsignee(String cnsgn) {
+    protected void setConsignee(String cnsgn) {
 	this.consignee = cnsgn;
     }
 
-    public void setContractor(String cntrctr) {
+    protected void setContractor(String cntrctr) {
 	this.contractor = cntrctr;
     }
 
-    public void setOrganizations(List<Organisation> os) {
+    protected void setOrganizations(List<Organisation> os) {
 	this.organisations = os;
     }
 
-    public void setRoles(List<Role> rs) {
+    protected void setRoles(List<Role> rs) {
 	this.roles = rs;
     }
 
-    public void setProject(Project p) {
+    protected void setProject(Project p) {
 	this.project = p;
     }
 
-    public void setBillingUnit(List<BillingUnit> bus) {
+    protected void setBillingUnit(List<BillingUnit> bus) {
 	this.billingUnits = bus;
     }
 
