@@ -60,7 +60,6 @@ public class BillingItemController {
 		model.addAttribute("contract", contract);
 		model.addAttribute("billingItem", new BillingItem());
 		model.addAttribute("billingUnits", contract.getBillingUnits());
-		contract.getBillingUnits().forEach(System.out::println);
 		return "billingitem/billing_item_new";
 	    } else {
 		throw new AuthenticationException();
@@ -78,6 +77,7 @@ public class BillingItemController {
 	    model.addAttribute("billingItem", billingItem);
 	    return "billingitem/billing_item_new";
 	}
+	System.out.println("Lel");
 
 //	try {
 //	    String username = principal.getName();

@@ -133,7 +133,7 @@ public class DatabaseInitService {
 	    billItemRepo.save(nested);
 	    
 	    BillingItem billItem1 = new BillingItem("Heizung montieren", 0, "Heizkörper B7-2 fensternah einbauen.",
-		    Status.OPEN, 0, null, 0, null, null, billUnit1, null);
+		    Status.OPEN, 0, null, 0, null, null, billUnit1, List.of(nested));
 	    BillingItem billItem2 = new BillingItem("Fenster einbauen", 0, null, null, 0, null, 0, null, null,
 		    billUnit1, null);
 	    billItemRepo.saveAll(List.of(billItem1, billItem2));
@@ -145,7 +145,7 @@ public class DatabaseInitService {
 	    Role role1 = new Role("OrgAdmin", null, null, null, org1, true);
 	    Role r1 = new Role("Bauherr", null, null, null, org5, false);
 	    Role r2 = new Role("Bauherr", null, null, null, org3, false);
-	    Role r3 = new Role("Handwerker", null, null, null, org5, false);
+	    Role r3 = new Role("Handwerker", List.of(pro2), List.of(con2), null, org5, false);
 
 	    roleRepo.save(role0);
 	    roleRepo.save(role1);
