@@ -10,25 +10,33 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.lms2ue1.sbsweb.service.DBUserDetailsService;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
-	SBSUserDetailsService userDetailsService;
+	DBUserDetailsService userDetailsService;
 
-	@Bean
-	protected PasswordEncoder getPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    protected PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
+	// TODO: Sysadmin und Orgadmin abgrenzen
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/h2-console/**").permitAll().anyRequest().authenticated().and()
-				.formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/organisation/0/user_management", true)
-				.and().logout().permitAll();
-
-		// Comment in to enable H2 console on test server (not recommended for release
-		// version!)
+		http
+			.authorizeRequests()
+			.antMatchers("/h2-console/**").permitAll() // We can't get locked out.
+			.anyRequest().authenticated()
+			.and()
+			//.antMatchers("/organisation_*/**")
+			.formLogin().loginPage("/login").permitAll()
+			.defaultSuccessUrl("/organisations", true)
+			.and().logout().permitAll();
+		
+		// Comment in to enable H2 console on test server (not recommended for release version!)
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
 	}

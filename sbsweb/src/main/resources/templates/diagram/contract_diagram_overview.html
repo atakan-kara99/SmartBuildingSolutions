@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+  <title>Vertrag-Diagramm</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link th:href="@{/css/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+  <th:block th:fragment="content">
+
+
+
+  <div class="container">
+    <div class="text-center">
+      <h1 th:text="${contract.name}"></h1>
+      <div class="padding-50"></div>
+      <p th:text="${contract.description}"></p>
+      <p>
+        Status:
+        <b th:text="${contract.status}"></b>
+      </p>
+
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="padding-50"></div>
+    <div class="row">
+      <div class="col">
+        <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/show'}">
+          <button type="button" class="btn btn-outline-success">Zurück zu den Vertragsdetails</button>
+        </a>
+      </div>
+      <div class="col-auto">
+        <div class="selectBox">
+          <select id="chartType" style="font-size:16px;">
+            <option value=0>Bar</option>
+            <option value=1>Line</option>
+            <option value=2>Radar</option>
+            <option value=3>Doughnut</option>
+            <option value=4>Pie</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="padding-50"></div>
+  <div class="chartBox" style="height: 300px">
+    <canvas id="diagram"></canvas>
+  </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script th:inline="javascript">
+      //Daten von users holen
+      var listOfStatus = /*[[${listOfStatus}]]*/ "listOfStatus";
+      var labels = /*[[${labels}]]*/ "labels";
+      var name = /*[[${contract.name}]]*/ "name";
+    </script>
+    <script type="text/javascript " defer th:src="@{/js/createDiagram.js} "></script>
+
+  </th:block>
+</body>
+
+</html>

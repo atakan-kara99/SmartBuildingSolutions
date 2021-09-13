@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" th:include="layout :: page">
+
+<head>
+    <title>Nutzerverwaltung</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+
+<body>
+<th:block th:fragment="content">
+    <div class="container">
+        <div class="text-center">
+            <h1>Organisation hinzufügen</h1>
+            <div class="padding-50"></div>
+            <form action="#" th:action="@{/organisations/save}" th:object="${organisation}"
+                  method="post">
+                <div class="row justify-content-center">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="name"> Organisationsname </label>
+                            <input type="text" class="form-control" id="name" th:field="*{name}" maxlength="50"
+                                   th:errorclass="is-invalid"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="padding-50"></div>
+                <button type="submit" class="btn btn-success"> Organisation hinzufügen</button>
+            </form>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-4 text-center">
+                    <a class="btn btn-secondary" href="javascript:history.back()"> Abbrechen </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</body>
+
+</html>

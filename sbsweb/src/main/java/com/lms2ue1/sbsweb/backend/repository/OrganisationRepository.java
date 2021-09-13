@@ -10,5 +10,6 @@ import com.lms2ue1.sbsweb.backend.model.User;
 
 
 public interface OrganisationRepository extends CrudRepository<Organisation, Long>{
-	List<Organisation> findByUsersOrderByNameAsc(User u);
+	//List<Organisation> findByUsersOrderByNameAsc(User u);
+	Organisation findByName(String name);
 }

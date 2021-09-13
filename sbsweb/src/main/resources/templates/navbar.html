@@ -7,14 +7,13 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg" th:fragment="navbar">
+
+    <nav class="navbar navbar-expand-lg navbar-light" th:fragment="navbar">
         <div class="navbar-collapse collapse">
             <div class="navbar-nav">
                 <th:block sec:authorize="isAuthenticated()">
-                    <a class="nav-item nav-link" th:href="@{/contracts}">Vertragsdaten</a>
-                    <a class="nav-item nav-link" th:href="@{/projects}">Projekte</a>
-                    <a class="nav-item nav-link" th:href="@{/user_management}">Benutzerverwaltung</a>
-                    <a class="nav-item nav-link" th:href="@{/organisation}">Organisation</a>
+                    <a class="nav-item nav-link" th:href="@{/project_overview}">Projekte</a>
+                    <a class="nav-item nav-link" th:href="@{/organisations}">Organisation</a>
                     <!-- Logout must be performed as a POST request, i. e., via a form button.
 			     For visual consistency, we use a hidden form submitted by a link here. -->
                     <a class="nav-item nav-link" href="javascript:document.logoutForm.submit()">Logout</a>
@@ -38,7 +37,7 @@
                     <label class="form-check-label" for="darkmode-toggle"> Darkmode </label>
                 </div>
             </div>
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/organisations">
                 <img th:src="@{/images/Logo.png}" height="40" alt="Logo">
             </a>
         </div>

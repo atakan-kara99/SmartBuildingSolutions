@@ -13,177 +13,193 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
-/**
- * Billing Item of a project. Associated to two or more roles, one billing unit
- * and two itself.
- * 
- * @author juliusdaum
- *
- */
 @Entity
 public class BillingItem {
-	// ---- Attributes ----//
-	@Id
-	@Column(updatable = false)
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-	private double price;
-	private String shortDescription;
-	private String status;
-	private double quantities;
-	private String unit;
-	private double unitPrice;
-	private String qtySplit;
-	private String shortDesLinkedIFC;
+    // ---- Attributes ----//
+    @Id
+    @Column(updatable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    private double price;
+    @Column(unique = true)
+    private String name;
+    private String shortDescription;
+    private Status status;
+    private double quantities;
+    private String unit;
+    private double unitPrice;
+    private String qtySplit;
+    private String shortDesLinkedIFC;
 
-	// ---- Associations ----//
-	@ManyToOne
-	private BillingUnit billingUnit;
-	@Size(min = 2)
-	@ManyToMany
-	private List<Role> roles;
-	@OneToMany
-	@JoinColumn(name = "sub_billing_item")
-	private List<BillingItem> billingItems;
+    // ---- Associations ----//
+    @ManyToOne // (cascade = { CascadeType.ALL }) tried w/ cascading
+    @JoinColumn(name = "billing_unit_id")
+    private BillingUnit billingUnit;
+    @Size(min = 2)
+    @ManyToMany(mappedBy = "billingItems")
+    private List<Role> roles;
+    @OneToMany
+    @JoinColumn(name = "sub_billing_item")
+    private List<BillingItem> billingItems;
 
-	// ----------------------------------//
-	// ---------- Constructors ----------//
-	// ----------------------------------//
-	public BillingItem() {
+    // ----------------------------------//
+    // ---------- Constructors ----------//
+    // ----------------------------------//
+    public BillingItem() {
+    }
+
+    /**
+     * Initializes a billing item. Only the parameters of the constructor are
+     * columns (plus the FKs).
+     * 
+     * @param name         = name of the user
+     * @param price        = price
+     * @param sDesc        = short description
+     * @param status       = status
+     * @param quantities   = quantities
+     * @param unit         = unit
+     * @param uPrice       = unit price
+     * @param qSplit       = qty split
+     * @param sDLIFC       = short deslinked ifc
+     * @param billUnit     = billing unit
+     * @param billingItems = billing items
+     */
+    public BillingItem(String name, double price, String sDesc, Status status, double quantities, String unit,
+	    double uPrice, String qSplit, String sDLIFC, BillingUnit billUnit, List<BillingItem> billingItems) {
+	this.name = name;
+	this.price = price;
+	this.shortDescription = sDesc;
+	this.status = status;
+	this.quantities = quantities;
+	this.unit = unit;
+	this.unitPrice = uPrice;
+	this.qtySplit = qSplit;
+	this.shortDesLinkedIFC = sDLIFC;
+	this.billingUnit = billUnit;
+	this.billingItems = billingItems;
+    }
+
+    public String getName() {
+	return name;
+    }
+
+    public void setName(String name) {
+	this.name = name;
+    }
+
+    // ----------------------------//
+    // ---------- Getter ----------//
+    // ----------------------------//
+    public long getId() {
+	return this.id;
+    }
+
+    public double getPrice() {
+	return this.price;
+    }
+
+    public String getShortDescription() {
+	return this.shortDescription;
+    }
+
+    public Status getStatus() {
+	return this.status;
+    }
+
+    public double getQuantities() {
+	return this.quantities;
+    }
+
+    public String getUnit() {
+	return this.unit;
+    }
+
+    public double getUnitPrice() {
+	return this.unitPrice;
+    }
+
+    public String getQtySplit() {
+	return this.qtySplit;
+    }
+
+    public String getShortDesLinkedIFC() {
+	return this.shortDesLinkedIFC;
+    }
+
+    public BillingUnit getBillingUnit() {
+	return this.billingUnit;
+    }
+
+    public List<BillingItem> getBillingItems() {
+	return this.billingItems;
+    }
+
+    public List<Role> getRoles() {
+	return this.roles;
+    }
+
+    // ----------------------------//
+    // ---------- Setter ----------//
+    // ----------------------------//
+    protected void setId(long id) {
+	this.id = id;
+    }
+
+    protected void setPrice(double p) {
+	this.price = p;
+    }
+
+    protected void setShortDescription(String sDesc) {
+	this.shortDescription = sDesc;
+    }
+
+    protected void setStatus(Status s) {
+	this.status = s;
+    }
+
+    protected void setQuantities(double qs) {
+	this.quantities = qs;
+    }
+
+    protected void setUnit(String u) {
+	this.unit = u;
+    }
+
+    protected void setUnitPrice(double uP) {
+	this.unitPrice = uP;
+    }
+
+    protected void setQtySplit(String qtySplit) {
+	this.qtySplit = qtySplit;
+    }
+
+    protected void setShortDesLinkedIFC(String shortDesLinkedIFC) {
+	this.shortDesLinkedIFC = shortDesLinkedIFC;
+    }
+
+    protected void setBillingUnit(BillingUnit bu) {
+	this.billingUnit = bu;
+    }
+
+    protected void setBillingItems(List<BillingItem> bis) {
+	this.billingItems = bis;
+    }
+
+    protected void setRoles(List<Role> rs) {
+	this.roles = rs;
+    }
+
+    // ----------------------------//
+    // ---------- Misc ------------//
+    // ----------------------------//
+
+    @Override
+    public boolean equals(Object obj) {
+	if (obj instanceof BillingItem) {
+	    BillingItem tmpBillItem = (BillingItem) obj;
+	    return tmpBillItem.getId() == this.id;
 	}
-
-	/**
-	 * Initializes a billing item.
-	 * 
-	 * @param id     = id
-	 * @param p      = price
-	 * @param sDesc  = short description
-	 * @param s      = status
-	 * @param qs     = quantities
-	 * @param u      = unit
-	 * @param uP     = unit price
-	 * @param qS     = qty split
-	 * @param sDLIFC = short deslinked ifc
-	 * @param b      = billing unit
-	 * @param rs     = roles
-	 * @param bis    = billing items
-	 */
-	public BillingItem(long id, double p, String sDesc, String s, double qs, String u, double uP, String qS,
-			String sDLIFC, BillingUnit b, List<Role> rs, List<BillingItem> bis) {
-		this.id = id;
-		this.price = p;
-		this.shortDescription = sDesc;
-		this.status = s;
-		this.quantities = qs;
-		this.unit = u;
-		this.unitPrice = uP;
-		this.qtySplit = qS;
-		this.shortDesLinkedIFC = sDLIFC;
-		this.billingUnit = b;
-		this.roles = rs;
-		this.billingItems = bis;
-	}
-
-	// ----------------------------//
-	// ---------- Getter ----------//
-	// ----------------------------//
-	public long getId() {
-		return this.id;
-	}
-
-	public double getPrice() {
-		return this.price;
-	}
-
-	public String getShortDescription() {
-		return this.shortDescription;
-	}
-
-	public String getStatus() {
-		return this.status;
-	}
-
-	public double getQuantities() {
-		return this.quantities;
-	}
-
-	public String getUnit() {
-		return this.unit;
-	}
-
-	public double getUnitPrice() {
-		return this.unitPrice;
-	}
-
-	public String getQtySplit() {
-		return this.qtySplit;
-	}
-
-	public String getShortDesLinkedIFC() {
-		return this.shortDesLinkedIFC;
-	}
-
-	public BillingUnit getBillingUnit() {
-		return this.billingUnit;
-	}
-
-	public List<BillingItem> getBillingItems() {
-		return this.billingItems;
-	}
-
-	public List<Role> getRoles() {
-		return this.roles;
-	}
-
-	// ----------------------------//
-	// ---------- Setter ----------//
-	// ----------------------------//
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public void setPrice(double p) {
-		this.price = p;
-	}
-
-	public void setShortDescription(String sDesc) {
-		this.shortDescription = sDesc;
-	}
-
-	public void setStatus(String s) {
-		this.status = s;
-	}
-
-	public void setQuantities(double qs) {
-		this.quantities = qs;
-	}
-
-	public void setUnit(String u) {
-		this.unit = u;
-	}
-
-	public void setUnitPrice(double uP) {
-		this.unitPrice = uP;
-	}
-
-	public void setQtySplit(String qtySplit) {
-		this.qtySplit = qtySplit;
-	}
-
-	public void setShortDesLinkedIFC(String shortDesLinkedIFC) {
-		this.shortDesLinkedIFC = shortDesLinkedIFC;
-	}
-
-	public void setBillingUnit(BillingUnit bu) {
-		this.billingUnit = bu;
-	}
-
-	public void setBillingItems(List<BillingItem> bis) {
-		this.billingItems = bis;
-	}
-
-	public void setRoles(List<Role> rs) {
-		this.roles = rs;
-	}
+	return false;
+    }
 
 }
