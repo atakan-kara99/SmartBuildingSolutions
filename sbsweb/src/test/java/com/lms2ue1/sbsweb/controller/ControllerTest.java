@@ -68,6 +68,18 @@ public class ControllerTest {
 		.andExpect(model().attribute("organisations", organisations.findAll()));
     }
 
+    @Test
+    @WithMockUser(username = "root", roles = { "SysAdmin" })
+    public void testOrganisationDetailsRoot() throws Exception {
+	// TODO
+	for (Organisation org : organisations.findAll()) {
+	    mvc.perform(get("/organisation/" + org.getId() + "TODO")).andExpect(status().isOk())
+//		    .andExpect(view().name("organisation/organisation_management"))
+//		    .andExpect(model().attributeExists("organisations"))
+//		    .andExpect(model().attribute("organisations", organisations.findAll()));
+	}
+    }
+
     // Random person, no roles
 
 //    @Test
