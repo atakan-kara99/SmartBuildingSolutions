@@ -18,7 +18,6 @@ import java.util.List;
 @Entity
 @Table(name = "ROLE")
 public class Role {
-	// A few adaptations to make the data model actually work (nka).
 
 	// ---- Attributes ----//
 	@Id
