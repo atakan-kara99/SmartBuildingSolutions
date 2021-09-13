@@ -39,7 +39,7 @@ public class Status {
 	// TODO: try to implement HashMap<Role, Status>
 	@OneToMany
 	@JoinColumn(name = "next_stati")
-	private Map<Role, Status> nextStatus = new HashMap<Role, Status>();
+	private List<Status> nextStatus;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
@@ -51,9 +51,10 @@ public class Status {
 	 * @param name
 	 * @param description
 	 */
-	public Status(String name, String description) {
+	public Status(String name, String description, HashMap<Role, Status> nextStatus) {
 		this.name = name;
 		this.description = description;
+		this.nextStatus = nextStatus;
 	}
 
 	// ----------------------------//
