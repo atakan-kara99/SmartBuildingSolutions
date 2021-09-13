@@ -18,10 +18,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	DBUserDetailsService userDetailsService;
 
-	@Bean
-	protected PasswordEncoder getPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    protected PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 	// TODO: Sysadmin und Orgadmin abgrenzen
 	@Override

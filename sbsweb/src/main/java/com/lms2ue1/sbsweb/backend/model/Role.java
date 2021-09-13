@@ -18,7 +18,6 @@ import java.util.List;
 @Entity
 @Table(name = "ROLE")
 public class Role {
-	// A few adaptations to make the data model actually work (nka).
 
 	// ---- Attributes ----//
 	@Id
@@ -28,7 +27,6 @@ public class Role {
 	@NotEmpty
 	private String name;
 	private boolean manageUser;
-
 
 
 	// ---- Associations ----//
@@ -115,35 +113,48 @@ public class Role {
 	// ----------------------------//
 	// ---------- Setter ----------//
 	// ----------------------------//
-	public void setId(long id) {
+	protected void setId(long id) {
 		this.id = id;
 	}
 
-	public void setName(String n) {
+	protected void setName(String n) {
 		this.name = n;
 	}
 
-	public void setProjects(List<Project> ps) {
+	protected void setProjects(List<Project> ps) {
 		this.projects = ps;
 	}
 
-	public void setOrganisation(Organisation o) {
+	protected void setOrganisation(Organisation o) {
 		this.organisation = o;
 	}
 
-	public void setUsers(List<User> us) {
+	protected void setUsers(List<User> us) {
 		this.users = us;
 	}
 
-	public void setContracts(List<Contract> cs) {
+	protected void setContracts(List<Contract> cs) {
 		this.contracts = cs;
 	}
 
-	public void setBillingItems(List<BillingItem> bs) {
+	protected void setBillingItems(List<BillingItem> bs) {
 		this.billingItems = bs;
 	}
 
-	public void setManageUser(boolean manageUser) {
+	protected void setManageUser(boolean manageUser) {
 		this.manageUser = manageUser;
+	}
+	
+	// ----------------------------//
+       // ---------- Misc ------------//
+      // ----------------------------//
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if(obj instanceof Role) {
+		Role tmpRole = (Role) obj;
+		return tmpRole.getId() == this.id;
+	    }
+	    return false;
 	}
 }

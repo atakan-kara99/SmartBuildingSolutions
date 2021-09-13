@@ -27,6 +27,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.session:spring-session-core'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    implementation group: 'org.json', name: 'json', version: '20210307'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -35,4 +36,8 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+task compileSASS(type:Exec) {
+   commandLine 'python', 'compileSass.py'
 }
