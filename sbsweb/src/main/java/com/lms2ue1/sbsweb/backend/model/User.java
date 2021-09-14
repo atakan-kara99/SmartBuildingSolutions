@@ -9,9 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
-/**
- * User will be created at the frontend side of the application.
- */
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties
 @Entity
 public class User {
     // A few adaptations to make the data model actually work.

@@ -14,13 +14,6 @@ public class SBSwebApplication implements CommandLineRunner {
     @Autowired
     DBSynchronisationService dbSyncService;
 
-    // TODO: Debug!
-    /*
-     * AuthorisationCheck authCheck = AuthorisationCheck.getAuthInstance();
-     * 
-     * @Autowired OrganisationRepository orgRepo;
-     */
-
     public static void main(String[] args) {
 	SpringApplication.run(SBSwebApplication.class, args);
     }

@@ -13,10 +13,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
+@JsonIgnoreProperties
 @Entity
-@Table(name = "ROLE")
 public class Role {
 
 	// ---- Attributes ----//
