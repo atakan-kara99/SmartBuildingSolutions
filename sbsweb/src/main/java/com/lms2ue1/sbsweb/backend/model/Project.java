@@ -78,7 +78,7 @@ public class Project {
 	@ManyToMany(mappedBy = "projects")
 	private List<Role> roles;
 	@ManyToOne
-	private Status realStatus;
+	private Status statusObj;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
@@ -165,8 +165,8 @@ public class Project {
 		return this.completionDate;
 	}
 
-	public Status getRealStatus() {
-		return this.realStatus;
+	public Status getStatusObj() {
+		return this.statusObj;
 	}
 
 	public double getOverallCosts() {
@@ -236,8 +236,8 @@ public class Project {
 		this.completionDate = completionDate;
 	}
 
-	public void setRealStatus(Status s) {
-		this.realStatus = s;
+	public void setStatusObj(Status s) {
+		this.statusObj = s;
 	}
 
 	public void setOverallCosts(double oC) {

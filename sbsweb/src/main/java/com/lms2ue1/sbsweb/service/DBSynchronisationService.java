@@ -48,7 +48,7 @@ public class DBSynchronisationService {
 		tmpStat = new Status(currentProject.getAdessoStatus(), null);
 		statRepo.save(tmpStat);
 	    }
-	    currentProject.setRealStatus(tmpStat);
+	    currentProject.setStatusObj(tmpStat);
 
 	    String tmpStr;
 	    
