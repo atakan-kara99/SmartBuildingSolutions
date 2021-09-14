@@ -77,9 +77,9 @@ class AuthorisationCheckTest {
 	org1 = new Organisation("Tiefbau");
 	address0 = new Address("Main Street", 1337, 14, "NY City", "Deutschland");
 	address1 = new Address("2nd Street", 42, 15, "GBR City", "France");
-	project0 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01", null,
+	project0 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01",
 		234578900, "Die den anderen Turm auch gemacht haben", null, null, null, address0, org0);
-	project1 = new Project("Berliner Flughafen xD", "Morgen ist es soweit", "2010-12-28", "2015-01-01", null,
+	project1 = new Project("Berliner Flughafen xD", "Morgen ist es soweit", "2010-12-28", "2015-01-01",
 		1300500000, "Nicht die vom Burj Khalifa", null, null, null, address1, org1);
 	contract0 = new Contract("Baby beruhigen", "Es schreit.", null, "Nanny", "Mutter", List.of(),
 		project0);

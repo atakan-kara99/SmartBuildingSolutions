@@ -85,23 +85,23 @@ public class DatabaseInitService {
 			// -----------------------------//
 			// ------------- Project -------//
 			// -----------------------------//
-			Project pro0 = new Project("pro0", null, null, null, s1, 0, "root", null, null, null, add0, org0);
-			Project pro1 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01", s3,
+			Project pro0 = new Project("pro0", null, null, null, 0, "root", null, null, null, add0, org0);
+			Project pro1 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01",
 					234578900, "Die den anderen Turm auch gemacht haben", null, null, null, add3, org3);
 			Project pro2 = new Project("Berliner Flughafen xD", "Morgen ist es soweit", "2010-12-28", "2015-01-01",
-					s2, 1300500000, "Nicht die vom Burj Khalifa", null, null, null, add2, org5);
+					1300500000, "Nicht die vom Burj Khalifa", null, null, null, add2, org5);
 
 			proRepo.save(pro0);
 			proRepo.save(pro1);
 			proRepo.save(pro2);
 
-			Project pro3 = new Project("Schule sanieren", null, null, null, s3, 0, null, null, null, null, null,
+			Project pro3 = new Project("Schule sanieren", null, null, null, 0, null, null, null, null, null,
 
 					org0);
 			Project pro4 = new Project("Hausbau", "Haus an der Lindenallee 37 wird gebaut", "23.08.2021", "19.09.2021",
-					s2, 0, "AG Haustechnik", null, null, null, add1, org0);
+					0, "AG Haustechnik", null, null, null, add1, org0);
 
-			Project pro5 = new Project("Feierabend XTREME", null, null, null, s1, 0, null, null, null, null, null,
+			Project pro5 = new Project("Feierabend XTREME", null, null, null, 0, null, null, null, null, null,
 					org0);
 			proRepo.saveAll(List.of(pro3, pro4, pro5));
 

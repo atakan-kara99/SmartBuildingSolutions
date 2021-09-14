@@ -12,6 +12,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Size;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.lms2ue1.sbsweb.backend.repository.StatusRepository;
+
 import java.util.List;
 
 @Entity
@@ -22,32 +28,52 @@ public class Project {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, unique = true)
 	private long id;
+	
+	@JsonProperty("id")
+	private long adessoID;
+	@JsonProperty("name")
 	@Column(unique = true)
 	private String name;
+	@JsonProperty("description")
 	private String description;
+	@JsonProperty("creationDate")
 	private String creationDate;
+	@JsonProperty("completionDate")
 	private String completionDate;
+	@JsonProperty("overallCost")
 	private double overallCosts;
+	@JsonProperty("creator")
 	private String creator;
+	// TODO: Status überarbeiten!
+	@JsonProperty("status")
+	private String adessoStatus;
 	// -- These attributes are not important for our use. --//
+	@JsonProperty("image")
 	private String image;
+	@JsonProperty("imageType")
 	private String imageType;
+	@JsonProperty("imageFileName")
 	private String imageFileName;
-
+	
 	// ------ Associations ------//
-	// TODO: Joined nicht! Join überprüfen!
-	@OneToOne // (cascade = {CascadeType.ALL}) try w/ cascading
+	@JsonUnwrapped
+	@OneToOne
 	@JoinColumn(name = "address_id")
 	private Address address;
+	@JsonUnwrapped
 	@Size(min = 1)
 	@OneToMany(mappedBy = "project", orphanRemoval = true)
 	private List<Contract> contracts;
+	@JsonUnwrapped
 	@ManyToOne
 	@JoinColumn(name = "organisation_id")
 	private Organisation organisation;
+	@JsonUnwrapped
 	@Size(min = 2)
 	@ManyToMany(mappedBy = "projects")
 	private List<Role> roles;
+	// TODO: adesso gibt einen String! Wie setzen wir denn den Status? => DBSynchronisationService
+	@JsonUnwrapped
 	@ManyToOne
 	private Status status;
 
@@ -65,7 +91,6 @@ public class Project {
 	 * @param desc           description.
 	 * @param creationDate   date where the project started.
 	 * @param completionDate date where the project should be finished.
-	 * @param status         current status of the project.
 	 * @param costs          overall costs.
 	 * @param creator        name of the creator.
 	 * @param img            path of the image.
@@ -74,14 +99,13 @@ public class Project {
 	 * @param address        address of the project.
 	 * @param organisation   associated organisation.
 	 */
-	public Project(String name, String desc, String creationDate, String completionDate, Status status, double costs,
+	public Project(String name, String desc, String creationDate, String completionDate, double costs,
 			String creator, String img, String imgType, String imgFileName, Address address,
 			Organisation organisation) {
 		this.name = name;
 		this.description = desc;
 		this.creationDate = creationDate;
 		this.completionDate = completionDate;
-		this.status = status;
 		this.overallCosts = costs;
 		this.creator = creator;
 		this.image = img;
