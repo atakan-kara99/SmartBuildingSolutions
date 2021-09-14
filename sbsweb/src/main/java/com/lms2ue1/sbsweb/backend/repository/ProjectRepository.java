@@ -10,4 +10,6 @@ import com.lms2ue1.sbsweb.backend.model.Project;
 public interface ProjectRepository extends CrudRepository<Project, Long>{
 	/* Should order by zip codes */
 	List<Project> findByRolesOrderByCompletionDateAsc(Project p);
+	
+	Project findByName(String name);
 }

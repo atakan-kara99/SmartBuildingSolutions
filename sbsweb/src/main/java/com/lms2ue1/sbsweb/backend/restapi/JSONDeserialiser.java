@@ -1,5 +1,6 @@
 package com.lms2ue1.sbsweb.backend.restapi;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +29,33 @@ public class JSONDeserialiser {
 	    };
 
 	    String json = restRetriever.fetchProjects();
-	    
+
 	    List<Project> listProjects = mapper.readValue(json, refProject);
-	    
+
 	    // In here: We will fetch everything else!
-	   dbUpdateService.saveProjectList(listProjects);
+	    dbUpdateService.saveProjectList(listProjects);
 	};
     }
-    
-    public void deserialiseContractsPerProject(long projectID) {
-	//TODO: Implement me!
+
+    /**
+     * Fetch all the contracts of one given project from the REST-API.
+     * 
+     * @param projectID = The given project
+     * @throws IOException
+     */
+    public void deserialiseContractsPerProject(long projectID) throws IOException {
+	TypeReference<List<Contract>> refContract = new TypeReference<List<Contract>>() {
+	};
+
+	String json = restRetriever.fetchContracts(projectID);
+	
+	// A project can have 0 contracts!!
+	if (!json.equals("{}")) {
+	    List<Contract> listContracts = mapper.readValue(json, refContract);
+	    
+	    dbUpdateService.saveContractList(listContracts);
+	}
+
     }
 
 }

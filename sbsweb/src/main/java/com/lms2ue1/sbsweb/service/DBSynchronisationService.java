@@ -1,5 +1,6 @@
 package com.lms2ue1.sbsweb.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,13 @@ import com.lms2ue1.sbsweb.backend.repository.ContractRepository;
 import com.lms2ue1.sbsweb.backend.repository.OrganisationRepository;
 import com.lms2ue1.sbsweb.backend.repository.ProjectRepository;
 import com.lms2ue1.sbsweb.backend.repository.StatusRepository;
+import com.lms2ue1.sbsweb.backend.restapi.JSONDeserialiser;
 
 @Service
 public class DBSynchronisationService {
+    
+    @Autowired
+    JSONDeserialiser jsonDeserialiser;
 
     // ---------- Repositories ---------//
     @Autowired
@@ -33,8 +38,9 @@ public class DBSynchronisationService {
      * Save the new projects in the database.
      * 
      * @param projectlist = The given projects from the REST-API.
+     * @throws IOException 
      */
-    public void saveProjectList(List<Project> projectlist) {
+    public void saveProjectList(List<Project> projectlist) throws IOException {
 	// Get all the dependencies:
 	for (Project currentProject : projectlist) {
 	    // Get every organisation.
@@ -61,10 +67,21 @@ public class DBSynchronisationService {
 		tmpStr = currentProject.getDescription().substring(0, 254);
 		currentProject.setDescription(tmpStr);
 	    }
+	    
+	    // --------------------- Now let's fetch everything else:
+	    jsonDeserialiser.deserialiseContractsPerProject(currentProject.getInternID());
+	    
+	    // TODO: Implement BillingItems and BillingUnits!
 
+	    
+	    // --------------------- Actually store everything!
+	    // Only save it, if it doesn't already exist:
+	    if (proRepo.findByName(currentProject.getName()) == null) {
+		proRepo.save(currentProject);
+	    }
+	    // TODO: What, if it already exists?
 	}
 
-	proRepo.saveAll(projectlist);
     }
 
     /**
@@ -110,8 +127,13 @@ public class DBSynchronisationService {
 		tmpStr = currentContract.getDescription().substring(0, 254);
 		currentContract.setDescription(tmpStr);
 	    }
+	    
+	    // --------------------- Actually store everything!
+	    // Only save it, if it doesn't already exist:
+	    if (conRepo.findByName(currentContract.getName()) == null) {
+		conRepo.save(currentContract);
+	    }
+	    // TODO: What, if it already exists?
 	}
-
-	conRepo.saveAll(contractList);
     }
 }
