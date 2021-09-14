@@ -130,6 +130,10 @@ public class Contract {
 	return this.description;
     }
 
+    public String getAdessoStatus() {
+        return adessoStatus;
+    }
+
     public String getConsignee() {
 	return this.consignee;
     }
@@ -157,43 +161,47 @@ public class Contract {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
+    public void setAdessoStatus(String adessoStatus) {
+        this.adessoStatus = adessoStatus;
+    }
+    
     public void setAdessoProjectId(long projectId) {
 	this.adessoProjectId = projectId;
     }
 
-    protected void setId(Long id) {
+    public void setId(Long id) {
 	this.id = id;
     }
 
-    protected void setName(String n) {
+    public void setName(String n) {
 	this.name = n;
     }
 
-    protected void setDescription(String desc) {
+    public void setDescription(String desc) {
 	this.description = desc;
     }
 
-    protected void setConsignee(String cnsgn) {
+    public void setConsignee(String cnsgn) {
 	this.consignee = cnsgn;
     }
 
-    protected void setContractor(String cntrctr) {
+    public void setContractor(String cntrctr) {
 	this.contractor = cntrctr;
     }
 
-    protected void setOrganizations(List<Organisation> os) {
+    public void setOrganizations(List<Organisation> os) {
 	this.organisations = os;
     }
 
-    protected void setRoles(List<Role> rs) {
+    public void setRoles(List<Role> rs) {
 	this.roles = rs;
     }
 
-    protected void setProject(Project p) {
+    public void setProject(Project p) {
 	this.project = p;
     }
 
-    protected void setBillingUnit(List<BillingUnit> bus) {
+    public void setBillingUnit(List<BillingUnit> bus) {
 	this.billingUnits = bus;
     }
 
