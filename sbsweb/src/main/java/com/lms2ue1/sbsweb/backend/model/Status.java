@@ -22,7 +22,6 @@ public class Status {
 	private Long id;
 	@NotEmpty
 	private String name;
-	private String description;
 
 	// ---- Associations ---- //
 	@OneToMany(mappedBy = "status")
@@ -45,12 +44,12 @@ public class Status {
 	}
 	/**
 	 * 
+	 * 
 	 * @param name
 	 * @param description
 	 */
-	public Status(String name, String description, Status nextStatus) {
+	public Status(String name, Status nextStatus) {
 		this.name = name;
-		this.description = description;
 		this.nextStatus = nextStatus;
 	}
 
@@ -63,10 +62,6 @@ public class Status {
 
 	public String getName() {
 		return this.name;
-	}
-
-	public String getDescription() {
-		return this.description;
 	}
 
 	public List<BillingUnit> getBillingUnit() {
@@ -92,10 +87,6 @@ public class Status {
 		this.name = n;
 	}
 
-	public void setDescription(String desc) {
-		this.description = desc;
-	}
-	
 	public void setBillingUnit(List<BillingUnit> bus) {
 		this.billingUnits = bus;
 	}

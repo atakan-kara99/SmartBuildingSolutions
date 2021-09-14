@@ -24,15 +24,38 @@ public class JSONDeserialiser {
 
     @Bean
     CommandLineRunner deserialiseProjects(ProjectRepository projectRepository) {
+	System.out.println("Klappst du?");
+	
 	return args -> {
 	    TypeReference<List<Project>> refProject = new TypeReference<List<Project>>() {
 	    };
 
 	    String json = restRetriever.fetchProjects();
+	    /*String json = "[\n"
+	    	+ "    {\n"
+	    	+ "        \"name\": \"adesso Hamburg\",\n"
+	    	+ "        \"description\": \"Bau eines Bürokomplexes für Adesso SE\",\n"
+	    	+ "        \"completionDate\": \"2023-11-11\",\n"
+	    	+ "        \"image\": null,\n"
+	    	+ "        \"imageType\": null,\n"
+	    	+ "        \"imageFileName\": null,\n"
+	    	+ "        \"overallCost\": 4321000,\n"
+	    	+ "        \"id\": 1,\n"
+	    	+ "        \"creationDate\": \"2019-11-11\",\n"
+	    	+ "        \"ownerGroupIdentifier\": \"Freundlieb\",\n"
+	    	+ "        \"creator\": \"Theo Bauherr\",\n"
+	    	+ "        \"status\": \"planned\"\n"
+	    	+ "    }\n"
+	    	+ "]";*/
+	    System.out.println(json);
 
-	    InputStream inputStream = TypeReference.class.getResourceAsStream(json);
+	    //InputStream inputStream = TypeReference.class.getResourceAsStream(json);
+	    //System.out.println(inputStream.toString());
 	    
-	    projectRepository.saveAll(mapper.readValue(inputStream, refProject));
+	    List<Project> listProjects = mapper.readValue(json, refProject);
+	    System.out.println(listProjects.toString());
+	    
+	   projectRepository.saveAll(listProjects);
 	};
     }
 

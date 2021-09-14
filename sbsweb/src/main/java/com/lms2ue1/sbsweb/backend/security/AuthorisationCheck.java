@@ -33,8 +33,8 @@ public class AuthorisationCheck {
     private BillingItemRepository billItemRepo;
     @Autowired
     private BillingUnitRepository billUnitRepo;
-    @Autowired
-    private AddressRepository addRepo;
+    /*@Autowired
+    private AddressRepository addRepo;*/
 
     // ---------- Misc ------------- //
 
@@ -150,12 +150,12 @@ public class AuthorisationCheck {
      * @param aID      = the given address.
      * @return true = yes, the user is. false = no, the user isn't.
      */
-    @Deprecated
+   /* @Deprecated
     public boolean checkAddress(String username, long aID) {
 	// Has the user the permission to see the project?
 	Project project = addRepo.findById(aID).orElseThrow(IllegalArgumentException::new).getProject();
 	return checkProject(username, project.getId());
-    }
+    }*/
 
     // ---------- User management ------------- //
 

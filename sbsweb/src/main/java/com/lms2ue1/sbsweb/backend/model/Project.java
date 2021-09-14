@@ -1,6 +1,7 @@
 package com.lms2ue1.sbsweb.backend.model;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,7 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.Size;
 
 
@@ -28,6 +28,7 @@ public class Project {
 	private long id;
 	
 	@JsonProperty("id")
+	@Column(insertable=false, updatable=false)
 	private long adessoID;
 	@JsonProperty("name")
 	@Column(unique = true)
@@ -42,6 +43,8 @@ public class Project {
 	private double overallCosts;
 	@JsonProperty("creator")
 	private String creator;
+	@JsonProperty("ownerGroupIdentifier")
+	private String ownerGroupIdentifier;
 	// TODO: Status überarbeiten!
 	@JsonProperty("status")
 	private String adessoStatus;
@@ -54,9 +57,10 @@ public class Project {
 	private String imageFileName;
 	
 	// ------ Associations ------//
-	@JsonUnwrapped
+	/*@JsonUnwrapped
 	@OneToOne
-	@JoinColumn(name = "address_id")
+	@JoinColumn(name = "address_id")*/
+	@Embedded
 	private Address address;
 	@JsonUnwrapped
 	@Size(min = 1)
@@ -111,13 +115,31 @@ public class Project {
 		this.address = address;
 		this.organisation = organisation;
 	}
-
+	
+	public Project(long adessoID, String name, String description, String creationDate, String completionDate,
+		double overallCosts, String creator, String ownerGroupIdentifier, String adessoStatus, String image,
+		String imageType, String imageFileName) {
+	    this.adessoID = adessoID;
+	    this.name = name;
+	    this.description = description;
+	    this.creationDate = creationDate;
+	    this.completionDate = completionDate;
+	    this.overallCosts = overallCosts;
+	    this.creator = creator;
+	    this.ownerGroupIdentifier = ownerGroupIdentifier;
+	    this.adessoStatus = adessoStatus;
+	    this.image = image;
+	    this.imageType = imageType;
+	    this.imageFileName = imageFileName;
+	}
+	
 	// ----------------------------//
 	// ---------- Getter ----------//
 	// ----------------------------//
 	public long getId() {
 		return this.id;
 	}
+
 
 	public String getName() {
 		return this.name;

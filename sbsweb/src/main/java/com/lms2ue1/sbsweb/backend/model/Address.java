@@ -1,28 +1,24 @@
 package com.lms2ue1.sbsweb.backend.model;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
-@Entity
-@Table(name = "addresses")
+@Embeddable
 public class Address {
     // ---- Attributes ----//
-    @Id
+    /*@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, unique = true)
-    private long id;
+    private long id;*/
 
     @JsonProperty("id")
-    private long adessoID;
+    private long adessoAddressID;
     @JsonProperty("street")
     private String street;
     @JsonProperty("houseNumber")
@@ -35,9 +31,9 @@ public class Address {
     private String country;
 
     // ---- Associations ----//
-    @JsonUnwrapped
-    @OneToOne(mappedBy = "address")
-    private Project project;
+    /*@JsonUnwrapped
+    @OneToOne(mappedBy = "address")*/
+    //private Project project;
 
     // ----------------------------------//
     // ---------- Constructors ----------//
@@ -55,7 +51,8 @@ public class Address {
      * @param city        = city.
      * @param country     = country.
      */
-    public Address(String street, int houseNumber, int zip, String city, String country) {
+    public Address(long adessoID, String street, int houseNumber, int zip, String city, String country) {
+	this.adessoAddressID = adessoID;
 	this.street = street;
 	this.houseNumber = houseNumber;
 	this.zipCode = zip;
@@ -66,9 +63,6 @@ public class Address {
     // ----------------------------//
     // ---------- Getter ----------//
     // ----------------------------//
-    public long getId() {
-	return this.id;
-    }
 
     public String getStreet() {
 	return this.street;
@@ -90,16 +84,9 @@ public class Address {
 	return this.country;
     }
 
-    public Project getProject() {
-	return this.project;
-    }
-
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    protected void setAddressId(long aId) {
-	this.id = aId;
-    }
 
     protected void setStreet(String s) {
 	this.street = s;
@@ -121,21 +108,17 @@ public class Address {
 	this.country = cntry;
     }
 
-    protected void setProject(Project p) {
-	this.project = p;
-    }
-
     // ----------------------------//
     // ---------- Misc ------------//
     // ----------------------------//
 
-    @Override
+    /*@Override
     public boolean equals(Object obj) {
 	if (obj instanceof Address) {
 	    Address tmpAddress = (Address) obj;
 	    return tmpAddress.getId() == this.id;
 	}
 	return false;
-    }
+    }*/
 
 }

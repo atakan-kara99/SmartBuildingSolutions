@@ -7,12 +7,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.lms2ue1.sbsweb.backend.model.*;
-import com.lms2ue1.sbsweb.backend.repository.*;
 
 @Service
 public class DatabaseInitService {
 
-	@Autowired
+	/*@Autowired
 	AddressRepository addRepo;
 	@Autowired
 	UserRepository userRepo;
@@ -186,5 +185,9 @@ public class DatabaseInitService {
 			userRepo.save(u4);
 
 		}
-	}
+	}*/
+    
+    public void init() {
+	
+    }
 }
