@@ -21,7 +21,8 @@ public class BillingItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private double price;
-    @Column(unique = true)
+    // @Column(unique = true) TODO sollte nicht sein
+    // Beispiel Schrauben kaufen für Heizung und für Herd. Oder in unterschiedlichen Verträgen
     private String name;
     private String shortDescription;
     private Status status;

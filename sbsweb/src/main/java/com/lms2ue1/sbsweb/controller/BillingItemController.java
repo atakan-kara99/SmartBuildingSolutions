@@ -84,12 +84,13 @@ public class BillingItemController {
 	billingItem.setStatus(Status.NO_STATUS);
 
 	// TODO save using BAP once it's implemented
-//	try {
-//	    String username = principal.getName();
-//	    BAP.addBillingItem(username, billingItem);
-//	} catch (AuthenticationException | IllegalArgumentException e) {
-//	    e.printStackTrace();
-//	}
+	try {
+	    String username = principal.getName();
+	    BAP.addBillingItem(username, billingItem);
+	} catch (AuthenticationException | IllegalArgumentException e) {
+	    model.addAttribute("billingItem", billingItem);
+	    return "billingitem/billing_item_new";
+	}
 	return "redirect:/project/{pID}/contract/{cID}/show";
     }
 }
