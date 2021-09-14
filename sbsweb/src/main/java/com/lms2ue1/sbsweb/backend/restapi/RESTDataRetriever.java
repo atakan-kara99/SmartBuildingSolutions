@@ -40,6 +40,7 @@ public class RESTDataRetriever {
 	return retrieveData(API_URL + "project/list");
     }
 
+    // TODO: Vereinfachen!
     public String fetchContracts(long projectID) throws IOException {
 	OkHttpClient client = new OkHttpClient().newBuilder().build();
 	Request request = new Request.Builder().url(API_URL + "/contracts/:" + projectID).method("GET", null)

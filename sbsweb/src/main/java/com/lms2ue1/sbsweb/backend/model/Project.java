@@ -12,11 +12,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Size;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import com.lms2ue1.sbsweb.backend.repository.StatusRepository;
 
 import java.util.List;
 
@@ -73,9 +71,8 @@ public class Project {
 	@ManyToMany(mappedBy = "projects")
 	private List<Role> roles;
 	// TODO: adesso gibt einen String! Wie setzen wir denn den Status? => DBSynchronisationService
-	@JsonUnwrapped
-	@ManyToOne
-	private Status status;
+	/*@ManyToOne
+	private Status status;*/
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
@@ -138,9 +135,9 @@ public class Project {
 		return this.completionDate;
 	}
 
-	public Status getStatus() {
+	/*public Status getStatus() {
 		return this.status;
-	}
+	}*/
 
 	public double getOverallCosts() {
 		return this.overallCosts;
@@ -201,9 +198,9 @@ public class Project {
 		this.completionDate = completionDate;
 	}
 
-	protected void setStatus(Status s) {
+	/*protected void setStatus(Status s) {
 		this.status = s;
-	}
+	}*/
 
 	protected void setOverallCosts(double oC) {
 		this.overallCosts = oC;
