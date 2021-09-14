@@ -25,11 +25,12 @@ public class Project {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, unique = true)
-	private long id;
+	private long internID;
 	
+	/*@Id
 	@JsonProperty("id")
 	@Column(insertable=false, updatable=false)
-	private long adessoID;
+	private long adessoID;*/
 	@JsonProperty("name")
 	@Column(unique = true)
 	private String name;
@@ -43,8 +44,10 @@ public class Project {
 	private double overallCosts;
 	@JsonProperty("creator")
 	private String creator;
+	// TODO: This will be the organisation.
 	@JsonProperty("ownerGroupIdentifier")
 	private String ownerGroupIdentifier;
+
 	// TODO: Status überarbeiten!
 	@JsonProperty("status")
 	private String adessoStatus;
@@ -76,7 +79,7 @@ public class Project {
 	private List<Role> roles;
 	// TODO: adesso gibt einen String! Wie setzen wir denn den Status? => DBSynchronisationService
 	@ManyToOne
-	private Status status;
+	private Status realStatus;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
@@ -119,7 +122,6 @@ public class Project {
 	public Project(long adessoID, String name, String description, String creationDate, String completionDate,
 		double overallCosts, String creator, String ownerGroupIdentifier, String adessoStatus, String image,
 		String imageType, String imageFileName) {
-	    this.adessoID = adessoID;
 	    this.name = name;
 	    this.description = description;
 	    this.creationDate = creationDate;
@@ -136,11 +138,18 @@ public class Project {
 	// ----------------------------//
 	// ---------- Getter ----------//
 	// ----------------------------//
-	public long getId() {
-		return this.id;
+	public long getInternID() {
+		return this.internID;
 	}
 
-
+	public String getOwnerGroupIdentifier() {
+	    return ownerGroupIdentifier;
+	}
+	
+	public String getAdessoStatus() {
+	    return adessoStatus;
+	}
+	
 	public String getName() {
 		return this.name;
 	}
@@ -157,9 +166,9 @@ public class Project {
 		return this.completionDate;
 	}
 
-	/*public Status getStatus() {
-		return this.status;
-	}*/
+	public Status getRealStatus() {
+		return this.realStatus;
+	}
 
 	public double getOverallCosts() {
 		return this.overallCosts;
@@ -200,63 +209,71 @@ public class Project {
 	// ----------------------------//
 	// ---------- Setter ----------//
 	// ----------------------------//
-	protected void setId(long pId) {
-		this.id = pId;
+	public void setInternID(long pId) {
+		this.internID = pId;
+	}
+	
+	public void setOwnerGroupIdentifier(String ownerGroupIdentifier) {
+	    this.ownerGroupIdentifier = ownerGroupIdentifier;
+	}
+	
+	public void setAdessoStatus(String adessoStatus) {
+	    this.adessoStatus = adessoStatus;
 	}
 
-	protected void setName(String n) {
+	public void setName(String n) {
 		this.name = n;
 	}
 
-	protected void setDescription(String desc) {
+	public void setDescription(String desc) {
 		this.description = desc;
 	}
 
-	protected void setCreationDate(String creationDate) {
+	public void setCreationDate(String creationDate) {
 		this.creationDate = creationDate;
 	}
 
-	protected void setCompletionDate(String completionDate) {
+	public void setCompletionDate(String completionDate) {
 		this.completionDate = completionDate;
 	}
 
-	/*protected void setStatus(Status s) {
-		this.status = s;
-	}*/
+	public void setRealStatus(Status s) {
+		this.realStatus = s;
+	}
 
-	protected void setOverallCosts(double oC) {
+	public void setOverallCosts(double oC) {
 		this.overallCosts = oC;
 	}
 
-	protected void setImage(String img) {
+	public void setImage(String img) {
 		this.image = img;
 	}
 
-	protected void setImageType(String imgType) {
+	public void setImageType(String imgType) {
 		this.imageType = imgType;
 	}
 
-	protected void setImageFileName(String imgFileName) {
+	public void setImageFileName(String imgFileName) {
 		this.imageFileName = imgFileName;
 	}
 
-	protected void setAddress(Address a) {
+	public void setAddress(Address a) {
 		this.address = a;
 	}
 
-	protected void setContracts(List<Contract> cs) {
+	public void setContracts(List<Contract> cs) {
 		this.contracts = cs;
 	}
 
-	protected void setOrganisation(Organisation o) {
+	public void setOrganisation(Organisation o) {
 		this.organisation = o;
 	}
 
-	protected void setRoles(List<Role> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 
-	protected void setCreator(String creator) {
+	public void setCreator(String creator) {
 		this.creator = creator;
 	}
 
@@ -268,7 +285,7 @@ public class Project {
 	public boolean equals(Object obj) {
 		if (obj instanceof Project) {
 			Project tmpProject = (Project) obj;
-			return tmpProject.getId() == this.id;
+			return tmpProject.getInternID() == this.internID;
 		}
 		return false;
 	}

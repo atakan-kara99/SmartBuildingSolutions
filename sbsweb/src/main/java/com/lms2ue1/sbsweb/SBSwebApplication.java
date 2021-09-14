@@ -18,6 +18,6 @@ public class SBSwebApplication implements CommandLineRunner {
     @Override
     public void run(String... arg0) throws Exception {
 	//databaseInitService.init();
-	dbSyncService.init();
+	//dbSyncService.init();
     }
 }

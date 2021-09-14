@@ -24,7 +24,7 @@ public class Status {
 	private String name;
 
 	// ---- Associations ---- //
-	@OneToMany(mappedBy = "status")
+	@OneToMany(mappedBy = "realStatus")
 	private List<Project> projects;
 	@OneToMany(mappedBy = "status")
 	private List<Contract> contracts;

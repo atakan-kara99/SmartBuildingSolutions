@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lms2ue1.sbsweb.backend.model.*;
 import com.lms2ue1.sbsweb.backend.repository.ProjectRepository;
+import com.lms2ue1.sbsweb.service.DBSynchronisationService;
 
 @Component
 public class JSONDeserialiser {
@@ -23,7 +24,7 @@ public class JSONDeserialiser {
     RESTDataRetriever restRetriever;
 
     @Bean
-    CommandLineRunner deserialiseProjects(ProjectRepository projectRepository) {
+    CommandLineRunner deserialiseProjects(DBSynchronisationService dbUpdateService) {
 	System.out.println("Klappst du?");
 	
 	return args -> {
@@ -31,22 +32,6 @@ public class JSONDeserialiser {
 	    };
 
 	    String json = restRetriever.fetchProjects();
-	    /*String json = "[\n"
-	    	+ "    {\n"
-	    	+ "        \"name\": \"adesso Hamburg\",\n"
-	    	+ "        \"description\": \"Bau eines Bürokomplexes für Adesso SE\",\n"
-	    	+ "        \"completionDate\": \"2023-11-11\",\n"
-	    	+ "        \"image\": null,\n"
-	    	+ "        \"imageType\": null,\n"
-	    	+ "        \"imageFileName\": null,\n"
-	    	+ "        \"overallCost\": 4321000,\n"
-	    	+ "        \"id\": 1,\n"
-	    	+ "        \"creationDate\": \"2019-11-11\",\n"
-	    	+ "        \"ownerGroupIdentifier\": \"Freundlieb\",\n"
-	    	+ "        \"creator\": \"Theo Bauherr\",\n"
-	    	+ "        \"status\": \"planned\"\n"
-	    	+ "    }\n"
-	    	+ "]";*/
 	    System.out.println(json);
 
 	    //InputStream inputStream = TypeReference.class.getResourceAsStream(json);
@@ -55,7 +40,7 @@ public class JSONDeserialiser {
 	    List<Project> listProjects = mapper.readValue(json, refProject);
 	    System.out.println(listProjects.toString());
 	    
-	   projectRepository.saveAll(listProjects);
+	   dbUpdateService.saveProjectList(listProjects);
 	};
     }
 
