@@ -16,9 +16,6 @@ import com.lms2ue1.sbsweb.backend.restapi.JSONDeserialiser;
 @Controller
 public class LoginController {
     
-    @Autowired
-    JSONDeserialiser jDes;
-
     /** Shows the login page. 
      * @throws IOException 
      * @throws JsonProcessingException 
@@ -27,8 +24,6 @@ public class LoginController {
     public String showLogin(HttpSession session, Model model) throws JsonMappingException, JsonProcessingException, IOException {
         // Set darkmode to false at login so there is a value present
         session.setAttribute("darkmodeEnabled", false);
-        
-        jDes.deserialiseProjects();
         
         return "login";
     }
