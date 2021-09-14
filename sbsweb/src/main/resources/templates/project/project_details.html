@@ -35,16 +35,18 @@
             </p>
           </td>
           <td align="center" style="width:30%">
-            <a th:href="@{'/project/' + ${pID} + '/diagrams'}">
-              <button align="right" type="button" class="btn btn-outline-success">Detailliertes Diagramm anzeigen</button>
-            </a>
-            <div style="padding-top: 20px"></div>
-            <div class="container" style="height: 250px">
-              <canvas id="diagram" align="right"></canvas>
-            </div>
-            <div class="text-center">
-              <div class="padding-20"></div>
-              <h3>Fortschritt</h3>
+            <div  th:if="${not contracts?.empty}">
+              <a th:href="@{'/project/' + ${pID} + '/diagrams'}">
+                <button align="right" type="button" class="btn btn-outline-success">Detailliertes Diagramm anzeigen</button>
+              </a>
+              <div style="padding-top: 20px"></div>
+              <div class="container" style="height: 250px">
+                <canvas id="diagram" align="right"></canvas>
+              </div>
+              <div class="text-center">
+                <div class="padding-20"></div>
+                <h3>Fortschritt</h3>
+              </div>
             </div>
           </td>
         </tr>
@@ -53,22 +55,32 @@
       <div class="text-center">
         <h4 th:if="${contracts?.empty}">Keine Verträge verfügbar.</h4>
         <div class="container" th:unless="${contracts?.empty}">
-          <table class="table table-borderless" th:with="cols=4">
+          <table class="table table-borderless" th:with="cols=4" style="table-layout: fixed">
             <tr th:each="_, row : ${contracts}" th:if="${row.count % cols == 0 or row.last}">
               <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
                             <!-- Full row -->
-                            <td th:if="${row.count % cols == 0}">
+                            <td th:if="${row.count % cols == 0}"  style="width: 25%">
                                 <a th:object="${contracts[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + *{id} + '/show'}" class="icon-link">
                                     <i class="bi bi-book" style="font-size: 300%; color: black;" th:title="*{name}"></i>
                                     <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
                                 </a>
+                                  <div class="container" style="height: 30px; width: 70%">
+                                    <canvas th:id="'pro'+ ${row.index - x}"></canvas>
+                                  </div>
+                                  <div class="padding-20"></div>
+                                  <label th:id="'label'+${row.index - x}"></label>
                             </td>
                             <!-- Last row might not be full -->
-                            <td th:if="${row.last and x < row.count % cols}">
+                            <td th:if="${row.last and x < row.count % cols}"  style="width: 25%">
                                 <a th:object="${contracts[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + *{id} + '/show'}" class="icon-link">
                                     <i class="bi bi-book" style="font-size: 300%; color: black;" th:title="*{name}"></i>
                                     <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
                                 </a>
+                                  <div class="container" style="height: 30px; width: 70%">
+                                    <canvas th:id="'pro'+ ${row.index - x}"></canvas>
+                                  </div>
+                                  <div class="padding-20"></div>
+                                  <label th:id="'label'+${row.index - x}"></label>
                             </td>
                         </th:block>
                     </tr>
@@ -79,7 +91,10 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script th:inline="javascript">
       //Daten von users holen
-      var listOfStatus = /*[[${listOfStatus}]]*/ "listOfStatus";
+      var listOfListOfStatus = /*[[${listOfListOfStatus}]]*/ "listOfListOfStatus";
+      var listLength         = /*[[${#lists.size(contracts)}]]*/ "listLength";
+      var darkMode           = /*[[${session.darkmodeEnabled}]]*/ "darkMode";
+      var multipleCharts     = true;
     </script>
     <script type="text/javascript " defer th:src="@{/js/createProgressDiagram.js} "></script>
   </th:block>

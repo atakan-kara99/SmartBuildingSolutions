@@ -100,19 +100,21 @@
         };
       }
 
-      //calculate the data
-      const data = createData();
+      //create only, if we have the data
+      if (listOfStatus.length > 0) {
+        //calculate the data
+        const data = createData();
 
-      //reference canvas element
-      var ctx = document.getElementById("diagram").getContext('2d');
+        //reference canvas element
+        var ctx = document.getElementById("diagram").getContext('2d');
 
-      //create first instance
-      var myChart = new Chart(ctx, {
-        type: configs[0].type,
-        data,
-        options: configs[0].options
-      });
-
+        //create first instance
+        var myChart = new Chart(ctx, {
+          type: configs[0].type,
+          data,
+          options: configs[0].options
+        });
+      }
 
       //change chart type
       //get id from drop selectBox

@@ -65,7 +65,7 @@ public class ProjectController {
 	    List<Contract> contracts = BAP.getAllContracts(username);
 	    model.addAttribute("contracts", contracts.stream().filter(contract -> contract.getProject().getId() == pID)
 		    .collect(Collectors.toList()));
-	    model.addAttribute("listOfStatus", listOfStatus);
+	    model.addAttribute("listOfListOfStatus", listOfListOfStatus);
 	    return "project/project_details";
 	} catch (AuthenticationException | IllegalArgumentException e) {
 	    return "error";
