@@ -28,7 +28,6 @@ public class RESTDataRetriever {
 	Request request = new Request.Builder().url(url).method("GET", null).header("Authorization", "Bearer 123")
 		.build();
 	Response response = client.newCall(request).execute();
-	// System.out.println(response);
 	return response.body().string();
     }
 
@@ -40,30 +39,16 @@ public class RESTDataRetriever {
 	return retrieveData(API_URL + "project/list");
     }
 
-    // TODO: Vereinfachen!
     public String fetchContracts(long projectID) throws IOException {
-	OkHttpClient client = new OkHttpClient().newBuilder().build();
-	Request request = new Request.Builder().url(API_URL + "/contracts/:" + projectID).method("GET", null)
-		.header("Authorization", "Bearer 123").build();
-	Response response = client.newCall(request).execute();
-	return response.body().string();
+	return retrieveData(API_URL + "/contracts/:" + projectID);
     }
 
     public String fetchBillingUnits(long contractID) throws IOException {
-	OkHttpClient client = new OkHttpClient().newBuilder().build();
-	Request request = new Request.Builder()
-		.url(API_URL + "/billingmodel/loadAndParseForContractConfiguration?contractId=" + contractID)
-		.method("GET", null).header("Authorization", "Bearer 123").build();
-	Response response = client.newCall(request).execute();
-	return response.body().string();
+	return retrieveData(API_URL + "/billingmodel/loadAndParseForContractConfiguration?contractId=" + contractID);
     }
 
     public String fetchBillingItems(long contractID) throws IOException {
-	OkHttpClient client = new OkHttpClient().newBuilder().build();
-	Request request = new Request.Builder().url(API_URL + "/contractCompletion/all/:" + contractID)
-		.method("GET", null).header("Authorization", "Bearer 123").build();
-	Response response = client.newCall(request).execute();
-	return response.body().string();
+	return retrieveData(API_URL + "/contractCompletion/all/:" + contractID);
     }
 
 }

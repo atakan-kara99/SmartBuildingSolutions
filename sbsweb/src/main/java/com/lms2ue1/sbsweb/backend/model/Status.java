@@ -25,8 +25,8 @@ public class Status {
 	// ---- Associations ---- //
 	/*@OneToMany(mappedBy = "status")
 	private List<Project> projects;*/
-	@OneToMany(mappedBy = "status")
-	private List<Contract> contracts;
+	/*@OneToMany(mappedBy = "status")
+	private List<Contract> contracts;*/
 	@OneToMany(mappedBy = "status")
 	private List<BillingUnit> billingUnits;
 	@OneToMany(mappedBy = "status")
@@ -67,14 +67,6 @@ public class Status {
 		return this.description;
 	}
 
-	/*public List<Project> getProject() {
-		return this.projects;
-	}*/
-
-	public List<Contract> getContract() {
-		return this.contracts;
-	}
-
 	public List<BillingUnit> getBillingUnit() {
 		return this.billingUnits;
 	}
@@ -101,14 +93,7 @@ public class Status {
 	public void setDescription(String desc) {
 		this.description = desc;
 	}
-
-	/*public void setProject(List<Project> ps) {
-		this.projects = ps;
-	}*/
-
-	public void setContract(List<Contract> cs) {
-		this.contracts = cs;
-	}
+	
 	public void setBillingUnit(List<BillingUnit> bus) {
 		this.billingUnits = bus;
 	}

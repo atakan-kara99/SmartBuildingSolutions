@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
 @Entity
 public class Contract {
 
@@ -24,34 +27,46 @@ public class Contract {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, unique = true)
 	private long id;
+	
+	@JsonProperty("id")
+	private long adessoID;
+	@JsonProperty("name")
 	@Column(unique = true)
 	private String name;
+	@JsonProperty("description")
 	private String description;
+	@JsonProperty("consignee")
 	private String consignee;
+	@JsonProperty("contractor")
 	private String contractor;
+	@JsonProperty("status")
+	private String adessoStatus;
 
 	// ---- Associations ----//
+	@JsonUnwrapped
 	@Size(min = 2, max = 2)
 	@ManyToMany
 	@JoinTable(name = "CONTRACT_ORGANISATIONS", joinColumns = {
 			@JoinColumn(name = "CONTRACT_ID") }, inverseJoinColumns = { @JoinColumn(name = "ORGANISATIONS_ID") })
 	private List<Organisation> organisations;
+	@JsonUnwrapped
 	@Size(min = 2)
 	@ManyToMany(mappedBy = "contracts")
 	private List<Role> roles;
-	@ManyToOne // (cascade = { CascadeType.ALL }) try to remove
+	@JsonUnwrapped
+	@ManyToOne
 	@JoinColumn(name = "project_id")
 	private Project project;
+	@JsonUnwrapped
 	@Size(min = 1)
 	@OneToMany(mappedBy = "contract", orphanRemoval = true)
 	private List<BillingUnit> billingUnits;
-	@ManyToOne
-	private Status status;
+	/*@ManyToOne
+	private Status status;*/
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
 	// ----------------------------------//
-	// TODO: Do we actually want to allow this?
 	public Contract() {
 	}
 
@@ -61,18 +76,16 @@ public class Contract {
 	 * 
 	 * @param name          = name
 	 * @param description   = description
-	 * @param status        = status
 	 * @param consignee     = consignee
 	 * @param contructor    = contructor
 	 * @param organisations = organisations
 	 * @param project       = projects
 	 * @param billunits     = billing units
 	 */
-	public Contract(String name, String description, Status status, String consignee, String contructor,
+	public Contract(String name, String description, String consignee, String contructor,
 			List<Organisation> organisations, Project project) {
 		this.name = name;
 		this.description = description;
-		this.status = status;
 		this.consignee = consignee;
 		this.contractor = contructor;
 		this.organisations = organisations;
@@ -92,10 +105,6 @@ public class Contract {
 
 	public String getDescription() {
 		return this.description;
-	}
-
-	public Status getStatus() {
-		return this.status;
 	}
 
 	public String getConsignee() {
@@ -135,10 +144,6 @@ public class Contract {
 
 	protected void setDescription(String desc) {
 		this.description = desc;
-	}
-
-	protected void setStatus(Status s) {
-		this.status = s;
 	}
 
 	protected void setConsignee(String cnsgn) {

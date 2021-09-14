@@ -108,21 +108,21 @@ public class DatabaseInitService {
 			// ------------------------------//
 			// ------------- Contract -------//
 			// ------------------------------//
-			Contract con0 = new Contract("con0", null, s3, null, null, organisations, pro0);
-			Contract con1 = new Contract("Vertrag für das neue Fenster", "auf nachfrage", s1, "Jörg", "Peter",
+			Contract con0 = new Contract("con0", null, null, null, organisations, pro0);
+			Contract con1 = new Contract("Vertrag für das neue Fenster", "auf nachfrage", "Jörg", "Peter",
 					organisations1, pro1);
-			Contract con2 = new Contract("Haus-Restaurierung", "eilauftrag", s3, "Microsoft INC", "Apple INC",
+			Contract con2 = new Contract("Haus-Restaurierung", "eilauftrag", "Microsoft INC", "Apple INC",
 					organisations2, pro2);
 
 			conRepo.save(con0);
 			conRepo.save(con1);
 			conRepo.save(con2);
 
-			Contract con3 = new Contract("Wohnzimmer bauen", "Sachen m�ssen erledigt werden", s1, null, null, null,
+			Contract con3 = new Contract("Wohnzimmer bauen", "Sachen m�ssen erledigt werden", null, null, null,
 					pro4);
-			Contract con4 = new Contract("Küche installieren", null, s1, null, null, null, pro4);
-			Contract con5 = new Contract("Baby beruhigen", null, s3, null, null, null, pro4);
-			Contract con6 = new Contract("Kosten klein halten", null, s2, null, null, null, pro4);
+			Contract con4 = new Contract("Küche installieren", null, null, null, null, pro4);
+			Contract con5 = new Contract("Baby beruhigen", null, null, null, null, pro4);
+			Contract con6 = new Contract("Kosten klein halten", null, null, null, null, pro4);
 			conRepo.saveAll(List.of(con3, con4, con5, con6));
 
 			// ------------------------------//

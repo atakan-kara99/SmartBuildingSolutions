@@ -19,6 +19,9 @@ public class JSONDeserialiser {
     ObjectMapper mapper = new ObjectMapper();
     @Autowired
     RESTDataRetriever restRetriever;
+    
+    // ---- Repository ---------------------------------//
+    
 
     // ---- Converts the rest api data to projects ----//
     public void deserialiseProjects() throws JsonMappingException, JsonProcessingException, IOException {
@@ -26,9 +29,9 @@ public class JSONDeserialiser {
 
 	List<Project> listProjects = Arrays.asList(mapper.readValue(json, Project[].class));
 
-	for (Project p : listProjects) {
+	/*for (Project p : listProjects) {
 		System.out.println(p.getId());
-	}
+	}*/
 
 	// return listProjects;
     }
@@ -36,7 +39,9 @@ public class JSONDeserialiser {
     // ---- Converts the rest api data to contracts ----//
     public void deserializeContracts() throws IOException {
 	String json = restRetriever.fetchContracts(2);
-
+	
+	List<Contract> listContracts = Arrays.asList(mapper.readValue(json, Contract[].class));
+	
     }
 
     // ---- Converts the rest api data to billung units ----//

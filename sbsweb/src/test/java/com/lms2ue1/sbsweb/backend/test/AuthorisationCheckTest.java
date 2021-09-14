@@ -81,9 +81,9 @@ class AuthorisationCheckTest {
 		234578900, "Die den anderen Turm auch gemacht haben", null, null, null, address0, org0);
 	project1 = new Project("Berliner Flughafen xD", "Morgen ist es soweit", "2010-12-28", "2015-01-01",
 		1300500000, "Nicht die vom Burj Khalifa", null, null, null, address1, org1);
-	contract0 = new Contract("Baby beruhigen", "Es schreit.", null, "Nanny", "Mutter", List.of(),
+	contract0 = new Contract("Baby beruhigen", "Es schreit.", "Nanny", "Mutter", List.of(),
 		project0);
-	contract1 = new Contract("Kosten klein halten", "Teuer", null, null, null, List.of(org1), project1);
+	contract1 = new Contract("Kosten klein halten", "Teuer", null, null, List.of(org1), project1);
 	billingUnit0 = new BillingUnit("sd", null, "kg", "1973", "2001", 2.1, 7, contract0, null);
 	billingUnit1 = new BillingUnit("sssdad", null, "�", "15999", "2201", 1, 0, contract1, null);
 	billingItem1 = new BillingItem("Fenster einbauen", 0, null, null, 99, null, 0, null, null, billingUnit1, null);
