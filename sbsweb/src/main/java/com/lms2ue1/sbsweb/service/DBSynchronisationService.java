@@ -24,20 +24,32 @@ public class DBSynchronisationService {
     private StatusRepository statRepo;
 
     // ---------- Methods ------------//
-    
+
+    /**
+     * Save the new projects in the database.
+     * @param projectlist = The given projects from the REST-API.
+     */
     public void saveProjectList(List<Project> projectlist) {
 	for (Project currentProject : projectlist) {
 	    // Get every organisation.
-	    Organisation tmpOrga = new Organisation(currentProject.getOwnerGroupIdentifier());
-	    orgaRepo.save(tmpOrga);
+	    Organisation tmpOrga = orgaRepo.findByName(currentProject.getOwnerGroupIdentifier());
+	    // Does this organisation already exist?
+	    if (tmpOrga == null) {
+		tmpOrga = new Organisation(currentProject.getOwnerGroupIdentifier());
+		orgaRepo.save(tmpOrga);
+	    }
 	    currentProject.setOrganisation(tmpOrga);
-	    
+
 	    // Get every status.
-	    Status tmpStat = new Status(currentProject.getAdessoStatus(), null);
-	    statRepo.save(tmpStat);
+	    Status tmpStat = statRepo.findByName(currentProject.getAdessoStatus());
+	    // Does this status already exist?
+	    if (tmpStat == null) {
+		tmpStat = new Status(currentProject.getAdessoStatus(), null);
+		statRepo.save(tmpStat);
+	    }
 	    currentProject.setRealStatus(tmpStat);
 	}
-	
+
 	proRepo.saveAll(projectlist);
 
     }
