@@ -27,6 +27,7 @@ public class DBSynchronisationService {
 
     /**
      * Save the new projects in the database.
+     * 
      * @param projectlist = The given projects from the REST-API.
      */
     public void saveProjectList(List<Project> projectlist) {
@@ -48,6 +49,15 @@ public class DBSynchronisationService {
 		statRepo.save(tmpStat);
 	    }
 	    currentProject.setRealStatus(tmpStat);
+
+	    String tmpStr;
+	    
+	    // Some descriptions are too long:
+	    if (currentProject.getDescription().length() > 255) {
+		tmpStr = currentProject.getDescription().substring(0,254);
+		currentProject.setDescription(tmpStr);
+	    }
+
 	}
 
 	proRepo.saveAll(projectlist);
