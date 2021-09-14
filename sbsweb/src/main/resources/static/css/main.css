@@ -6,6 +6,10 @@
     height: 50px
 }
 
+.padding-20 {
+    height: 20px
+}
+
 #footer {
     position: absolute;
     left: 0;
@@ -13,7 +17,7 @@
     width: 100%;
     text-align: center;
     padding: 10px;
-    background-color: #8bf0ff;
+    background-color: #2a5cff;
     z-index: 1;
 }
 
