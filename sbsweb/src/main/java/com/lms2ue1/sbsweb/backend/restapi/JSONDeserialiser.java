@@ -25,20 +25,13 @@ public class JSONDeserialiser {
 
     @Bean
     CommandLineRunner deserialiseProjects(DBSynchronisationService dbUpdateService) {
-	System.out.println("Klappst du?");
-	
 	return args -> {
 	    TypeReference<List<Project>> refProject = new TypeReference<List<Project>>() {
 	    };
 
 	    String json = restRetriever.fetchProjects();
-	    System.out.println(json);
-
-	    //InputStream inputStream = TypeReference.class.getResourceAsStream(json);
-	    //System.out.println(inputStream.toString());
 	    
 	    List<Project> listProjects = mapper.readValue(json, refProject);
-	    System.out.println(listProjects.toString());
 	    
 	   dbUpdateService.saveProjectList(listProjects);
 	};

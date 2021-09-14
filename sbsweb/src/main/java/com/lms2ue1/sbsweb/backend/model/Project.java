@@ -77,7 +77,6 @@ public class Project {
 	@Size(min = 2)
 	@ManyToMany(mappedBy = "projects")
 	private List<Role> roles;
-	// TODO: adesso gibt einen String! Wie setzen wir denn den Status? => DBSynchronisationService
 	@ManyToOne
 	private Status realStatus;
 

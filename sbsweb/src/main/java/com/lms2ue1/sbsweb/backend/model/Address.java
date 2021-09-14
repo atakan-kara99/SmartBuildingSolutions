@@ -1,11 +1,6 @@
 package com.lms2ue1.sbsweb.backend.model;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -51,8 +46,7 @@ public class Address {
      * @param city        = city.
      * @param country     = country.
      */
-    public Address(long adessoID, String street, int houseNumber, int zip, String city, String country) {
-	this.adessoAddressID = adessoID;
+    public Address(String street, int houseNumber, int zip, String city, String country) {
 	this.street = street;
 	this.houseNumber = houseNumber;
 	this.zipCode = zip;
