@@ -23,10 +23,10 @@ public class Status {
 	private String description;
 
 	// ---- Associations ---- //
-	/*@OneToMany(mappedBy = "status")
-	private List<Project> projects;*/
-	/*@OneToMany(mappedBy = "status")
-	private List<Contract> contracts;*/
+	@OneToMany(mappedBy = "status")
+	private List<Project> projects;
+	@OneToMany(mappedBy = "status")
+	private List<Contract> contracts;
 	@OneToMany(mappedBy = "status")
 	private List<BillingUnit> billingUnits;
 	@OneToMany(mappedBy = "status")

@@ -9,6 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
 @Entity
 @Table(name = "addresses")
 public class Address {
@@ -17,21 +20,28 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, unique = true)
     private long id;
+
+    @JsonProperty("id")
+    private long adessoID;
+    @JsonProperty("street")
     private String street;
+    @JsonProperty("houseNumber")
     private int houseNumber;
+    @JsonProperty("zipCode")
     private int zipCode;
+    @JsonProperty("city")
     private String city;
+    @JsonProperty("country")
     private String country;
 
     // ---- Associations ----//
+    @JsonUnwrapped
     @OneToOne(mappedBy = "address")
-    //@JoinColumn(name = "project_id")
     private Project project;
 
     // ----------------------------------//
     // ---------- Constructors ----------//
     // ----------------------------------//
-    // TODO: Do we really want to allow this? Good for testing. (nka)
     public Address() {
     }
 

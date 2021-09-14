@@ -61,8 +61,8 @@ public class Contract {
 	@Size(min = 1)
 	@OneToMany(mappedBy = "contract", orphanRemoval = true)
 	private List<BillingUnit> billingUnits;
-	/*@ManyToOne
-	private Status status;*/
+	@ManyToOne
+	private Status status;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//

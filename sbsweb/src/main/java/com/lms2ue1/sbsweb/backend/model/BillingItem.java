@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
 @Entity
 public class BillingItem {
 
@@ -21,26 +24,41 @@ public class BillingItem {
 	@Column(updatable = false, unique = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
+	@JsonProperty("id")
+	private long adessoID;
+	@JsonProperty("price")
 	private double price;
+	@JsonProperty("name")
 	@Column(unique = true)
 	private String name;
+	@JsonProperty("shortDescription")
 	private String shortDescription;
+	@JsonProperty("quantities")
 	private double quantities;
+	@JsonProperty("unit")
 	private String unit;
+	@JsonProperty("unitPrice")
 	private double unitPrice;
+	@JsonProperty("qtySplit")
 	private String qtySplit;
+	@JsonProperty("shortDesLinkedIFC")
 	private String shortDesLinkedIFC;
 
 	// ---- Associations ----//
-	@ManyToOne // (cascade = { CascadeType.ALL }) tried w/ cascading
+	@JsonUnwrapped
+	@ManyToOne
 	@JoinColumn(name = "billing_unit_id")
 	private BillingUnit billingUnit;
+	@JsonUnwrapped
 	@Size(min = 2)
 	@ManyToMany(mappedBy = "billingItems")
 	private List<Role> roles;
+	@JsonUnwrapped
 	@OneToMany
 	@JoinColumn(name = "sub_billing_item")
 	private List<BillingItem> billingItems;
+	@JsonUnwrapped
 	@ManyToOne
 	private Status status;
 
