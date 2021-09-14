@@ -7,8 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 
 
@@ -25,8 +25,6 @@ public class Status {
 	// ---- Associations ---- //
 	@OneToMany(mappedBy = "status")
 	private List<Project> projects;
-	@ManyToMany(mappedBy = "stati")
-	private List<Organisation> organisations;
 	@OneToMany(mappedBy = "status")
 	private List<Contract> contracts;
 	@OneToMany(mappedBy = "status")
@@ -34,10 +32,9 @@ public class Status {
 	@OneToMany(mappedBy = "status")
 	private List<BillingItem> billingItems;
 
-	// TODO: try to implement HashMap<Role, Status>
-	@OneToMany
-	@JoinColumn(name = "next_stati")
-	private List<Status> nextStatus;
+	@OneToOne
+	@JoinColumn(name = "next_status")
+	private Status nextStatus;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
@@ -49,7 +46,7 @@ public class Status {
 	 * @param name
 	 * @param description
 	 */
-	public Status(String name, String description, List<Status> nextStatus) {
+	public Status(String name, String description, Status nextStatus) {
 		this.name = name;
 		this.description = description;
 		this.nextStatus = nextStatus;
@@ -78,16 +75,16 @@ public class Status {
 		return this.contracts;
 	}
 
-	public List<Organisation> getOrganisation() {
-		return this.organisations;
-	}
-
 	public List<BillingUnit> getBillingUnit() {
 		return this.billingUnits;
 	}
 
 	public List<BillingItem> getBillingItem() {
 		return this.billingItems;
+	}
+	
+	public Status getNextStatus() {
+	    return nextStatus;
 	}
 
 	// ----------------------------//
@@ -112,13 +109,12 @@ public class Status {
 	public void setContract(List<Contract> cs) {
 		this.contracts = cs;
 	}
-
-	public void setOrganisation(List<Organisation> os) {
-		this.organisations = os;
-	}
-
 	public void setBillingUnit(List<BillingUnit> bus) {
 		this.billingUnits = bus;
+	}
+	
+	public void setNextStatus(Status nextStatus) {
+	    this.nextStatus = nextStatus;
 	}
 
 	public void setBillingItem(List<BillingItem> bis) {

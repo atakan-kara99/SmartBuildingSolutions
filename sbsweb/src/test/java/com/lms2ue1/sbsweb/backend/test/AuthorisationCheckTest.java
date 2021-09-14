@@ -73,8 +73,8 @@ class AuthorisationCheckTest {
     public void init() {
 	closeable = MockitoAnnotations.openMocks(this);
 
-	org0 = new Organisation("SBS", null);
-	org1 = new Organisation("Tiefbau", null);
+	org0 = new Organisation("SBS");
+	org1 = new Organisation("Tiefbau");
 	address0 = new Address("Main Street", 1337, 14, "NY City", "Deutschland");
 	address1 = new Address("2nd Street", 42, 15, "GBR City", "France");
 	project0 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01", null,
