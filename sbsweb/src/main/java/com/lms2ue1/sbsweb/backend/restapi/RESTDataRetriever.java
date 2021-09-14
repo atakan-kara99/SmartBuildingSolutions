@@ -8,12 +8,17 @@ import okhttp3.Response;
 
 
 public class RESTDataRetriever {
+    
+    /**
+     * URL to connect to the adesso API.
+     */
+    private final String API_URL = "http://localhost:3000/api/v1";
 
     // ---- Methods for accessing the data from REST-API ----//
     public String fetchProjects() throws IOException {
 	OkHttpClient client = new OkHttpClient().newBuilder().build();
 	Request request = new Request.Builder()
-		.url("http://localhost:3000/api/v1/project/list")
+		.url(API_URL + "/project/list")
 		.method("GET", null)
 		.header("Authorization", "Bearer 123").build();
 	Response response = client.newCall(request).execute();
