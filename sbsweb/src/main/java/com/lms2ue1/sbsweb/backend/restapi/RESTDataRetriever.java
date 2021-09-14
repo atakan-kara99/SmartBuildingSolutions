@@ -2,7 +2,6 @@ package com.lms2ue1.sbsweb.backend.restapi;
 
 import java.io.IOException;
 
-import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import okhttp3.OkHttpClient;
@@ -18,7 +17,7 @@ public class RESTDataRetriever {
     private final String API_URL = "http://localhost:3000/api/v1";
 
     // ---- Methods for accessing the data from REST-API ----//
-    public JSONObject fetchProjects() throws IOException {
+    public String fetchProjects() throws IOException {
 	OkHttpClient client = new OkHttpClient().newBuilder().build();
 	Request request = new Request.Builder()
 		.url(API_URL + "/project/list")
@@ -26,7 +25,7 @@ public class RESTDataRetriever {
 		.header("Authorization", "Bearer 123").build();
 	Response response = client.newCall(request).execute();
 	//System.out.println(response);
-	return new JSONObject(response.body().string());
+	return response.body().string();
     }
 
     public String fetchContracts() {
