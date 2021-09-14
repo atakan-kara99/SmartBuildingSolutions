@@ -27,10 +27,8 @@ public class Project {
 	@Column(updatable = false, unique = true)
 	private long internID;
 	
-	/*@Id
 	@JsonProperty("id")
-	@Column(insertable=false, updatable=false)
-	private long adessoID;*/
+	private long adessoID;
 	@JsonProperty("name")
 	@Column(unique = true)
 	private String name;
@@ -140,6 +138,10 @@ public class Project {
 	public long getInternID() {
 		return this.internID;
 	}
+	
+	public long getAdessoID() {
+	    return adessoID;
+	}
 
 	public String getOwnerGroupIdentifier() {
 	    return ownerGroupIdentifier;
@@ -210,6 +212,10 @@ public class Project {
 	// ----------------------------//
 	public void setInternID(long pId) {
 		this.internID = pId;
+	}
+	
+	public void setAdessoID(long adessoID) {
+	    this.adessoID = adessoID;
 	}
 	
 	public void setOwnerGroupIdentifier(String ownerGroupIdentifier) {

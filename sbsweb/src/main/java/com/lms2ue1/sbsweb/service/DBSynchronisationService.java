@@ -69,7 +69,7 @@ public class DBSynchronisationService {
 	    }
 	    
 	    // --------------------- Now let's fetch everything else:
-	    jsonDeserialiser.deserialiseContractsPerProject(currentProject.getInternID());
+	    jsonDeserialiser.deserialiseContractsPerProject(currentProject.getAdessoID());
 	    
 	    // TODO: Implement BillingItems and BillingUnits!
 
