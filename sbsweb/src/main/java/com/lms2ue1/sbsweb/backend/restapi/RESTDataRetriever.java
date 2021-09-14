@@ -14,18 +14,32 @@ public class RESTDataRetriever {
     /**
      * URL to connect to the adesso API.
      */
-    private final String API_URL = "http://localhost:3000/api/v1";
-
-    // ---- Methods for accessing the data from REST-API ----//
-    public String fetchProjects() throws IOException {
+    private final String API_URL = "http://localhost:3000/api/v1/";
+    
+    /**
+     * Retrieve the wanted data from the REST API.
+     * 
+     * @param url = The URL for the wanted data
+     * @return the JSON String (Response body)
+     * @throws IOException 
+     */
+    private String retrieveData(String url) throws IOException {
 	OkHttpClient client = new OkHttpClient().newBuilder().build();
 	Request request = new Request.Builder()
-		.url(API_URL + "/project/list")
+		.url(url)
 		.method("GET", null)
 		.header("Authorization", "Bearer 123").build();
 	Response response = client.newCall(request).execute();
 	//System.out.println(response);
 	return response.body().string();
+    }
+
+    // ------------------------------------------------------//
+    // ---- Methods for accessing the data from REST-API ----//
+    // ------------------------------------------------------//
+    
+    public String fetchProjects() throws IOException {
+	return retrieveData( API_URL + "project/list");
     }
 
     public String fetchContracts() {
