@@ -1,5 +1,6 @@
 package com.lms2ue1.sbsweb.controller.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -8,11 +9,10 @@ import javax.validation.constraints.NotEmpty;
 import com.lms2ue1.sbsweb.backend.jwt.JWTRequest;
 import com.lms2ue1.sbsweb.backend.jwt.JWTResponse;
 import com.lms2ue1.sbsweb.backend.model.BackendAccessProvider;
-import com.lms2ue1.sbsweb.backend.model.BillingItem;
-import com.lms2ue1.sbsweb.backend.model.BillingUnit;
-import com.lms2ue1.sbsweb.backend.model.Contract;
+import com.lms2ue1.sbsweb.backend.model.Organisation;
 import com.lms2ue1.sbsweb.backend.model.Project;
 import com.lms2ue1.sbsweb.backend.model.Status;
+import com.lms2ue1.sbsweb.backend.model.User;
 import com.lms2ue1.sbsweb.backend.security.SBSUserDetails;
 import com.lms2ue1.sbsweb.service.DBUserDetailsService;
 import com.lms2ue1.sbsweb.service.JWTSecurityService;
@@ -50,7 +50,7 @@ public class AppAPIController {
     private BackendAccessProvider backendAccessProvider;
 
     /**
-     * Post mapping to the authentication used by the REST-API. Used for getting a jwt if the provided username and password are valid
+     * Post mapping to the authentication used by the REST-API. Used for getting a jwt if the provided username and password in plain text are valid
      * 
      * @param  authRequest The provided authentication request
      * @return             If the authentication was successful then a valid jwt is returned. Else an Http error status will be returned
@@ -84,53 +84,52 @@ public class AppAPIController {
     }
 
     /**
-     * Get mapping to recieve all contracts the requester should have access to
+     * Get mapping to recieve the user data of the requester
      * 
      * @param  requestHeader The request
-     * @return               All contracts the requester has access to or an error if the jwt is invalid
+     * @return               User data of the requester or an error if the jwt is invalid
      */
-    @GetMapping("/api/contracts")
-    public List<Contract> getContracts(@RequestHeader(name = "Authorization") String requestHeader) {
+    @GetMapping("/api/user")
+    public User getUser(@RequestHeader(name = "Authorization") String requestHeader) {
         try {
             String username = jwtSecurityService.getUsername(requestHeader.substring(7));
-            return backendAccessProvider.getAllContracts(username);
+            User user = backendAccessProvider.getAllUsers(username).get(0);
+            // Only use necessary data
+            return new User(user.getForename(), user.getLastname(), null, user.getUsername(), null);
         } catch (SignatureException signatureException) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied", signatureException);
         }
     }
 
     /**
-     * Get mapping to recieve all billing units the requester should have access to
+     * Get mapping to recieve all organisations the requester should have access to
      * 
      * @param  requestHeader The request
-     * @return               All billing units the requester has access to or an error if the jwt is invalid
+     * @return               All organisations the requester has access to or an error if the jwt is invalid
      */
-    @GetMapping("/api/billing_units")
-    public List<BillingUnit> getBillingUnits(@RequestHeader(name = "Authorization") String requestHeader) {
+    @GetMapping("/api/organisations")
+    public List<Organisation> getOrganisation(@RequestHeader(name = "Authorization") String requestHeader) {
         try {
             String username = jwtSecurityService.getUsername(requestHeader.substring(7));
-            return backendAccessProvider.getAllBillingUnits(username);
+            List<Organisation> organisations = backendAccessProvider.getAllOrganisations(username);
+            List<Organisation> organisationsToSend = new ArrayList<Organisation>();
+            for (Organisation organisation : organisations) {
+                // Only use necessary data
+                organisationsToSend.add(new Organisation(organisation.getName()));
+            }
+            return organisationsToSend;
         } catch (SignatureException signatureException) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied", signatureException);
         }
     }
 
     /**
-     * Get mapping to recieve all billing items the requester should have access to
+     * Post mapping to update the status of a billing unit by its id
      * 
-     * @param  requestHeader The request
-     * @return               All billing items the requester has access to or an error if the jwt is invalid
+     * @param  requestHeader The request header
+     * @param  statusUpdate  The status update object containing a billing item id and a status
+     * @return               OK message if the status was successfully changed
      */
-    @GetMapping("/api/billing_items")
-    public List<BillingItem> getBillingItems(@RequestHeader(name = "Authorization") String requestHeader) {
-        try {
-            String username = jwtSecurityService.getUsername(requestHeader.substring(7));
-            return backendAccessProvider.getAllBillingItems(username);
-        } catch (SignatureException signatureException) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied", signatureException);
-        }
-    }
-
     @PostMapping("/api/update_status")
     public ResponseEntity<?> updateBillingItemStatus(@RequestHeader(name = "Authorization") String requestHeader, @Valid StatusUpdate statusUpdate) {
         try {
@@ -142,7 +141,7 @@ public class AppAPIController {
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
-    // TODO: Implement properly
+    // TODO: Implement properly. This will not work!
     class StatusUpdate {
         private long id;
         @NotEmpty
