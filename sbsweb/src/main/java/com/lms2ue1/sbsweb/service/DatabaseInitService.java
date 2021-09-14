@@ -39,8 +39,8 @@ public class DatabaseInitService {
 			// ------------- Status ----------//
 			// -----------------------------//
 			Status s1 = new Status("OK", "everything finished", null);
-			Status s2 = new Status("OPEN","still in progress", List.of(s1));
-			Status s3 = new Status("NO Status", "waiting for starting", List.of(s2));
+			Status s2 = new Status("OPEN","still in progress", s1);
+			Status s3 = new Status("NO Status", "waiting for starting", s2);
 			
 			statRepo.save(s1);
 			statRepo.save(s2);
@@ -49,12 +49,12 @@ public class DatabaseInitService {
 			// -----------------------------//
 			// ------------- Orga ----------//
 			// -----------------------------//
-			Organisation org0 = new Organisation("SBS AG", List.of(s1, s2, s3));
-			Organisation org1 = new Organisation("Tiefbau Co Kg.", List.of(s1, s2, s3));
-			Organisation org3 = new Organisation("Uni-Kiel GmbH", List.of(s1, s2, s3));
-			Organisation org4 = new Organisation("Apple INC.", List.of(s1, s2, s3));
-			Organisation org5 = new Organisation("Microsoft INC.", List.of(s1, s2, s3));
-			Organisation org6 = new Organisation("Pineapple GmbH", List.of(s1, s2, s3));
+			Organisation org0 = new Organisation("SBS AG");
+			Organisation org1 = new Organisation("Tiefbau Co Kg.");
+			Organisation org3 = new Organisation("Uni-Kiel GmbH");
+			Organisation org4 = new Organisation("Apple INC.");
+			Organisation org5 = new Organisation("Microsoft INC.");
+			Organisation org6 = new Organisation("Pineapple GmbH");
 
 			orgaRepo.save(org0);
 			orgaRepo.save(org1);

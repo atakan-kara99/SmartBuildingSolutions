@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
@@ -36,8 +34,6 @@ public class Organisation {
 	@Size(min = 1)
 	@ManyToMany(mappedBy = "organisations")
 	private List<Contract> contracts;
-	@ManyToMany
-	private List<Status> stati;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
@@ -51,9 +47,8 @@ public class Organisation {
 	 * 
 	 * @param name = name of the organisation.
 	 */
-	public Organisation(String name, List<Status> stati) {
+	public Organisation(String name) {
 		this.name = name;
-		this.stati = stati;
 	}
 
 	// ----------------------------//
