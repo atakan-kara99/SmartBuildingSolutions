@@ -25,8 +25,7 @@ public class RESTDataRetriever {
      */
     private String retrieveData(String url) throws IOException {
 	OkHttpClient client = new OkHttpClient().newBuilder().build();
-	Request request = new Request.Builder().url(url).method("GET", null)
-		.header("Authorization", "Bearer 123")
+	Request request = new Request.Builder().url(url).method("GET", null).header("Authorization", "Bearer 123")
 		.build();
 	Response response = client.newCall(request).execute();
 	return response.body().string();

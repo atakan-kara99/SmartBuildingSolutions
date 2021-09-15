@@ -27,11 +27,9 @@ public class Contract {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, unique = true)
     private long id;
-
     @JsonProperty("id")
     private long adessoID;
     @JsonProperty("name")
-    //@Column(unique = true) multiple names must be allowed
     private String name;
     @JsonProperty("description")
     private String description;
@@ -109,9 +107,9 @@ public class Contract {
     // ----------------------------//
     // ---------- Getter ----------//
     // ----------------------------//
-    
+
     public long getAdessoID() {
-        return adessoID;
+	return adessoID;
     }
 
     public long getAdessoProjectId() {
@@ -135,7 +133,7 @@ public class Contract {
     }
 
     public String getAdessoStatus() {
-        return adessoStatus;
+	return adessoStatus;
     }
 
     public String getConsignee() {
@@ -166,13 +164,13 @@ public class Contract {
     // ---------- Setter ----------//
     // ----------------------------//
     public void setAdessoID(long adessoID) {
-        this.adessoID = adessoID;
+	this.adessoID = adessoID;
     }
-    
+
     public void setAdessoStatus(String adessoStatus) {
-        this.adessoStatus = adessoStatus;
+	this.adessoStatus = adessoStatus;
     }
-    
+
     public void setAdessoProjectId(long projectId) {
 	this.adessoProjectId = projectId;
     }

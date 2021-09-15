@@ -7,11 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Embeddable
 public class Address {
     // ---- Attributes ----//
-    /*@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(updatable = false, unique = true)
-    private long id;*/
-
     @JsonProperty("id")
     private long adessoAddressID;
     @JsonProperty("street")
@@ -24,11 +19,6 @@ public class Address {
     private String city;
     @JsonProperty("country")
     private String country;
-
-    // ---- Associations ----//
-    /*@JsonUnwrapped
-    @OneToOne(mappedBy = "address")*/
-    //private Project project;
 
     // ----------------------------------//
     // ---------- Constructors ----------//
@@ -82,37 +72,24 @@ public class Address {
     // ---------- Setter ----------//
     // ----------------------------//
 
-    protected void setStreet(String s) {
+    public void setStreet(String s) {
 	this.street = s;
     }
 
-    protected void setHouseNumber(int hNum) {
+    public void setHouseNumber(int hNum) {
 	this.houseNumber = hNum;
     }
 
-    protected void setZipCode(int zCd) {
+    public void setZipCode(int zCd) {
 	this.zipCode = zCd;
     }
 
-    protected void setCity(String c) {
+    public void setCity(String c) {
 	this.city = c;
     }
 
-    protected void setCountry(String cntry) {
+    public void setCountry(String cntry) {
 	this.country = cntry;
     }
-
-    // ----------------------------//
-    // ---------- Misc ------------//
-    // ----------------------------//
-
-    /*@Override
-    public boolean equals(Object obj) {
-	if (obj instanceof Address) {
-	    Address tmpAddress = (Address) obj;
-	    return tmpAddress.getId() == this.id;
-	}
-	return false;
-    }*/
 
 }

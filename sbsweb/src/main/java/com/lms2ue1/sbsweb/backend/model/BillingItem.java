@@ -19,226 +19,225 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 @Entity
 public class BillingItem {
 
-	// ---- Attributes ----//
-	@Id
-	@Column(updatable = false, unique = true)
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long internId;
-	
-	@JsonProperty("id")
-	private String adessoID;
-	@JsonProperty("price")
-	private double price;
-	@JsonProperty("name")
-	@Column(unique = true)
-	private String name;
-	@JsonProperty("shortDescription")
-	private String shortDescription;
-	@JsonProperty("quantities")
-	private double quantities;
-	@JsonProperty("unit")
-	private String unit;
-	@JsonProperty("unitPrice")
-	private double unitPrice;
-	@JsonProperty("qtySplit")
-	private String qtySplit;
-	@JsonProperty("shortDesLinkedIFC")
-	private String shortDesLinkedIFC;
-	@JsonProperty("status")
-	private String adessoStatus;
+    // ---- Attributes ----//
+    @Id
+    @Column(updatable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long internId;
+    @JsonProperty("id")
+    private String adessoID;
+    @JsonProperty("price")
+    private double price;
+    @JsonProperty("name")
+    @Column(unique = true)
+    private String name;
+    @JsonProperty("shortDescription")
+    private String shortDescription;
+    @JsonProperty("quantities")
+    private double quantities;
+    @JsonProperty("unit")
+    private String unit;
+    @JsonProperty("unitPrice")
+    private double unitPrice;
+    @JsonProperty("qtySplit")
+    private String qtySplit;
+    @JsonProperty("shortDesLinkedIFC")
+    private String shortDesLinkedIFC;
+    @JsonProperty("status")
+    private String adessoStatus;
 
-	// ---- Associations ----//
-	@JsonUnwrapped
-	@ManyToOne
-	@JoinColumn(name = "billing_unit_id")
-	private BillingUnit billingUnit;
-	@JsonUnwrapped
-	@Size(min = 2)
-	@ManyToMany(mappedBy = "billingItems")
-	private List<Role> roles;
-	@JsonUnwrapped
-	@OneToMany
-	@JoinColumn(name = "sub_billing_item")
-	private List<BillingItem> billingItems;
-	// TODO: adessoStatus?
-	@JsonUnwrapped
-	@ManyToOne
-	private Status statusObj;
+    // ---- Associations ----//
+    @JsonUnwrapped
+    @ManyToOne
+    @JoinColumn(name = "billing_unit_id")
+    private BillingUnit billingUnit;
+    @JsonUnwrapped
+    @Size(min = 2)
+    @ManyToMany(mappedBy = "billingItems")
+    private List<Role> roles;
+    @JsonUnwrapped
+    @OneToMany
+    @JoinColumn(name = "sub_billing_item")
+    private List<BillingItem> billingItems;
+    // TODO: adessoStatus?
+    @JsonUnwrapped
+    @ManyToOne
+    private Status statusObj;
 
-	// ----------------------------------//
-	// ---------- Constructors ----------//
-	// ----------------------------------//
-	public BillingItem() {
+    // ----------------------------------//
+    // ---------- Constructors ----------//
+    // ----------------------------------//
+    public BillingItem() {
+    }
+
+    /**
+     * Initializes a billing item. Only the parameters of the constructor are
+     * columns (plus the FKs).
+     * 
+     * @param name         = name of the user
+     * @param price        = price
+     * @param sDesc        = short description
+     * @param status       = status
+     * @param quantities   = quantities
+     * @param unit         = unit
+     * @param uPrice       = unit price
+     * @param qSplit       = qty split
+     * @param sDLIFC       = short deslinked ifc
+     * @param billUnit     = billing unit
+     * @param billingItems = billing items
+     */
+    public BillingItem(String name, double price, String sDesc, Status status, double quantities, String unit,
+	    double uPrice, String qSplit, String sDLIFC, BillingUnit billUnit, List<BillingItem> billingItems) {
+	this.name = name;
+	this.price = price;
+	this.shortDescription = sDesc;
+	this.statusObj = status;
+	this.quantities = quantities;
+	this.unit = unit;
+	this.unitPrice = uPrice;
+	this.qtySplit = qSplit;
+	this.shortDesLinkedIFC = sDLIFC;
+	this.billingUnit = billUnit;
+	this.billingItems = billingItems;
+    }
+
+    // ----------------------------//
+    // ---------- Getter ----------//
+    // ----------------------------//
+    public String getName() {
+	return name;
+    }
+
+    public long getInternId() {
+	return this.internId;
+    }
+
+    public double getPrice() {
+	return this.price;
+    }
+
+    public String getShortDescription() {
+	return this.shortDescription;
+    }
+
+    public Status getStatusObj() {
+	return this.statusObj;
+    }
+
+    public double getQuantities() {
+	return this.quantities;
+    }
+
+    public String getUnit() {
+	return this.unit;
+    }
+
+    public double getUnitPrice() {
+	return this.unitPrice;
+    }
+
+    public String getQtySplit() {
+	return this.qtySplit;
+    }
+
+    public String getShortDesLinkedIFC() {
+	return this.shortDesLinkedIFC;
+    }
+
+    public BillingUnit getBillingUnit() {
+	return this.billingUnit;
+    }
+
+    public List<BillingItem> getBillingItems() {
+	return this.billingItems;
+    }
+
+    public List<Role> getRoles() {
+	return this.roles;
+    }
+
+    public String getAdessoStatus() {
+	return adessoStatus;
+    }
+
+    public String getAdessoID() {
+	return adessoID;
+    }
+
+    // ----------------------------//
+    // ---------- Setter ----------//
+    // ----------------------------//
+    public void setName(String name) {
+	this.name = name;
+    }
+
+    public void setInternId(long id) {
+	this.internId = id;
+    }
+
+    public void setPrice(double p) {
+	this.price = p;
+    }
+
+    public void setShortDescription(String sDesc) {
+	this.shortDescription = sDesc;
+    }
+
+    public void setStatusObj(Status s) {
+	this.statusObj = s;
+    }
+
+    public void setQuantities(double qs) {
+	this.quantities = qs;
+    }
+
+    public void setUnit(String u) {
+	this.unit = u;
+    }
+
+    public void setUnitPrice(double uP) {
+	this.unitPrice = uP;
+    }
+
+    public void setQtySplit(String qtySplit) {
+	this.qtySplit = qtySplit;
+    }
+
+    public void setShortDesLinkedIFC(String shortDesLinkedIFC) {
+	this.shortDesLinkedIFC = shortDesLinkedIFC;
+    }
+
+    public void setBillingUnit(BillingUnit bu) {
+	this.billingUnit = bu;
+    }
+
+    public void setBillingItems(List<BillingItem> bis) {
+	this.billingItems = bis;
+    }
+
+    public void setRoles(List<Role> rs) {
+	this.roles = rs;
+    }
+
+    public void setAdessoID(String adessoID) {
+	this.adessoID = adessoID;
+    }
+
+    public void setAdessoStatus(String adessoStatus) {
+	this.adessoStatus = adessoStatus;
+    }
+
+    // ----------------------------//
+    // ---------- Misc ------------//
+    // ----------------------------//
+
+    @Override
+    public boolean equals(Object obj) {
+	if (obj instanceof BillingItem) {
+	    BillingItem tmpBillItem = (BillingItem) obj;
+	    return tmpBillItem.getInternId() == this.internId;
 	}
-
-	/**
-	 * Initializes a billing item. Only the parameters of the constructor are
-	 * columns (plus the FKs).
-	 * 
-	 * @param name         = name of the user
-	 * @param price        = price
-	 * @param sDesc        = short description
-	 * @param status       = status
-	 * @param quantities   = quantities
-	 * @param unit         = unit
-	 * @param uPrice       = unit price
-	 * @param qSplit       = qty split
-	 * @param sDLIFC       = short deslinked ifc
-	 * @param billUnit     = billing unit
-	 * @param billingItems = billing items
-	 */
-	public BillingItem(String name, double price, String sDesc, Status status, double quantities, String unit,
-			double uPrice, String qSplit, String sDLIFC, BillingUnit billUnit, List<BillingItem> billingItems) {
-		this.name = name;
-		this.price = price;
-		this.shortDescription = sDesc;
-		this.statusObj = status;
-		this.quantities = quantities;
-		this.unit = unit;
-		this.unitPrice = uPrice;
-		this.qtySplit = qSplit;
-		this.shortDesLinkedIFC = sDLIFC;
-		this.billingUnit = billUnit;
-		this.billingItems = billingItems;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	// ----------------------------//
-	// ---------- Getter ----------//
-	// ----------------------------//
-	public long getInternId() {
-		return this.internId;
-	}
-
-	public double getPrice() {
-		return this.price;
-	}
-
-	public String getShortDescription() {
-		return this.shortDescription;
-	}
-
-	public Status getStatusObj() {
-		return this.statusObj;
-	}
-
-	public double getQuantities() {
-		return this.quantities;
-	}
-
-	public String getUnit() {
-		return this.unit;
-	}
-
-	public double getUnitPrice() {
-		return this.unitPrice;
-	}
-
-	public String getQtySplit() {
-		return this.qtySplit;
-	}
-
-	public String getShortDesLinkedIFC() {
-		return this.shortDesLinkedIFC;
-	}
-
-	public BillingUnit getBillingUnit() {
-		return this.billingUnit;
-	}
-
-	public List<BillingItem> getBillingItems() {
-		return this.billingItems;
-	}
-
-	public List<Role> getRoles() {
-		return this.roles;
-	}
-	
-	public String getAdessoStatus() {
-	    return adessoStatus;
-	}
-
-	public void setAdessoStatus(String adessoStatus) {
-	    this.adessoStatus = adessoStatus;
-	}
-
-	// ----------------------------//
-	// ---------- Setter ----------//
-	// ----------------------------//
-	protected void setInternId(long id) {
-		this.internId = id;
-	}
-
-	protected void setPrice(double p) {
-		this.price = p;
-	}
-
-	protected void setShortDescription(String sDesc) {
-		this.shortDescription = sDesc;
-	}
-
-	public void setStatusObj(Status s) {
-		this.statusObj = s;
-	}
-
-	protected void setQuantities(double qs) {
-		this.quantities = qs;
-	}
-
-	protected void setUnit(String u) {
-		this.unit = u;
-	}
-
-	protected void setUnitPrice(double uP) {
-		this.unitPrice = uP;
-	}
-
-	protected void setQtySplit(String qtySplit) {
-		this.qtySplit = qtySplit;
-	}
-
-	protected void setShortDesLinkedIFC(String shortDesLinkedIFC) {
-		this.shortDesLinkedIFC = shortDesLinkedIFC;
-	}
-
-	public void setBillingUnit(BillingUnit bu) {
-		this.billingUnit = bu;
-	}
-
-	protected void setBillingItems(List<BillingItem> bis) {
-		this.billingItems = bis;
-	}
-
-	protected void setRoles(List<Role> rs) {
-		this.roles = rs;
-	}
-
-	// ----------------------------//
-	// ---------- Misc ------------//
-	// ----------------------------//
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof BillingItem) {
-			BillingItem tmpBillItem = (BillingItem) obj;
-			return tmpBillItem.getInternId() == this.internId;
-		}
-		return false;
-	}
-
-	public String getAdessoID() {
-	    return adessoID;
-	}
-
-	public void setAdessoID(String adessoID) {
-	    this.adessoID = adessoID;
-	}
+	return false;
+    }
 
 }

@@ -110,14 +110,6 @@ public class DBSynchronisationService {
 	// Get all the dependencies:
 	for (Contract currentContract : contractList) {
 
-	    // TODO: ---- testing ----//
-	    /*
-	     * System.out.println("Current id of the contract: " +
-	     * currentContract.getAdessoID());
-	     * System.out.println("Current name of the contract" +
-	     * currentContract.getName());
-	     */
-
 	    // First: Let's set the project.
 	    currentContract.setProject(proRepo.findByAdessoID(currentContract.getAdessoProjectId())
 		    .orElseThrow(IllegalArgumentException::new));
@@ -157,7 +149,7 @@ public class DBSynchronisationService {
 	    if (conRepo.findByAdessoID(currentContract.getAdessoID()).isEmpty()) {
 		conRepo.save(currentContract);
 	    }
-	    // TODO: What, if it already exists?
+	    // TODO: Merge -> What, if it already exists?
 
 	    // --------------------- Now let's fetch everything else:
 	    jsonDeserialiser.deserialiseBillingModelPerContract(currentContract.getAdessoID());
@@ -166,54 +158,47 @@ public class DBSynchronisationService {
 
     // ------- Save the billing units with the repo --------//
     public void saveBillingUnits(BillingModel billingModel, long contractId) {
+	if (billingModel == null) {
+	    throw new IllegalArgumentException("Save billing model error: Object is <null>");
+	}
+
 	List<BillingUnit> billingUnits = billingModel.getBillingUnits();
 
-	// TODO : (optional) throw illegal argument exception if list is empty => If
-	// empty, the foreach wouldn't start (I hope)
-
+	// ---- Iterate over each unit and save them via repository ----//
 	for (BillingUnit currentBillingUnit : billingUnits) {
 	    // first of all set the contract
-	    
 	    Contract tmpContract = conRepo.findByAdessoID(contractId).orElseThrow(IllegalArgumentException::new);
 	    currentBillingUnit.setContract(tmpContract);
 
-	    // TODO: ---- testing ----//
-	    //System.out.println("Current contract id: " + tmpContract.getName());
-
+	    // save the current billing unit
 	    if (billingItemRepo.findByAdessoID(currentBillingUnit.getAdessoID()).isEmpty()) {
 		billingUnitRepo.save(currentBillingUnit);
 	    }
-	    //TODO: Merge!
+	    // TODO: Merge!
 
-	    // TODO after saving the billing units save the billing items
-	    // saves the current billing item too
+	    // saves the billing item of these billing unit
 	    this.saveBillingItems(currentBillingUnit, currentBillingUnit.getBillingItems());
 	}
 
     }
 
     // ------- Save the billing items with the repo --------//
+    // ------- works with recursion --------//
     public void saveBillingItems(BillingUnit billingUnit, List<BillingItem> billingItems) {
-	// Breakpoint!
+	// ---- stop the recursion ----//
 	if (billingItems == null || billingItems.isEmpty()) {
 	    return;
 	}
-	
-	// TODO : (optional) throw illegal argument exception if list is empty
-	// TODO: DEBUGG
-	for (BillingItem b : billingItems) {
-	    System.out.println(b.getName());
-	}
-
+	// ---- Iterate over the billing items and store them via repository ----//
 	for (BillingItem currentBillingItem : billingItems) {
-	    // The billingitem stores the billingunit!
-	    // currentBillingItem.setBillingUnit(billingUnitRepo.findByAdessoID(billingUnit.getAdessoID()));
 	    currentBillingItem.setBillingUnit(billingUnit);
 
+	    /* set the status of the billing item */
 	    if (currentBillingItem.getAdessoStatus() != null) {
-		currentBillingItem.setStatusObj(statRepo.findByName(currentBillingItem.getAdessoStatus()));;
+		currentBillingItem.setStatusObj(statRepo.findByName(currentBillingItem.getAdessoStatus()));
 	    }
-	    
+
+	    // ---- start the recursion for storing the sub billing items ----//
 	    this.saveBillingItems(billingUnit, currentBillingItem.getBillingItems());
 
 	    billingItemRepo.save(currentBillingItem);

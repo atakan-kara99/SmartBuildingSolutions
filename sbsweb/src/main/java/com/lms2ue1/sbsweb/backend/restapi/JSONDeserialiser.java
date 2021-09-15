@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -16,83 +15,74 @@ import com.lms2ue1.sbsweb.service.DBSynchronisationService;
 @Component
 public class JSONDeserialiser {
 
-	ObjectMapper mapper = new ObjectMapper();
-	@Autowired
-	RESTDataRetriever restRetriever;
-	@Autowired
-	DBSynchronisationService dbSyncService;
-	
-	// TODO: Wiederkehrend aufrufen!
-	@Bean
-	CommandLineRunner deserialiseProjects(DBSynchronisationService dbUpdateService) {
-		return args -> {
-			TypeReference<List<Project>> refProject = new TypeReference<List<Project>>() {
-			};
+    ObjectMapper mapper = new ObjectMapper();
+    @Autowired
+    RESTDataRetriever restRetriever;
+    @Autowired
+    DBSynchronisationService dbSyncService;
 
-			String json = restRetriever.fetchProjects();
+    
+    /**
+     * Fetch all projects from the REST-API.
+     * 
+     * @throws IOException
+     */
+    @Scheduled(fixedRate=5000)
+    public void deserialiseProjects() throws IOException {
 
-			if (!json.equals("{}")) {
-				List<Project> listProjects = mapper.readValue(json, refProject);
+	TypeReference<List<Project>> refProject = new TypeReference<List<Project>>() {
+	};
 
-				// In here: We will fetch everything else!
-				dbUpdateService.saveProjectList(listProjects);
-			}
-		};
+	String json = restRetriever.fetchProjects();
+
+	if (!json.equals("{}")) {
+	    List<Project> listProjects = mapper.readValue(json, refProject);
+
+	    // In here: We will fetch everything else!
+	    dbSyncService.saveProjectList(listProjects);
 	}
 
-	/**
-	 * Fetch all the contracts of one given project from the REST-API.
-	 * 
-	 * @param projectID = The given project
-	 * @throws IOException
-	 */
-	public void deserialiseContractsPerProject(long projectID) throws IOException {
-		TypeReference<List<Contract>> refContract = new TypeReference<List<Contract>>() {
-		};
+    }
 
-		String json = restRetriever.fetchContracts(projectID);
+    /**
+     * Fetch all the contracts of one given project from the REST-API.
+     * 
+     * @param projectID = The given project
+     * @throws IOException
+     */
+    public void deserialiseContractsPerProject(long projectID) throws IOException {
+	TypeReference<List<Contract>> refContract = new TypeReference<List<Contract>>() {
+	};
 
-		// A project can have 0 contracts!!
-		if (!json.equals("{}")) {
-			List<Contract> listContracts = mapper.readValue(json, refContract);
+	String json = restRetriever.fetchContracts(projectID);
 
-			dbSyncService.saveContractList(listContracts);
-		}
+	// A project can have 0 contracts!!
+	if (!json.equals("{}")) {
+	    List<Contract> listContracts = mapper.readValue(json, refContract);
 
+	    dbSyncService.saveContractList(listContracts);
 	}
 
-	/**
-	 * Fetch all the billing models of one given contract from the REST-API.
-	 * 
-	 * @param contractID = The given contracz
-	 * @throws IOException
-	 */
-	public void deserialiseBillingModelPerContract(long contractID) throws IOException {
-		TypeReference<BillingModel> refBillingModel = new TypeReference<BillingModel>() {
-		};
+    }
 
-		String json = restRetriever.fetchBillingModel(contractID);
+    /**
+     * Fetch all the billing models of one given contract from the REST-API.
+     * 
+     * @param contractID = The given contract
+     * @throws IOException
+     */
+    public void deserialiseBillingModelPerContract(long contractID) throws IOException {
+	TypeReference<BillingModel> refBillingModel = new TypeReference<BillingModel>() {
+	};
 
-		//System.out.println(json);
+	String json = restRetriever.fetchBillingModel(contractID);
 
-		// A project can have 0 contracts!!
-		if (!json.equals("{}")) {
-			BillingModel billingModel = mapper.readValue(json, refBillingModel);
+	if (!json.equals("{}")) {
+	    BillingModel billingModel = mapper.readValue(json, refBillingModel);
 
-			// TODO: DEBUGG!
-			/*for (BillingUnit bilUn : billingModel.getBillingUnits()) {
-				System.out.print("The current id of the billing unit is ");
-				System.out.println(bilUn.getAdessoID());
-				
-				for (BillingItem bilIt : bilUn.getBillingItems()) {
-					System.out.print("The current name of the billing item is ");
-					System.out.println(bilIt.getAdessoID());
-				}
-			}*/
-
-			dbSyncService.saveBillingUnits(billingModel, contractID);
-		}
-
+	    dbSyncService.saveBillingUnits(billingModel, contractID);
 	}
+
+    }
 
 }

@@ -33,8 +33,9 @@ public class AuthorisationCheck {
     private BillingItemRepository billItemRepo;
     @Autowired
     private BillingUnitRepository billUnitRepo;
-    /*@Autowired
-    private AddressRepository addRepo;*/
+    /*
+     * @Autowired private AddressRepository addRepo;
+     */
 
     // ---------- Misc ------------- //
 
@@ -115,7 +116,8 @@ public class AuthorisationCheck {
      */
     public boolean checkBillingUnit(String username, long buID) {
 	// Every billing item in another billing item are part of the same billing unit.
-	return isSysAdmin(username) || getRole(username).getBillingItems().stream().map(bi -> bi.getBillingUnit()).collect(Collectors.toList())
+	return isSysAdmin(username) || getRole(username).getBillingItems().stream().map(bi -> bi.getBillingUnit())
+		.collect(Collectors.toList())
 		.contains(billUnitRepo.findById(buID).orElseThrow(IllegalArgumentException::new));
     }
 
@@ -150,12 +152,12 @@ public class AuthorisationCheck {
      * @param aID      = the given address.
      * @return true = yes, the user is. false = no, the user isn't.
      */
-   /* @Deprecated
-    public boolean checkAddress(String username, long aID) {
-	// Has the user the permission to see the project?
-	Project project = addRepo.findById(aID).orElseThrow(IllegalArgumentException::new).getProject();
-	return checkProject(username, project.getId());
-    }*/
+    /*
+     * @Deprecated public boolean checkAddress(String username, long aID) { // Has
+     * the user the permission to see the project? Project project =
+     * addRepo.findById(aID).orElseThrow(IllegalArgumentException::new).getProject()
+     * ; return checkProject(username, project.getId()); }
+     */
 
     // ---------- User management ------------- //
 

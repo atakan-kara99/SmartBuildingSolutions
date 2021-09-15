@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import java.util.List;
 
 public class BillingModel {
-    
+    // ---- Attributes ----//
     @JsonProperty("currency")
     private String currency;
     @JsonProperty("ownContractDefined")
@@ -15,14 +15,18 @@ public class BillingModel {
     private double totalQuantity;
     @JsonProperty("totalPrice")
     private double totalPrice;
-    
+
+    // ---- Associations ----//
     @JsonUnwrapped
     @JsonProperty("billingUnits")
     List<BillingUnit> billingUnits;
 
+    // ----------------------------------//
+    // ---------- Constructors ----------//
+    // ----------------------------------//
     public BillingModel() {
     }
-    
+
     public BillingModel(String currency, String ownContractDefined, double totalQuantity, double totalPrice,
 	    List<BillingUnit> billingUnits) {
 	super();
@@ -33,44 +37,50 @@ public class BillingModel {
 	this.billingUnits = billingUnits;
     }
 
+    // ----------------------------//
+    // ---------- Getter ----------//
+    // ----------------------------//
     public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
+	return currency;
     }
 
     public String getOwnContractDefined() {
-        return ownContractDefined;
-    }
-
-    public void setOwnContractDefined(String ownContractDefined) {
-        this.ownContractDefined = ownContractDefined;
+	return ownContractDefined;
     }
 
     public double getTotalQuantity() {
-        return totalQuantity;
-    }
-
-    public void setTotalQuantity(double totalQuantity) {
-        this.totalQuantity = totalQuantity;
+	return totalQuantity;
     }
 
     public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+	return totalPrice;
     }
 
     public List<BillingUnit> getBillingUnits() {
-        return billingUnits;
+	return billingUnits;
+    }
+
+    // ----------------------------//
+    // ---------- Setter ----------//
+    // ----------------------------//
+    public void setCurrency(String currency) {
+	this.currency = currency;
+    }
+
+    public void setOwnContractDefined(String ownContractDefined) {
+	this.ownContractDefined = ownContractDefined;
+    }
+
+    public void setTotalQuantity(double totalQuantity) {
+	this.totalQuantity = totalQuantity;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+	this.totalPrice = totalPrice;
     }
 
     public void setBillingUnits(List<BillingUnit> billingUnits) {
-        this.billingUnits = billingUnits;
+	this.billingUnits = billingUnits;
     }
-    
+
 }

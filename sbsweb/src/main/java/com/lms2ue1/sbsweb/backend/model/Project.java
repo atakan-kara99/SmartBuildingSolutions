@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
@@ -21,277 +20,287 @@ import java.util.List;
 @Entity
 public class Project {
 
-	// ------ Attributes ------//
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(updatable = false, unique = true)
-	private long internID;
-	
-	@JsonProperty("id")
-	private long adessoID;
-	@JsonProperty("name")
-	@Column(unique = true)
-	private String name;
-	@JsonProperty("description")
-	private String description;
-	@JsonProperty("creationDate")
-	private String creationDate;
-	@JsonProperty("completionDate")
-	private String completionDate;
-	@JsonProperty("overallCost")
-	private double overallCosts;
-	@JsonProperty("creator")
-	private String creator;
-	// TODO: This will be the organisation.
-	@JsonProperty("ownerGroupIdentifier")
-	private String ownerGroupIdentifier;
+    // ------ Attributes ------//
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(updatable = false, unique = true)
+    private long internID;
+    @JsonProperty("id")
+    private long adessoID;
+    @JsonProperty("name")
+    @Column(unique = true)
+    private String name;
+    @JsonProperty("description")
+    private String description;
+    @JsonProperty("creationDate")
+    private String creationDate;
+    @JsonProperty("completionDate")
+    private String completionDate;
+    @JsonProperty("overallCost")
+    private double overallCosts;
+    @JsonProperty("creator")
+    private String creator;
+    // -- will represent the organisation --//
+    @JsonProperty("ownerGroupIdentifier")
+    private String ownerGroupIdentifier;
+    @JsonProperty("status")
+    private String adessoStatus;
+    // -- These attributes are not important for our use. --//
+    @JsonProperty("image")
+    private String image;
+    @JsonProperty("imageType")
+    private String imageType;
+    @JsonProperty("imageFileName")
+    private String imageFileName;
 
-	@JsonProperty("status")
-	private String adessoStatus;
-	// -- These attributes are not important for our use. --//
-	@JsonProperty("image")
-	private String image;
-	@JsonProperty("imageType")
-	private String imageType;
-	@JsonProperty("imageFileName")
-	private String imageFileName;
-	
-	// ------ Associations ------//
-	/*@JsonUnwrapped
-	@OneToOne
-	@JoinColumn(name = "address_id")*/
-	@Embedded
-	private Address address;
-	@JsonUnwrapped
-	@Size(min = 1)
-	@OneToMany(mappedBy = "project", orphanRemoval = true)
-	private List<Contract> contracts;
-	@JsonUnwrapped
-	@ManyToOne
-	@JoinColumn(name = "organisation_id")
-	private Organisation organisation;
-	@JsonUnwrapped
-	@Size(min = 2)
-	@ManyToMany(mappedBy = "projects")
-	private List<Role> roles;
-	@ManyToOne
-	private Status statusObj;
+    // ------ Associations ------//
+    @Embedded
+    private Address address;
+    @JsonUnwrapped
+    @Size(min = 1)
+    @OneToMany(mappedBy = "project", orphanRemoval = true)
+    private List<Contract> contracts;
+    @JsonUnwrapped
+    @ManyToOne
+    @JoinColumn(name = "organisation_id")
+    private Organisation organisation;
+    @JsonUnwrapped
+    @Size(min = 2)
+    @ManyToMany(mappedBy = "projects")
+    private List<Role> roles;
+    @ManyToOne
+    private Status statusObj;
 
-	// ----------------------------------//
-	// ---------- Constructors ----------//
+    // ----------------------------------//
+    // ---------- Constructors ----------//
+    // ----------------------------------//
+    public Project() {
+    }
 
-	public Project() {
-	}
+    /**
+     * Constructor to insert the data of the rest api json request. Only the
+     * parameters of the constructor are columns (plus the FKs).
+     * 
+     * @param name           name of the project.
+     * @param desc           description.
+     * @param creationDate   date where the project started.
+     * @param completionDate date where the project should be finished.
+     * @param costs          overall costs.
+     * @param creator        name of the creator.
+     * @param img            path of the image.
+     * @param imgType        type of the image.
+     * @param imgFileName    name of the image.
+     * @param address        address of the project.
+     * @param organisation   associated organisation.
+     */
+    public Project(String name, String desc, String creationDate, String completionDate, double costs, String creator,
+	    String img, String imgType, String imgFileName, Address address, Organisation organisation) {
+	this.name = name;
+	this.description = desc;
+	this.creationDate = creationDate;
+	this.completionDate = completionDate;
+	this.overallCosts = costs;
+	this.creator = creator;
+	this.image = img;
+	this.imageType = imgType;
+	this.imageFileName = imgFileName;
+	this.address = address;
+	this.organisation = organisation;
+    }
 
-	/**
-	 * Constructor to insert the data of the rest api json request. Only the
-	 * parameters of the constructor are columns (plus the FKs).
-	 * 
-	 * @param name           name of the project.
-	 * @param desc           description.
-	 * @param creationDate   date where the project started.
-	 * @param completionDate date where the project should be finished.
-	 * @param costs          overall costs.
-	 * @param creator        name of the creator.
-	 * @param img            path of the image.
-	 * @param imgType        type of the image.
-	 * @param imgFileName    name of the image.
-	 * @param address        address of the project.
-	 * @param organisation   associated organisation.
-	 */
-	public Project(String name, String desc, String creationDate, String completionDate, double costs,
-			String creator, String img, String imgType, String imgFileName, Address address,
-			Organisation organisation) {
-		this.name = name;
-		this.description = desc;
-		this.creationDate = creationDate;
-		this.completionDate = completionDate;
-		this.overallCosts = costs;
-		this.creator = creator;
-		this.image = img;
-		this.imageType = imgType;
-		this.imageFileName = imgFileName;
-		this.address = address;
-		this.organisation = organisation;
-	}
-	
-	public Project(long adessoID, String name, String description, String creationDate, String completionDate,
-		double overallCosts, String creator, String ownerGroupIdentifier, String adessoStatus, String image,
-		String imageType, String imageFileName) {
-	    this.name = name;
-	    this.description = description;
-	    this.creationDate = creationDate;
-	    this.completionDate = completionDate;
-	    this.overallCosts = overallCosts;
-	    this.creator = creator;
-	    this.ownerGroupIdentifier = ownerGroupIdentifier;
-	    this.adessoStatus = adessoStatus;
-	    this.image = image;
-	    this.imageType = imageType;
-	    this.imageFileName = imageFileName;
-	}
-	
-	// ----------------------------//
-	// ---------- Getter ----------//
-	// ----------------------------//
-	public long getInternID() {
-		return this.internID;
-	}
-	
-	public long getAdessoID() {
-	    return adessoID;
-	}
+    /**
+     * Constructor to insert the data of the rest api json request.
+     * 
+     * @param adessoID
+     * @param name
+     * @param description
+     * @param creationDate
+     * @param completionDate
+     * @param overallCosts
+     * @param creator
+     * @param ownerGroupIdentifier
+     * @param adessoStatus
+     * @param image
+     * @param imageType
+     * @param imageFileName
+     */
+    public Project(long adessoID, String name, String description, String creationDate, String completionDate,
+	    double overallCosts, String creator, String ownerGroupIdentifier, String adessoStatus, String image,
+	    String imageType, String imageFileName) {
+	this.name = name;
+	this.description = description;
+	this.creationDate = creationDate;
+	this.completionDate = completionDate;
+	this.overallCosts = overallCosts;
+	this.creator = creator;
+	this.ownerGroupIdentifier = ownerGroupIdentifier;
+	this.adessoStatus = adessoStatus;
+	this.image = image;
+	this.imageType = imageType;
+	this.imageFileName = imageFileName;
+    }
 
-	public String getOwnerGroupIdentifier() {
-	    return ownerGroupIdentifier;
-	}
-	
-	public String getAdessoStatus() {
-	    return adessoStatus;
-	}
-	
-	public String getName() {
-		return this.name;
-	}
+    // ----------------------------//
+    // ---------- Getter ----------//
+    // ----------------------------//
+    public long getInternID() {
+	return this.internID;
+    }
 
-	public String getDescription() {
-		return this.description;
-	}
+    public long getAdessoID() {
+	return adessoID;
+    }
 
-	public String getCreationDate() {
-		return this.creationDate;
-	}
+    public String getOwnerGroupIdentifier() {
+	return ownerGroupIdentifier;
+    }
 
-	public String getCompletionDate() {
-		return this.completionDate;
-	}
+    public String getAdessoStatus() {
+	return adessoStatus;
+    }
 
-	public Status getStatusObj() {
-		return this.statusObj;
-	}
+    public String getName() {
+	return this.name;
+    }
 
-	public double getOverallCosts() {
-		return this.overallCosts;
-	}
+    public String getDescription() {
+	return this.description;
+    }
 
-	public String getCreator() {
-		return this.creator;
-	}
+    public String getCreationDate() {
+	return this.creationDate;
+    }
 
-	public String getImage() {
-		return this.image;
-	}
+    public String getCompletionDate() {
+	return this.completionDate;
+    }
 
-	public String getImageType() {
-		return this.imageType;
-	}
+    public Status getStatusObj() {
+	return this.statusObj;
+    }
 
-	public String getImageFileName() {
-		return this.imageFileName;
-	}
+    public double getOverallCosts() {
+	return this.overallCosts;
+    }
 
-	public Address getAddress() {
-		return this.address;
-	}
+    public String getCreator() {
+	return this.creator;
+    }
 
-	public List<Contract> getContracts() {
-		return this.contracts;
-	}
+    public String getImage() {
+	return this.image;
+    }
 
-	public Organisation getOrganisation() {
-		return this.organisation;
-	}
+    public String getImageType() {
+	return this.imageType;
+    }
 
-	public List<Role> getRoles() {
-		return roles;
-	}
+    public String getImageFileName() {
+	return this.imageFileName;
+    }
 
-	// ----------------------------//
-	// ---------- Setter ----------//
-	// ----------------------------//
-	public void setInternID(long pId) {
-		this.internID = pId;
-	}
-	
-	public void setAdessoID(long adessoID) {
-	    this.adessoID = adessoID;
-	}
-	
-	public void setOwnerGroupIdentifier(String ownerGroupIdentifier) {
-	    this.ownerGroupIdentifier = ownerGroupIdentifier;
-	}
-	
-	public void setAdessoStatus(String adessoStatus) {
-	    this.adessoStatus = adessoStatus;
-	}
+    public Address getAddress() {
+	return this.address;
+    }
 
-	public void setName(String n) {
-		this.name = n;
-	}
+    public List<Contract> getContracts() {
+	return this.contracts;
+    }
 
-	public void setDescription(String desc) {
-		this.description = desc;
-	}
+    public Organisation getOrganisation() {
+	return this.organisation;
+    }
 
-	public void setCreationDate(String creationDate) {
-		this.creationDate = creationDate;
-	}
+    public List<Role> getRoles() {
+	return roles;
+    }
 
-	public void setCompletionDate(String completionDate) {
-		this.completionDate = completionDate;
-	}
+    // ----------------------------//
+    // ---------- Setter ----------//
+    // ----------------------------//
+    public void setInternID(long pId) {
+	this.internID = pId;
+    }
 
-	public void setStatusObj(Status s) {
-		this.statusObj = s;
-	}
+    public void setAdessoID(long adessoID) {
+	this.adessoID = adessoID;
+    }
 
-	public void setOverallCosts(double oC) {
-		this.overallCosts = oC;
-	}
+    public void setOwnerGroupIdentifier(String ownerGroupIdentifier) {
+	this.ownerGroupIdentifier = ownerGroupIdentifier;
+    }
 
-	public void setImage(String img) {
-		this.image = img;
-	}
+    public void setAdessoStatus(String adessoStatus) {
+	this.adessoStatus = adessoStatus;
+    }
 
-	public void setImageType(String imgType) {
-		this.imageType = imgType;
-	}
+    public void setName(String n) {
+	this.name = n;
+    }
 
-	public void setImageFileName(String imgFileName) {
-		this.imageFileName = imgFileName;
-	}
+    public void setDescription(String desc) {
+	this.description = desc;
+    }
 
-	public void setAddress(Address a) {
-		this.address = a;
-	}
+    public void setCreationDate(String creationDate) {
+	this.creationDate = creationDate;
+    }
 
-	public void setContracts(List<Contract> cs) {
-		this.contracts = cs;
-	}
+    public void setCompletionDate(String completionDate) {
+	this.completionDate = completionDate;
+    }
 
-	public void setOrganisation(Organisation o) {
-		this.organisation = o;
-	}
+    public void setStatusObj(Status s) {
+	this.statusObj = s;
+    }
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
+    public void setOverallCosts(double oC) {
+	this.overallCosts = oC;
+    }
 
-	public void setCreator(String creator) {
-		this.creator = creator;
-	}
+    public void setImage(String img) {
+	this.image = img;
+    }
 
-	// ----------------------------//
-	// ---------- Misc ------------//
-	// ----------------------------//
+    public void setImageType(String imgType) {
+	this.imageType = imgType;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof Project) {
-			Project tmpProject = (Project) obj;
-			return tmpProject.getInternID() == this.internID;
-		}
-		return false;
+    public void setImageFileName(String imgFileName) {
+	this.imageFileName = imgFileName;
+    }
+
+    public void setAddress(Address a) {
+	this.address = a;
+    }
+
+    public void setContracts(List<Contract> cs) {
+	this.contracts = cs;
+    }
+
+    public void setOrganisation(Organisation o) {
+	this.organisation = o;
+    }
+
+    public void setRoles(List<Role> roles) {
+	this.roles = roles;
+    }
+
+    public void setCreator(String creator) {
+	this.creator = creator;
+    }
+
+    // ----------------------------//
+    // ---------- Misc ------------//
+    // ----------------------------//
+
+    @Override
+    public boolean equals(Object obj) {
+	if (obj instanceof Project) {
+	    Project tmpProject = (Project) obj;
+	    return tmpProject.getInternID() == this.internID;
 	}
+	return false;
+    }
 
 }

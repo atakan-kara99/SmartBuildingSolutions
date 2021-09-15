@@ -7,8 +7,8 @@ import org.springframework.data.repository.CrudRepository;
 import com.lms2ue1.sbsweb.backend.model.Organisation;
 import com.lms2ue1.sbsweb.backend.model.Role;
 
+public interface RoleRepository extends CrudRepository<Role, Long> {
+    List<Role> findByOrganisationOrderByNameAsc(Organisation o);
 
-public interface RoleRepository extends CrudRepository<Role, Long>{
-	List<Role> findByOrganisationOrderByNameAsc(Organisation o);
-	Role findByName(String name);
+    Role findByName(String name);
 }
