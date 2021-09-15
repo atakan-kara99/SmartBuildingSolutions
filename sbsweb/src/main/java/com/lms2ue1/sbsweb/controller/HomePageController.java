@@ -9,16 +9,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class HomePageController {
 
-    /** Shows the homepage. */
+
+    @GetMapping("/")
+    public String showDefaultPage(Model model) {
+        return "redirect:/index";
+    }
+    /**
+     * Shows the homepage.
+     */
     @GetMapping("/index")
     public String showHomePage(Model model) {
         return "index";
     }
 
-
-    /** This is a test */
-    @GetMapping("/home")
-    public String showCoverPage(Model model) {
-        return "home";
-    }
 }

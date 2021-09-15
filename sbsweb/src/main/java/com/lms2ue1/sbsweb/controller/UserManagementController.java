@@ -20,15 +20,6 @@ public class UserManagementController {
     @Autowired
     UserRepository userRepository;
 
-    // Note! We will need a proper backend so all of this works properly!
-
-    // This redirect will not work as of now. We will need the backend for this to work properly
-    @GetMapping("/")
-    public String showUserManagementRedirect(Model model) {
-        model.addAttribute("message", "Testnachricht");
-        return "redirect:/organisation/0/user_management";
-    }
-
     /** Shows an overview of <b> ALL </b> organisations' users. */
     @GetMapping("/organisation/{oID}/user_management")
     public String showUserList(@PathVariable Long oID, Model model) {
