@@ -14,7 +14,7 @@ body {
 }
 .nav-masthead .nav-link {
     padding: .25rem 50px;
-    font-weight: 700;
+    font-weight: 800;
     color: rgba(255, 255, 255, .5);
     background-color: transparent;
     border-bottom: .25rem solid white;
@@ -32,4 +32,7 @@ body {
 .nav-masthead .active {
     color: #fff;
     border-bottom-color: #fff;
+}
+.navbar-header .navbar-brand {
+    height: 100px;
 }
