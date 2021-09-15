@@ -11,7 +11,7 @@ import com.lms2ue1.sbsweb.backend.model.Role;
 public interface ContractRepository extends CrudRepository<Contract, Long> {
     List<Contract> findByRolesOrderByNameAsc(Role r);
 
-    Optional<Contract> findByName(String name);
+    Optional<Contract> findByNameIgnoreCase(String name);
 
     Optional<Contract> findByAdessoID(long adessoID);
 

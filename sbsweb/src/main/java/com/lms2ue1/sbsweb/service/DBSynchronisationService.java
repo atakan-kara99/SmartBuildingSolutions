@@ -57,7 +57,7 @@ public class DBSynchronisationService {
 	// Get all the dependencies:
 	for (Project currentProject : projectlist) {
 	    // Get every organisation.
-	    Organisation tmpOrga = orgaRepo.findByName(currentProject.getOwnerGroupIdentifier());
+	    Organisation tmpOrga = orgaRepo.findByNameIgnoreCase(currentProject.getOwnerGroupIdentifier());
 	    // Does this organisation already exist?
 	    if (tmpOrga == null) {
 		tmpOrga = new Organisation(currentProject.getOwnerGroupIdentifier());
@@ -66,7 +66,7 @@ public class DBSynchronisationService {
 	    currentProject.setOrganisation(tmpOrga);
 
 	    // Get every status.
-	    Status tmpStat = statRepo.findByName(currentProject.getAdessoStatus());
+	    Status tmpStat = statRepo.findByNameIgnoreCase(currentProject.getAdessoStatus());
 	    // Does this status already exist?
 	    if (tmpStat == null) {
 		tmpStat = new Status(currentProject.getAdessoStatus(), null);
@@ -84,7 +84,7 @@ public class DBSynchronisationService {
 
 	    // --------------------- Actually store everything!
 	    // Only save it, if it doesn't already exist:
-	    if (proRepo.findByName(currentProject.getName()).isEmpty()) {
+	    if (proRepo.findByNameIgnoreCase(currentProject.getName()).isEmpty()) {
 		proRepo.save(currentProject);
 	    }
 	    // TODO: What, if it already exists?
@@ -115,13 +115,13 @@ public class DBSynchronisationService {
 		    .orElseThrow(IllegalArgumentException::new));
 
 	    // Second: Let's set the organisations.
-	    Organisation contractor = orgaRepo.findByName(currentContract.getContractor());
+	    Organisation contractor = orgaRepo.findByNameIgnoreCase(currentContract.getContractor());
 	    if (contractor == null) {
 		contractor = new Organisation(currentContract.getContractor());
 		orgaRepo.save(contractor);
 	    }
 
-	    Organisation consignee = orgaRepo.findByName(currentContract.getConsignee());
+	    Organisation consignee = orgaRepo.findByNameIgnoreCase(currentContract.getConsignee());
 	    if (consignee == null) {
 		consignee = new Organisation(currentContract.getConsignee());
 		orgaRepo.save(consignee);
@@ -130,7 +130,7 @@ public class DBSynchronisationService {
 	    currentContract.setOrganizations(List.of(contractor, consignee));
 
 	    // Last, but not least, get the status:
-	    Status tmpStat = statRepo.findByName(currentContract.getAdessoStatus());
+	    Status tmpStat = statRepo.findByNameIgnoreCase(currentContract.getAdessoStatus());
 	    if (tmpStat == null) {
 		tmpStat = new Status(currentContract.getAdessoStatus(), null);
 		statRepo.save(tmpStat);
@@ -171,7 +171,7 @@ public class DBSynchronisationService {
 	    currentBillingUnit.setContract(tmpContract);
 
 	    // save the current billing unit
-	    if (billingItemRepo.findByAdessoID(currentBillingUnit.getAdessoID()).isEmpty()) {
+	    if (billingItemRepo.findByAdessoIDIgnoreCase(currentBillingUnit.getAdessoID()).isEmpty()) {
 		billingUnitRepo.save(currentBillingUnit);
 	    }
 	    // TODO: Merge!
@@ -195,7 +195,7 @@ public class DBSynchronisationService {
 
 	    /* set the status of the billing item */
 	    if (currentBillingItem.getAdessoStatus() != null) {
-		currentBillingItem.setStatusObj(statRepo.findByName(currentBillingItem.getAdessoStatus()));
+		currentBillingItem.setStatusObj(statRepo.findByNameIgnoreCase(currentBillingItem.getAdessoStatus()));
 	    }
 
 	    // ---- start the recursion for storing the sub billing items ----//

@@ -71,7 +71,7 @@ public class RoleContractsController {
             authException.printStackTrace();
         }
         // TODO Get user by name form BAP
-        model.addAttribute("user", userRepository.findByUsername(principal.getName()));
+        model.addAttribute("user", userRepository.findByUsernameIgnoreCase(principal.getName()));
         model.addAttribute("adminPrivileges", auth.isSysAdmin(principal.getName()) || auth.getOrgAdminID(principal.getName()) != null);
         model.addAttribute("organisation", organisation);
         model.addAttribute("role", role);

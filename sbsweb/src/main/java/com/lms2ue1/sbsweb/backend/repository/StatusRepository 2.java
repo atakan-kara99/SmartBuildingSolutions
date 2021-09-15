@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import com.lms2ue1.sbsweb.backend.model.Status;
 
 public interface StatusRepository extends CrudRepository<Status, Long> {
-    public Status findByNameIgnoreCase(String statusName);
+    public Status findByName(String statusName);
 
     public Status findById(long statusID);
 }

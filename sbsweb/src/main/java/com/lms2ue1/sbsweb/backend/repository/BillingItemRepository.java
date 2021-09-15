@@ -11,5 +11,5 @@ import com.lms2ue1.sbsweb.backend.model.Role;
 public interface BillingItemRepository extends CrudRepository<BillingItem, Long> {
     List<BillingItem> findByRoles(Role r);
 
-    Optional<BillingItem> findByAdessoID(String adessoID);
+    Optional<BillingItem> findByAdessoIDIgnoreCase(String adessoID);
 }

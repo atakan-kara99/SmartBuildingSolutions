@@ -43,7 +43,7 @@ public class AuthorisationCheck {
      * @return the associated role.
      */
     public Role getRole(String username) {
-	return userRepo.findByUsername(username).getRole();
+	return userRepo.findByUsernameIgnoreCase(username).getRole();
     }
 
     // TODO: Effizienter direkt nach dem bID zu suchen.

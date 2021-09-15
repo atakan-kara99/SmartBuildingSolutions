@@ -6,7 +6,5 @@ import com.lms2ue1.sbsweb.backend.model.User;
 
 public interface UserRepository extends CrudRepository<User, Long> {
     // Needed for the authentication.
-    User findByUsername(String username);
-
     User findByUsernameIgnoreCase(String username);
 }
