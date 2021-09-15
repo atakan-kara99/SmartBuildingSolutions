@@ -81,7 +81,7 @@ public class BillingItemController {
 	    return "billingitem/billing_item_new";
 	}
 	// Initial status
-	billingItem.setStatus(Status.NO_STATUS);
+//	billingItem.setStatus(); TODO
 
 	// TODO save using BAP once it's implemented
 	try {

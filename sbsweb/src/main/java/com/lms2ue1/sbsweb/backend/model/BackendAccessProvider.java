@@ -20,8 +20,6 @@ public class BackendAccessProvider {
     //////////////////////// Repositories ////////////////////////
 
     @Autowired
-    private AddressRepository addresses;
-    @Autowired
     private ProjectRepository projects;
     @Autowired
     private ContractRepository contracts;
@@ -327,13 +325,13 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public Address getAddressById(String username, Long addressId) throws AuthenticationException {
+   /* public Address getAddressById(String username, Long addressId) throws AuthenticationException {
         if (auth.checkAddress(username, addressId)) {
             return addresses.findById(addressId).orElseThrow(IllegalArgumentException::new);
         } else {
             throw new AuthenticationException();
         }
-    }
+    }*/
 
     /**
      * Returns the project with the given id.

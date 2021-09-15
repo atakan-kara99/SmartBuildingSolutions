@@ -1,35 +1,15 @@
 package com.lms2ue1.sbsweb.backend.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.Embeddable;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-@Entity
-@Table(name = "addresses")
+@Embeddable
 public class Address {
     // ---- Attributes ----//
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(updatable = false, unique = true)
-    private long id;
     private String street;
     private int houseNumber;
     private int zipCode;
     private String city;
     private String country;
-
-    // ---- Associations ----//
-    @JsonIgnore
-    @OneToOne(mappedBy = "address")
-    //@JoinColumn(name = "project_id")
-    private Project project;
 
     // ----------------------------------//
     // ---------- Constructors ----------//
@@ -59,10 +39,6 @@ public class Address {
     // ----------------------------//
     // ---------- Getter ----------//
     // ----------------------------//
-    public long getId() {
-	return this.id;
-    }
-
     public String getStreet() {
 	return this.street;
     }
@@ -83,18 +59,10 @@ public class Address {
 	return this.country;
     }
 
-    public Project getProject() {
-	return this.project;
-    }
-
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    public void setAddressId(long aId) {
-	this.id = aId;
-    }
-
-    public void setStreet(String s) {
+    protected void setStreet(String s) {
 	this.street = s;
     }
 
@@ -114,21 +82,16 @@ public class Address {
 	this.country = cntry;
     }
 
-    public void setProject(Project p) {
-	this.project = p;
-    }
-
     // ----------------------------//
     // ---------- Misc ------------//
     // ----------------------------//
 
-    @Override
+    /*@Override
     public boolean equals(Object obj) {
 	if (obj instanceof Address) {
 	    Address tmpAddress = (Address) obj;
 	    return tmpAddress.getId() == this.id;
 	}
 	return false;
-    }
-
+    }*/
 }

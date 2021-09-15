@@ -37,8 +37,8 @@ public class Role {
 	@JoinTable(name = "PROJECT_ROLES", joinColumns = { @JoinColumn(name = "ROLES_ID") }, inverseJoinColumns = {
 	            @JoinColumn(name = "PROJECTS_ID") })
 	private List<Project> projects;
+	@ManyToOne
     @JsonIgnore
-	@ManyToOne // (cascade = CascadeType.MERGE)
 	@JoinColumn(name = "organisation_id")
 	private Organisation organisation;
 	@OneToMany(mappedBy = "role")
@@ -53,6 +53,7 @@ public class Role {
 	@JoinTable(name = "BILLING_ITEM_ROLES", joinColumns = { @JoinColumn(name = "ROLES_ID") }, inverseJoinColumns = {
 	            @JoinColumn(name = "BILLING_ITEM_ID") })
 	private List<BillingItem> billingItems;
+	
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//

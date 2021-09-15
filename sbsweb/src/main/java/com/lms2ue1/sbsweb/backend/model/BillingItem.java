@@ -23,11 +23,9 @@ public class BillingItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private double price;
-    // @Column(unique = true) TODO sollte nicht sein
-    // Beispiel Schrauben kaufen für Heizung und für Herd. Oder in unterschiedlichen Verträgen
+    @Column(unique = true)
     private String name;
     private String shortDescription;
-    private Status status;
     private double quantities;
     private String unit;
     private double unitPrice;
@@ -35,17 +33,17 @@ public class BillingItem {
     private String shortDesLinkedIFC;
 
     // ---- Associations ----//
-    @JsonIgnore
     @ManyToOne // (cascade = { CascadeType.ALL }) tried w/ cascading
     @JoinColumn(name = "billing_unit_id")
     private BillingUnit billingUnit;
-    @JsonIgnore
     @Size(min = 2)
     @ManyToMany(mappedBy = "billingItems")
     private List<Role> roles;
     @OneToMany
     @JoinColumn(name = "sub_billing_item")
     private List<BillingItem> billingItems;
+    @ManyToOne
+    private Status status;
 
     // ----------------------------------//
     // ---------- Constructors ----------//
@@ -146,51 +144,51 @@ public class BillingItem {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    public void setId(long id) {
+    protected void setId(long id) {
 	this.id = id;
     }
 
-    public void setPrice(double p) {
+    protected void setPrice(double p) {
 	this.price = p;
     }
 
-    public void setShortDescription(String sDesc) {
+    protected void setShortDescription(String sDesc) {
 	this.shortDescription = sDesc;
     }
 
-    public void setStatus(Status s) {
+    protected void setStatus(Status s) {
 	this.status = s;
     }
 
-    public void setQuantities(double qs) {
+    protected void setQuantities(double qs) {
 	this.quantities = qs;
     }
 
-    public void setUnit(String u) {
+    protected void setUnit(String u) {
 	this.unit = u;
     }
 
-    public void setUnitPrice(double uP) {
+    protected void setUnitPrice(double uP) {
 	this.unitPrice = uP;
     }
 
-    public void setQtySplit(String qtySplit) {
+    protected void setQtySplit(String qtySplit) {
 	this.qtySplit = qtySplit;
     }
 
-    public void setShortDesLinkedIFC(String shortDesLinkedIFC) {
+    protected void setShortDesLinkedIFC(String shortDesLinkedIFC) {
 	this.shortDesLinkedIFC = shortDesLinkedIFC;
     }
 
-    public void setBillingUnit(BillingUnit bu) {
+    protected void setBillingUnit(BillingUnit bu) {
 	this.billingUnit = bu;
     }
 
-    public void setBillingItems(List<BillingItem> bis) {
+    protected void setBillingItems(List<BillingItem> bis) {
 	this.billingItems = bis;
     }
 
-    public void setRoles(List<Role> rs) {
+    protected void setRoles(List<Role> rs) {
 	this.roles = rs;
     }
 
@@ -205,13 +203,5 @@ public class BillingItem {
 	    return tmpBillItem.getId() == this.id;
 	}
 	return false;
-    }
-
-    @Override
-    public String toString() {
-	return "BillingItem [id=" + id + ", price=" + price + ", name=" + name + ", shortDescription="
-		+ shortDescription + ", status=" + status + ", quantities=" + quantities + ", unit=" + unit
-		+ ", unitPrice=" + unitPrice + ", qtySplit=" + qtySplit + ", shortDesLinkedIFC=" + shortDesLinkedIFC
-		+ ", billingUnit=" + billingUnit + ", roles=" + roles + ", billingItems=" + billingItems + "]";
     }
 }
