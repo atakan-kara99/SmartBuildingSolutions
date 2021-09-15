@@ -17,23 +17,29 @@
     <div class="container-fluid banner">
         <div class="row">
             <div class="col-md-12">
-                <nav class="navbar" th:fragment="navbar">
+<!--                navbar navbar-light bg-light-->
+                <nav class="nav nav-masthead justify-content-center" th:fragment="navbar">
                     <div class="navbar-brand">
                         Smart Building Solutions
                     </div>
                     <ul class="nav">
                         <th:block sec:authorize="isAuthenticated()">
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/home}">HOME</a>
+                            <a class="nav-link" th:href="@{#}">HOME</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/organisations}">PROJEKTE/VERTRÄGE</a>
-                        </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" th:href="@{#}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+                                    Dropdown
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" th:href="@{#}">Action</a></li>
+                                    <li><a class="dropdown-item" th:href="@{#}">Another action</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" th:href="@{#}">Something else here</a></li>
+                                </ul>
+                            </li>
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{#}">KONTAKT</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{#}">SUCHE</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-item nav-link" href="javascript:document.logoutForm.submit()">LOGOUT</a>
