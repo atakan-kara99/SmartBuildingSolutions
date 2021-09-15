@@ -102,22 +102,17 @@ public class AppAPIController {
     }
 
     /**
-     * Get mapping to recieve all organisations the requester should have access to
+     * Get mapping to recieve the requester's organisation
      * 
      * @param  requestHeader The request
-     * @return               All organisations the requester has access to or an error if the jwt is invalid
+     * @return               The requester's organisation or an error if the jwt is invalid
      */
-    @GetMapping("/api/organisations")
-    public List<Organisation> getOrganisation(@RequestHeader(name = "Authorization") String requestHeader) {
+    @GetMapping("/api/organisation")
+    public Organisation getOrganisation(@RequestHeader(name = "Authorization") String requestHeader) {
         try {
             String username = jwtSecurityService.getUsername(requestHeader.substring(7));
-            List<Organisation> organisations = backendAccessProvider.getAllOrganisations(username);
-            List<Organisation> organisationsToSend = new ArrayList<Organisation>();
-            for (Organisation organisation : organisations) {
-                // Only use necessary data
-                organisationsToSend.add(new Organisation(organisation.getName()));
-            }
-            return organisationsToSend;
+            Organisation organisation = backendAccessProvider.getAllRoles(username).get(0).getOrganisation();
+            return new Organisation(organisation.getName());
         } catch (SignatureException signatureException) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied", signatureException);
         }

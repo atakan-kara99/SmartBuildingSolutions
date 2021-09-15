@@ -23,10 +23,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, unique = true)
     private long id;
-    @JsonIgnore
     @NotEmpty
     private String forename;
-    @JsonIgnore
     @NotEmpty
     private String lastname;
     @NotEmpty
