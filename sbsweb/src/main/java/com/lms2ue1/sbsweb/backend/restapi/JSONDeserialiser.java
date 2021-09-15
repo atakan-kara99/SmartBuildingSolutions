@@ -59,5 +59,30 @@ public class JSONDeserialiser {
 	}
 
     }
+    
+    /**
+     * Fetch all the billing models of one given contract from the REST-API.
+     * 
+     * @param contractID = The given contracz
+     * @throws IOException
+     */
+    public void deserialiseBillingModelPerContract(long contractID) throws IOException {
+	TypeReference<BillingModel> refBillingModel = new TypeReference<BillingModel>() {
+	};
+
+	String json = restRetriever.fetchBillingModel(contractID);
+	
+	System.out.println(json);
+
+	// A project can have 0 contracts!!
+	if (!json.equals("{}")) {
+	    BillingModel billingModel = mapper.readValue(json, refBillingModel);
+	    
+	    System.out.println(billingModel);
+
+	    //dbUpdateService.saveContractList(listContracts);
+	}
+
+    }
 
 }

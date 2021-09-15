@@ -20,6 +20,9 @@ public class BillingModel {
     @JsonProperty("billingUnits")
     List<BillingUnit> billingUnits;
 
+    public BillingModel() {
+    }
+    
     public BillingModel(String currency, String ownContractDefined, double totalQuantity, double totalPrice,
 	    List<BillingUnit> billingUnits) {
 	super();
@@ -29,4 +32,45 @@ public class BillingModel {
 	this.totalPrice = totalPrice;
 	this.billingUnits = billingUnits;
     }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getOwnContractDefined() {
+        return ownContractDefined;
+    }
+
+    public void setOwnContractDefined(String ownContractDefined) {
+        this.ownContractDefined = ownContractDefined;
+    }
+
+    public double getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(double totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public List<BillingUnit> getBillingUnits() {
+        return billingUnits;
+    }
+
+    public void setBillingUnits(List<BillingUnit> billingUnits) {
+        this.billingUnits = billingUnits;
+    }
+    
 }

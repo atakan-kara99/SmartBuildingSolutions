@@ -18,7 +18,7 @@ import com.lms2ue1.sbsweb.backend.restapi.JSONDeserialiser;
 
 @Service
 public class DBSynchronisationService {
-    
+
     @Autowired
     JSONDeserialiser jsonDeserialiser;
 
@@ -38,13 +38,13 @@ public class DBSynchronisationService {
      * Save the new projects in the database.
      * 
      * @param projectlist = The given projects from the REST-API.
-     * @throws IOException 
+     * @throws IOException
      */
     public void saveProjectList(List<Project> projectlist) throws IOException {
 	if (projectlist == null) {
 	    throw new IllegalArgumentException("Save projectlist error: List is <null>");
 	}
-	
+
 	// Get all the dependencies:
 	for (Project currentProject : projectlist) {
 	    // Get every organisation.
@@ -72,19 +72,17 @@ public class DBSynchronisationService {
 		tmpStr = currentProject.getDescription().substring(0, 254);
 		currentProject.setDescription(tmpStr);
 	    }
-	    
+
 	    // --------------------- Actually store everything!
 	    // Only save it, if it doesn't already exist:
 	    if (proRepo.findByName(currentProject.getName()) == null) {
 		proRepo.save(currentProject);
 	    }
 	    // TODO: What, if it already exists?
-	    
-	    
+
 	    // --------------------- Now let's fetch everything else:
 	    jsonDeserialiser.deserialiseContractsPerProject(currentProject.getAdessoID());
-	    
-	    // TODO: Implement BillingItems and BillingUnits!
+
 	}
 
     }
@@ -93,8 +91,9 @@ public class DBSynchronisationService {
      * Save the contracts for each project.
      * 
      * @param contractList = All the contracts of one specific project.
+     * @throws IOException 
      */
-    public void saveContractList(List<Contract> contractList) {
+    public void saveContractList(List<Contract> contractList) throws IOException {
 	if (contractList == null) {
 	    throw new IllegalArgumentException("Save contractList error: List is <null>");
 	}
@@ -103,8 +102,7 @@ public class DBSynchronisationService {
 	for (Contract currentContract : contractList) {
 
 	    // First: Let's set the project.
-	    currentContract.setProject(
-		    proRepo.findByAdessoID(currentContract.getAdessoProjectId()));
+	    currentContract.setProject(proRepo.findByAdessoID(currentContract.getAdessoProjectId()));
 
 	    // Second: Let's set the organisations.
 	    Organisation contractor = orgaRepo.findByName(currentContract.getContractor());
@@ -120,7 +118,7 @@ public class DBSynchronisationService {
 	    }
 
 	    currentContract.setOrganizations(List.of(contractor, consignee));
-	    
+
 	    // Last, but not least, get the status:
 	    Status tmpStat = statRepo.findByName(currentContract.getAdessoStatus());
 	    if (tmpStat == null) {
@@ -135,13 +133,16 @@ public class DBSynchronisationService {
 		tmpStr = currentContract.getDescription().substring(0, 254);
 		currentContract.setDescription(tmpStr);
 	    }
-	    
+
 	    // --------------------- Actually store everything!
 	    // Only save it, if it doesn't already exist:
 	    if (conRepo.findByName(currentContract.getName()) == null) {
 		conRepo.save(currentContract);
 	    }
 	    // TODO: What, if it already exists?
+
+	    // --------------------- Now let's fetch everything else:
+	    jsonDeserialiser.deserialiseBillingModelPerContract(currentContract.getAdessoID());
 	}
     }
 }

@@ -28,9 +28,8 @@ public class Contract {
     @Column(updatable = false, unique = true)
     private long id;
 
-    /*
-     * @JsonProperty("id") private long adessoID;
-     */
+    @JsonProperty("id")
+    private long adessoID;
     @JsonProperty("name")
     @Column(unique = true)
     private String name;
@@ -110,6 +109,11 @@ public class Contract {
     // ----------------------------//
     // ---------- Getter ----------//
     // ----------------------------//
+    
+    public long getAdessoID() {
+        return adessoID;
+    }
+
     public long getAdessoProjectId() {
 	return adessoProjectId;
     }
@@ -118,7 +122,7 @@ public class Contract {
 	return statusObj;
     }
 
-    public Long getId() {
+    public Long getInternId() {
 	return this.id;
     }
 
@@ -161,6 +165,10 @@ public class Contract {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
+    public void setAdessoID(long adessoID) {
+        this.adessoID = adessoID;
+    }
+    
     public void setAdessoStatus(String adessoStatus) {
         this.adessoStatus = adessoStatus;
     }
@@ -169,7 +177,7 @@ public class Contract {
 	this.adessoProjectId = projectId;
     }
 
-    public void setId(Long id) {
+    public void setInternId(Long id) {
 	this.id = id;
     }
 
@@ -217,7 +225,7 @@ public class Contract {
     public boolean equals(Object obj) {
 	if (obj instanceof Contract) {
 	    Contract tmpContract = (Contract) obj;
-	    return tmpContract.getId() == this.id;
+	    return tmpContract.getInternId() == this.id;
 	}
 	return false;
     }

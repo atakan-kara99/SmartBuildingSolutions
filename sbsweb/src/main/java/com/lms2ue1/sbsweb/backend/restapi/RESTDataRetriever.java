@@ -14,7 +14,7 @@ public class RESTDataRetriever {
     /**
      * URL to connect to the adesso API.
      */
-    private final String API_URL = "http://localhost:3000/api/v1/";
+    private final String API_URL = "http://localhost:3000/api/v1";
 
     /**
      * Retrieve the wanted data from the REST API.
@@ -37,19 +37,15 @@ public class RESTDataRetriever {
     // ------------------------------------------------------//
 
     public String fetchProjects() throws IOException {
-	return retrieveData(API_URL + "project/list");
+	return retrieveData(API_URL + "/project/list");
     }
 
     public String fetchContracts(long projectID) throws IOException {
 	return retrieveData(API_URL + "/contracts/" + projectID);
     }
 
-    public String fetchBillingUnits(long contractID) throws IOException {
+    public String fetchBillingModel(long contractID) throws IOException {
 	return retrieveData(API_URL + "/billingmodel/loadAndParseForContractConfiguration?contractId=" + contractID);
-    }
-
-    public String fetchBillingItems(long contractID) throws IOException {
-	return retrieveData(API_URL + "/contractCompletion/all/:" + contractID);
     }
 
 }

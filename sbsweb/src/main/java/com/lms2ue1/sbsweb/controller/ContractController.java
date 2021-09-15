@@ -36,7 +36,7 @@ public class ContractController {
 	    model.addAttribute("project", BAP.getProjectById(username, pID));
 	    model.addAttribute("contract", BAP.getContractById(username, cID));
 	    List<BillingItem> billingItems = BAP.getAllBillingItems(username).stream()
-		    .filter(b -> b.getBillingUnit().getContract().getId() == cID)
+		    .filter(b -> b.getBillingUnit().getContract().getInternId() == cID)
 		    .collect(Collectors.toCollection(ArrayList::new));
 	    model.addAttribute("listOfStatus", listOfStatus);
 	    // Flattened list, keep only high level billing items
