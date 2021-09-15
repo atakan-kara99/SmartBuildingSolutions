@@ -13,8 +13,6 @@ import com.lms2ue1.sbsweb.backend.repository.*;
 public class DatabaseInitService {
 
 	@Autowired
-	AddressRepository addRepo;
-	@Autowired
 	UserRepository userRepo;
 	@Autowired
 	OrganisationRepository orgaRepo;
@@ -39,8 +37,8 @@ public class DatabaseInitService {
 			// ------------- Status ----------//
 			// -----------------------------//
 			Status s1 = new Status("OK", "everything finished", null);
-			Status s2 = new Status("OPEN","still in progress", s1);
-			Status s3 = new Status("NO Status", "waiting for starting", s2);
+			Status s2 = new Status("OPEN","still in progress", List.of(s1));
+			Status s3 = new Status("NO Status", "waiting for starting", List.of(s2));
 			
 			statRepo.save(s1);
 			statRepo.save(s2);
@@ -76,11 +74,11 @@ public class DatabaseInitService {
 			Address add3 = new Address("Nice Ave.", 3457, 15341, "New York", "Süd-Afrika");
 			Address add4 = new Address("Beim-dicken-Michi", 1, 98745, "Moskau", "Russland");
 
-			addRepo.save(add0);
+			/*addRepo.save(add0);
 			addRepo.save(add1);
 			addRepo.save(add2);
 			addRepo.save(add3);
-			addRepo.save(add4);
+			addRepo.save(add4);*/
 
 			// -----------------------------//
 			// ------------- Project -------//
@@ -95,13 +93,12 @@ public class DatabaseInitService {
 			proRepo.save(pro1);
 			proRepo.save(pro2);
 
-			Project pro3 = new Project("Schule sanieren", null, null, null, s3, 0, null, null, null, null, null,
-
+			Project pro3 = new Project("Schule sanieren", null, null, null, s3, 0, null, null, null, null, add4,
 					org0);
 			Project pro4 = new Project("Hausbau", "Haus an der Lindenallee 37 wird gebaut", "23.08.2021", "19.09.2021",
 					s2, 0, "AG Haustechnik", null, null, null, add1, org0);
 
-			Project pro5 = new Project("Feierabend XTREME", null, null, null, s1, 0, null, null, null, null, null,
+			Project pro5 = new Project("Feierabend XTREME", null, null, null, s1, 0, null, null, null, null, add1,
 					org0);
 			proRepo.saveAll(List.of(pro3, pro4, pro5));
 

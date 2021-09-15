@@ -1,6 +1,7 @@
 package com.lms2ue1.sbsweb.backend.model;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,7 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.Size;
 
 import java.util.List;
@@ -35,9 +35,7 @@ public class Project {
 	private String imageFileName;
 
 	// ------ Associations ------//
-	// TODO: Joined nicht! Join überprüfen!
-	@OneToOne // (cascade = {CascadeType.ALL}) try w/ cascading
-	@JoinColumn(name = "address_id")
+	@Embedded
 	private Address address;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "project", orphanRemoval = true)
