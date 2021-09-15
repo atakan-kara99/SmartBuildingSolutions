@@ -34,16 +34,16 @@
                             <td th:if="${row.count % cols == 0}">
                                 <a th:object="${billingItem.billingItems[row.index - x]}"
                                     th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{id} + '/show'}" class="icon-link">
-                                    <i class="bi bi-exclamation-circle" style="font-size: 300%; color: black;" th:title="*{name}"></i>
-                                    <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
+                                    <i class="bi bi-exclamation-circle" style="font-size: 300%;" th:title="*{name}"></i>
+                                    <span th:text="*{name}" style="font-size: 175%; display: block;"></span>
                                 </a>
                             </td>
                             <!-- Last row might not be full -->
                             <td th:if="${row.last and x < row.count % cols}">
                                 <a th:object="${billingItem.billingItems[row.index - x]}"
                                     th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{id} + '/show'}" class="icon-link">
-                                    <i class="bi bi-exclamation-circle" style="font-size: 300%; color: black;" th:title="*{name}"></i>
-                                    <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
+                                    <i class="bi bi-exclamation-circle" style="font-size: 300%;" th:title="*{name}"></i>
+                                    <span th:text="*{name}" style="font-size: 175%; display: block;"></span>
                                 </a>
                             </td>
                         </th:block>

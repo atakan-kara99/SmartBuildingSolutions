@@ -32,8 +32,8 @@
                             <!-- Full row -->
                             <td th:if="${row.count % cols == 0}" style="width: 25%">
                                 <a th:object="${projects[row.index - x]}" th:href="@{'/project/' + *{id} + '/show'}" class="icon-link">
-                                <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="*{name}"></i>
-                                    <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
+                                <i class="bi bi-archive" style="font-size: 300%;" th:title="*{name}"></i>
+                                    <span th:text="*{name}" style="font-size: 175%; display: block;"></span>
                                 </a>
                                     <div class="container" style="height: 30px; width: 70%">
                                       <canvas th:id="'pro'+ ${row.index - x}"></canvas>
@@ -44,8 +44,8 @@
                             <!-- Last row might not be full -->
                             <td th:if="${row.last and x < row.count % cols}"  style="width: 25%">
                                 <a th:object="${projects[row.index - x]}" th:href="@{'/project/' + *{id} + '/show'}" class="icon-link">
-                                  <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="*{name}"></i>
-                                    <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
+                                  <i class="bi bi-archive" style="font-size: 300%;" th:title="*{name}"></i>
+                                    <span th:text="*{name}" style="font-size: 175%; display: block;"></span>
                                 </a>
                                   <div class="container" style="height: 30px; width: 70%">
                                     <canvas th:id="'pro'+ ${row.index - x}"></canvas>
