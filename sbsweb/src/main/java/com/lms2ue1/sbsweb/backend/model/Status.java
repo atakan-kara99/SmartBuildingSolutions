@@ -111,4 +111,8 @@ public class Status {
 	this.billingItems = bis;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }
