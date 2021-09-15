@@ -129,7 +129,7 @@ public class AppAPIController {
     public ResponseEntity<?> updateBillingItemStatus(@RequestHeader(name = "Authorization") String requestHeader, @Valid StatusUpdate statusUpdate) {
         try {
             String username = jwtSecurityService.getUsername(requestHeader.substring(7));
-            backendAccessProvider.updateStatus(username, statusUpdate.id, statusUpdate.status);
+            backendAccessProvider.updateBillingItemStatus(username, statusUpdate.id, statusUpdate.status);
         } catch (Exception exception) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Access denied", exception);
         }
