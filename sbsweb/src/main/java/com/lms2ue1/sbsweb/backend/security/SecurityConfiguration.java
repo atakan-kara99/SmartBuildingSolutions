@@ -29,6 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 			.antMatchers("/h2-console/**").permitAll() // We can't get locked out.
+			.antMatchers("/index/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			//.antMatchers("/organisation_*/**")
