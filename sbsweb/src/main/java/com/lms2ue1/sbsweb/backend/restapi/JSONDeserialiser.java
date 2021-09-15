@@ -20,8 +20,9 @@ public class JSONDeserialiser {
 	@Autowired
 	RESTDataRetriever restRetriever;
 	@Autowired
-	DBSynchronisationService dbUpdateService;
+	DBSynchronisationService dbSyncService;
 	
+	// TODO: Wiederkehrend aufrufen!
 	@Bean
 	CommandLineRunner deserialiseProjects(DBSynchronisationService dbUpdateService) {
 		return args -> {
@@ -55,7 +56,7 @@ public class JSONDeserialiser {
 		if (!json.equals("{}")) {
 			List<Contract> listContracts = mapper.readValue(json, refContract);
 
-			dbUpdateService.saveContractList(listContracts);
+			dbSyncService.saveContractList(listContracts);
 		}
 
 	}
@@ -78,7 +79,8 @@ public class JSONDeserialiser {
 		if (!json.equals("{}")) {
 			BillingModel billingModel = mapper.readValue(json, refBillingModel);
 
-			for (BillingUnit bilUn : billingModel.getBillingUnits()) {
+			// TODO: DEBUGG!
+			/*for (BillingUnit bilUn : billingModel.getBillingUnits()) {
 				System.out.print("The current id of the billing unit is ");
 				System.out.println(bilUn.getAdessoID());
 				
@@ -86,9 +88,9 @@ public class JSONDeserialiser {
 					System.out.print("The current name of the billing item is ");
 					System.out.println(bilIt.getAdessoID());
 				}
-			}
+			}*/
 
-			dbUpdateService.saveBillingUnits(billingModel, contractID);
+			dbSyncService.saveBillingUnits(billingModel, contractID);
 		}
 
 	}

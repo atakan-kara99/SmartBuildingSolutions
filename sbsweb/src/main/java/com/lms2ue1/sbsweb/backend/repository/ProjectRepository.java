@@ -1,6 +1,7 @@
 package com.lms2ue1.sbsweb.backend.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -11,7 +12,7 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 	/* Should order by zip codes */
 	List<Project> findByRolesOrderByCompletionDateAsc(Project p);
 	
-	Project findByName(String name);
+	Optional<Project> findByName(String name);
 	
-	Project findByAdessoID(long adessoID);
+	Optional<Project> findByAdessoID(long adessoID);
 }
