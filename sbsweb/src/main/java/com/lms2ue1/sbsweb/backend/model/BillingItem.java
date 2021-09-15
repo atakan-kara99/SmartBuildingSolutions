@@ -23,10 +23,10 @@ public class BillingItem {
 	@Id
 	@Column(updatable = false, unique = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private long internId;
 	
 	@JsonProperty("id")
-	private long adessoID;
+	private String adessoID;
 	@JsonProperty("price")
 	private double price;
 	@JsonProperty("name")
@@ -110,8 +110,8 @@ public class BillingItem {
 	// ----------------------------//
 	// ---------- Getter ----------//
 	// ----------------------------//
-	public long getId() {
-		return this.id;
+	public long getInternId() {
+		return this.internId;
 	}
 
 	public double getPrice() {
@@ -161,8 +161,8 @@ public class BillingItem {
 	// ----------------------------//
 	// ---------- Setter ----------//
 	// ----------------------------//
-	protected void setId(long id) {
-		this.id = id;
+	protected void setInternId(long id) {
+		this.internId = id;
 	}
 
 	protected void setPrice(double p) {
@@ -217,9 +217,17 @@ public class BillingItem {
 	public boolean equals(Object obj) {
 		if (obj instanceof BillingItem) {
 			BillingItem tmpBillItem = (BillingItem) obj;
-			return tmpBillItem.getId() == this.id;
+			return tmpBillItem.getInternId() == this.internId;
 		}
 		return false;
+	}
+
+	public String getAdessoID() {
+	    return adessoID;
+	}
+
+	public void setAdessoID(String adessoID) {
+	    this.adessoID = adessoID;
 	}
 
 }

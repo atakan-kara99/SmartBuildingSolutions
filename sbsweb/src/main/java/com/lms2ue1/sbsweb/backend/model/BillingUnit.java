@@ -24,7 +24,7 @@ public class BillingUnit {
 	private long internID;
 	
 	@JsonProperty("id")
-	private long adessoID;
+	private String adessoID;
 	@JsonProperty("shortDescription")
 	private String shortDescription;
 	@JsonProperty("longDescription")
@@ -126,7 +126,7 @@ public class BillingUnit {
 		return this.billingItems;
 	}
 	
-	public long getAdessoID() {
+	public String getAdessoID() {
 	    return adessoID;
 	}
 
@@ -137,7 +137,7 @@ public class BillingUnit {
 		this.internID = id;
 	}
 
-	public void setAdessoID(long adessoID) {
+	public void setAdessoID(String adessoID) {
 	    this.adessoID = adessoID;
 	}
 

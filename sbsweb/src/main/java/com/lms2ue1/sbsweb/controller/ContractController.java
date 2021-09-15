@@ -45,8 +45,8 @@ public class ContractController {
 		BillingItem bill = billingItems.get(i);
 		for (int j = 0; j < billingItems.size(); j++) {
 		    if (j != i) {
-			long bID = billingItems.get(j).getId();
-			if (bill.getBillingItems().stream().anyMatch(b -> b.getId() == bID)) {
+			long bID = billingItems.get(j).getInternId();
+			if (bill.getBillingItems().stream().anyMatch(b -> b.getInternId() == bID)) {
 			    removes.add(j);
 			}
 		    }
