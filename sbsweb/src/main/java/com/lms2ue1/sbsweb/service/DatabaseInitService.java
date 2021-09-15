@@ -132,8 +132,8 @@ public class DatabaseInitService {
 	    // ------------------------------//
 	    // ------------- BillingItem ----//
 	    // ------------------------------//
-	    BillingItem billItem0 = new BillingItem("bill0", 0, null, null, 0, null, 0, null, null, billUnit0, null);
-	    BillingItem nested = new BillingItem("Schrauben kaufen", 0, "Sind leer.", null, 0, null, 0, null, null,
+	    BillingItem billItem0 = new BillingItem("bill0", 0, null, s1, 0, null, 0, null, null, billUnit0, null);
+	    BillingItem nested = new BillingItem("Schrauben kaufen", 0, "Sind leer.", s2, 0, null, 0, null, null,
 		    billUnit1, List.of());
 
 	    billItemRepo.save(billItem0);
