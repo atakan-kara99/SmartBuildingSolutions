@@ -29,11 +29,8 @@ public class Status {
 	@OneToMany(mappedBy = "statusObj")
 	private List<Contract> contracts;
 	@OneToMany(mappedBy = "status")
-	private List<BillingUnit> billingUnits;
-	@OneToMany(mappedBy = "status")
 	private List<BillingItem> billingItems;
 
-	// TODO: Liste!! ManyToMany
 	@OneToMany
 	@JoinColumn(name = "next_stati")
 	private List<Status> nextStati;
@@ -65,10 +62,6 @@ public class Status {
 		return this.name;
 	}
 
-	public List<BillingUnit> getBillingUnit() {
-		return this.billingUnits;
-	}
-
 	public List<BillingItem> getBillingItem() {
 		return this.billingItems;
 	}
@@ -86,10 +79,6 @@ public class Status {
 
 	public void setName(String n) {
 		this.name = n;
-	}
-
-	public void setBillingUnit(List<BillingUnit> bus) {
-		this.billingUnits = bus;
 	}
 	
 	public void setNextStati(List<Status> nextStati) {

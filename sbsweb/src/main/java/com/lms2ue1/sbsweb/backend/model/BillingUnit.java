@@ -12,19 +12,32 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
 @Entity
 public class BillingUnit {
 	// ---- Attributes ----//
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false, unique = true)
-	private long id;
+	private long internID;
+	
+	@JsonProperty("id")
+	private long adessoID;
+	@JsonProperty("shortDescription")
 	private String shortDescription;
+	@JsonProperty("longDescription")
 	private String longDescription;
+	@JsonProperty("unit")
 	private String unit;
+	@JsonProperty("completionDate")
 	private String completionDate;
+	@JsonProperty("ownContractDefined")
 	private String ownContractDefined;
+	@JsonProperty("totalQuantity")
 	private double totalQuantity;
+	@JsonProperty("totalPrice")
 	private double totalPrice;
 
 	// ---- Associations ----//
@@ -34,9 +47,9 @@ public class BillingUnit {
 	private Contract contract;
 	@Size(min = 1)
 	@OneToMany(mappedBy = "billingUnit", orphanRemoval = true)
+	@JsonProperty("billingItems")
+	@JsonUnwrapped
 	private List<BillingItem> billingItems;
-	@ManyToOne
-	private Status status;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
@@ -59,7 +72,7 @@ public class BillingUnit {
 	 * @param contract           = contract
 	 */
 	public BillingUnit(String sDesc, String lDesc, String unit, String completionDate, String ownContractDefined,
-			double totalQuantity, double totalPrice, Contract contract, Status status) {
+			double totalQuantity, double totalPrice, Contract contract) {
 		this.shortDescription = sDesc;
 		this.longDescription = lDesc;
 		this.unit = unit;
@@ -68,14 +81,13 @@ public class BillingUnit {
 		this.totalQuantity = totalQuantity;
 		this.totalPrice = totalPrice;
 		this.contract = contract;
-		this.status = status;
 	}
 
 	// ----------------------------//
 	// ---------- Getter ----------//
 	// ----------------------------//
-	public long getId() {
-		return this.id;
+	public long getInternId() {
+		return this.internID;
 	}
 
 	public String getShortDescription() {
@@ -113,47 +125,55 @@ public class BillingUnit {
 	public List<BillingItem> getBillingItems() {
 		return this.billingItems;
 	}
+	
+	public long getAdessoID() {
+	    return adessoID;
+	}
 
 	// ----------------------------//
 	// ---------- Setter ----------//
 	// ----------------------------//
-	protected void setId(long id) {
-		this.id = id;
+	public void setInternId(long id) {
+		this.internID = id;
 	}
 
-	protected void setShortDescription(String sDesc) {
+	public void setAdessoID(long adessoID) {
+	    this.adessoID = adessoID;
+	}
+
+	public void setOwnContractDefined(String ownContractDefined) {
+	    this.ownContractDefined = ownContractDefined;
+	}
+
+	public void setShortDescription(String sDesc) {
 		this.shortDescription = sDesc;
 	}
 
-	protected void setLongDescription(String lDesc) {
+	public void setLongDescription(String lDesc) {
 		this.longDescription = lDesc;
 	}
 
-	protected void setUnit(String u) {
+	public void setUnit(String u) {
 		this.unit = u;
 	}
 
-	protected void setCompletionDate(String cD) {
+	public void setCompletionDate(String cD) {
 		this.completionDate = cD;
 	}
 
-	protected void setownContractDefined(String oCD) {
-		this.ownContractDefined = oCD;
-	}
-
-	protected void setTotalQuantity(double tQ) {
+	public void setTotalQuantity(double tQ) {
 		this.totalQuantity = tQ;
 	}
 
-	protected void setTotalPrice(double tP) {
+	public void setTotalPrice(double tP) {
 		this.totalPrice = tP;
 	}
 
-	protected void setContract(Contract c) {
+	public void setContract(Contract c) {
 		this.contract = c;
 	}
 
-	protected void setBillingItems(List<BillingItem> bis) {
+	public void setBillingItems(List<BillingItem> bis) {
 		this.billingItems = bis;
 	}
 
@@ -165,7 +185,7 @@ public class BillingUnit {
 	public boolean equals(Object obj) {
 		if (obj instanceof BillingUnit) {
 			BillingUnit tmpBillUnit = (BillingUnit) obj;
-			return tmpBillUnit.getId() == this.id;
+			return tmpBillUnit.getInternId() == this.internID;
 		}
 		return false;
 	}
