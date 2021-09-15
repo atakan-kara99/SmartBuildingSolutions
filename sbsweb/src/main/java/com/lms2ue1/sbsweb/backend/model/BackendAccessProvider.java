@@ -165,7 +165,7 @@ public class BackendAccessProvider {
 	    oldUser.setUsername(updatedUser.getUsername());
 	    oldUser.setPassword(updatedUser.getPassword());
 	    oldUser.setRole(updatedUser.getRole());
-        users.save(updatedUser);
+        users.save(oldUser);
 	} else {
 	    throw new AuthenticationException();
 	}

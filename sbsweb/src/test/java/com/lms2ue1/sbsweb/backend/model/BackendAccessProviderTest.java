@@ -12,6 +12,8 @@ import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -103,7 +105,7 @@ public class BackendAccessProviderTest {
 	role1.setId(1L);
 	role2 = new Role("Handwerker", null, null, null, organisation2, false);
 	role2.setId(2L);
-	user1 = new User("Fritz", "Müller", null, "f.mueller", "fritzi");
+	user1 = new User("Fritz", "Mï¿½ller", null, "f.mueller", "fritzi");
 	user1.setId(1L);
 	user2 = new User("Hans", "Schulz", null, "hs", "hansss");
 	user2.setId(2L);
@@ -165,12 +167,30 @@ public class BackendAccessProviderTest {
 	verify(organisations, never()).deleteById(id2);
     }
 
-    @Test
-    public void testUpdateOrganisation() {
-	assertDoesNotThrow(() -> BAP.updateOrganisation(rootUsername, organisation1.getId(), organisation2),
-		"Root couldn't update the organisation!");
-	assertTrue(false); // TODO
-    }
+	@Test
+	public void testUpdateOrganisation() {
+		doAnswer(new Answer<Void>() {
+			@Override
+			public Void answer(InvocationOnMock invocation) throws Throwable {
+				Object[] args = invocation.getArguments();
+				if (args != null && args.length > 1 && args[0] != null && args[1] != null) {
+					organisation1 = (Organisation) args[0];
+					organisation1.setName(organisation2.getName());
+				}
+				return null;
+			}
+		}).when(organisations).save(organisation1);
+		assertDoesNotThrow(() -> BAP.updateOrganisation(rootUsername, organisation1.getId(), organisation2),
+				"Root couldn't update the organisation!");
+		verify(organisations).save(organisation1);
+	}
+
+	@Test
+	public void testFailUpdateOrganisation() {
+		assertThrows(AuthenticationException.class, () -> BAP.updateOrganisation(failUsername, organisation1.getId(), organisation2),
+				"Fail updated the organisation!");
+		verify(organisations, never()).save(organisation1);
+	}
 
     //// User
 
@@ -195,12 +215,34 @@ public class BackendAccessProviderTest {
 	verify(users, never()).deleteById(id2);
     }
 
-    @Test
-    public void testUpdateUser() {
-	// TODO
-//	BAP.updateUser(rootUsername, user1.getId(), user2);
-	assertTrue(false);
-    }
+	@Test
+	public void testUpdateUser() {
+		doAnswer(new Answer<Void>() {
+			@Override
+			public Void answer(InvocationOnMock invocation) throws Throwable {
+				Object [] args = invocation.getArguments();
+				if(args != null && args.length > 1 && args[0] != null && args[1] != null) {
+					user1 = (User) args[0];
+					user1.setForename(user2.getForename());
+					user1.setLastname(user2.getLastname());
+					user1.setUsername(user2.getUsername());
+					user1.setPassword(user2.getPassword());
+					user1.setRole(user2.getRole());
+
+				}
+				return null;
+			}
+		}).when(users).save(user1);
+		assertDoesNotThrow(() -> BAP.updateUser(rootUsername, user1.getId(), user2),
+				"Root couldn't update the user!");
+		verify(users).save(user1);
+	}
+	@Test
+	public void testFailUpdateUser() {
+		assertThrows(AuthenticationException.class, () -> BAP.updateUser(failUsername, user1.getId(), user2),
+				"Fail updated the user!");
+		verify(users, never()).save(user1);
+	}
 
     //// Role
 
@@ -227,10 +269,34 @@ public class BackendAccessProviderTest {
 
     @Test
     public void testUpdateRole() {
-	// TODO
-//	BAP.updateRole(rootUsername, role1.getId(), role2);
-	assertTrue(false);
+		doAnswer(new Answer<Void>() {
+			@Override
+			public Void answer(InvocationOnMock invocation) throws Throwable {
+				Object [] args = invocation.getArguments();
+				if(args != null && args.length > 1 && args[0] != null && args[1] != null) {
+					role1 = (Role) args[0];
+					role1.setName(role2.getName());
+					role1.setManageUser(role2.isManageUser());
+					role1.setName(role2.getName());
+					role1.setProjects(role2.getProjects());
+					role1.setContracts(role2.getContracts());
+					role1.setBillingItems(role2.getBillingItems());
+
+				}
+				return null;
+			}
+		}).when(roles).save(role1);
+		assertDoesNotThrow(() -> BAP.updateRole(rootUsername, role1.getId(), role2),
+				"Root couldn't update the role!");
+		verify(roles).save(role1);
     }
+
+	@Test
+	public void testFailUpdateRole() {
+		assertThrows(AuthenticationException.class, () -> BAP.updateRole(failUsername, role1.getId(), role2),
+				"Fail updated the role!");
+		verify(roles, never()).save(role1);
+	}
 
     //// Get by ID
 
