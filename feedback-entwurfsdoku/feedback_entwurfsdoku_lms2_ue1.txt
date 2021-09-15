@@ -1,0 +1,66 @@
+#####################
+## GRUPPE LMS2-UE1 ##
+#####################
+
+EINLEITUNG
+----------
+
+* gute und ausführliche Auflistung der Software, 
+
+TEAM AUFTEILUNG
+---------------
+
+* OK
+
+KOMPONENTENDIAGRAMME
+--------------------
+
+* Abb 3.1 (Backend):
+    * Provides / Requires falsch verwendet bei Data und Management. Hier wird nicht Datenfluss dargestellt, sondern die Aufrufbeziehung.
+    * Das Interface WebIn verstehe ich nicht (vermutlich s.o.)
+    
+* Abb 3.2 (Webserver):    
+    * Provides / Requires s.o.
+    * generell sehr feingranular, ich bin mir nicht sicher dass sich diese Struktur nachher tatsächlich in der Implementierung wiederfindet
+    * Diagramm ist aber sehr übersichtlich, Ports und interne Interfaces wurden gut umgesetzt
+    * unklar, warum hier eine spezielle Komponente für die App vorgesehen ist - die EntwicklerInnen der Web-Komponente sollten sich ja über
+      speziell die Android-App keine Gedanken machen müssen.
+      
+* Abb 3.3 (App):
+    * Provides / Requires s.o.
+      
+
+VERTEILUNGSDIAGRAMM
+-------------------
+
+* Wollt ihr wirklich einen Tomcat auf eurem Server installieren oder verwendet ihr Docker?
+* Den Tomcat braucht ihr hier nicht explizit, ihr verwendet vermutlich den in Spring integrierten Tomcat, oder?
+* Ich glaube nicht, dass die Komponenten hier wirklich alle Artefakte werden, das wären zB getrennt jar/war files.
+* ansonsten OK, inkl. Kardinalitäten
+
+KLASSENDIAGRAMME
+----------------
+
+* Assoziationen nicht benannt, was zu einigen unklarheiten führt (siehe PDF)
+* Warum hat ein User immer mindestens zwei Rollen?
+* Modellierung von Status bzw. Statusänderungen etc. fehlt
+* im Wesentlichen ok, kleinere Ungereimtheiten (siehe pdf)
+
+SEQUENZDIAGRAMME
+----------------
+
+* 6.1 Verstehe ich nicht
+  * Wer ist hier der Akteur? Wodurch wird der Prozess gestartet?
+  * Vor allem: sychronizeDatabase() wird einmal aufgrufen, aber sychronizeData wird dann alle 60 Sekunden wiederholt?
+* 6.2 
+  * sehr schön und ausführlich, gute Verwendung von Alternativen
+  * Was passiert in den Aufrufen 2.1.3.1 und 2.1.3.2?  
+* 6.3
+  * ist inhaltlich eher ein Screenflow-Diagramm
+
+ZUSAMMENFASSUNG
+---------------
+
+* Im Wesentlichen gut, bis auf kleinere Unklarheiten und die falsche Verwendung von Provides / Requires bei den Komponentendiagrammen.
+* Note: 1,7
+
