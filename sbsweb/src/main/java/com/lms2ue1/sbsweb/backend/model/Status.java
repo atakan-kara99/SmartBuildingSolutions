@@ -2,6 +2,7 @@ package com.lms2ue1.sbsweb.backend.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +18,7 @@ public class Status {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotEmpty
+    @Column(unique = true)
     private String name;
     private String description;
 
@@ -113,6 +115,6 @@ public class Status {
 
     @Override
     public String toString() {
-        return name;
+	return name;
     }
 }

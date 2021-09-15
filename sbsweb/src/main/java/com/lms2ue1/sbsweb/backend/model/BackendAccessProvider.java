@@ -788,11 +788,21 @@ public class BackendAccessProvider {
     }
 
     /**
+     * Returns all stati as a list of strings. Order not specified. A status is
+     * converted to string using only its name.
+     * 
+     * @return all stati as a list of strings.
+     */
+    public List<String> getAllStatiAsStrings() {
+	return getAllStati().stream().map(s -> s.getName()).collect(Collectors.toList());
+    }
+
+    /**
      * Returns all stati as a JSON list. Order not specified.
      * 
      * @return all stati as a JSON list.
      */
-    public String getAllStatusAsJSON() {
-	return "[" + String.join(", ", getAllStati().stream().map(s -> s.getName()).collect(Collectors.toList())) + "]";
+    public String getAllStatiAsJSON() {
+	return "[" + String.join(", ", getAllStatiAsStrings()) + "]";
     }
 }
