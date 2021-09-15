@@ -36,13 +36,12 @@ public class DatabaseInitService {
 	    // -----------------------------//
 	    // ------------- Status ----------//
 	    // -----------------------------//
-	    Status s1 = new Status("OK", "everything finished", null);
-	    Status s2 = new Status("OPEN", "still in progress", List.of(s1));
-	    Status s3 = new Status("NO Status", "waiting for starting", List.of(s2));
+	    Status s1 = new Status("OK", "Client has approved", null);
+	    Status s2 = new Status("DENY", "Client has denied", null);
+	    Status s3 = new Status("OPEN", "Ready to be reviewed", List.of(s1, s2));
+	    Status s4 = new Status("NO_STATUS", "No status assigned yet", List.of(s3));
 
-	    statRepo.save(s1);
-	    statRepo.save(s2);
-	    statRepo.save(s3);
+	    statRepo.saveAll(List.of(s1, s2, s3, s4));
 
 	    // -----------------------------//
 	    // ------------- Orga ----------//
@@ -83,18 +82,18 @@ public class DatabaseInitService {
 	    // ------------- Project -------//
 	    // -----------------------------//
 	    Project pro0 = new Project("pro0", null, null, null, s1, 0, "root", null, null, null, add0, org0);
-	    Project pro1 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01", s3,
+	    Project pro1 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01", s4,
 		    234578900, "Die den anderen Turm auch gemacht haben", null, null, null, add3, org3);
-	    Project pro2 = new Project("Berliner Flughafen xD", "Morgen ist es soweit", "2010-12-28", "2015-01-01", s2,
+	    Project pro2 = new Project("Berliner Flughafen xD", "Morgen ist es soweit", "2010-12-28", "2015-01-01", s3,
 		    1300500000, "Nicht die vom Burj Khalifa", null, null, null, add2, org5);
 
 	    proRepo.save(pro0);
 	    proRepo.save(pro1);
 	    proRepo.save(pro2);
 
-	    Project pro3 = new Project("Schule sanieren", null, null, null, s3, 0, null, null, null, null, add4, org0);
+	    Project pro3 = new Project("Schule sanieren", null, null, null, s4, 0, null, null, null, null, add4, org0);
 	    Project pro4 = new Project("Hausbau", "Haus an der Lindenallee 37 wird gebaut", "23.08.2021", "19.09.2021",
-		    s2, 0, "AG Haustechnik", null, null, null, add1, org0);
+		    s3, 0, "AG Haustechnik", null, null, null, add1, org0);
 
 	    Project pro5 = new Project("Feierabend XTREME", null, null, null, s1, 0, null, null, null, null, add1,
 		    org0);
@@ -103,10 +102,10 @@ public class DatabaseInitService {
 	    // ------------------------------//
 	    // ------------- Contract -------//
 	    // ------------------------------//
-	    Contract con0 = new Contract("con0", null, s3, null, null, organisations, pro0);
+	    Contract con0 = new Contract("con0", null, s4, null, null, organisations, pro0);
 	    Contract con1 = new Contract("Vertrag für das neue Fenster", "auf nachfrage", s1, "Jörg", "Peter",
 		    organisations1, pro1);
-	    Contract con2 = new Contract("Haus-Restaurierung", "eilauftrag", s3, "Microsoft INC", "Apple INC",
+	    Contract con2 = new Contract("Haus-Restaurierung", "eilauftrag", s4, "Microsoft INC", "Apple INC",
 		    organisations2, pro2);
 
 	    conRepo.save(con0);
@@ -116,8 +115,8 @@ public class DatabaseInitService {
 	    Contract con3 = new Contract("Wohnzimmer bauen", "Sachen m�ssen erledigt werden", s1, null, null, null,
 		    pro4);
 	    Contract con4 = new Contract("Küche installieren", null, s1, null, null, null, pro4);
-	    Contract con5 = new Contract("Baby beruhigen", null, s3, null, null, null, pro4);
-	    Contract con6 = new Contract("Kosten klein halten", null, s2, null, null, null, pro4);
+	    Contract con5 = new Contract("Baby beruhigen", null, s4, null, null, null, pro4);
+	    Contract con6 = new Contract("Kosten klein halten", null, s3, null, null, null, pro4);
 	    conRepo.saveAll(List.of(con3, con4, con5, con6));
 
 	    // ------------------------------//
@@ -143,7 +142,7 @@ public class DatabaseInitService {
 	    BillingItem billItem1 = new BillingItem("Heizung montieren", 0, "Heizkörper B7-2 fensternah einbauen.", s1,
 		    0, null, 0, null, null, billUnit1, null);
 
-	    BillingItem billItem2 = new BillingItem("Fenster einbauen", 0, null, s3, 0, null, 0, null, null, billUnit1,
+	    BillingItem billItem2 = new BillingItem("Fenster einbauen", 0, null, s4, 0, null, 0, null, null, billUnit1,
 		    List.of(nested));
 	    billItemRepo.saveAll(List.of(billItem1, billItem2));
 
