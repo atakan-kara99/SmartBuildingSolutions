@@ -75,25 +75,41 @@ public class BackendAccessProviderTest {
 	when(auth.getOrgAdminID(failUsername)).thenReturn(null);
 
 	organisation1 = new Organisation("Fritz Mï¿½ller GmbH");
+	organisation1.setId(1L);
 	organisation2 = new Organisation("Fritz Mï¿½ller-Schulz GmbH");
+	organisation2.setId(2L);
 	address1 = new Address("Main Street", 1337, 14, "NY City", "Deutschland");
+	address1.setAddressId(1L);
 	address2 = new Address("2nd Street", 42, 15, "GBR City", "France");
+	address1.setAddressId(2L);
 	project1 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01", Status.OK,
 		234578900, "Die den anderen Turm auch gemacht haben", null, null, null, address1, organisation1);
+	project1.setId(1L);
 	project2 = new Project("Berliner Flughafen xD", "Morgen ist es soweit", "2010-12-28", "2015-01-01", Status.OPEN,
 		1300500000, "Nicht die vom Burj Khalifa", null, null, null, address2, organisation2);
+	project2.setId(2L);
 	contract1 = new Contract("Baby beruhigen", "Es schreit.", Status.NO_STATUS, "Nanny", "Mutter", List.of(),
 		project1);
+	contract1.setId(1L);
 	contract2 = new Contract("Kosten klein halten", "Teuer", null, null, null, List.of(organisation2), project2);
+	contract2.setId(2L);
 	billingUnit1 = new BillingUnit("sd", null, "kg", "1973", "2001", 2.1, 7, contract1);
+	billingUnit1.setId(1L);
 	billingUnit2 = new BillingUnit("sssdad", null, "ï¿½", "15999", "2201", 1, 0, contract2);
+	billingUnit2.setId(2L);
 	billingItem1 = new BillingItem("Heizung montieren", 2, "Heizko B7-2 fensternah einbauen.", Status.OPEN, 0, null,
 		7, null, null, billingUnit1, null);
+	billingItem1.setId(1L);
 	billingItem2 = new BillingItem("Fenster einbauen", 0, null, null, 99, null, 0, null, null, billingUnit2, null);
+	billingItem2.setId(2L);
 	role1 = new Role("Bauherr", List.of(), List.of(), List.of(), organisation1, false);
+	role1.setId(1L);
 	role2 = new Role("Handwerker", null, null, null, organisation2, false);
+	role2.setId(2L);
 	user1 = new User("Fritz", "Müller", null, "f.mueller", "fritzi");
+	user1.setId(1L);
 	user2 = new User("Hans", "Schulz", null, "hs", "hansss");
+	user2.setId(2L);
     }
 
     @AfterEach
@@ -139,8 +155,12 @@ public class BackendAccessProviderTest {
 
     @Test
     public void testAddUser() {
-//	BAP.addUser(rootUsername, user1);
+	assertDoesNotThrow(() -> BAP.addUser(rootUsername, user1),
+		"Root couldn't add the user!");
 	verify(users).save(user1);
+	assertThrows(AuthenticationException.class, () -> BAP.addUser(failUsername, user2),
+		"Fail added the user!");
+	verify(users, never()).save(user2);
     }
 
     @Test
