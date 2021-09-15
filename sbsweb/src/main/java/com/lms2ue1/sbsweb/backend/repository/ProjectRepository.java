@@ -12,4 +12,6 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 	List<Project> findByRolesOrderByCompletionDateAsc(Project p);
 	
 	Project findByName(String name);
+	
+	Project findByAdessoID(long adessoID);
 }

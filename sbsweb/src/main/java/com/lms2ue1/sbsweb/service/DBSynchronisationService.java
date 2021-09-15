@@ -104,7 +104,7 @@ public class DBSynchronisationService {
 
 	    // First: Let's set the project.
 	    currentContract.setProject(
-		    proRepo.findById(currentContract.getId()).orElseThrow(IllegalArgumentException::new));
+		    proRepo.findByAdessoID(currentContract.getAdessoProjectId()));
 
 	    // Second: Let's set the organisations.
 	    Organisation contractor = orgaRepo.findByName(currentContract.getContractor());
@@ -115,8 +115,8 @@ public class DBSynchronisationService {
 
 	    Organisation consignee = orgaRepo.findByName(currentContract.getConsignee());
 	    if (consignee == null) {
-		contractor = new Organisation(currentContract.getConsignee());
-		orgaRepo.save(contractor);
+		consignee = new Organisation(currentContract.getConsignee());
+		orgaRepo.save(consignee);
 	    }
 
 	    currentContract.setOrganizations(List.of(contractor, consignee));

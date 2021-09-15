@@ -30,10 +30,12 @@ public class JSONDeserialiser {
 
 	    String json = restRetriever.fetchProjects();
 
-	    List<Project> listProjects = mapper.readValue(json, refProject);
+	    if (!json.equals("{}")) {
+		List<Project> listProjects = mapper.readValue(json, refProject);
 
-	    // In here: We will fetch everything else!
-	    dbUpdateService.saveProjectList(listProjects);
+		// In here: We will fetch everything else!
+		dbUpdateService.saveProjectList(listProjects);
+	    }
 	};
     }
 
@@ -48,11 +50,11 @@ public class JSONDeserialiser {
 	};
 
 	String json = restRetriever.fetchContracts(projectID);
-	
+
 	// A project can have 0 contracts!!
 	if (!json.equals("{}")) {
 	    List<Contract> listContracts = mapper.readValue(json, refContract);
-	    
+
 	    dbUpdateService.saveContractList(listContracts);
 	}
 

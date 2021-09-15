@@ -41,7 +41,7 @@ public class RESTDataRetriever {
     }
 
     public String fetchContracts(long projectID) throws IOException {
-	return retrieveData(API_URL + "/contracts/:" + projectID);
+	return retrieveData(API_URL + "/contracts/" + projectID);
     }
 
     public String fetchBillingUnits(long contractID) throws IOException {

@@ -1,6 +1,6 @@
 version: "3"
 services:
   bim-mock:
-    image: sapza/bimcontracts-kiel-mock:v1
+    image: sapza/bimcontracts-kiel-mock:latest
     ports:
       - "3000:3000"
