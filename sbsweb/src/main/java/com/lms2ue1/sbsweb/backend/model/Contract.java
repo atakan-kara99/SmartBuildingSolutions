@@ -20,8 +20,6 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 @Entity
 public class Contract {
 
-    // A few adaptations to make the data model actually work (nka).
-
     // ---- Attributes ----//
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -76,6 +74,7 @@ public class Contract {
      * 
      * @param name          = name
      * @param description   = description
+     * @param status        = status
      * @param consignee     = consignee
      * @param contructor    = contructor
      * @param organisations = organisations

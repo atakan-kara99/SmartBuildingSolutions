@@ -17,7 +17,6 @@ import java.util.List;
 @JsonIgnoreProperties
 @Entity
 public class Organisation {
-
     // ---- Attributes ----//
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

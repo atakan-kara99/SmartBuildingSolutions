@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
@@ -30,19 +31,23 @@ public class Role {
     private boolean manageUser;
 
     // ---- Associations ----//
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "PROJECT_ROLES", joinColumns = { @JoinColumn(name = "ROLES_ID") }, inverseJoinColumns = {
 	    @JoinColumn(name = "PROJECTS_ID") })
     private List<Project> projects;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "organisation_id")
     private Organisation organisation;
     @OneToMany(mappedBy = "role")
     private List<User> users;
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "CONTRACT_ROLES", joinColumns = { @JoinColumn(name = "ROLES_ID") }, inverseJoinColumns = {
 	    @JoinColumn(name = "CONTRACT_ID") })
     private List<Contract> contracts;
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "BILLING_ITEM_ROLES", joinColumns = { @JoinColumn(name = "ROLES_ID") }, inverseJoinColumns = {
 	    @JoinColumn(name = "BILLING_ITEM_ID") })

@@ -13,8 +13,6 @@ import com.lms2ue1.sbsweb.backend.repository.*;
 public class DatabaseInitService {
 
     @Autowired
-    StatusRepository addRepo;
-    @Autowired
     UserRepository userRepo;
     @Autowired
     OrganisationRepository orgaRepo;
@@ -51,5 +49,4 @@ public class DatabaseInitService {
 	    statRepo.saveAll(List.of(ok, deny, open, noStatus, planned));
 	}
     }
-
 }

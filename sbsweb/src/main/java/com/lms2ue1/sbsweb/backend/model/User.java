@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @JsonIgnoreProperties
 @Entity
@@ -27,6 +28,7 @@ public class User {
     @NotEmpty
     @Column(unique = true)
     private String username;
+    @JsonIgnore
     @NotEmpty
     private String password;
 

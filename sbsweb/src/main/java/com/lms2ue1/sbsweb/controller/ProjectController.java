@@ -35,15 +35,12 @@ public class ProjectController {
     @Autowired
     private BackendAccessProvider BAP;
 
-    // List of temp stati for overview
-    List<String> listOfStatus1 = List.of("OK", "OK", "NO_STATUS", "OPEN", "OPEN", "DENY", "OPEN", "OK", "OK", "OK",
-	    "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK", "OK", "DENY", "OK", "OK", "NO_STATUS", "OPEN", "OPEN", "DENY",
-	    "OPEN", "OK", "OK", "OK", "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK", "OK", "DENY", "OK", "OK",
-	    "NO_STATUS", "OPEN", "OPEN", "DENY", "OPEN", "OK", "OK", "OK", "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK",
-	    "OK", "DENY", "OK", "OK", "NO_STATUS", "OPEN", "OPEN", "DENY", "OPEN", "OK", "OK", "OK", "NO_STATUS", "OK",
-	    "OK", "OK", "OPEN", "OK", "OK", "DENY", "OK", "OK", "NO_STATUS", "OPEN", "OPEN", "DENY", "OPEN", "OK", "OK",
-	    "OK", "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK", "OK", "DENY", "OK", "OK", "NO_STATUS", "OPEN", "OPEN",
-	    "DENY", "OPEN", "OK", "OK", "OK", "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK", "OK", "DENY");
+    // List of temp stati
+    List<String> listOfStatus = List.of("OK", "OK", "NO_STATUS", "OPEN", "OPEN", "DENY", "OPEN", "OK", "OK", "OK",
+	    "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK", "OK", "DENY");
+    
+    //List of list of status
+    List<List<String>> listOfListOfStatus = List.of(listOfStatus,listOfStatus,listOfStatus,listOfStatus,listOfStatus,listOfStatus);
 
     /** Shows an overview of all projects. */
     @GetMapping("/project_overview")
@@ -51,16 +48,12 @@ public class ProjectController {
 	try {
 	    String username = principal.getName();
 	    model.addAttribute("projects", BAP.getAllProjects(username));
-	    model.addAttribute("listOfStatus", listOfStatus1);
+	    model.addAttribute("listOfListOfStatus", listOfListOfStatus);
 	    return "project/project_overview";
 	} catch (IllegalArgumentException e) {
 	    return "error";
 	}
     }
-
-    // List of temp stati
-    List<String> listOfStatus2 = List.of("OK", "OK", "NO_STATUS", "OPEN", "OPEN", "DENY", "OPEN", "OK", "OK", "OK",
-	    "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK", "OK", "DENY");
 
     /** Shows the specified project's details, e.g. its contracts. */
     @GetMapping("/project/{pID}/show")
@@ -72,7 +65,7 @@ public class ProjectController {
 	    List<Contract> contracts = BAP.getAllContracts(username);
 	    model.addAttribute("contracts", contracts.stream().filter(contract -> contract.getProject().getInternID() == pID)
 		    .collect(Collectors.toList()));
-	    model.addAttribute("listOfStatus", listOfStatus2);
+	    model.addAttribute("listOfListOfStatus", listOfListOfStatus);
 	    return "project/project_details";
 	} catch (AuthenticationException | IllegalArgumentException e) {
 	    return "error";

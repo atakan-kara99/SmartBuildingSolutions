@@ -91,5 +91,4 @@ public class Address {
     public void setCountry(String cntry) {
 	this.country = cntry;
     }
-
 }

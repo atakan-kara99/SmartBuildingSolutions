@@ -30,6 +30,7 @@ dependencies {
 	implementation 'org.springframework.session:spring-session-core'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
     implementation group: 'org.json', name: 'json', version: '20210307'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

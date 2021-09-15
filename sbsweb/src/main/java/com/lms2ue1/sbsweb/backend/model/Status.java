@@ -2,6 +2,7 @@ package com.lms2ue1.sbsweb.backend.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -40,7 +41,7 @@ public class Status {
     }
 
     /**
-     * 
+     * The status of a project, contract or billing item
      * 
      * @param name
      * @param description
@@ -59,6 +60,14 @@ public class Status {
 
     public String getName() {
 	return this.name;
+    }
+
+    public List<Project> getProject() {
+	return this.projects;
+    }
+
+    public List<Contract> getContract() {
+	return this.contracts;
     }
 
     public List<BillingItem> getBillingItem() {
@@ -80,6 +89,14 @@ public class Status {
 	this.name = n;
     }
 
+    public void setProject(List<Project> ps) {
+	this.projects = ps;
+    }
+
+    public void setContract(List<Contract> cs) {
+	this.contracts = cs;
+    }
+
     public void setNextStati(List<Status> nextStati) {
 	this.nextStati = nextStati;
     }
@@ -87,5 +104,9 @@ public class Status {
     public void setBillingItem(List<BillingItem> bis) {
 	this.billingItems = bis;
     }
-
+    
+    @Override
+    public String toString() {
+	return name;
+    }
 }

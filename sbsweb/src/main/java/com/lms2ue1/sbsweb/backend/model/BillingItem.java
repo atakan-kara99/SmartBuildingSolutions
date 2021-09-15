@@ -226,7 +226,7 @@ public class BillingItem {
     public void setAdessoStatus(String adessoStatus) {
 	this.adessoStatus = adessoStatus;
     }
-
+    
     // ----------------------------//
     // ---------- Misc ------------//
     // ----------------------------//

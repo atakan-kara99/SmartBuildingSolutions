@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 import com.lms2ue1.sbsweb.backend.model.*;
 import com.lms2ue1.sbsweb.backend.repository.*;
 
-@Component
 /**
  * This class provides predicates to say, whether a user is allowed to do
  * something.
  */
+@Component
 public class AuthorisationCheck {
 
     private AuthorisationCheck() {
@@ -33,9 +33,6 @@ public class AuthorisationCheck {
     private BillingItemRepository billItemRepo;
     @Autowired
     private BillingUnitRepository billUnitRepo;
-    /*
-     * @Autowired private AddressRepository addRepo;
-     */
 
     // ---------- Misc ------------- //
 
@@ -140,24 +137,10 @@ public class AuthorisationCheck {
 	 * .contains(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::
 	 * new));
 	 */
-	return getRole(username).getBillingItems().stream()
+	return isSysAdmin(username) || getRole(username).getBillingItems().stream()
 		.map(bi -> flattenBillingItemsList(new ArrayList<BillingItem>(), bi)).flatMap(List::stream)
 		.anyMatch(bi -> bi.equals(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::new)));
     }
-
-    /**
-     * Is the given user allowed to do anything with the address?
-     * 
-     * @param username = the user, who wants to work with it.
-     * @param aID      = the given address.
-     * @return true = yes, the user is. false = no, the user isn't.
-     */
-    /*
-     * @Deprecated public boolean checkAddress(String username, long aID) { // Has
-     * the user the permission to see the project? Project project =
-     * addRepo.findById(aID).orElseThrow(IllegalArgumentException::new).getProject()
-     * ; return checkProject(username, project.getId()); }
-     */
 
     // ---------- User management ------------- //
 
