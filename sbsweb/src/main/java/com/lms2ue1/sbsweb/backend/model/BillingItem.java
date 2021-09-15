@@ -58,6 +58,7 @@ public class BillingItem {
 	@OneToMany
 	@JoinColumn(name = "sub_billing_item")
 	private List<BillingItem> billingItems;
+	// TODO: adessoStatus?
 	@JsonUnwrapped
 	@ManyToOne
 	private Status status;
