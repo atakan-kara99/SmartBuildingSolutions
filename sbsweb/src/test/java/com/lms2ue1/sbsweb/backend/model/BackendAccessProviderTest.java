@@ -67,13 +67,10 @@ public class BackendAccessProviderTest {
     private String failUsername = null;
 
     @BeforeEach
-    public void initFields() {
+    public void init() {
 	closeable = MockitoAnnotations.openMocks(this);
-	when(auth.isSysAdmin(rootUsername)).thenReturn(true);
-	when(auth.isSysAdmin(failUsername)).thenReturn(false);
-	when(auth.getOrgAdminID(rootUsername)).thenReturn(0L);
-	when(auth.getOrgAdminID(failUsername)).thenReturn(null);
-
+	
+	// Initialize fields
 	organisation1 = new Organisation("Fritz M�ller GmbH");
 	organisation1.setId(1L);
 	organisation2 = new Organisation("Fritz M�ller-Schulz GmbH");
@@ -110,6 +107,34 @@ public class BackendAccessProviderTest {
 	user1.setId(1L);
 	user2 = new User("Hans", "Schulz", null, "hs", "hansss");
 	user2.setId(2L);
+
+	// Standard mock behavior
+	when(auth.isSysAdmin(rootUsername)).thenReturn(true);
+	when(auth.isSysAdmin(failUsername)).thenReturn(false);
+	when(auth.isAdmin(rootUsername)).thenReturn(true);
+	when(auth.isAdmin(failUsername)).thenReturn(false);
+	when(auth.getOrgAdminID(rootUsername)).thenReturn(0L);
+	when(auth.getOrgAdminID(failUsername)).thenReturn(null);
+	when(auth.canManageUser(rootUsername, user1.getId())).thenReturn(true);
+	when(auth.canManageUser(rootUsername, user2.getId())).thenReturn(true);
+	when(auth.canManageUser(failUsername, user1.getId())).thenReturn(false);
+	when(auth.canManageUser(failUsername, user2.getId())).thenReturn(false);
+	when(organisations.findById(organisation1.getId())).thenReturn(Optional.of(organisation1));
+	when(organisations.findById(organisation2.getId())).thenReturn(Optional.of(organisation2));
+	when(addresses.findById(address1.getId())).thenReturn(Optional.of(address1));
+	when(addresses.findById(address2.getId())).thenReturn(Optional.of(address2));
+	when(projects.findById(project1.getId())).thenReturn(Optional.of(project1));
+	when(projects.findById(project2.getId())).thenReturn(Optional.of(project2));
+	when(contracts.findById(contract1.getId())).thenReturn(Optional.of(contract1));
+	when(contracts.findById(contract2.getId())).thenReturn(Optional.of(contract2));
+	when(billingUnits.findById(billingUnit1.getId())).thenReturn(Optional.of(billingUnit1));
+	when(billingUnits.findById(billingUnit2.getId())).thenReturn(Optional.of(billingUnit2));
+	when(billingItems.findById(billingItem1.getId())).thenReturn(Optional.of(billingItem1));
+	when(billingItems.findById(billingItem2.getId())).thenReturn(Optional.of(billingItem2));
+	when(roles.findById(role1.getId())).thenReturn(Optional.of(role1));
+	when(roles.findById(role2.getId())).thenReturn(Optional.of(role2));
+	when(users.findById(user1.getId())).thenReturn(Optional.of(user1));
+	when(users.findById(user2.getId())).thenReturn(Optional.of(user2));
     }
 
     @AfterEach
@@ -130,18 +155,14 @@ public class BackendAccessProviderTest {
     }
 
     @Test
-    public void testRemoveOrganisationRoot() {
-	Long id = organisation1.getId();
-	assertDoesNotThrow(() -> BAP.removeOrganisation(rootUsername, id), "Root couldn't remove the organisation!");
-	verify(organisations).deleteById(id);
-    }
-
-    @Test
-    public void testRemoveOrganisationFail() {
-	Long id = organisation2.getId();
-	assertThrows(AuthenticationException.class, () -> BAP.removeOrganisation(failUsername, id),
+    public void testRemoveOrganisation() {
+	Long id1 = organisation1.getId();
+	assertDoesNotThrow(() -> BAP.removeOrganisation(rootUsername, id1), "Root couldn't remove the organisation!");
+	verify(organisations).deleteById(id1);
+	Long id2 = organisation2.getId();
+	assertThrows(AuthenticationException.class, () -> BAP.removeOrganisation(failUsername, id2),
 		"Fail removed the organisation!");
-	verify(organisations, never()).deleteById(id);
+	verify(organisations, never()).deleteById(id2);
     }
 
     @Test
@@ -165,8 +186,13 @@ public class BackendAccessProviderTest {
 
     @Test
     public void testRemoveUser() {
-//	BAP.removeUser(rootUsername, user1.getId());
-	verify(users).deleteById(user1.getId());
+	Long id1 = user1.getId();
+	assertDoesNotThrow(() -> BAP.removeUser(rootUsername, id1), "Root couldn't remove the user!");
+	verify(users).deleteById(id1);
+	Long id2 = user2.getId();
+	assertThrows(AuthenticationException.class, () -> BAP.removeUser(failUsername, id2),
+		"Fail removed the user!");
+	verify(users, never()).deleteById(id2);
     }
 
     @Test
@@ -180,14 +206,23 @@ public class BackendAccessProviderTest {
 
     @Test
     public void testAddRole() {
-//	BAP.addRole(rootUsername, role1);
+	assertDoesNotThrow(() -> BAP.addRole(rootUsername, role1),
+		"Root couldn't add the role!");
 	verify(roles).save(role1);
+	assertThrows(AuthenticationException.class, () -> BAP.addRole(failUsername, role2),
+		"Fail added the role!");
+	verify(roles, never()).save(role2);
     }
 
     @Test
     public void testRemoveRole() {
-//	BAP.removeRole(rootUsername, role1.getId());
-	verify(roles).deleteById(role1.getId());
+	Long id1 = role1.getId();
+	assertDoesNotThrow(() -> BAP.removeRole(rootUsername, id1), "Root couldn't remove the role!");
+	verify(roles).deleteById(id1);
+	Long id2 = role2.getId();
+	assertThrows(AuthenticationException.class, () -> BAP.removeRole(failUsername, id2),
+		"Fail removed the role!");
+	verify(roles, never()).deleteById(id2);
     }
 
     @Test

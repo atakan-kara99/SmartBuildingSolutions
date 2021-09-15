@@ -113,7 +113,7 @@ public class BackendAccessProvider {
     public void addUser(String username, User newUser) throws AuthenticationException {
         if (newUser == null) {
             throw new IllegalArgumentException();
-        } else if (users.findByUsernameIgnoreCase(username) == null) {
+        } else if (users.findByUsernameIgnoreCase(username) != null) {
             throw new IllegalArgumentException("username is already taken!");
         }
 
