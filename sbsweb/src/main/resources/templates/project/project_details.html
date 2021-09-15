@@ -55,7 +55,7 @@
             <tr th:each="_, row : ${contracts}" th:if="${row.count % cols == 0 or row.last}">
               <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
                 <!-- Full row -->
-                <td th:if="${row.count % cols == 0}"  style="width: 25%">
+                <td th:if="${row.count % cols == 0}"  style="width: 25%; background-color: rgba(0, 0, 0, 0);">
                   <a th:object="${contracts[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + *{id} + '/show'}" class="icon-link">
                       <i class="bi bi-book" style="font-size: 300%;" th:title="*{name}"></i>
                       <span th:text="*{name}" style="font-size: 175%; display: block;"></span>
@@ -67,7 +67,7 @@
                   <label th:id="'label'+${row.index - x}"></label>
                 </td>
                 <!-- Last row might not be full -->
-                <td th:if="${row.last and x < row.count % cols}"  style="width: 25%">
+                <td th:if="${row.last and x < row.count % cols}"  style="width: 25%; background-color: rgba(0, 0, 0, 0);">
                   <a th:object="${contracts[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + *{id} + '/show'}" class="icon-link">
                     <i class="bi bi-book" style="font-size: 300%;" th:title="*{name}"></i>
                     <span th:text="*{name}" style="font-size: 175%; display: block;"></span>

@@ -51,7 +51,7 @@
           <tr th:each="_, row : ${billingItems}" th:if="${row.count % cols == 0 or row.last}">
             <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
               <!-- Full row -->
-              <td th:if="${row.count % cols == 0}" style="width: 25%">
+              <td th:if="${row.count % cols == 0}" style="width: 25%; background-color: rgba(0, 0, 0, 0);">
                 <a th:object="${billingItems[row.index - x]}"
                     th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{id} + '/show'}" class="icon-link">
                     <i class="bi bi-exclamation-circle" style="font-size: 300%;" th:title="*{name}"></i>
@@ -64,7 +64,7 @@
                 <label th:id="'label'+${row.index - x}"></label>
                 </td>
                 <!-- Last row might not be full -->
-                <td th:if="${row.last and x < row.count % cols}" style="width: 25%">
+                <td th:if="${row.last and x < row.count % cols}" style="width: 25%; background-color: rgba(0, 0, 0, 0);">
                   <a th:object="${billingItems[row.index - x]}"
                     th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{id} + '/show'}" class="icon-link">
                     <i class="bi bi-exclamation-circle" style="font-size: 300%;" th:title="*{name}"></i>
