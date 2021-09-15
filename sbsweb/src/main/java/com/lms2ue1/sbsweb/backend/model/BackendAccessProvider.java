@@ -271,7 +271,7 @@ public class BackendAccessProvider {
         }
     }
 
-    //////// BillingItem status
+    //////// BillingItem
 
     /**
      * Updates a billing item's status.
@@ -284,6 +284,36 @@ public class BackendAccessProvider {
      */
     public void updateStatus(String username, Long billingItemId, Status newStatus) {
         // TODO
+    }
+
+    /**
+     * Adds a new billing item.
+     * 
+     * @param  username                 the username of the user requesting this operation.
+     * @param  newBilling               the billing item to add.
+     * @throws AuthenticationException  if the user has insufficient rights.
+     * @throws IllegalArgumentException if the operation failed.
+     */
+    public void addBillingItem(String username, BillingItem newBillingItem) throws AuthenticationException {
+	if (newBillingItem == null) {
+            throw new IllegalArgumentException();
+        }
+
+        boolean canSave = false;
+        if (auth.isSysAdmin(username)) {
+            canSave = true;
+        } else {
+            Long oID = auth.getOrgAdminID(username);
+            if (oID != null && newBillingItem.getBillingUnit().getContract().getProject().getOrganisation().getId() == oID.longValue()) {
+                canSave = true;
+            } else {
+                throw new AuthenticationException();
+            }
+        }
+
+        if (canSave) {
+            billingItems.save(newBillingItem);
+        }
     }
 
     //////////////////////// Getters per id ////////////////////////
@@ -400,13 +430,18 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public User getUserById(String username, Long userId) throws AuthenticationException {
-	User user = users.findById(userId).orElseThrow(IllegalArgumentException::new);
+	User userToGet = users.findById(userId).orElseThrow(IllegalArgumentException::new);
+	User userRequesting = users.findByUsernameIgnoreCase(username);
+	if (userRequesting == null) {
+	    throw new IllegalArgumentException();
+	}
+	
 	if (auth.canManageUser(username, userId)) {
 	    // Sys- or OrgAdmin
-	    return user;
-	} else if (userId != null && user.getId() == userId.longValue()) {
+	    return userToGet;
+	} else if (userId != null && userRequesting.getId() == userId.longValue()) {
 	    // User
-	    return user;
+	    return userToGet;
 	} else {
 	    throw new AuthenticationException();
 	}
@@ -422,10 +457,15 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public Role getRoleById(String username, Long roleId) throws AuthenticationException {
+	User userRequesting = users.findByUsernameIgnoreCase(username);
+	if (userRequesting == null) {
+	    throw new IllegalArgumentException();
+	}
+	
         if (auth.isSysAdmin(username)) {
             // Allmighty SysAdmin
             return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
-        } else if (users.findByUsername(username).getRole().getId() == roleId) {
+        } else if (userRequesting.getRole().getId() == roleId) {
             // View own role
             return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
         }

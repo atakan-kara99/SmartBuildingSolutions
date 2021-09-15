@@ -76,23 +76,23 @@ public class Organisation {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    protected void setId(long id) {
+    public void setId(long id) {
 	this.id = id;
     }
 
-    protected void setName(String n) {
+    public void setName(String n) {
 	this.name = n;
     }
 
-    protected void setProjects(List<Project> p) {
+    public void setProjects(List<Project> p) {
 	this.projects = p;
     }
 
-    protected void setRoles(List<Role> r) {
+    public void setRoles(List<Role> r) {
 	this.roles = r;
     }
 
-    protected void setContracts(List<Contract> c) {
+    public void setContracts(List<Contract> c) {
 	this.contracts = c;
     }
 
