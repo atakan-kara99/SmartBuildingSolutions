@@ -2,8 +2,18 @@
 var sizeOfAllStatus = 0;
 //counter of how many okay for overview
 var okOverview = 0;
-
 var projects = [];
+
+//Darkmode color
+var color;
+var borderColorDM;
+if (darkMode) {
+  borderColorDM = Chart.defaults.color;
+  color = "#ffffff";
+} else {
+  color = Chart.defaults.color;
+    borderColorDM = "#ffffff";
+}
 
 //calculate diffrent datasets.
 //not to confuse with another diffrent data variable
@@ -11,7 +21,6 @@ function createData() {
 
   //counting the frequency of stati
   for (i = 0; i < listLength; i++) {
-    console.log(i);
 
     var ok = 0;
     var n = listOfListOfStatus[i].length;
@@ -29,20 +38,23 @@ function createData() {
 
       //create multiple charts for the diffrent projects
 
-      var datasets = [{
+      var datasets = [
+        {
           label: "OK",
           data: [ok],
           backgroundColor: [
-            "#56d798"
+            "#00c384"
           ],
+          borderColor: borderColorDM,
           borderWidth: 1
         },
         {
           label: "Andere",
           data: [n - ok],
           backgroundColor: [
-            "#ff8397"
+            "#fc6d6d"
           ],
+          borderColor: borderColorDM,
           borderWidth: 1
         }
       ];
@@ -98,38 +110,36 @@ if (listLength > 0) {
   //Auf den canvas referenzieren
   var overview = document.getElementById("diagram").getContext('2d');
 
-  var color;
-
-  if (darkMode) {
-    color = "#ffffff";
-  } else {
-    color = Chart.defaults.color;
-  }
-
   var overviewChart =
     new Chart(overview, {
       type: "doughnut",
       //calculated beforehand
       data: {
-        labels: ["OK", "andere"],
+        labels: ["Andere", "OK"],
         datasets: [{
           label: "Fortschritt",
-          data: [okOverview, sizeOfAllStatus - okOverview],
+          data: [sizeOfAllStatus - okOverview, okOverview],
           backgroundColor: [
-            "#56d798",
-            "#ff8397"
+            "#fc6d6d",
+            "#00c384"
           ],
+          borderColor: borderColorDM,
           borderWidth: 1
         }]
       },
       options: {
         plugins: {
           legend: {
+            reverse: true,
             labels: {
               color: color
+            },
+            onClick:
+              function (e) {
+                e.stopPropagation();
+              }
             }
-          }
-        },
+          },
         responsive: true,
         maintainAspectRatio: false
       }

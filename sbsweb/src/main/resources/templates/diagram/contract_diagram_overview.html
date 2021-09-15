@@ -56,8 +56,9 @@
     <script th:inline="javascript">
       //Daten von users holen
       var listOfStatus = /*[[${listOfStatus}]]*/ "listOfStatus";
-      var labels = /*[[${labels}]]*/ "labels";
-      var name = /*[[${contract.name}]]*/ "name";
+      var labels       = /*[[${labels}]]*/ "labels";
+      var name         = /*[[${contract.name}]]*/ "name";
+      var darkMode     = /*[[${session.darkmodeEnabled}]]*/ "darkMode";
     </script>
     <script type="text/javascript " defer th:src="@{/js/createDiagram.js} "></script>
 
