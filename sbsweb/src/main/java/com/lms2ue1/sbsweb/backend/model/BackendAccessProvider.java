@@ -400,13 +400,18 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public User getUserById(String username, Long userId) throws AuthenticationException {
-	User user = users.findById(userId).orElseThrow(IllegalArgumentException::new);
+	User userToGet = users.findById(userId).orElseThrow(IllegalArgumentException::new);
+	User userRequesting = users.findByUsernameIgnoreCase(username);
+	if (userRequesting == null) {
+	    throw new IllegalArgumentException();
+	}
+	
 	if (auth.canManageUser(username, userId)) {
 	    // Sys- or OrgAdmin
-	    return user;
-	} else if (userId != null && user.getId() == userId.longValue()) {
+	    return userToGet;
+	} else if (userId != null && userRequesting.getId() == userId.longValue()) {
 	    // User
-	    return user;
+	    return userToGet;
 	} else {
 	    throw new AuthenticationException();
 	}
@@ -422,10 +427,15 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public Role getRoleById(String username, Long roleId) throws AuthenticationException {
+	User userRequesting = users.findByUsernameIgnoreCase(username);
+	if (userRequesting == null) {
+	    throw new IllegalArgumentException();
+	}
+	
         if (auth.isSysAdmin(username)) {
             // Allmighty SysAdmin
             return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
-        } else if (users.findByUsername(username).getRole().getId() == roleId) {
+        } else if (userRequesting.getRole().getId() == roleId) {
             // View own role
             return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
         }
