@@ -33,6 +33,7 @@ public class Status {
 	@OneToMany(mappedBy = "status")
 	private List<BillingItem> billingItems;
 
+	// TODO: Liste!! ManyToMany
 	@OneToOne
 	@JoinColumn(name = "next_status")
 	private Status nextStatus;

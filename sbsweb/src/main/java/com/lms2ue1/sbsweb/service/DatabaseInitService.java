@@ -45,9 +45,10 @@ public class DatabaseInitService {
 	    Status ok = new Status("OK", null);
 	    Status deny = new Status("DENY", ok);
 	    Status open = new Status("OPEN", deny);
-	    Status noStatus = new Status("NO_STATUS", open);
+	    Status planned = new Status("PLANNED", open);
+	    Status noStatus = new Status("NO_STATUS", planned);
 	    
-	    statRepo.saveAll(List.of(ok, deny, open, noStatus));
+	    statRepo.saveAll(List.of(ok, deny, open, noStatus, planned));
 	}
     }
 

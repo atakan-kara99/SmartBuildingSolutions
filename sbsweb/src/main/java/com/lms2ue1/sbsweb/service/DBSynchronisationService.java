@@ -41,6 +41,10 @@ public class DBSynchronisationService {
      * @throws IOException 
      */
     public void saveProjectList(List<Project> projectlist) throws IOException {
+	if (projectlist == null) {
+	    throw new IllegalArgumentException("Save projectlist error: List is <null>");
+	}
+	
 	// Get all the dependencies:
 	for (Project currentProject : projectlist) {
 	    // Get every organisation.
@@ -61,6 +65,7 @@ public class DBSynchronisationService {
 	    }
 	    currentProject.setStatusObj(tmpStat);
 
+	    // TODO: Überarbeiten!
 	    // Some descriptions are too long:
 	    String tmpStr;
 	    if (currentProject.getDescription().length() > 255) {
@@ -68,18 +73,18 @@ public class DBSynchronisationService {
 		currentProject.setDescription(tmpStr);
 	    }
 	    
-	    // --------------------- Now let's fetch everything else:
-	    jsonDeserialiser.deserialiseContractsPerProject(currentProject.getAdessoID());
-	    
-	    // TODO: Implement BillingItems and BillingUnits!
-
-	    
 	    // --------------------- Actually store everything!
 	    // Only save it, if it doesn't already exist:
 	    if (proRepo.findByName(currentProject.getName()) == null) {
 		proRepo.save(currentProject);
 	    }
 	    // TODO: What, if it already exists?
+	    
+	    
+	    // --------------------- Now let's fetch everything else:
+	    jsonDeserialiser.deserialiseContractsPerProject(currentProject.getAdessoID());
+	    
+	    // TODO: Implement BillingItems and BillingUnits!
 	}
 
     }
@@ -90,13 +95,16 @@ public class DBSynchronisationService {
      * @param contractList = All the contracts of one specific project.
      */
     public void saveContractList(List<Contract> contractList) {
+	if (contractList == null) {
+	    throw new IllegalArgumentException("Save contractList error: List is <null>");
+	}
 
 	// Get all the dependencies:
 	for (Contract currentContract : contractList) {
 
 	    // First: Let's set the project.
 	    currentContract.setProject(
-		    proRepo.findById(currentContract.getAdessoProjectId()).orElseThrow(IllegalArgumentException::new));
+		    proRepo.findById(currentContract.getId()).orElseThrow(IllegalArgumentException::new));
 
 	    // Second: Let's set the organisations.
 	    Organisation contractor = orgaRepo.findByName(currentContract.getContractor());

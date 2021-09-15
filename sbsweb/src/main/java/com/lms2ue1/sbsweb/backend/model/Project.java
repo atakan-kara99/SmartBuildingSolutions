@@ -46,7 +46,6 @@ public class Project {
 	@JsonProperty("ownerGroupIdentifier")
 	private String ownerGroupIdentifier;
 
-	// TODO: Status überarbeiten!
 	@JsonProperty("status")
 	private String adessoStatus;
 	// -- These attributes are not important for our use. --//
