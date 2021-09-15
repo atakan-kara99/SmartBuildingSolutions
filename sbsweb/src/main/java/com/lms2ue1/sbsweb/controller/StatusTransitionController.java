@@ -43,8 +43,10 @@ public class StatusTransitionController {
 	if (!auth.isSysAdmin(username)) {
 	    return "error";
 	}
+	Status status = BAP.getStatusById(sID);
 	model.addAttribute("sID", sID);
-	model.addAttribute("status", BAP.getStatusById(sID));
+	model.addAttribute("status", status);
+	model.addAttribute("nextStati", status.getNextStati());
 	model.addAttribute("allStati", BAP.getAllStati());
 	model.addAttribute("standardStatus", BAP.isStandardStatusById(sID));
 	return "status/status_details";
@@ -62,30 +64,50 @@ public class StatusTransitionController {
 	return "status/status_new";
     }
 
-    /** Tries to save the new status. */
+    /**
+     * Tries to save the new status.
+     * 
+     * @throws AuthenticationException
+     */
     @PostMapping("/status_save")
-    public String addNewStatus(@Valid Status status, BindingResult bindingResult, Principal principal, Model model) {
+    public String addNewStatus(@Valid Status status, BindingResult bindingResult, Principal principal, Model model)
+	    throws AuthenticationException {
 	String username = principal.getName();
 	if (!auth.isSysAdmin(username)) {
 	    return "error";
 	} else if (bindingResult.hasErrors()) {
 	    model.addAttribute("status", status);
 	    return "status/status_new";
+	} else if (BAP.getStatusByName(status.getName()) != null) {
+	    throw new IllegalArgumentException("Status with name " + status.getName() + " already exists!");
 	}
 
-	try {
-	    BAP.addStatus(username, status);
-	} catch (AuthenticationException | IllegalArgumentException e) {
-	    model.addAttribute("status", status);
-	    return "status/status_new";
-	}
+	BAP.addStatus(username, status);
 	return "redirect:/status_overview";
     }
     
-    /** Tries to delete the chosen status. 
-     * @throws AuthenticationException */
+    /** Shows the form to edit a status. */
+    @GetMapping("/status/{sID}/status_edit")
+    public String showEditStatusForm(@PathVariable long sID, Principal principal, Model model) {
+	String username = principal.getName();
+	if (!auth.isSysAdmin(username)) {
+	    return "error";
+	}
+	model.addAttribute("sID", sID);
+	model.addAttribute("status", BAP.getStatusById(sID));
+	model.addAttribute("allStati", BAP.getAllStati());
+	model.addAttribute("currentTransitions", BAP.getStatusById(sID).getNextStati());
+	return "status/status_edit";
+    }
+
+    /**
+     * Tries to delete the chosen status.
+     * 
+     * @throws AuthenticationException
+     */
     @GetMapping("/status/{sID}/status_delete")
-    public String deleteStatus(@PathVariable long sID, Principal principal, Model model) throws AuthenticationException {
+    public String deleteStatus(@PathVariable long sID, Principal principal, Model model)
+	    throws AuthenticationException {
 	String username = principal.getName();
 	if (!auth.isSysAdmin(username)) {
 	    return "error";
@@ -94,5 +116,25 @@ public class StatusTransitionController {
 	}
 	BAP.removeStatus(username, sID);
 	return "redirect:/status_overview";
+    }
+    
+    /**
+     * Tries to update the status.
+     * 
+     * @throws AuthenticationException
+     */
+    @PostMapping("/status/{sID}/status_update")
+    public String updateStatus(@PathVariable long sID, @Valid Status status, BindingResult bindingResult, Principal principal, Model model)
+	    throws AuthenticationException {
+	String username = principal.getName();
+	if (!auth.isSysAdmin(username)) {
+	    return "error";
+	} else if (bindingResult.hasErrors()) {
+	    model.addAttribute("status", status);
+	    return "status/status_edit";
+	}
+
+	BAP.updateStatus(username, sID, status);
+	return "redirect:/status/{sID}/show";
     }
 }

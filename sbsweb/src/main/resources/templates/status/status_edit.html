@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+<title th:text="${billingItem.name}"></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link th:href="@{/css/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <th:block th:fragment="content">
+        <div class="container">
+            <div class="text-center">
+                <h1 th:text="${status.name}"></h1>
+                <div class="padding-50"></div>
+                <a th:href="@{'/status_overview'}">
+                    <button type="button" class="btn btn-outline-success">Zurück zu den Status</button>
+                </a>
+                <div class="padding-50"></div>
+                <form action="#" th:action="@{'/status_update'}" th:object="${status}" method="post">
+                    <div th:if="${#fields.hasAnyErrors()}">
+                        <p class="alert alert-danger" role="alert" th:each="error : ${#fields.detailedErrors()}"
+                            th:text="${error.fieldName + ': ' + err.message}"></p>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" required="required" class="form-control" id="name" th:field="*{name}" th:errorclass="is-invalid" />
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="description">Beschreibung</label>
+                                <input type="text" class="form-control" id="description" th:field="*{description}" th:errorclass="is-invalid" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="padding-50"></div>
+                    <button type="submit" class="btn btn-success">Status erstellen</button>
+                </form>
+            </div>
+        </div>
+    </th:block>
+</body>
+
+</html>
