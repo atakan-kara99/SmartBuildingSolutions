@@ -205,7 +205,9 @@ public class RoleManagementController {
         List<User> availableUsers = new ArrayList<User>();
         List<Role> roles = organisation.getRoles();
         for (Role otherRole : roles) {
-            availableUsers.addAll(otherRole.getUsers());
+            if (role.getId() != otherRole.getId()) {
+                availableUsers.addAll(otherRole.getUsers());
+            }
         }
         model.addAttribute("organisation", organisation);
         model.addAttribute("role", role);
