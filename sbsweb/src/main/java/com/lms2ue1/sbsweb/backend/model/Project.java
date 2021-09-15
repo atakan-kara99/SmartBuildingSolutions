@@ -155,63 +155,63 @@ public class Project {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    protected void setId(long pId) {
+    public void setId(long pId) {
 	this.id = pId;
     }
 
-    protected void setName(String n) {
+    public void setName(String n) {
 	this.name = n;
     }
 
-    protected void setDescription(String desc) {
+    public void setDescription(String desc) {
 	this.description = desc;
     }
 
-    protected void setCreationDate(String creationDate) {
+    public void setCreationDate(String creationDate) {
 	this.creationDate = creationDate;
     }
 
-    protected void setCompletionDate(String completionDate) {
+    public void setCompletionDate(String completionDate) {
 	this.completionDate = completionDate;
     }
 
-    protected void setStatus(Status s) {
+    public void setStatus(Status s) {
 	this.status = s;
     }
 
-    protected void setOverallCosts(double oC) {
+    public void setOverallCosts(double oC) {
 	this.overallCosts = oC;
     }
 
-    protected void setImage(String img) {
+    public void setImage(String img) {
 	this.image = img;
     }
 
-    protected void setImageType(String imgType) {
+    public void setImageType(String imgType) {
 	this.imageType = imgType;
     }
 
-    protected void setImageFileName(String imgFileName) {
+    public void setImageFileName(String imgFileName) {
 	this.imageFileName = imgFileName;
     }
 
-    protected void setAddress(Address a) {
+    public void setAddress(Address a) {
 	this.address = a;
     }
 
-    protected void setContracts(List<Contract> cs) {
+    public void setContracts(List<Contract> cs) {
 	this.contracts = cs;
     }
 
-    protected void setOrganisation(Organisation o) {
+    public void setOrganisation(Organisation o) {
 	this.organisation = o;
     }
 
-    protected void setRoles(List<Role> roles) {
+    public void setRoles(List<Role> roles) {
 	this.roles = roles;
     }
 
-    protected void setCreator(String creator) {
+    public void setCreator(String creator) {
 	this.creator = creator;
     }
 
