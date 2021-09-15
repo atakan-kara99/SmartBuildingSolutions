@@ -269,7 +269,7 @@ public class BackendAccessProvider {
         }
     }
 
-    //////// BillingItem status
+    //////// BillingItem
 
     /**
      * Updates a billing item's status.
@@ -282,6 +282,36 @@ public class BackendAccessProvider {
      */
     public void updateStatus(String username, Long billingItemId, Status newStatus) {
         // TODO
+    }
+
+    /**
+     * Adds a new billing item.
+     * 
+     * @param  username                 the username of the user requesting this operation.
+     * @param  newBilling               the billing item to add.
+     * @throws AuthenticationException  if the user has insufficient rights.
+     * @throws IllegalArgumentException if the operation failed.
+     */
+    public void addBillingItem(String username, BillingItem newBillingItem) throws AuthenticationException {
+	if (newBillingItem == null) {
+            throw new IllegalArgumentException();
+        }
+
+        boolean canSave = false;
+        if (auth.isSysAdmin(username)) {
+            canSave = true;
+        } else {
+            Long oID = auth.getOrgAdminID(username);
+            if (oID != null && newBillingItem.getBillingUnit().getContract().getProject().getOrganisation().getId() == oID.longValue()) {
+                canSave = true;
+            } else {
+                throw new AuthenticationException();
+            }
+        }
+
+        if (canSave) {
+            billingItems.save(newBillingItem);
+        }
     }
 
     //////////////////////// Getters per id ////////////////////////

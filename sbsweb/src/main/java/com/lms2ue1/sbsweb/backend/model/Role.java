@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 @Entity
@@ -30,19 +32,23 @@ public class Role {
 
 
 	// ---- Associations ----//
+    @JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "PROJECT_ROLES", joinColumns = { @JoinColumn(name = "ROLES_ID") }, inverseJoinColumns = {
 	            @JoinColumn(name = "PROJECTS_ID") })
 	private List<Project> projects;
 	@ManyToOne
+    @JsonIgnore
 	@JoinColumn(name = "organisation_id")
 	private Organisation organisation;
 	@OneToMany(mappedBy = "role")
 	private List<User> users;
+    @JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "CONTRACT_ROLES", joinColumns = { @JoinColumn(name = "ROLES_ID") }, inverseJoinColumns = {
 	            @JoinColumn(name = "CONTRACT_ID") })
 	private List<Contract> contracts;
+    @JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "BILLING_ITEM_ROLES", joinColumns = { @JoinColumn(name = "ROLES_ID") }, inverseJoinColumns = {
 	            @JoinColumn(name = "BILLING_ITEM_ID") })
@@ -113,35 +119,35 @@ public class Role {
 	// ----------------------------//
 	// ---------- Setter ----------//
 	// ----------------------------//
-	protected void setId(long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	protected void setName(String n) {
+	public void setName(String n) {
 		this.name = n;
 	}
 
-	protected void setProjects(List<Project> ps) {
+	public void setProjects(List<Project> ps) {
 		this.projects = ps;
 	}
 
-	protected void setOrganisation(Organisation o) {
+	public void setOrganisation(Organisation o) {
 		this.organisation = o;
 	}
 
-	protected void setUsers(List<User> us) {
+	public void setUsers(List<User> us) {
 		this.users = us;
 	}
 
-	protected void setContracts(List<Contract> cs) {
+	public void setContracts(List<Contract> cs) {
 		this.contracts = cs;
 	}
 
-	protected void setBillingItems(List<BillingItem> bs) {
+	public void setBillingItems(List<BillingItem> bs) {
 		this.billingItems = bs;
 	}
 
-	protected void setManageUser(boolean manageUser) {
+	public void setManageUser(boolean manageUser) {
 		this.manageUser = manageUser;
 	}
 	
