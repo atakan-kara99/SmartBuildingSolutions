@@ -23,20 +23,19 @@
                 <div class="padding-50"></div>
                 <form action="#" th:action="@{'/organisation/' + ${organisation.id} + '/user_management/user_save'}" th:object="${user}" method="post">
                     <div th:if="${#fields.hasAnyErrors()}">
-                        <p class="alert alert-danger" role="alert" th:each="error : ${#fields.detailedErrors()}" th:text="${error.fieldName + ': ' + err.message}"></p>
+                        <p class="alert alert-danger" role="alert" th:each="error : ${#fields.detailedErrors()}" th:text="${error.fieldName + ': ' + error.message}"></p>
                     </div>
-
                     <div class="row justify-content-center">
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="firstname"> Vorname </label>
-                                <input type="text" class="form-control" id="firstname" th:field="*{forename}" th:errorclass="is-invalid" />
+                                <input type="text" class="form-control" th:field="*{forename}" th:errorclass="is-invalid" />
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="lastname"> Nachname </label>
-                                <input type="text" class="form-control" id="lastname" th:field="*{lastname}" th:errorclass="is-invalid" />
+                                <input type="text" class="form-control" th:field="*{lastname}" th:errorclass="is-invalid" />
                             </div>
                         </div>
                     </div>
@@ -44,13 +43,13 @@
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="username"> Benutzername </label>
-                                <input type="text" class="form-control" id="username" th:field="*{username}" th:errorclass="is-invalid" />
+                                <input type="text" class="form-control" th:field="*{username}" th:errorclass="is-invalid" />
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="password"> Passwort </label>
-                                <input type="password" class="form-control" id="password" th:field="*{password}" th:errorclass="is-invalid" />
+                                <input type="password" class="form-control" th:field="*{password}" th:errorclass="is-invalid" />
                             </div>
                         </div>
                     </div>
@@ -58,7 +57,7 @@
                         <div class="col-3">
                             <div class="form-group">
                                 <label for="role"> Rolle </label>
-                                <select th:field="*{role}" class="form-control" id="role" th:errorclass="is-invalid">
+                                <select th:field="*{role}" class="form-control" th:errorclass="is-invalid">
                                     <option th:each="role : ${organisation.roles}" th:text="${role.name}" th:value="${role.id}"></option>
                                 </select>
                             </div>

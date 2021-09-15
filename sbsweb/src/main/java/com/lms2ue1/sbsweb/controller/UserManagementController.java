@@ -91,8 +91,15 @@ public class UserManagementController {
      */
     @PostMapping("/organisation/{oID}/user_management/user_save")
     public String addNewUser(Principal principal, @PathVariable Long oID, @Valid User user, BindingResult bindingResult, Model model) {
+        Organisation organisation = null;
+        try {
+            organisation = backendAccessProvider.getOrganisationById(principal.getName(), oID);
+        } catch (AuthenticationException authException) {
+            return "redirect:/unauthorised";
+        }
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
+            model.addAttribute("organisation", organisation);
             return "user/user_new";
         }
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -161,8 +168,15 @@ public class UserManagementController {
     @PostMapping("/organisation/{oID}/user_management/user/{uID}/user_update")
     public String editUserById(Principal principal, @PathVariable Long oID, @PathVariable Long uID, @Valid User user, BindingResult bindingResult,
     Model model) {
+        Organisation organisation = null;
+        try {
+            organisation = backendAccessProvider.getOrganisationById(principal.getName(), oID);
+        } catch (AuthenticationException authException) {
+            return "redirect:/unauthorised";
+        }
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
+            model.addAttribute("organisation", organisation);
             return "user/user_edit";
         }
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
