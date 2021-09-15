@@ -27,44 +27,39 @@ public class BillingItemController {
     /**
      * Shows the specified billing item's details and potential nested billing
      * items.
+     * 
+     * @throws AuthenticationException
      */
     @GetMapping("/project/{pID}/contract/{cID}/billing_item/{bID}/show")
     public String showBillingItemDetails(@PathVariable long pID, @PathVariable long cID, @PathVariable long bID,
-	    Principal principal, Model model) {
-	try {
-	    String username = principal.getName();
-	    model.addAttribute("pID", pID);
-	    model.addAttribute("cID", cID);
-	    model.addAttribute("bID", bID);
-	    model.addAttribute("project", BAP.getProjectById(username, pID));
-	    model.addAttribute("contract", BAP.getContractById(username, cID));
-	    model.addAttribute("billingItem", BAP.getBillingItemById(username, bID));
-	    return "billingitem/billing_item_details";
-	} catch (AuthenticationException | IllegalArgumentException e) {
-	    return "error";
-	}
+	    Principal principal, Model model) throws AuthenticationException {
+	String username = principal.getName();
+	model.addAttribute("pID", pID);
+	model.addAttribute("cID", cID);
+	model.addAttribute("bID", bID);
+	model.addAttribute("project", BAP.getProjectById(username, pID));
+	model.addAttribute("contract", BAP.getContractById(username, cID));
+	model.addAttribute("billingItem", BAP.getBillingItemById(username, bID));
+	return "billingitem/billing_item_details";
     }
 
-    /** Shows the form to create a new billing item. */
+    /** Shows the form to create a new billing item. 
+     * @throws AuthenticationException */
     @GetMapping("/project/{pID}/contract/{cID}/billing_item_new")
     public String showNewBillingItemForm(@PathVariable long pID, @PathVariable long cID, Principal principal,
-	    Model model) {
-	try {
-	    String username = principal.getName();
-	    if (auth.isAdmin(username)) {
-		model.addAttribute("pID", pID);
-		model.addAttribute("cID", cID);
-		model.addAttribute("project", BAP.getProjectById(username, pID));
-		Contract contract = BAP.getContractById(username, cID);
-		model.addAttribute("contract", contract);
-		model.addAttribute("billingItem", new BillingItem());
-		model.addAttribute("billingUnits", contract.getBillingUnits());
-		return "billingitem/billing_item_new";
-	    } else {
-		throw new AuthenticationException();
-	    }
-	} catch (AuthenticationException | IllegalArgumentException e) {
-	    return "error";
+	    Model model) throws AuthenticationException {
+	String username = principal.getName();
+	if (auth.isAdmin(username)) {
+	    model.addAttribute("pID", pID);
+	    model.addAttribute("cID", cID);
+	    model.addAttribute("project", BAP.getProjectById(username, pID));
+	    Contract contract = BAP.getContractById(username, cID);
+	    model.addAttribute("contract", contract);
+	    model.addAttribute("billingItem", new BillingItem());
+	    model.addAttribute("billingUnits", contract.getBillingUnits());
+	    return "billingitem/billing_item_new";
+	} else {
+	    throw new AuthenticationException();
 	}
     }
 

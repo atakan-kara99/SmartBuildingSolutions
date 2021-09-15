@@ -48,34 +48,27 @@ public class ProjectController {
     /** Shows an overview of all projects. */
     @GetMapping("/project_overview")
     public String showProjectOverview(Principal principal, Model model) {
-	try {
-	    String username = principal.getName();
-	    model.addAttribute("projects", BAP.getAllProjects(username));
-	    model.addAttribute("listOfStatus", listOfStatus1);
-	    return "project/project_overview";
-	} catch (IllegalArgumentException e) {
-	    return "error";
-	}
+	String username = principal.getName();
+	model.addAttribute("projects", BAP.getAllProjects(username));
+	model.addAttribute("listOfStatus", listOfStatus1);
+	return "project/project_overview";
     }
 
     // List of temp stati
     List<String> listOfStatus2 = List.of("OK", "OK", "NO_STATUS", "OPEN", "OPEN", "DENY", "OPEN", "OK", "OK", "OK",
 	    "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK", "OK", "DENY");
 
-    /** Shows the specified project's details, e.g. its contracts. */
+    /** Shows the specified project's details, e.g. its contracts. 
+     * @throws AuthenticationException */
     @GetMapping("/project/{pID}/show")
-    public String showProjectDetails(@PathVariable long pID, Principal principal, Model model) {
-	try {
-	    String username = principal.getName();
-	    model.addAttribute("pID", pID);
-	    model.addAttribute("project", BAP.getProjectById(username, pID));
-	    List<Contract> contracts = BAP.getAllContracts(username);
-	    model.addAttribute("contracts", contracts.stream().filter(contract -> contract.getProject().getId() == pID)
-		    .collect(Collectors.toList()));
-	    model.addAttribute("listOfStatus", listOfStatus2);
-	    return "project/project_details";
-	} catch (AuthenticationException | IllegalArgumentException e) {
-	    return "error";
-	}
+    public String showProjectDetails(@PathVariable long pID, Principal principal, Model model) throws AuthenticationException {
+	String username = principal.getName();
+	model.addAttribute("pID", pID);
+	model.addAttribute("project", BAP.getProjectById(username, pID));
+	List<Contract> contracts = BAP.getAllContracts(username);
+	model.addAttribute("contracts", contracts.stream().filter(contract -> contract.getProject().getId() == pID)
+		.collect(Collectors.toList()));
+	model.addAttribute("listOfStatus", listOfStatus2);
+	return "project/project_details";
     }
 }

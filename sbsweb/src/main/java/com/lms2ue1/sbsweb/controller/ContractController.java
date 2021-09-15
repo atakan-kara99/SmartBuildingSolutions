@@ -28,41 +28,38 @@ public class ContractController {
     List<String> listOfStatus = List.of("OK", "OK", "NO_STATUS", "OPEN", "OPEN", "DENY", "OPEN", "OK", "OK", "OK",
 	    "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK", "OK", "DENY");
 
-    /** Shows the specified contract's details, e.g. its billing items. */
+    /** Shows the specified contract's details, e.g. its billing items. 
+     * @throws AuthenticationException */
     @GetMapping("/project/{pID}/contract/{cID}/show")
     public String showContractDetails(@PathVariable long pID, @PathVariable long cID, Principal principal,
-	    Model model) {
-	try {
-	    String username = principal.getName();
-	    model.addAttribute("admin", auth.isAdmin(username));
-	    model.addAttribute("pID", pID);
-	    model.addAttribute("cID", cID);
-	    model.addAttribute("project", BAP.getProjectById(username, pID));
-	    model.addAttribute("contract", BAP.getContractById(username, cID));
-	    List<BillingItem> billingItems = BAP.getAllBillingItems(username).stream()
-		    .filter(b -> b.getBillingUnit().getContract().getId() == cID)
-		    .collect(Collectors.toCollection(ArrayList::new));
-	    model.addAttribute("listOfStatus", listOfStatus);
-	    // Flattened list, keep only high level billing items
-	    List<Integer> removes = new ArrayList<>(billingItems.size());
-	    for (int i = 0; i < billingItems.size(); i++) {
-		BillingItem bill = billingItems.get(i);
-		for (int j = 0; j < billingItems.size(); j++) {
-		    if (j != i) {
-			long bID = billingItems.get(j).getId();
-			if (bill.getBillingItems().stream().anyMatch(b -> b.getId() == bID)) {
-			    removes.add(j);
-			}
+	    Model model) throws AuthenticationException {
+	String username = principal.getName();
+	model.addAttribute("admin", auth.isAdmin(username));
+	model.addAttribute("pID", pID);
+	model.addAttribute("cID", cID);
+	model.addAttribute("project", BAP.getProjectById(username, pID));
+	model.addAttribute("contract", BAP.getContractById(username, cID));
+	List<BillingItem> billingItems = BAP.getAllBillingItems(username).stream()
+		.filter(b -> b.getBillingUnit().getContract().getId() == cID)
+		.collect(Collectors.toCollection(ArrayList::new));
+	model.addAttribute("listOfStatus", listOfStatus);
+	// Flattened list, keep only high level billing items
+	List<Integer> removes = new ArrayList<>(billingItems.size());
+	for (int i = 0; i < billingItems.size(); i++) {
+	    BillingItem bill = billingItems.get(i);
+	    for (int j = 0; j < billingItems.size(); j++) {
+		if (j != i) {
+		    long bID = billingItems.get(j).getId();
+		    if (bill.getBillingItems().stream().anyMatch(b -> b.getId() == bID)) {
+			removes.add(j);
 		    }
 		}
 	    }
-	    for (int i = 0; i < removes.size(); i++) {
-		billingItems.remove((int) removes.get(i));
-	    }
-	    model.addAttribute("billingItems", billingItems);
-	    return "contract/contract_details";
-	} catch (AuthenticationException | IllegalArgumentException e) {
-	    return "error";
 	}
+	for (int i = 0; i < removes.size(); i++) {
+	    billingItems.remove((int) removes.get(i));
+	}
+	model.addAttribute("billingItems", billingItems);
+	return "contract/contract_details";
     }
 }
