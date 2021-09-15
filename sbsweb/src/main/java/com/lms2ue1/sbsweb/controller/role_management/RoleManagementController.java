@@ -167,7 +167,7 @@ public class RoleManagementController {
     public String addUserToRole(@PathVariable long oID, @PathVariable long rID, @PathVariable long uID) {
         User user = userRepository.findById(uID).get();
         User updatedUser = new User(user.getForename(), user.getLastname(), roleRepository.findById(rID).get(), user.getUsername(), user.getPassword());
-        userRepository.save(user);
+        userRepository.save(updatedUser);
         return "redirect:/organisation/{oID}/role_management/role/{rID}/role_edit_users";
     }
 }

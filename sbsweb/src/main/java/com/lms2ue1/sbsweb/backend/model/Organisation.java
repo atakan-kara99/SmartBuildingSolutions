@@ -10,6 +10,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 @Entity
@@ -24,12 +26,14 @@ public class Organisation {
     private String name;
 
     // ---- Associations ----//
+    @JsonIgnore
     @Size(min = 1)
     @OneToMany(mappedBy = "organisation")
     private List<Project> projects;
     @Size(min = 2)
     @OneToMany(mappedBy = "organisation") // Mapping is necessary!
     private List<Role> roles;
+    @JsonIgnore
     @Size(min = 1)
     @ManyToMany(mappedBy = "organisations")
     private List<Contract> contracts;

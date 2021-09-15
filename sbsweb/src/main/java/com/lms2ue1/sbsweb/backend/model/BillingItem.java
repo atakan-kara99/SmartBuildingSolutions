@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class BillingItem {
     // ---- Attributes ----//
@@ -33,9 +35,11 @@ public class BillingItem {
     private String shortDesLinkedIFC;
 
     // ---- Associations ----//
+    @JsonIgnore
     @ManyToOne // (cascade = { CascadeType.ALL }) tried w/ cascading
     @JoinColumn(name = "billing_unit_id")
     private BillingUnit billingUnit;
+    @JsonIgnore
     @Size(min = 2)
     @ManyToMany(mappedBy = "billingItems")
     private List<Role> roles;

@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Contract {
     // A few adaptations to make the data model actually work (nka).
@@ -31,14 +33,17 @@ public class Contract {
     private String contractor;
 
     // ---- Associations ----//
+    @JsonIgnore
     @Size(min = 2, max = 2)
     @ManyToMany
     @JoinTable(name = "CONTRACT_ORGANISATIONS", joinColumns = {
 	    @JoinColumn(name = "CONTRACT_ID") }, inverseJoinColumns = { @JoinColumn(name = "ORGANISATIONS_ID") })
     private List<Organisation> organisations;
+    @JsonIgnore
     @Size(min = 2)
     @ManyToMany(mappedBy = "contracts")
     private List<Role> roles;
+    @JsonIgnore
     @ManyToOne // (cascade = { CascadeType.ALL }) try to remove
     @JoinColumn(name = "project_id")
     private Project project;
