@@ -1,6 +1,8 @@
 package com.lms2ue1.sbsweb.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.AuthenticationException;
 import javax.validation.Valid;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -78,14 +81,22 @@ public class StatusTransitionController {
 	} else if (bindingResult.hasErrors()) {
 	    model.addAttribute("status", status);
 	    return "status/status_new";
-	} else if (BAP.getStatusByName(status.getName()) != null) {
+	}
+	boolean nameTaken = false;
+	try {
+	    BAP.getStatusByName(status.getName());
+	    nameTaken = true;
+	} catch (IllegalArgumentException e) {
+	    // Throws = doesn't exist yet, everything's fine
+	}
+	if (nameTaken) {
 	    throw new IllegalArgumentException("Status with name " + status.getName() + " already exists!");
 	}
 
 	BAP.addStatus(username, status);
 	return "redirect:/status_overview";
     }
-    
+
     /** Shows the form to edit a status. */
     @GetMapping("/status/{sID}/status_edit")
     public String showEditStatusForm(@PathVariable long sID, Principal principal, Model model) {
@@ -94,9 +105,17 @@ public class StatusTransitionController {
 	    return "error";
 	}
 	model.addAttribute("sID", sID);
-	model.addAttribute("status", BAP.getStatusById(sID));
+//	model.addAttribute("status", BAP.getStatusById(sID));
+	Status status = BAP.getStatusById(sID);
 	model.addAttribute("allStati", BAP.getAllStati());
-	model.addAttribute("currentTransitions", BAP.getStatusById(sID).getNextStati());
+	model.addAttribute("currentTransitions", status.getNextStati());
+	model.addAttribute("standardStatus", BAP.isStandardStatusById(sID));
+	StatusCreationDto form = new StatusCreationDto();
+	form.setName(status.getName());
+	form.setNextStati(status.getNextStati());
+	model.addAttribute("form", form);
+	
+//	model.addAttribute("updatedStatus", new Status(null, null, new ArrayList<>(10)));
 	return "status/status_edit";
     }
 
@@ -117,23 +136,22 @@ public class StatusTransitionController {
 	BAP.removeStatus(username, sID);
 	return "redirect:/status_overview";
     }
-    
+
     /**
      * Tries to update the status.
      * 
      * @throws AuthenticationException
      */
     @PostMapping("/status/{sID}/status_update")
-    public String updateStatus(@PathVariable long sID, @Valid Status status, BindingResult bindingResult, Principal principal, Model model)
-	    throws AuthenticationException {
+    public String updateStatus(@PathVariable long sID, @ModelAttribute StatusCreationDto form, BindingResult bindingResult,
+	    Principal principal, Model model) throws AuthenticationException {
 	String username = principal.getName();
 	if (!auth.isSysAdmin(username)) {
 	    return "error";
 	} else if (bindingResult.hasErrors()) {
-	    model.addAttribute("status", status);
 	    return "status/status_edit";
 	}
-
+	Status status = new Status(form.getName(), form.getDescription(), form.getNextStati());
 	BAP.updateStatus(username, sID, status);
 	return "redirect:/status/{sID}/show";
     }
