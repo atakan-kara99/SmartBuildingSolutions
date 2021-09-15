@@ -34,9 +34,9 @@ public class Status {
 	private List<BillingItem> billingItems;
 
 	// TODO: Liste!! ManyToMany
-	@OneToOne
-	@JoinColumn(name = "next_status")
-	private Status nextStatus;
+	@OneToMany
+	@JoinColumn(name = "next_stati")
+	private List<Status> nextStati;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
@@ -49,9 +49,9 @@ public class Status {
 	 * @param name
 	 * @param description
 	 */
-	public Status(String name, Status nextStatus) {
+	public Status(String name, List<Status> nextStati) {
 		this.name = name;
-		this.nextStatus = nextStatus;
+		this.nextStati = nextStati;
 	}
 
 	// ----------------------------//
@@ -73,8 +73,8 @@ public class Status {
 		return this.billingItems;
 	}
 	
-	public Status getNextStatus() {
-	    return nextStatus;
+	public List<Status> getNextStati() {
+	    return nextStati;
 	}
 
 	// ----------------------------//
@@ -92,8 +92,8 @@ public class Status {
 		this.billingUnits = bus;
 	}
 	
-	public void setNextStatus(Status nextStatus) {
-	    this.nextStatus = nextStatus;
+	public void setNextStati(List<Status> nextStati) {
+	    this.nextStati = nextStati;
 	}
 
 	public void setBillingItem(List<BillingItem> bis) {
