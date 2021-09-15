@@ -12,6 +12,12 @@
     <div class="container">
       <div class="text-center">
         <h1 th:text="${contract.name}"></h1>
+        <th:block th:if="${admin}">
+            <div style="padding-top: 20px"></div>
+            <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item_new'}">
+              <button type="button" class="btn btn-outline-success">Neue Leistungsposition</button>
+            </a>
+        </th:block>
       </div>
       <div style="padding-top: 30px"></div>
 

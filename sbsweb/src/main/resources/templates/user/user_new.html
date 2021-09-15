@@ -9,63 +9,74 @@
     <th:block th:fragment="content">
         <div class="container">
             <div class="text-center">
-                <h1> Benutzer hinzufügen </h1>
+                <div class="row justify-content-center">
+                    <div class="col col-md-auto rounded shadow bg-primary text-light">
+                        <h1> Benutzer hinzufügen </h1>
+                    </div>
+                </div>
                 <div class="padding-50"></div>
                 <div class="container">
                     <div class="row btn-row justify-content-end align-items-center">
                         <div class="col-4 text-center">
                             <a th:href="@{'/organisation/' + ${organisation.id} + '/user_management'}">
-                                <button type="button" class="btn btn-outline-secondary"> Zurück zur Benutzerverwaltung </button>
+                                <button type="button" class="btn btn-secondary"> Zurück zur Benutzerverwaltung </button>
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="padding-50"></div>
-                <form action="#" th:action="@{'/organisation/' + ${organisation.id} + '/user_management/user_save'}" th:object="${user}" method="post">
-                    <div th:if="${#fields.hasAnyErrors()}">
-                        <p class="alert alert-danger" role="alert" th:each="error : ${#fields.detailedErrors()}" th:text="${error.fieldName + ': ' + error.message}"></p>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="firstname"> Vorname </label>
-                                <input type="text" class="form-control" th:field="*{forename}" th:errorclass="is-invalid" />
+                <div class="row justify-content-center">
+                    <div class="col-8 shadow">
+                        <form action="#" th:action="@{'/organisation/' + ${organisation.id} + '/user_management/user_save'}" th:object="${user}" method="post">
+                            <div class="padding-20"></div>
+                            <div th:if="${#fields.hasAnyErrors()}">
+                                <p class="alert alert-danger" role="alert" th:each="error : ${#fields.detailedErrors()}" th:text="${error.fieldName + ': ' + err.message}"></p>
                             </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="lastname"> Nachname </label>
-                                <input type="text" class="form-control" th:field="*{lastname}" th:errorclass="is-invalid" />
+
+                            <div class="row justify-content-center">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="firstname"> Vorname </label>
+                                        <input type="text" class="form-control" id="firstname" th:field="*{forename}" th:errorclass="is-invalid" />
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="lastname"> Nachname </label>
+                                        <input type="text" class="form-control" id="lastname" th:field="*{lastname}" th:errorclass="is-invalid" />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="username"> Benutzername </label>
-                                <input type="text" class="form-control" th:field="*{username}" th:errorclass="is-invalid" />
+                            <div class="row justify-content-center">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="username"> Benutzername </label>
+                                        <input type="text" class="form-control" id="username" th:field="*{username}" th:errorclass="is-invalid" />
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="password"> Passwort </label>
+                                        <input type="password" class="form-control" id="password" th:field="*{password}" th:errorclass="is-invalid" />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="password"> Passwort </label>
-                                <input type="password" class="form-control" th:field="*{password}" th:errorclass="is-invalid" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="role"> Rolle </label>
-                                <select th:field="*{role}" class="form-control" th:errorclass="is-invalid">
+                            <div class="row justify-content-center">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="role"> Rolle </label>
+                                        <select th:field="*{role}" class="form-control" id="role" th:errorclass="is-invalid">
                                     <option th:each="role : ${organisation.roles}" th:text="${role.name}" th:value="${role.id}"></option>
                                 </select>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="padding-50"></div>
+                            <button type="submit" class="btn btn-success"> Benutzer hinzufügen </button>
+                            <div class="padding-20"></div>
+                        </form>
                     </div>
-                    <div class="padding-50"></div>
-                    <button type="submit" class="btn btn-success"> Benutzer hinzufügen </button>
-                </form>
+                </div>
             </div>
         </div>
     </th:block>

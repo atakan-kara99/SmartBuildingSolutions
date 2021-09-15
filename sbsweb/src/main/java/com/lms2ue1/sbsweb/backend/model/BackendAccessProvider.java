@@ -20,8 +20,6 @@ public class BackendAccessProvider {
     //////////////////////// Repositories ////////////////////////
 
     @Autowired
-    private AddressRepository addresses;
-    @Autowired
     private ProjectRepository projects;
     @Autowired
     private ContractRepository contracts;
@@ -271,7 +269,7 @@ public class BackendAccessProvider {
         }
     }
 
-    //////// BillingItem status
+    //////// BillingItem
 
     /**
      * Updates a billing item's status.
@@ -286,6 +284,36 @@ public class BackendAccessProvider {
         // TODO
     }
 
+    /**
+     * Adds a new billing item.
+     * 
+     * @param  username                 the username of the user requesting this operation.
+     * @param  newBilling               the billing item to add.
+     * @throws AuthenticationException  if the user has insufficient rights.
+     * @throws IllegalArgumentException if the operation failed.
+     */
+    public void addBillingItem(String username, BillingItem newBillingItem) throws AuthenticationException {
+	if (newBillingItem == null) {
+            throw new IllegalArgumentException();
+        }
+
+        boolean canSave = false;
+        if (auth.isSysAdmin(username)) {
+            canSave = true;
+        } else {
+            Long oID = auth.getOrgAdminID(username);
+            if (oID != null && newBillingItem.getBillingUnit().getContract().getProject().getOrganisation().getId() == oID.longValue()) {
+                canSave = true;
+            } else {
+                throw new AuthenticationException();
+            }
+        }
+
+        if (canSave) {
+            billingItems.save(newBillingItem);
+        }
+    }
+
     //////////////////////// Getters per id ////////////////////////
 
     /**
@@ -297,13 +325,13 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public Address getAddressById(String username, Long addressId) throws AuthenticationException {
+   /* public Address getAddressById(String username, Long addressId) throws AuthenticationException {
         if (auth.checkAddress(username, addressId)) {
             return addresses.findById(addressId).orElseThrow(IllegalArgumentException::new);
         } else {
             throw new AuthenticationException();
         }
-    }
+    }*/
 
     /**
      * Returns the project with the given id.

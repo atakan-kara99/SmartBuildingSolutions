@@ -1,6 +1,7 @@
 package com.lms2ue1.sbsweb.backend.model;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,8 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
@@ -26,7 +28,6 @@ public class Project {
     private String description;
     private String creationDate;
     private String completionDate;
-    private Status status;
     private double overallCosts;
     private String creator;
     // -- These attributes are not important for our use. --//
@@ -35,9 +36,7 @@ public class Project {
     private String imageFileName;
 
     // ------ Associations ------//
-    // TODO: Joined nicht! Join überprüfen!
-    @OneToOne // (cascade = {CascadeType.ALL}) try w/ cascading
-    @JoinColumn(name = "address_id")
+    @Embedded
     private Address address;
     @Size(min = 1)
     @OneToMany(mappedBy = "project", orphanRemoval = true)
@@ -48,6 +47,8 @@ public class Project {
     @Size(min = 2)
     @ManyToMany(mappedBy = "projects")
     private List<Role> roles;
+    @ManyToOne
+    private Status status;
 
     // ----------------------------------//
     // ---------- Constructors ----------//
@@ -155,63 +156,63 @@ public class Project {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    protected void setId(long pId) {
+    public void setId(long pId) {
 	this.id = pId;
     }
 
-    protected void setName(String n) {
+    public void setName(String n) {
 	this.name = n;
     }
 
-    protected void setDescription(String desc) {
+    public void setDescription(String desc) {
 	this.description = desc;
     }
 
-    protected void setCreationDate(String creationDate) {
+    public void setCreationDate(String creationDate) {
 	this.creationDate = creationDate;
     }
 
-    protected void setCompletionDate(String completionDate) {
+    public void setCompletionDate(String completionDate) {
 	this.completionDate = completionDate;
     }
 
-    protected void setStatus(Status s) {
+    public void setStatus(Status s) {
 	this.status = s;
     }
 
-    protected void setOverallCosts(double oC) {
+    public void setOverallCosts(double oC) {
 	this.overallCosts = oC;
     }
 
-    protected void setImage(String img) {
+    public void setImage(String img) {
 	this.image = img;
     }
 
-    protected void setImageType(String imgType) {
+    public void setImageType(String imgType) {
 	this.imageType = imgType;
     }
 
-    protected void setImageFileName(String imgFileName) {
+    public void setImageFileName(String imgFileName) {
 	this.imageFileName = imgFileName;
     }
 
-    protected void setAddress(Address a) {
+    public void setAddress(Address a) {
 	this.address = a;
     }
 
-    protected void setContracts(List<Contract> cs) {
+    public void setContracts(List<Contract> cs) {
 	this.contracts = cs;
     }
 
-    protected void setOrganisation(Organisation o) {
+    public void setOrganisation(Organisation o) {
 	this.organisation = o;
     }
 
-    protected void setRoles(List<Role> roles) {
+    public void setRoles(List<Role> roles) {
 	this.roles = roles;
     }
 
-    protected void setCreator(String creator) {
+    public void setCreator(String creator) {
 	this.creator = creator;
     }
 
@@ -227,5 +228,4 @@ public class Project {
 	}
 	return false;
     }
-
 }
