@@ -35,8 +35,6 @@ public class BillingUnit {
 	@Size(min = 1)
 	@OneToMany(mappedBy = "billingUnit", orphanRemoval = true)
 	private List<BillingItem> billingItems;
-	@ManyToOne
-	private Status status;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
@@ -59,7 +57,7 @@ public class BillingUnit {
 	 * @param contract           = contract
 	 */
 	public BillingUnit(String sDesc, String lDesc, String unit, String completionDate, String ownContractDefined,
-			double totalQuantity, double totalPrice, Contract contract, Status status) {
+			double totalQuantity, double totalPrice, Contract contract) {
 		this.shortDescription = sDesc;
 		this.longDescription = lDesc;
 		this.unit = unit;
@@ -68,7 +66,6 @@ public class BillingUnit {
 		this.totalQuantity = totalQuantity;
 		this.totalPrice = totalPrice;
 		this.contract = contract;
-		this.status = status;
 	}
 
 	// ----------------------------//

@@ -27,8 +27,6 @@ public class Status {
 	@OneToMany(mappedBy = "status")
 	private List<Contract> contracts;
 	@OneToMany(mappedBy = "status")
-	private List<BillingUnit> billingUnits;
-	@OneToMany(mappedBy = "status")
 	private List<BillingItem> billingItems;
 
 	@OneToMany
@@ -74,10 +72,6 @@ public class Status {
 		return this.contracts;
 	}
 
-	public List<BillingUnit> getBillingUnit() {
-		return this.billingUnits;
-	}
-
 	public List<BillingItem> getBillingItem() {
 		return this.billingItems;
 	}
@@ -107,9 +101,6 @@ public class Status {
 
 	public void setContract(List<Contract> cs) {
 		this.contracts = cs;
-	}
-	public void setBillingUnit(List<BillingUnit> bus) {
-		this.billingUnits = bus;
 	}
 	
 	public void setNextStati(List<Status> nextStati) {

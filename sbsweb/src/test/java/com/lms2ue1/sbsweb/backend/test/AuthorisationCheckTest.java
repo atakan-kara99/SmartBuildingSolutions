@@ -81,8 +81,8 @@ class AuthorisationCheckTest {
 	contract0 = new Contract("Baby beruhigen", "Es schreit.", null, "Nanny", "Mutter", List.of(),
 		project0);
 	contract1 = new Contract("Kosten klein halten", "Teuer", null, null, null, List.of(org1), project1);
-	billingUnit0 = new BillingUnit("sd", null, "kg", "1973", "2001", 2.1, 7, contract0, null);
-	billingUnit1 = new BillingUnit("sssdad", null, "�", "15999", "2201", 1, 0, contract1, null);
+	billingUnit0 = new BillingUnit("sd", null, "kg", "1973", "2001", 2.1, 7, contract0);
+	billingUnit1 = new BillingUnit("sssdad", null, "�", "15999", "2201", 1, 0, contract1);
 	billingItem1 = new BillingItem("Fenster einbauen", 0, null, null, 99, null, 0, null, null, billingUnit1, null);
 	billingItem0 = new BillingItem("Heizung montieren", 2, "Heizko B7-2 fensternah einbauen.", null, 0, null,
 		7, null, null, billingUnit0, List.of(billingItem1));
