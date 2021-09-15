@@ -170,7 +170,7 @@ public class AuthorisationCheck {
     }
 
     /**
-     * Is the given user a SysAdmin?
+     * Is the given user a SysAdmin or a OrgAdmin?
      * 
      * @param username = the user in question.
      * @return true = yes, the user is. false = no, the user isn't.

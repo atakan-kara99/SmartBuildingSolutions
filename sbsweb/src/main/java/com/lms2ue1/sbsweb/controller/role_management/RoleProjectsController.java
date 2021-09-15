@@ -14,6 +14,7 @@ import com.lms2ue1.sbsweb.backend.model.Contract;
 import com.lms2ue1.sbsweb.backend.model.Organisation;
 import com.lms2ue1.sbsweb.backend.model.Project;
 import com.lms2ue1.sbsweb.backend.model.Role;
+import com.lms2ue1.sbsweb.backend.model.User;
 import com.lms2ue1.sbsweb.backend.repository.UserRepository;
 import com.lms2ue1.sbsweb.backend.security.AuthorisationCheck;
 
@@ -66,7 +67,7 @@ public class RoleProjectsController {
         }
         // TODO Get user by name form BAP
         model.addAttribute("user", userRepository.findByUsername(principal.getName()));
-        model.addAttribute("adminPrivileges", auth.isSysAdmin(principal.getName()) || auth.getOrgAdminID(principal.getName()) != null);
+        model.addAttribute("adminPrivileges", auth.isAdmin(principal.getName()));
         model.addAttribute("organisation", organisation);
         model.addAttribute("role", role);
         model.addAttribute("availableProjects", availableProjects);
@@ -162,5 +163,20 @@ public class RoleProjectsController {
             authException.printStackTrace();
         }
         return "redirect:/organisation/{oID}/role_management/role/{rID}/role_edit_access_projects";
+    }
+
+    private User getUserByPrincipal(Principal principal) {
+        List<User> users = null;
+        try {
+            users = backendAccessProvider.getAllUsers(principal.getName());
+        } catch (AuthenticationException authException) {
+            authException.printStackTrace();
+        }
+        for(User user : users) {
+            if(user.getUsername().equals(principal.getName())) {
+                return user;
+            }
+        }
+        return null;
     }
 }
