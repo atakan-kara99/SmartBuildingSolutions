@@ -1,4 +1,4 @@
-package com.lms2ue1.sbsweb.controller;
+package com.lms2ue1.sbsweb.dto;
 
 import java.util.List;
 
