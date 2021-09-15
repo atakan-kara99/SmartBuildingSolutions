@@ -2,97 +2,97 @@
 <html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
 
 <head>
-  <title th:text="${contract.name}"></title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link th:href="@{/css/main.css}" rel="stylesheet" />
+<title th:text="${contract.name}"></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link th:href="@{/css/main.css}" rel="stylesheet" />
 </head>
 
 <body>
-  <th:block th:fragment="content">
-    <div class="container">
-      <div class="text-center">
-        <h1 th:text="${contract.name}"></h1>
-      </div>
-      <div style="padding-top: 30px"></div>
-
-      <table width="100%">
-        <tr>
-          <td valign="top" style="width:70%">
-            <a th:href="@{'/project/' + ${pID} + '/show'}">
-              <button type="button" class="btn btn-outline-success">Projektdetails/Vertragsübersicht</button>
-            </a>
+    <th:block th:fragment="content">
+        <div class="container">
+            <div class="text-center">
+                <h1 th:text="${contract.name}"></h1>
+            </div>
             <div style="padding-top: 30px"></div>
-            <p th:text="${contract.description}"></p>
-            <p>
-              Status:
-              <b th:text="${contract.status}"></b>
-            </p>
-          </td>
-          <div th:if="${not billingItems?.empty}">
-            <td align="center" style="width:30%">
-              <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/diagrams'}">
-                <button align="right" type="button" class="btn btn-outline-success">Detailliertes Diagramm anzeigen</button>
-              </a>
-              <div style="padding-top: 20px"></div>
-              <div class="container" style="height: 250px">
-                <canvas id="diagram" align="right"></canvas>
-              </div>
-            </td>
-          </div>
-        </tr>
-    </div>
-    </table>
-    </div>
-    <div class="padding-50"></div>
-    <div class="text-center">
-      <h4 th:if="${billingItems?.empty}">Keine Leistungspositionen verfügbar.</h4>
-      <div class="container" th:unless="${billingItems?.empty}">
-        <table class="table table-borderless" th:with="cols=4" style="table-layout: fixed">
-          <tr th:each="_, row : ${billingItems}" th:if="${row.count % cols == 0 or row.last}">
-            <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
-              <!-- Full row -->
-              <td th:if="${row.count % cols == 0}" style="width: 25%; background-color: rgba(0, 0, 0, 0);">
-                <a th:object="${billingItems[row.index - x]}"
-                    th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{id} + '/show'}" class="icon-link">
-                    <i class="bi bi-exclamation-circle" style="font-size: 300%;" th:title="*{name}"></i>
-                    <span th:text="*{name}" style="font-size: 175%; display: block;"></span>
-                </a>
-                <div class="container" style="height: 30px; width: 70%">
-                  <canvas th:id="'pro'+ ${row.index - x}"></canvas>
+
+            <table width="100%">
+                <tr>
+                    <td valign="top" style="width: 70%">
+                        <a th:href="@{'/project/' + ${pID} + '/show'}">
+                            <button type="button" class="btn btn-outline-success">Projektdetails/Vertragsübersicht</button>
+                        </a>
+                        <div style="padding-top: 30px"></div>
+                        <p th:text="${contract.description}"></p>
+                        <p>
+                            Status:
+                            <b th:text="${contract.status}"></b>
+                        </p>
+                    </td>
+                    <div th:if="${not billingItems?.empty}">
+                        <td align="center" style="width: 30%">
+                            <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/diagrams'}">
+                                <button align="right" type="button" class="btn btn-outline-success">Detailliertes Diagramm anzeigen</button>
+                            </a>
+                            <div style="padding-top: 20px"></div>
+                            <div class="container" style="height: 250px">
+                                <canvas id="diagram" align="right"></canvas>
+                            </div>
+                        </td>
+                    </div>
+                </tr>
                 </div>
-                <div class="padding-20"></div>
-                <label th:id="'label'+${row.index - x}"></label>
-                </td>
-                <!-- Last row might not be full -->
-                <td th:if="${row.last and x < row.count % cols}" style="width: 25%; background-color: rgba(0, 0, 0, 0);">
-                  <a th:object="${billingItems[row.index - x]}"
-                    th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{id} + '/show'}" class="icon-link">
-                    <i class="bi bi-exclamation-circle" style="font-size: 300%;" th:title="*{name}"></i>
-                    <span th:text="*{name}" style="font-size: 175%; display: block;"></span>
-                  </a>
-                  <div class="container" style="height: 30px; width: 70%">
-                    <canvas th:id="'pro'+ ${row.index - x}"></canvas>
-                  </div>
-                  <div class="padding-20"></div>
-                  <label th:id="'label'+${row.index - x}"></label>
-                </td>
-              </th:block>
-            </tr>
-          </table>
+            </table>
         </div>
-      </div>
-      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-      <script th:inline="javascript">
-        //Daten von users holen
-        var listOfListOfStatus = /*[[${listOfListOfStatus}]]*/ "listOfStatus";
-        //only for mock
-        var listLength         = /*[[${#lists.size(billingItems)}]]*/ "listLength";
-        var darkMode           = /*[[${session.darkmodeEnabled}]]*/ "darkMode";
-        var multipleCharts     = false;
-      </script>
-      <script type="text/javascript " defer th:src="@{/js/createProgressDiagram.js} "></script>
+        <div class="padding-50"></div>
+        <div class="text-center">
+            <h4 th:if="${billingItems?.empty}">Keine Leistungspositionen verfügbar.</h4>
+            <div class="container" th:unless="${billingItems?.empty}">
+                <table class="table table-borderless" th:with="cols=4" style="table-layout: fixed">
+                    <tr th:each="_, row : ${billingItems}" th:if="${row.count % cols == 0 or row.last}">
+                        <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
+                            <!-- Full row -->
+                            <td th:if="${row.count % cols == 0}" style="width: 25%; background-color: rgba(0, 0, 0, 0);">
+                                <a th:object="${billingItems[row.index - x]}"
+                                    th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{id} + '/show'}" class="icon-link">
+                                    <i class="bi bi-exclamation-circle" style="font-size: 300%;" th:title="*{name}"></i>
+                                    <span th:text="*{name}" style="font-size: 175%; display: block;"></span>
+                                </a>
+                                <div class="container" style="height: 30px; width: 70%">
+                                    <canvas th:id="'pro'+ ${row.index - x}"></canvas>
+                                </div>
+                                <div class="padding-20"></div>
+                                <label th:id="'label'+${row.index - x}"></label>
+                            </td>
+                            <!-- Last row might not be full -->
+                            <td th:if="${row.last and x < row.count % cols}" style="width: 25%; background-color: rgba(0, 0, 0, 0);">
+                                <a th:object="${billingItems[row.index - x]}"
+                                    th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{id} + '/show'}" class="icon-link">
+                                    <i class="bi bi-exclamation-circle" style="font-size: 300%;" th:title="*{name}"></i>
+                                    <span th:text="*{name}" style="font-size: 175%; display: block;"></span>
+                                </a>
+                                <div class="container" style="height: 30px; width: 70%">
+                                    <canvas th:id="'pro'+ ${row.index - x}"></canvas>
+                                </div>
+                                <div class="padding-20"></div>
+                                <label th:id="'label'+${row.index - x}"></label>
+                            </td>
+                        </th:block>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script th:inline="javascript">
+									//Daten von users holen
+									var listOfListOfStatus = /*[[${listOfListOfStatus}]]*/"listOfStatus";
+									//only for mock
+									var listLength = /*[[${#lists.size(billingItems)}]]*/"listLength";
+									var darkMode = /*[[${session.darkmodeEnabled}]]*/"darkMode";
+									var multipleCharts = false;
+								</script>
+        <script type="text/javascript " defer th:src="@{/js/createProgressDiagram.js} "></script>
     </th:block>
-  </th:block>
+    </th:block>
 </body>
 
 </html>
