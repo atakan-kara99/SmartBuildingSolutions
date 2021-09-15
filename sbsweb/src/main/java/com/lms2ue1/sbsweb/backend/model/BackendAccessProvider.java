@@ -525,7 +525,6 @@ public class BackendAccessProvider {
     /**
      * Returns the status with the given id.
      * 
-     * @param username the username of the user requesting this operation.
      * @param statusId the status' id.
      * @return the status with the given id.
      * @throws IllegalArgumentException if the operation failed.
@@ -772,6 +771,21 @@ public class BackendAccessProvider {
     }
 
     //////////////////////// Stuff to JSON ////////////////////////
+
+    /**
+     * Returns the status with the given id.
+     * 
+     * @param statusId the status' name.
+     * @return the status with the given name.
+     * @throws IllegalArgumentException if the operation failed.
+     */
+    public Status getStatusByName(String statusName) {
+	Status status = stati.findByName(statusName);
+	if (status == null) {
+	    throw new IllegalArgumentException();
+	}
+	return status;
+    }
 
     /**
      * Returns all stati as a JSON list. Order not specified.
