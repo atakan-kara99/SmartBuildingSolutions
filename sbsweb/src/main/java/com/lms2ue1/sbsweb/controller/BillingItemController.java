@@ -43,6 +43,7 @@ public class BillingItemController {
 	    model.addAttribute("project", BAP.getProjectById(username, pID));
 	    model.addAttribute("contract", BAP.getContractById(username, cID));
 	    model.addAttribute("billingItem", BAP.getBillingItemById(username, bID));
+	    model.addAttribute("admin", auth.isAdmin(username));
 	    return "billingitem/billing_item_details";
 	} catch (AuthenticationException | IllegalArgumentException e) {
 	    return "error";
@@ -92,5 +93,19 @@ public class BillingItemController {
 	    return "billingitem/billing_item_new";
 	}
 	return "redirect:/project/{pID}/contract/{cID}/show";
+    }
+
+    /** Updates a billing item's status. 
+     * @throws AuthenticationException */
+    @PostMapping("/project/{pID}/contract/{cID}/billing_item/{bID}/update_status")
+    public String updateBillingItemStatus(@PathVariable long pID, @PathVariable long cID, @PathVariable long bID,
+	    @Valid Status status, BindingResult bindingResult, Principal principal, Model model) throws AuthenticationException {
+	if (bindingResult.hasErrors()) {
+	    return "error";
+	}
+	String username = principal.getName();
+	BAP.updateBillingItemStatus(username, bID, status);
+
+	return "redirect:/project/{pID}/contract/{cID}/billing_item/{bID}/show";
     }
 }

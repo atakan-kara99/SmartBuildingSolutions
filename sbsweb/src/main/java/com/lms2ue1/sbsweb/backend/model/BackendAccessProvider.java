@@ -746,6 +746,9 @@ public class BackendAccessProvider {
 	    throw new IllegalArgumentException();
 	}
 	BillingItem billingItem = billingItems.findById(billingItemId).orElseThrow(IllegalArgumentException::new);
+	if (!billingItem.getStatus().getNextStati().contains(newStatus)) {
+	    throw new IllegalArgumentException("Transition not possible: " + newStatus + " not in nextStati!");
+	}
 	billingItem.setStatus(newStatus);
 	billingItems.save(billingItem);
     }
