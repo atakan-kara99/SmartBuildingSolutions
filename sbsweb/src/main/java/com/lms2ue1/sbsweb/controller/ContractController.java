@@ -27,6 +27,9 @@ public class ContractController {
     // List of temp stati for details
     List<String> listOfStatus = List.of("OK", "OK", "NO_STATUS", "OPEN", "OPEN", "DENY", "OPEN", "OK", "OK", "OK",
 	    "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK", "OK", "DENY");
+    
+    //List of list of status
+    List<List<String>> listOfListOfStatus = List.of(listOfStatus,listOfStatus,listOfStatus,listOfStatus,listOfStatus,listOfStatus);
 
     /** Shows the specified contract's details, e.g. its billing items. 
      * @throws AuthenticationException */

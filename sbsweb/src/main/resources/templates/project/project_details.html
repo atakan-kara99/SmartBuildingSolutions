@@ -2,87 +2,100 @@
 <html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
 
 <head>
-  <title th:text="${project.name}"></title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link th:href="@{/css/main.css}" rel="stylesheet" />
+    <title th:text="${project.name}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
 </head>
 
 <body>
-  <th:block th:fragment="content">
-    <div class="container">
-      <div class="text-center">
-        <h1 th:text="${project.name}"></h1>
-        <div style="padding-top: 30px"></div>
-        <p th:text="'Auftraggeber: ' + ${project.creator}"></p>
-      </div>
-      <div style="padding-top: 50px"></div>
-      <table width="100%">
-        <tr>
-          <th style="min-width:120px"></th>
-          <th style="min-width:60px"></th>
-        </tr>
-        <tr>
-          <td valign="top" style="width:70%">
-            <a th:href="@{'/project_overview'}">
-              <button type="button" class="btn btn-outline-success">Projektübersicht</button>
-            </a>
-            <div style="padding-top: 30px"></div>
-            <p th:text="${project.description}"></p>
-            <p th:text="${project.creationDate} + ' - ' + ${project.completionDate}"></p>
-            <p>
-              Status:
-              <b th:text="${project.status}"></b>
-            </p>
-          </td>
-          <td align="center" style="width:30%">
-            <a th:href="@{'/project/' + ${pID} + '/diagrams'}">
-              <button align="right" type="button" class="btn btn-outline-success">Detailliertes Diagramm anzeigen</button>
-            </a>
-            <div style="padding-top: 20px"></div>
-            <div class="container" style="height: 250px">
-              <canvas id="diagram" align="right"></canvas>
-            </div>
+    <th:block th:fragment="content">
+        <div class="container">
             <div class="text-center">
-              <div class="padding-20"></div>
-              <h3>Fortschritt</h3>
+                <h1 th:text="${project.name}"></h1>
+                <div style="padding-top: 30px"></div>
+                <p th:text="'Auftraggeber: ' + ${project.creator}"></p>
             </div>
-          </td>
-        </tr>
-      </table>
-      <div class="padding-50"></div>
-      <div class="text-center">
-        <h4 th:if="${contracts?.empty}">Keine Verträge verfügbar.</h4>
-        <div class="container" th:unless="${contracts?.empty}">
-          <table class="table table-borderless" th:with="cols=4">
-            <tr th:each="_, row : ${contracts}" th:if="${row.count % cols == 0 or row.last}">
-              <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
-                            <!-- Full row -->
-                            <td th:if="${row.count % cols == 0}">
-                                <a th:object="${contracts[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + *{id} + '/show'}" class="icon-link">
-                                    <i class="bi bi-book" style="font-size: 300%; color: black;" th:title="*{name}"></i>
-                                    <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
-                                </a>
-                            </td>
-                            <!-- Last row might not be full -->
-                            <td th:if="${row.last and x < row.count % cols}">
-                                <a th:object="${contracts[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + *{id} + '/show'}" class="icon-link">
-                                    <i class="bi bi-book" style="font-size: 300%; color: black;" th:title="*{name}"></i>
-                                    <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
-                                </a>
-                            </td>
-                        </th:block>
-                    </tr>
-                </table>
+            <div style="padding-top: 50px"></div>
+            <table width="100%">
+                <tr>
+                    <td valign="top" style="width: 70%">
+                        <a th:href="@{'/project_overview'}">
+                            <button type="button" class="btn btn-outline-success">Projektübersicht</button>
+                        </a>
+                        <div style="padding-top: 30px"></div>
+                        <p th:text="${project.description}"></p>
+                        <p th:text="${project.creationDate} + ' - ' + ${project.completionDate}"></p>
+                        <p>
+                            Status:
+                            <b th:text="${project.status}"></b>
+                        </p>
+                    </td>
+                    <div th:if="${not contracts?.empty}">
+                        <td align="center" style="width: 30%">
+                            <a th:href="@{'/project/' + ${pID} + '/diagrams'}">
+                                <button align="right" type="button" class="btn btn-outline-success">Detailliertes Diagramm anzeigen</button>
+                            </a>
+                            <div style="padding-top: 20px"></div>
+                            <div class="container" style="height: 250px">
+                                <canvas id="diagram" align="right"></canvas>
+                            </div>
+                            <div class="text-center">
+                                <div class="padding-20"></div>
+                                <h3>Fortschritt</h3>
+                            </div>
+                        </td>
+                    </div>
+                </tr>
+            </table>
+            <div class="padding-50"></div>
+            <div class="text-center">
+                <h4 th:if="${contracts?.empty}">Keine Verträge verfügbar.</h4>
+                <div class="container" th:unless="${contracts?.empty}">
+                    <table class="table table-borderless" th:with="cols=4" style="table-layout: fixed">
+                        <tr th:each="_, row : ${contracts}" th:if="${row.count % cols == 0 or row.last}">
+                            <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
+                                <!-- Full row -->
+                                <td th:if="${row.count % cols == 0}" style="width: 25%; background-color: rgba(0, 0, 0, 0);">
+                                    <a th:object="${contracts[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + *{id} + '/show'}" class="icon-link">
+                                        <i class="bi bi-book" style="font-size: 300%;" th:title="*{name}"></i>
+                                        <span th:text="*{name}" style="font-size: 175%; display: block;"></span>
+                                    </a>
+                                    <div class="container" style="height: 30px; width: 70%">
+                                        <canvas th:id="'pro'+ ${row.index - x}"></canvas>
+                                    </div>
+                                    <div class="padding-20"></div>
+                                    <label th:id="'label'+${row.index - x}"></label>
+                                </td>
+                                <!-- Last row might not be full -->
+                                <td th:if="${row.last and x < row.count % cols}" style="width: 25%; background-color: rgba(0, 0, 0, 0);">
+                                    <a th:object="${contracts[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + *{id} + '/show'}"
+                                        class="icon-link">
+                                        <i class="bi bi-book" style="font-size: 300%;" th:title="*{name}"></i>
+                                        <span th:text="*{name}" style="font-size: 175%; display: block;"></span>
+                                    </a>
+                                    <div class="container" style="height: 30px; width: 70%">
+                                        <canvas th:id="'pro'+ ${row.index - x}"></canvas>
+                                    </div>
+                                    <div class="padding-20"></div>
+                                    <label th:id="'label'+${row.index - x}"></label>
+                                </td>
+                            </th:block>
+                        </tr>
+                    </table>
+                </div>
             </div>
-          </div>
         </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script th:inline="javascript">
-      //Daten von users holen
-      var listOfStatus = /*[[${listOfStatus}]]*/ "listOfStatus";
-    </script>
-    <script type="text/javascript " defer th:src="@{/js/createProgressDiagram.js} "></script>
-  </th:block>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script th:inline="javascript">
+									//Daten von users holen
+									var listOfListOfStatus = /*[[${listOfListOfStatus}]]*/"listOfListOfStatus";
+									//only for mock
+									var listLength = /*[[${#lists.size(contracts)}]]*/"listLength";
+									var darkMode = /*[[${session.darkmodeEnabled}]]*/"darkMode";
+									var multipleCharts = true;
+								</script>
+        <script type="text/javascript " defer th:src="@{/js/createProgressDiagram.js} "></script>
+    </th:block>
 </body>
 
 </html>

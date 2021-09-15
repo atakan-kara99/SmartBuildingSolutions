@@ -35,15 +35,12 @@ public class ProjectController {
     @Autowired
     private BackendAccessProvider BAP;
 
-    // List of temp stati for overview
-    List<String> listOfStatus1 = List.of("OK", "OK", "NO_STATUS", "OPEN", "OPEN", "DENY", "OPEN", "OK", "OK", "OK",
-	    "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK", "OK", "DENY", "OK", "OK", "NO_STATUS", "OPEN", "OPEN", "DENY",
-	    "OPEN", "OK", "OK", "OK", "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK", "OK", "DENY", "OK", "OK",
-	    "NO_STATUS", "OPEN", "OPEN", "DENY", "OPEN", "OK", "OK", "OK", "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK",
-	    "OK", "DENY", "OK", "OK", "NO_STATUS", "OPEN", "OPEN", "DENY", "OPEN", "OK", "OK", "OK", "NO_STATUS", "OK",
-	    "OK", "OK", "OPEN", "OK", "OK", "DENY", "OK", "OK", "NO_STATUS", "OPEN", "OPEN", "DENY", "OPEN", "OK", "OK",
-	    "OK", "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK", "OK", "DENY", "OK", "OK", "NO_STATUS", "OPEN", "OPEN",
-	    "DENY", "OPEN", "OK", "OK", "OK", "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK", "OK", "DENY");
+    // List of temp stati
+    List<String> listOfStatus = List.of("OK", "OK", "NO_STATUS", "OPEN", "OPEN", "DENY", "OPEN", "OK", "OK", "OK",
+	    "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK", "OK", "DENY");
+    
+    //List of list of status
+    List<List<String>> listOfListOfStatus = List.of(listOfStatus,listOfStatus,listOfStatus,listOfStatus,listOfStatus,listOfStatus);
 
     /** Shows an overview of all projects. */
     @GetMapping("/project_overview")
