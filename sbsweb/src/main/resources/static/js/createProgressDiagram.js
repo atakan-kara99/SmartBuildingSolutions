@@ -62,7 +62,6 @@ function createData() {
             plugins: {
               legend: {
                 display: false,
-                text: 'Legend Title'
               }
             },
             tooltips: {
@@ -132,10 +131,7 @@ if (listLength > 0) {
           }
         },
         responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          position: 'bottom'
-        },
+        maintainAspectRatio: false
       }
     });
 }

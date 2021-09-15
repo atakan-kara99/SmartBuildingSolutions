@@ -12,32 +12,6 @@
         }
       };
 
-      var line = {
-        type: "line",
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            yAxes: [{
-              beginAtZero: true
-            }]
-          }
-        }
-      };
-
-      var radar = {
-        type: "radar",
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          elements: {
-            line: {
-              borderWidth: 3
-            }
-          }
-        }
-      };
-
       var doughnut = {
         type: "doughnut",
         options: {
@@ -55,7 +29,7 @@
       };
 
       //array of all chart type configs
-      var configs = [bar, line, radar, doughnut, pie];
+      var configs = [bar, doughnut, pie];
 
 
 
@@ -100,10 +74,12 @@
         };
       }
 
+      var data;
+
       //create only, if we have the data
       if (listOfStatus.length > 0) {
         //calculate the data
-        const data = createData();
+        data = createData();
 
         //reference canvas element
         var ctx = document.getElementById("diagram").getContext('2d');

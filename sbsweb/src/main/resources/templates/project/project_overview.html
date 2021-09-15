@@ -62,6 +62,7 @@
         <script th:inline="javascript">
           //Daten von users holen
           var listOfListOfStatus = /*[[${listOfListOfStatus}]]*/ "listOfListOfStatus";
+          //only for mock
           var listLength         = /*[[${#lists.size(projects)}]]*/ "listLength";
           var darkMode           = /*[[${session.darkmodeEnabled}]]*/ "darkMode";
           var multipleCharts     = true;
