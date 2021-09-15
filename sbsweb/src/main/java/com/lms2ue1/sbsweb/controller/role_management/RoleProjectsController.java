@@ -9,13 +9,11 @@ import javax.naming.AuthenticationException;
 
 import com.lms2ue1.sbsweb.backend.model.BackendAccessProvider;
 import com.lms2ue1.sbsweb.backend.model.BillingItem;
-import com.lms2ue1.sbsweb.backend.model.BillingUnit;
 import com.lms2ue1.sbsweb.backend.model.Contract;
 import com.lms2ue1.sbsweb.backend.model.Organisation;
 import com.lms2ue1.sbsweb.backend.model.Project;
 import com.lms2ue1.sbsweb.backend.model.Role;
 import com.lms2ue1.sbsweb.backend.model.User;
-import com.lms2ue1.sbsweb.backend.repository.UserRepository;
 import com.lms2ue1.sbsweb.backend.security.AuthorisationCheck;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +29,6 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 @Controller
 public class RoleProjectsController {
-    @Autowired
-    private UserRepository userRepository;
-
     @Autowired
     private BackendAccessProvider backendAccessProvider;
 
@@ -66,7 +61,7 @@ public class RoleProjectsController {
             authException.printStackTrace();
         }
         // TODO Get user by name form BAP
-        model.addAttribute("user", userRepository.findByUsername(principal.getName()));
+        model.addAttribute("user", getUserByPrincipal(principal));
         model.addAttribute("adminPrivileges", auth.isAdmin(principal.getName()));
         model.addAttribute("organisation", organisation);
         model.addAttribute("role", role);
@@ -165,15 +160,17 @@ public class RoleProjectsController {
         return "redirect:/organisation/{oID}/role_management/role/{rID}/role_edit_access_projects";
     }
 
+    /**
+     * Method to get the User model object by using the principal.
+     * 
+     * @param  principal Security principal used to access the user model object
+     * @return           The user model object when a corresponding user exists. Else null
+     */
     private User getUserByPrincipal(Principal principal) {
         List<User> users = null;
-        try {
-            users = backendAccessProvider.getAllUsers(principal.getName());
-        } catch (AuthenticationException authException) {
-            authException.printStackTrace();
-        }
-        for(User user : users) {
-            if(user.getUsername().equals(principal.getName())) {
+        users = backendAccessProvider.getAllUsers(principal.getName());
+        for (User user : users) {
+            if (user.getUsername().equals(principal.getName())) {
                 return user;
             }
         }
