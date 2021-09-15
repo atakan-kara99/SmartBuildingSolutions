@@ -1,7 +1,6 @@
 package com.lms2ue1.sbsweb.controller;
 
 import java.security.Principal;
-import java.util.stream.Collectors;
 
 import javax.naming.AuthenticationException;
 import javax.validation.Valid;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.lms2ue1.sbsweb.backend.model.*;
-import com.lms2ue1.sbsweb.backend.repository.BillingItemRepository;
 import com.lms2ue1.sbsweb.backend.security.AuthorisationCheck;
 
 @Controller
@@ -25,8 +23,6 @@ public class BillingItemController {
     private BackendAccessProvider BAP;
     @Autowired
     private AuthorisationCheck auth;
-    @Autowired
-    private BillingItemRepository bs;
 
     /**
      * Shows the specified billing item's details and potential nested billing
@@ -81,9 +77,8 @@ public class BillingItemController {
 	    return "billingitem/billing_item_new";
 	}
 	// Initial status
-//	billingItem.setStatus(); TODO
+	billingItem.setStatus(BAP.getStatusByName("NO_STATUS"));
 
-	// TODO save using BAP once it's implemented
 	try {
 	    String username = principal.getName();
 	    BAP.addBillingItem(username, billingItem);

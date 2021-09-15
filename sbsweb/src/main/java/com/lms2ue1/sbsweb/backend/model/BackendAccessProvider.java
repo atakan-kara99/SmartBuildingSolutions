@@ -864,4 +864,16 @@ public class BackendAccessProvider {
     public List<Status> getAllStatiForAllProjects(String username) throws AuthenticationException {
 	return getAllBillingItems(username).stream().map(bi -> bi.getStatus()).collect(Collectors.toList());
     }
+
+    /**
+     * Checks whether the status with the given id is a pre-defined status.
+     * 
+     * @param statusId the status' id.
+     * @return true for standard status, false otherwise.
+     */
+    public boolean isStandardStatusById(Long statusId) {
+	String name = stati.findById(statusId).orElseThrow(IllegalArgumentException::new).getName();
+	return name.equalsIgnoreCase("NO_STATUS") || name.equalsIgnoreCase("OPEN") || name.equalsIgnoreCase("OK")
+		|| name.equalsIgnoreCase("DENY");
+    }
 }

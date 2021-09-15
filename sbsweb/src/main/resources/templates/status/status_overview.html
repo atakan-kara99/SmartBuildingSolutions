@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+<title>Status</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link th:href="@{/css/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <th:block th:fragment="content">
+        <div class="container">
+            <div class="text-center">
+                <h1>Status</h1>
+                <div style="padding-top: 20px"></div>
+                <a th:href="@{'/status_new'}">
+                    <button type="button" class="btn btn-outline-success">Neuer Status</button>
+                </a>
+            </div>
+        </div>
+        <div class="padding-50"></div>
+        <div class="text-center">
+            <div class="container" th:unless="${allStati?.empty}">
+                <table class="table table-borderless" th:with="cols=4">
+                    <tr th:each="_, row : ${allStati}" th:if="${row.count % cols == 0 or row.last}">
+                        <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
+                            <!-- Full row -->
+                            <td th:if="${row.count % cols == 0}">
+                                <a th:object="${allStati[row.index - x]}" th:href="@{'/status/' + *{id} + '/show'}" class="icon-link">
+                                    <!--                                     <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="*{name}"></i> -->
+                                    <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
+                                </a>
+                            </td>
+                            <!-- Last row might not be full -->
+                            <td th:if="${row.last and x < row.count % cols}">
+                                <a th:object="${allStati[row.index - x]}" th:href="@{'/status/' + *{id} + '/show'}" class="icon-link">
+                                    <!--                                     <i class="bi bi-archive" style="font-size: 300%; color: black;" th:title="*{name}"></i> -->
+                                    <span th:text="*{name}" style="font-size: 175%; color: black; display: block;"></span>
+                                </a>
+                            </td>
+                        </th:block>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </th:block>
+</body>
+
+</html>

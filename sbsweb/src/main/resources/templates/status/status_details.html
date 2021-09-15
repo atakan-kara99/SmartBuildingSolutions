@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+<title th:text="${billingItem.name}"></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link th:href="@{/css/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <th:block th:fragment="content">
+        <div class="container">
+            <div class="text-center">
+                <h1 th:text="${status.name}"></h1>
+                <div style="padding-top: 30px"></div>
+                <p th:text="${status.description}">Keine Beschreibung angegeben</p>
+                <div style="padding-top: 20px"></div>
+                <a th:href="@{'/status_overview'}">
+                    <button type="button" class="btn btn-outline-success">Zurück zu den Status</button>
+                </a>
+                <div class="padding-50"></div>
+                <a th:href="@{'/status/' + ${sID} + '/status_delete'}" th:unless="${standardStatus}">
+                    <button type="button" class="btn btn-outline-danger">Status löschen</button>
+                </a>
+            </div>
+        </div>
+    </th:block>
+</body>
+
+</html>
