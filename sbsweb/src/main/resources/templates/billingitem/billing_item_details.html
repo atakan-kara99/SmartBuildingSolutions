@@ -2,34 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
 
 <head>
-  <title th:text="${billingItem.name}"></title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link th:href="@{/css/main.css}" rel="stylesheet" />
+    <title th:text="${billingItem.name}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
 </head>
 
 <body>
-  <th:block th:fragment="content">
-    <div class="container">
-      <div class="text-center">
-        <h1 th:text="${billingItem.name}"></h1>
-        <div style="padding-top: 30px"></div>
-        <p th:text="${billingItem.shortDescription}"></p>
-        <p>
-          Status:
-          <b th:text="${billingItem.status}"></b>
-        </p>
-        <div style="padding-top: 20px"></div>
-        <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/show'}">
-          <button type="button" class="btn btn-outline-success" th:text="'Zurück zum Vertrag: ' + ${contract.name}">Zurück zum Vertrag</button>
-        </a>
-      </div>
-    </div>
-    <div class="padding-50"></div>
-    <div class="text-center" th:object="${billingItem}">
-      <div class="container" th:unless="*{billingItems?.empty}">
-        <table class="table table-borderless" th:with="cols=4">
-          <tr th:each="_, row : *{billingItems}" th:if="${row.count % cols == 0 or row.last}">
-            <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
+    <th:block th:fragment="content">
+        <div class="container">
+            <div class="text-center">
+                <h1 th:text="${billingItem.name}"></h1>
+                <div style="padding-top: 30px"></div>
+                <p th:text="${billingItem.shortDescription}"></p>
+                <p>
+                    Status:
+                    <b th:text="${billingItem.status}"></b>
+                </p>
+                <div style="padding-top: 20px"></div>
+                <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/show'}">
+                    <button type="button" class="btn btn-outline-success" th:text="'Zurück zum Vertrag: ' + ${contract.name}">Zurück zum Vertrag</button>
+                </a>
+            </div>
+        </div>
+        <div class="padding-50"></div>
+        <div class="text-center" th:object="${billingItem}">
+            <div class="container" th:unless="*{billingItems?.empty}">
+                <table class="table table-borderless" th:with="cols=4">
+                    <tr th:each="_, row : *{billingItems}" th:if="${row.count % cols == 0 or row.last}">
+                        <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
               <!-- Full row -->
               <td th:if="${row.count % cols == 0}" style="width: 25%; background-color: rgba(0, 0, 0, 0);">
                 <a th:object="${billingItem.billingItems[row.index - x]}"

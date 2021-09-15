@@ -2,65 +2,65 @@
 <html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
 
 <head>
-  <title>Projekt-Diagramm</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link th:href="@{/css/main.css}" rel="stylesheet" />
+    <title>Projekt-Diagramm</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
 </head>
 
 <body>
-  <th:block th:fragment="content">
+    <th:block th:fragment="content">
 
-    <div class="container">
-      <div class="text-center">
-        <h1 th:text="${project.name}"></h1>
-        <div class="padding-50"></div>
-        <p th:text="${project.description}"></p>
-        <p>
-          Status:
-          <b th:text="${project.status}"></b>
-        </p>
+        <div class="container">
+            <div class="text-center">
+                <h1 th:text="${project.name}"></h1>
+                <div class="padding-50"></div>
+                <p th:text="${project.description}"></p>
+                <p>
+                    Status:
+                    <b th:text="${project.status}"></b>
+                </p>
 
-      </div>
-    </div>
-
-    <div th:if="${not listOfStatus.empty}">
-      <div class="container">
-        <div class="padding-50"></div>
-        <div class="row">
-          <div class="col">
-            <a th:href="@{'/project/' + ${pID} + '/show'}">
-              <button type="button" class="btn btn-outline-success">Zurück zu den Projektdetails</button>
-            </a>
-          </div>
-          <div class="col-auto">
-            <div class="selectBox">
-              <select id="chartType" style="font-size:16px;">
-                <option value=0>Bar</option>
-                <option value=1>Doughnut</option>
-                <option value=2>Pie</option>
-              </select>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="padding-50"></div>
-      <div class="chartBox" style="height: 300px">
-        <canvas id="diagram"></canvas>
-      </div>
-    </div>
+
+        <div th:if="${not listOfStatus.empty}">
+            <div class="container">
+                <div class="padding-50"></div>
+                <div class="row">
+                    <div class="col">
+                        <a th:href="@{'/project/' + ${pID} + '/show'}">
+                            <button type="button" class="btn btn-outline-success">Zurück zu den Projektdetails</button>
+                        </a>
+                    </div>
+                    <div class="col-auto">
+                        <div class="selectBox">
+                            <select id="chartType" style="font-size:16px;">
+                                <option value=0>Bar</option>
+                                <option value=1>Doughnut</option>
+                                <option value=2>Pie</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="padding-50"></div>
+            <div class="chartBox" style="height: 300px">
+                <canvas id="diagram"></canvas>
+            </div>
+        </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script th:inline="javascript">
-      //Daten von users holen
-      var listOfStatus = /*[[${listOfStatus}]]*/ "listOfStatus";
-      var labels       = /*[[${labels}]]*/ "labels";
-      var name         = /*[[${project.name}]]*/ "name";
-      var darkMode     = /*[[${session.darkmodeEnabled}]]*/ "darkMode";
-    </script>
-    <script type="text/javascript " defer th:src="@{/js/createDiagram.js} "></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script th:inline="javascript">
+            //Daten von users holen
+            var listOfStatus = /*[[${listOfStatus}]]*/ "listOfStatus";
+            var labels = /*[[${labels}]]*/ "labels";
+            var name = /*[[${project.name}]]*/ "name";
+            var darkMode = /*[[${session.darkmodeEnabled}]]*/ "darkMode";
+        </script>
+        <script type="text/javascript " defer th:src="@{/js/createDiagram.js} "></script>
 
-  </th:block>
+    </th:block>
 </body>
 
 </html>
