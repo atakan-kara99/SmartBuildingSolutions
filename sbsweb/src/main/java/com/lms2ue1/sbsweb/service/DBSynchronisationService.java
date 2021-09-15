@@ -187,14 +187,18 @@ public class DBSynchronisationService {
 
 	    // TODO after saving the billing units save the billing items
 	    // saves the current billing item too
-	    //this.saveBillingItems(currentBillingUnit);
+	    this.saveBillingItems(currentBillingUnit, currentBillingUnit.getBillingItems());
 	}
 
     }
 
     // ------- Save the billing items with the repo --------//
-    public void saveBillingItems(BillingUnit billingUnit) {
-	List<BillingItem> billingItems = billingUnit.getBillingItems();
+    public void saveBillingItems(BillingUnit billingUnit, List<BillingItem> billingItems) {
+	// Breakpoint!
+	if (billingItems == null || billingItems.isEmpty()) {
+	    return;
+	}
+	
 	// TODO : (optional) throw illegal argument exception if list is empty
 	// TODO: DEBUGG
 	for (BillingItem b : billingItems) {
@@ -206,8 +210,11 @@ public class DBSynchronisationService {
 	    // currentBillingItem.setBillingUnit(billingUnitRepo.findByAdessoID(billingUnit.getAdessoID()));
 	    currentBillingItem.setBillingUnit(billingUnit);
 
-	    // TODO: set the right status
-	    currentBillingItem.setStatus(null);
+	    if (currentBillingItem.getAdessoStatus() != null) {
+		currentBillingItem.setStatusObj(statRepo.findByName(currentBillingItem.getAdessoStatus()));;
+	    }
+	    
+	    this.saveBillingItems(billingUnit, currentBillingItem.getBillingItems());
 
 	    billingItemRepo.save(currentBillingItem);
 	}

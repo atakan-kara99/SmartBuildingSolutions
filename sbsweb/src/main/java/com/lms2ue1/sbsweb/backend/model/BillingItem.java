@@ -44,6 +44,8 @@ public class BillingItem {
 	private String qtySplit;
 	@JsonProperty("shortDesLinkedIFC")
 	private String shortDesLinkedIFC;
+	@JsonProperty("status")
+	private String adessoStatus;
 
 	// ---- Associations ----//
 	@JsonUnwrapped
@@ -61,7 +63,7 @@ public class BillingItem {
 	// TODO: adessoStatus?
 	@JsonUnwrapped
 	@ManyToOne
-	private Status status;
+	private Status statusObj;
 
 	// ----------------------------------//
 	// ---------- Constructors ----------//
@@ -90,7 +92,7 @@ public class BillingItem {
 		this.name = name;
 		this.price = price;
 		this.shortDescription = sDesc;
-		this.status = status;
+		this.statusObj = status;
 		this.quantities = quantities;
 		this.unit = unit;
 		this.unitPrice = uPrice;
@@ -123,8 +125,8 @@ public class BillingItem {
 		return this.shortDescription;
 	}
 
-	public Status getStatus() {
-		return this.status;
+	public Status getStatusObj() {
+		return this.statusObj;
 	}
 
 	public double getQuantities() {
@@ -158,6 +160,14 @@ public class BillingItem {
 	public List<Role> getRoles() {
 		return this.roles;
 	}
+	
+	public String getAdessoStatus() {
+	    return adessoStatus;
+	}
+
+	public void setAdessoStatus(String adessoStatus) {
+	    this.adessoStatus = adessoStatus;
+	}
 
 	// ----------------------------//
 	// ---------- Setter ----------//
@@ -174,8 +184,8 @@ public class BillingItem {
 		this.shortDescription = sDesc;
 	}
 
-	public void setStatus(Status s) {
-		this.status = s;
+	public void setStatusObj(Status s) {
+		this.statusObj = s;
 	}
 
 	protected void setQuantities(double qs) {

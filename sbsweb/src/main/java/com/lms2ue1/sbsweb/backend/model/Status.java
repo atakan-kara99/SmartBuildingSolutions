@@ -28,7 +28,7 @@ public class Status {
 	private List<Project> projects;
 	@OneToMany(mappedBy = "statusObj")
 	private List<Contract> contracts;
-	@OneToMany(mappedBy = "status")
+	@OneToMany(mappedBy = "statusObj")
 	private List<BillingItem> billingItems;
 
 	@OneToMany
