@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class BillingUnit {
     // ---- Attributes ----//
@@ -29,7 +31,7 @@ public class BillingUnit {
 
     // ---- Associations ----//
     /* Got problems with merging with contracts */
-    @ManyToOne // (cascade = { CascadeType.MERGE }) // try to run w/
+    @ManyToOne
     @JoinColumn(name = "contract_id")
     private Contract contract;
     @Size(min = 1)
@@ -114,43 +116,43 @@ public class BillingUnit {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    protected void setId(long id) {
+    public void setId(long id) {
 	this.id = id;
     }
 
-    protected void setShortDescription(String sDesc) {
+    public void setShortDescription(String sDesc) {
 	this.shortDescription = sDesc;
     }
 
-    protected void setLongDescription(String lDesc) {
+    public void setLongDescription(String lDesc) {
 	this.longDescription = lDesc;
     }
 
-    protected void setUnit(String u) {
+    public void setUnit(String u) {
 	this.unit = u;
     }
 
-    protected void setCompletionDate(String cD) {
+    public void setCompletionDate(String cD) {
 	this.completionDate = cD;
     }
 
-    protected void setownContractDefined(String oCD) {
+    public void setownContractDefined(String oCD) {
 	this.ownContractDefined = oCD;
     }
 
-    protected void setTotalQuantity(double tQ) {
+    public void setTotalQuantity(double tQ) {
 	this.totalQuantity = tQ;
     }
 
-    protected void setTotalPrice(double tP) {
+    public void setTotalPrice(double tP) {
 	this.totalPrice = tP;
     }
 
-    protected void setContract(Contract c) {
+    public void setContract(Contract c) {
 	this.contract = c;
     }
 
-    protected void setBillingItems(List<BillingItem> bis) {
+    public void setBillingItems(List<BillingItem> bis) {
 	this.billingItems = bis;
     }
 

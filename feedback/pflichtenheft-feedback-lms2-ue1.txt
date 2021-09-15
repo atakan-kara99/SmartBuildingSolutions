@@ -1,0 +1,71 @@
+
+################
+GRUPPE LMS2-UE1
+################
+
+LIZENZ
+------
+
+  * MIT-artig
+
+ZIELBESTIMMUNGEN
+----------------
+
+  * sehr gut, auch gute Abgrenzungskriterien
+  
+PRODUKTEINSATZ, PRODUKTUMGEBUNG
+-------------------------------
+
+  * gut
+
+PRODUKTFUNKTIONEN
+-----------------
+
+  * sehr gutes und detailliertes Anwendungsfalldiagramm zur App und zur Webseite
+  * sehr schön: eigenes Anwendungsfalldiagramm für Diagrammerstellung, mit Anwendung von Vererbung 
+  * etwas eigenwillig: Die Namen der Anwendungsfälle sind englisch, der Rest deutsch.
+  * zT fehlen Details, bsp Seite 13: Was sind die "bestimmten Kriterien"?
+  * inhaltlich fehlt die Beschreibung der Datenübernahme von der adesso API.
+  * sehr schöne Anwendungsfalldiagramme
+  * Interaktion mit adesso API fehlt
+  
+  
+TESTFÄLLE
+---------
+
+  * die Testfälle sind sehr nah an den Anwendungsfällen: Explizite Bedingungen für die Testenden fehlen in vielen 
+    Fällen.
+  * Testfälle teilweise sehr generisch, keine explizite Angabe der erwarteten Aus-/Rückgabe
+  * Alle (?) Tests beziehen sich auf Ergebnisse der UI
+    * evtl. nicht anders möglich im Pflichtenheft (?)
+   
+   
+PRODUKTDATEN
+------------
+
+  * sehr gut und ausführlich, gute Basis für Datenmodell in der Implementierung
+  * Rolle WebUser/AppUSer nicht ganz klar
+  * Ansonsten sehr schön
+  
+   
+BENUTZEROBERFLÄCHE
+------------------
+
+  * sehr gut und übersichtlich, inklusive Screenflow-Diagramm für App und Webseite
+  * gute Differenzierung zwischen den verschiedenen Nutzerrollen
+
+   
+GLOSSAR
+-------
+
+  * gut
+
+
+BEWERTUNG ZUSAMMENFASSUNG UND NOTE
+----------------------------------
+
+Insgesamt sehr gut ausgeführt, bis auf kleinere Details. Die einzige inhaltliche Lücke ist der Umgang
+mit der REST-Schnittstelle von adesso - wann werden hier welche Daten übernommen? Schön ist, dass das
+Datenmodell (Produktdaten) explizit auf den Daten der Schnittstelle aufbaut.
+
+Note: 1,7

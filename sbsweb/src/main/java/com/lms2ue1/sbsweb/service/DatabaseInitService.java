@@ -13,8 +13,6 @@ import com.lms2ue1.sbsweb.backend.repository.*;
 public class DatabaseInitService {
 
     @Autowired
-    AddressRepository addRepo;
-    @Autowired
     UserRepository userRepo;
     @Autowired
     OrganisationRepository orgaRepo;
@@ -28,10 +26,22 @@ public class DatabaseInitService {
     BillingUnitRepository billUnitRepo;
     @Autowired
     BillingItemRepository billItemRepo;
+    @Autowired
+    StatusRepository statRepo;
 
     public void init() {
 	if (userRepo.count() == 0) {
 	    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+	    // -----------------------------//
+	    // ------------- Status ----------//
+	    // -----------------------------//
+	    Status s1 = new Status("OK", "Client has approved", null);
+	    Status s2 = new Status("DENY", "Client has denied", null);
+	    Status s3 = new Status("OPEN", "Ready to be reviewed", List.of(s1, s2));
+	    Status s4 = new Status("NO_STATUS", "No status assigned yet", List.of(s3));
+
+	    statRepo.saveAll(List.of(s1, s2, s3, s4));
 
 	    // -----------------------------//
 	    // ------------- Orga ----------//
@@ -62,86 +72,85 @@ public class DatabaseInitService {
 	    Address add2 = new Address("Nebelungen-Weg", 007, 98745, "Nimmerland", "Peter-Pan-Land");
 	    Address add3 = new Address("Nice Ave.", 3457, 15341, "New York", "Süd-Afrika");
 	    Address add4 = new Address("Beim-dicken-Michi", 1, 98745, "Moskau", "Russland");
-	    
-	    addRepo.save(add0);
-	    addRepo.save(add1);
-	    addRepo.save(add2);
-	    addRepo.save(add3);
-	    addRepo.save(add4);
-	    
+
+	    /*
+	     * addRepo.save(add0); addRepo.save(add1); addRepo.save(add2);
+	     * addRepo.save(add3); addRepo.save(add4);
+	     */
+
 	    // -----------------------------//
 	    // ------------- Project -------//
 	    // -----------------------------//
-	    Project pro0 = new Project("pro0", null, null, null, Status.NO_STATUS, 0, "root", null, null, null, add0,
-		    org0);
-	    Project pro1 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01", Status.OK,
+	    Project pro0 = new Project("pro0", null, null, null, s1, 0, "root", null, null, null, add0, org0);
+	    Project pro1 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01", s4,
 		    234578900, "Die den anderen Turm auch gemacht haben", null, null, null, add3, org3);
-	    Project pro2 = new Project("Berliner Flughafen xD", "Morgen ist es soweit", "2010-12-28", "2015-01-01",
-		    Status.OPEN, 1300500000, "Nicht die vom Burj Khalifa", null, null, null, add2, org5);
-	    
+	    Project pro2 = new Project("Berliner Flughafen xD", "Morgen ist es soweit", "2010-12-28", "2015-01-01", s3,
+		    1300500000, "Nicht die vom Burj Khalifa", null, null, null, add2, org5);
+
 	    proRepo.save(pro0);
 	    proRepo.save(pro1);
 	    proRepo.save(pro2);
-	    
-	    Project pro3 = new Project("Schule sanieren", null, null, null, null, 0, null, null, null, null, null,
-		    org0);
+
+	    Project pro3 = new Project("Schule sanieren", null, null, null, s4, 0, null, null, null, null, add4, org0);
 	    Project pro4 = new Project("Hausbau", "Haus an der Lindenallee 37 wird gebaut", "23.08.2021", "19.09.2021",
-		    Status.NO_STATUS, 0, "AG Haustechnik", null, null, null, add1, org0);
-	    Project pro5 = new Project("Feierabend XTREME", null, null, null, null, 0, null, null, null, null, null,
+		    s3, 0, "AG Haustechnik", null, null, null, add1, org0);
+
+	    Project pro5 = new Project("Feierabend XTREME", null, null, null, s1, 0, null, null, null, null, add1,
 		    org0);
 	    proRepo.saveAll(List.of(pro3, pro4, pro5));
-	    
+
 	    // ------------------------------//
 	    // ------------- Contract -------//
 	    // ------------------------------//
-	    Contract con0 = new Contract("con0", null, Status.NO_STATUS, null, null, organisations, pro0);
-	    Contract con1 = new Contract("Vertrag für das neue Fenster", "auf nachfrage", Status.DENY, "Jörg",
-		    "Peter", organisations1, pro1);
-	    Contract con2 = new Contract("Haus-Restaurierung", "eilauftrag", Status.OK, "Microsoft INC", "Apple INC",
+	    Contract con0 = new Contract("con0", null, s4, null, null, organisations, pro0);
+	    Contract con1 = new Contract("Vertrag für das neue Fenster", "auf nachfrage", s1, "Jörg", "Peter",
+		    organisations1, pro1);
+	    Contract con2 = new Contract("Haus-Restaurierung", "eilauftrag", s4, "Microsoft INC", "Apple INC",
 		    organisations2, pro2);
-	    
+
 	    conRepo.save(con0);
 	    conRepo.save(con1);
 	    conRepo.save(con2);
-	    
-	    Contract con3 = new Contract("Wohnzimmer bauen", "Sachen m�ssen erledigt werden", null, null, null, null,
+
+	    Contract con3 = new Contract("Wohnzimmer bauen", "Sachen m�ssen erledigt werden", s1, null, null, null,
 		    pro4);
-	    Contract con4 = new Contract("Küche installieren", null, null, null, null, null, pro4);
-	    Contract con5 = new Contract("Baby beruhigen", null, null, null, null, null, pro4);
-	    Contract con6 = new Contract("Kosten klein halten", null, null, null, null, null, pro4);
+	    Contract con4 = new Contract("Küche installieren", null, s1, null, null, null, pro4);
+	    Contract con5 = new Contract("Baby beruhigen", null, s4, null, null, null, pro4);
+	    Contract con6 = new Contract("Kosten klein halten", null, s3, null, null, null, pro4);
 	    conRepo.saveAll(List.of(con3, con4, con5, con6));
-	    
+
 	    // ------------------------------//
 	    // ------------- BillingUnit ----//
 	    // ------------------------------//
-	    BillingUnit billUnit0 = new BillingUnit(null, null, null, null, null, 0, 0, con0);
-	    
+	    BillingUnit billUnit0 = new BillingUnit("Leistungseinheit 1", null, null, null, null, 0, 0, con0);
+
 	    billUnitRepo.save(billUnit0);
-	    
-	    BillingUnit billUnit1 = new BillingUnit(null, null, null, null, null, 0, 0, con3);
+
+	    BillingUnit billUnit1 = new BillingUnit("Leistungseinheit 2", null, null, null, null, 0, 0, con3);
 	    billUnitRepo.save(billUnit1);
-	    
+
 	    // ------------------------------//
 	    // ------------- BillingItem ----//
 	    // ------------------------------//
-	    BillingItem billItem0 = new BillingItem("bill0", 0, null, Status.NO_STATUS, 0, null, 0, null, null,
-		    billUnit0, null);
-	    BillingItem nested = new BillingItem("Schrauben kaufen", 0, "Sind leer.",
-		    Status.OPEN, 0, null, 0, null, null, billUnit1, List.of());
-	    
+	    BillingItem billItem0 = new BillingItem("bill0", 0, null, s1, 0, null, 0, null, null, billUnit0, null);
+	    BillingItem nested = new BillingItem("Schrauben kaufen", 0, "Sind leer.", s2, 0, null, 0, null, null,
+		    billUnit1, List.of());
+
 	    billItemRepo.save(billItem0);
 	    billItemRepo.save(nested);
-	    
-	    BillingItem billItem1 = new BillingItem("Heizung montieren", 0, "Heizkörper B7-2 fensternah einbauen.",
-		    Status.OPEN, 0, null, 0, null, null, billUnit1, null);
-	    BillingItem billItem2 = new BillingItem("Fenster einbauen", 0, null, null, 0, null, 0, null, null,
-		    billUnit1, null);
+
+	    BillingItem billItem1 = new BillingItem("Heizung montieren", 0, "Heizkörper B7-2 fensternah einbauen.", s1,
+		    0, null, 0, null, null, billUnit1, null);
+
+	    BillingItem billItem2 = new BillingItem("Fenster einbauen", 0, null, s4, 0, null, 0, null, null, billUnit1,
+		    List.of(nested));
 	    billItemRepo.saveAll(List.of(billItem1, billItem2));
-	    
+
 	    // -----------------------------//
 	    // ------------- Role ----------//
 	    // -----------------------------//
-	    Role role0 = new Role("SysAdmin", List.of(pro3, pro4, pro5), List.of(con3, con4, con5, con6), List.of(billItem1, billItem2), org0, true);
+	    Role role0 = new Role("SysAdmin", List.of(pro3, pro4, pro5), List.of(con3, con4, con5, con6),
+		    List.of(billItem1, billItem2), org0, true);
 	    Role role1 = new Role("OrgAdmin", null, null, null, org1, true);
 	    Role r1 = new Role("Bauherr", null, null, null, org5, false);
 	    Role r2 = new Role("Bauherr", null, null, null, org3, false);

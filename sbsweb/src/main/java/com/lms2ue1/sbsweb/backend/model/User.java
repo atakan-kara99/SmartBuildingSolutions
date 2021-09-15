@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * User will be created at the frontend side of the application.
  */
@@ -28,6 +30,7 @@ public class User {
     @NotEmpty
     @Column(unique = true)
     private String username;
+    @JsonIgnore
     @NotEmpty
     private String password;
 
@@ -92,27 +95,27 @@ public class User {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    protected void setId(Long id) {
+    public void setId(Long id) {
 	this.id = id;
     }
 
-    protected void setForename(String fname) {
+    public void setForename(String fname) {
 	this.forename = fname;
     }
 
-    protected void setLastname(String lname) {
+    public void setLastname(String lname) {
 	this.lastname = lname;
     }
 
-    protected void setUsername(String uname) {
+    public void setUsername(String uname) {
 	this.username = uname;
     }
 
-    protected void setRole(Role rs) {
+    public void setRole(Role rs) {
 	this.role = rs;
     }
 
-    protected void setPassword(String p) {
+    public void setPassword(String p) {
 	this.password = p;
     }
 

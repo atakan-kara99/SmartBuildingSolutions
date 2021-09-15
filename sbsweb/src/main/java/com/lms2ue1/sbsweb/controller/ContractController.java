@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.lms2ue1.sbsweb.backend.model.*;
+import com.lms2ue1.sbsweb.backend.security.AuthorisationCheck;
 
 @Controller
 public class ContractController {
 
     @Autowired
     private BackendAccessProvider BAP;
+    @Autowired
+    private AuthorisationCheck auth;
 
     // List of temp stati for details
     List<String> listOfStatus = List.of("OK", "OK", "NO_STATUS", "OPEN", "OPEN", "DENY", "OPEN", "OK", "OK", "OK",
@@ -34,6 +37,7 @@ public class ContractController {
 	    Model model) {
 	try {
 	    String username = principal.getName();
+	    model.addAttribute("admin", auth.isAdmin(username));
 	    model.addAttribute("pID", pID);
 	    model.addAttribute("cID", cID);
 	    model.addAttribute("project", BAP.getProjectById(username, pID));

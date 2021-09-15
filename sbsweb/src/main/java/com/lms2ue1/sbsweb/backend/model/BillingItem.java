@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class BillingItem {
     // ---- Attributes ----//
@@ -24,7 +26,6 @@ public class BillingItem {
     @Column(unique = true)
     private String name;
     private String shortDescription;
-    private Status status;
     private double quantities;
     private String unit;
     private double unitPrice;
@@ -41,6 +42,8 @@ public class BillingItem {
     @OneToMany
     @JoinColumn(name = "sub_billing_item")
     private List<BillingItem> billingItems;
+    @ManyToOne
+    private Status status;
 
     // ----------------------------------//
     // ---------- Constructors ----------//
@@ -141,51 +144,51 @@ public class BillingItem {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    protected void setId(long id) {
+    public void setId(long id) {
 	this.id = id;
     }
 
-    protected void setPrice(double p) {
+    public void setPrice(double p) {
 	this.price = p;
     }
 
-    protected void setShortDescription(String sDesc) {
+    public void setShortDescription(String sDesc) {
 	this.shortDescription = sDesc;
     }
 
-    protected void setStatus(Status s) {
+    public void setStatus(Status s) {
 	this.status = s;
     }
 
-    protected void setQuantities(double qs) {
+    public void setQuantities(double qs) {
 	this.quantities = qs;
     }
 
-    protected void setUnit(String u) {
+    public void setUnit(String u) {
 	this.unit = u;
     }
 
-    protected void setUnitPrice(double uP) {
+    public void setUnitPrice(double uP) {
 	this.unitPrice = uP;
     }
 
-    protected void setQtySplit(String qtySplit) {
+    public void setQtySplit(String qtySplit) {
 	this.qtySplit = qtySplit;
     }
 
-    protected void setShortDesLinkedIFC(String shortDesLinkedIFC) {
+    public void setShortDesLinkedIFC(String shortDesLinkedIFC) {
 	this.shortDesLinkedIFC = shortDesLinkedIFC;
     }
 
-    protected void setBillingUnit(BillingUnit bu) {
+    public void setBillingUnit(BillingUnit bu) {
 	this.billingUnit = bu;
     }
 
-    protected void setBillingItems(List<BillingItem> bis) {
+    public void setBillingItems(List<BillingItem> bis) {
 	this.billingItems = bis;
     }
 
-    protected void setRoles(List<Role> rs) {
+    public void setRoles(List<Role> rs) {
 	this.roles = rs;
     }
 
@@ -201,5 +204,4 @@ public class BillingItem {
 	}
 	return false;
     }
-
 }
