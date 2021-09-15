@@ -112,35 +112,35 @@ public class Role {
 	// ----------------------------//
 	// ---------- Setter ----------//
 	// ----------------------------//
-	protected void setId(long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	protected void setName(String n) {
+	public void setName(String n) {
 		this.name = n;
 	}
 
-	protected void setProjects(List<Project> ps) {
+	public void setProjects(List<Project> ps) {
 		this.projects = ps;
 	}
 
-	protected void setOrganisation(Organisation o) {
+	public void setOrganisation(Organisation o) {
 		this.organisation = o;
 	}
 
-	protected void setUsers(List<User> us) {
+	public void setUsers(List<User> us) {
 		this.users = us;
 	}
 
-	protected void setContracts(List<Contract> cs) {
+	public void setContracts(List<Contract> cs) {
 		this.contracts = cs;
 	}
 
-	protected void setBillingItems(List<BillingItem> bs) {
+	public void setBillingItems(List<BillingItem> bs) {
 		this.billingItems = bs;
 	}
 
-	protected void setManageUser(boolean manageUser) {
+	public void setManageUser(boolean manageUser) {
 		this.manageUser = manageUser;
 	}
 	

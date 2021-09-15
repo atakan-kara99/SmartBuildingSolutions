@@ -138,7 +138,7 @@ public class AuthorisationCheck {
 	 * .contains(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::
 	 * new));
 	 */
-	return getRole(username).getBillingItems().stream()
+	return isSysAdmin(username) || getRole(username).getBillingItems().stream()
 		.map(bi -> flattenBillingItemsList(new ArrayList<BillingItem>(), bi)).flatMap(List::stream)
 		.anyMatch(bi -> bi.equals(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::new)));
     }
