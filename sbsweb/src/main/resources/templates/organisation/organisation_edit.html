@@ -12,13 +12,13 @@
         <div class="text-center">
             <h1>Organisation bearbeiten</h1>
             <div class="padding-50"></div>
-            <form action="#" th:action="@{'/organisation/' + *{organisation.getId()} + '/edit'}"
+            <form action="#" th:action="@{'/organisation/' + ${organisation.id} + '/edit'}"
                   th:object="${organisation}" method="post">
                 <div class="row justify-content-center">
                     <div class="col-3">
                         <div class="form-group">
                             <label for="id">ID</label>
-                            <input type="text" class="form-control" id="id" th:field="*{organisation.getId()}" disabled="disabled"/>
+                            <input type="text" class="form-control" id="id" th:field="${organisation.id}" disabled="disabled"/>
                         </div>
                     </div>
                     <div class="col-3">
