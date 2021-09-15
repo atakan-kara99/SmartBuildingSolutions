@@ -62,7 +62,7 @@ public class Address {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    protected void setStreet(String s) {
+    public void setStreet(String s) {
 	this.street = s;
     }
 

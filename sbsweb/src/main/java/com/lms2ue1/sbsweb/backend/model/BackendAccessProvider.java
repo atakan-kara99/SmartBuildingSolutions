@@ -280,8 +280,14 @@ public class BackendAccessProvider {
      * @throws AuthenticationException  if the user has insufficient rights.
      * @throws IllegalArgumentException if the operation failed.
      */
-    public void updateStatus(String username, Long billingItemId, Status newStatus) {
-        // TODO
+    public void updateStatus(String username, Long billingItemId, Status newStatus) throws AuthenticationException {
+	if (users.findByUsernameIgnoreCase(username) == null) {
+            throw new AuthenticationException();
+        } else if (billingItemId == null || newStatus == null) {
+	    throw new IllegalArgumentException();
+	}
+	BillingItem billingItem = billingItems.findById(billingItemId).orElseThrow(IllegalArgumentException::new);
+	billingItem.setStatus(newStatus);
     }
 
     /**
