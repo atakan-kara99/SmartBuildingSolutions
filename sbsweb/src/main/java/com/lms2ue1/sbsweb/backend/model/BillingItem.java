@@ -174,7 +174,7 @@ public class BillingItem {
 		this.shortDescription = sDesc;
 	}
 
-	protected void setStatus(Status s) {
+	public void setStatus(Status s) {
 		this.status = s;
 	}
 
@@ -198,7 +198,7 @@ public class BillingItem {
 		this.shortDesLinkedIFC = shortDesLinkedIFC;
 	}
 
-	protected void setBillingUnit(BillingUnit bu) {
+	public void setBillingUnit(BillingUnit bu) {
 		this.billingUnit = bu;
 	}
 

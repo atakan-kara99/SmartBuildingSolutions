@@ -16,73 +16,81 @@ import com.lms2ue1.sbsweb.service.DBSynchronisationService;
 @Component
 public class JSONDeserialiser {
 
-    ObjectMapper mapper = new ObjectMapper();
-    @Autowired
-    RESTDataRetriever restRetriever;
-    @Autowired
-    DBSynchronisationService dbUpdateService;
-
-    @Bean
-    CommandLineRunner deserialiseProjects(DBSynchronisationService dbUpdateService) {
-	return args -> {
-	    TypeReference<List<Project>> refProject = new TypeReference<List<Project>>() {
-	    };
-
-	    String json = restRetriever.fetchProjects();
-
-	    if (!json.equals("{}")) {
-		List<Project> listProjects = mapper.readValue(json, refProject);
-
-		// In here: We will fetch everything else!
-		dbUpdateService.saveProjectList(listProjects);
-	    }
-	};
-    }
-
-    /**
-     * Fetch all the contracts of one given project from the REST-API.
-     * 
-     * @param projectID = The given project
-     * @throws IOException
-     */
-    public void deserialiseContractsPerProject(long projectID) throws IOException {
-	TypeReference<List<Contract>> refContract = new TypeReference<List<Contract>>() {
-	};
-
-	String json = restRetriever.fetchContracts(projectID);
-
-	// A project can have 0 contracts!!
-	if (!json.equals("{}")) {
-	    List<Contract> listContracts = mapper.readValue(json, refContract);
-
-	    dbUpdateService.saveContractList(listContracts);
-	}
-
-    }
-    
-    /**
-     * Fetch all the billing models of one given contract from the REST-API.
-     * 
-     * @param contractID = The given contracz
-     * @throws IOException
-     */
-    public void deserialiseBillingModelPerContract(long contractID) throws IOException {
-	TypeReference<BillingModel> refBillingModel = new TypeReference<BillingModel>() {
-	};
-
-	String json = restRetriever.fetchBillingModel(contractID);
+	ObjectMapper mapper = new ObjectMapper();
+	@Autowired
+	RESTDataRetriever restRetriever;
+	@Autowired
+	DBSynchronisationService dbUpdateService;
 	
-	System.out.println(json);
+	@Bean
+	CommandLineRunner deserialiseProjects(DBSynchronisationService dbUpdateService) {
+		return args -> {
+			TypeReference<List<Project>> refProject = new TypeReference<List<Project>>() {
+			};
 
-	// A project can have 0 contracts!!
-	if (!json.equals("{}")) {
-	    BillingModel billingModel = mapper.readValue(json, refBillingModel);
-	    
-	    System.out.println(billingModel);
+			String json = restRetriever.fetchProjects();
 
-	    //dbUpdateService.saveContractList(listContracts);
+			if (!json.equals("{}")) {
+				List<Project> listProjects = mapper.readValue(json, refProject);
+
+				// In here: We will fetch everything else!
+				dbUpdateService.saveProjectList(listProjects);
+			}
+		};
 	}
 
-    }
+	/**
+	 * Fetch all the contracts of one given project from the REST-API.
+	 * 
+	 * @param projectID = The given project
+	 * @throws IOException
+	 */
+	public void deserialiseContractsPerProject(long projectID) throws IOException {
+		TypeReference<List<Contract>> refContract = new TypeReference<List<Contract>>() {
+		};
+
+		String json = restRetriever.fetchContracts(projectID);
+
+		// A project can have 0 contracts!!
+		if (!json.equals("{}")) {
+			List<Contract> listContracts = mapper.readValue(json, refContract);
+
+			dbUpdateService.saveContractList(listContracts);
+		}
+
+	}
+
+	/**
+	 * Fetch all the billing models of one given contract from the REST-API.
+	 * 
+	 * @param contractID = The given contracz
+	 * @throws IOException
+	 */
+	public void deserialiseBillingModelPerContract(long contractID) throws IOException {
+		TypeReference<BillingModel> refBillingModel = new TypeReference<BillingModel>() {
+		};
+
+		String json = restRetriever.fetchBillingModel(contractID);
+
+		//System.out.println(json);
+
+		// A project can have 0 contracts!!
+		if (!json.equals("{}")) {
+			BillingModel billingModel = mapper.readValue(json, refBillingModel);
+
+			for (BillingUnit bilUn : billingModel.getBillingUnits()) {
+				System.out.print("The current id of the billing unit is ");
+				System.out.println(bilUn.getAdessoID());
+				
+				for (BillingItem bilIt : bilUn.getBillingItems()) {
+					System.out.print("The current name of the billing item is ");
+					System.out.println(bilIt.getAdessoID());
+				}
+			}
+
+			dbUpdateService.saveBillingUnits(billingModel, contractID);
+		}
+
+	}
 
 }

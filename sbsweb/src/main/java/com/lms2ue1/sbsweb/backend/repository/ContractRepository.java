@@ -15,4 +15,5 @@ public interface ContractRepository extends CrudRepository<Contract, Long>{
 	Contract findByName(String name);
 	
 	Contract findByAdessoID(long adessoID);
+	
 }

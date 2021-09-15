@@ -31,7 +31,7 @@ public class Contract {
     @JsonProperty("id")
     private long adessoID;
     @JsonProperty("name")
-    @Column(unique = true)
+    //@Column(unique = true) multiple names must be allowed
     private String name;
     @JsonProperty("description")
     private String description;
