@@ -3,8 +3,11 @@ package com.lms2ue1.sbsweb.controller;
 import java.security.Principal;
 
 import javax.naming.AuthenticationException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.lms2ue1.sbsweb.backend.model.*;
 import com.lms2ue1.sbsweb.backend.security.AuthorisationCheck;
@@ -82,5 +86,20 @@ public class BillingItemController {
 	    return "billingitem/billing_item_new";
 	}
 	return "redirect:/project/{pID}/contract/{cID}/show";
+    }
+
+    /** Updates a billing item's status. 
+     * @throws AuthenticationException */
+    @PostMapping("/project/{pID}/contract/{cID}/billing_item/{bID}/update_status")
+    public String updateBillingItemStatus(@PathVariable long pID, @PathVariable long cID, @PathVariable long bID,
+	    @Valid Status status, BindingResult bindingResult, Principal principal, Model model) throws AuthenticationException {
+	if (bindingResult.hasErrors()) {
+	    return "error";
+	}
+	String username = principal.getName();
+	BAP.updateBillingItemStatus(username, bID, status);
+    //not working: session.setAttribute("setStatus", true);
+
+	return "redirect:/project/{pID}/contract/{cID}/billing_item/{bID}/show/true";
     }
 }
