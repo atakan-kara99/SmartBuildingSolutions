@@ -215,6 +215,6 @@ class AuthorisationCheckTest {
 	when(userMock.findByUsernameIgnoreCase(user1.getUsername())).thenReturn(user1);
 	when(userMock.findByUsernameIgnoreCase(user2.getUsername())).thenReturn(user2);
 	assertFalse(authCheck.canManageUser(user2.getUsername(), user1.getId()));
-    }
+    }*/
 
 }

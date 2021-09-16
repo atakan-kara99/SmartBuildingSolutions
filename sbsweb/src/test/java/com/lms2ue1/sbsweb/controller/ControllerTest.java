@@ -24,17 +24,7 @@ public class ControllerTest {
     @Autowired
     private ProjectRepository projects;
     @Autowired
-    private ContractRepository contracts;
-    @Autowired
-    private BillingUnitRepository billingUnits;
-    @Autowired
-    private BillingItemRepository billingItems;
-    @Autowired
     private OrganisationRepository organisations;
-    @Autowired
-    private UserRepository users;
-    @Autowired
-    private RoleRepository roles;
 
     // Root
 
@@ -51,7 +41,7 @@ public class ControllerTest {
     public void testProjectDetailsRoot() throws Exception {
 	for (Project pro : projects.findAll()) {
 	    // findAll() should never return null
-	    mvc.perform(get("/project/" + pro.getId() + "/show")).andExpect(status().isOk())
+	    mvc.perform(get("/project/" + pro.getInternID() + "/show")).andExpect(status().isOk())
 		    .andExpect(view().name("project/project_details")).andExpect(model().attributeExists("project"))
 		    .andExpect(model().attribute("project", pro)).andExpect(model().attributeExists("contracts"));
 	}
