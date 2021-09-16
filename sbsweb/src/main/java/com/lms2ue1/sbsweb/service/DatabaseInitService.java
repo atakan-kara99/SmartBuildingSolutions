@@ -41,8 +41,8 @@ public class DatabaseInitService {
 
 	    // ----- Initial Stati -------//
 	    Status ok = new Status("OK", null);
-	    Status deny = new Status("DENY", List.of(ok));
-	    Status open = new Status("OPEN", List.of(deny));
+	    Status deny = new Status("DENY", null);
+	    Status open = new Status("OPEN", List.of(deny, ok));
 	    Status planned = new Status("PLANNED", List.of(open));
 	    Status noStatus = new Status("NO_STATUS", List.of(planned));
 

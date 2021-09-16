@@ -12,7 +12,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
@@ -42,13 +41,11 @@ public class Contract {
 
     // ---- Associations ----//
     @JsonUnwrapped
-    @Size(min = 2, max = 2)
     @ManyToMany
     @JoinTable(name = "CONTRACT_ORGANISATIONS", joinColumns = {
 	    @JoinColumn(name = "CONTRACT_ID") }, inverseJoinColumns = { @JoinColumn(name = "ORGANISATIONS_ID") })
     private List<Organisation> organisations;
     @JsonUnwrapped
-    @Size(min = 2)
     @ManyToMany(mappedBy = "contracts")
     private List<Role> roles;
     @JsonUnwrapped
@@ -56,7 +53,6 @@ public class Contract {
     @JoinColumn(name = "project_id")
     private Project project;
     @JsonUnwrapped
-    @Size(min = 1)
     @OneToMany(mappedBy = "contract", orphanRemoval = true)
     private List<BillingUnit> billingUnits;
     @ManyToOne

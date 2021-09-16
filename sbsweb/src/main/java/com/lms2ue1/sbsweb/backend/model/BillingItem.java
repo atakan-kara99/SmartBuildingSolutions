@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
@@ -52,7 +51,6 @@ public class BillingItem {
     @JoinColumn(name = "billing_unit_id")
     private BillingUnit billingUnit;
     @JsonUnwrapped
-    @Size(min = 2)
     @ManyToMany(mappedBy = "billingItems")
     private List<Role> roles;
     @JsonUnwrapped

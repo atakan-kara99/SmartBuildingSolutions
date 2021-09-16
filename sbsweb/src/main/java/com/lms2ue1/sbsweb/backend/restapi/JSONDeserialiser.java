@@ -27,7 +27,7 @@ public class JSONDeserialiser {
      * 
      * @throws IOException
      */
-    @Scheduled(fixedRate=5000)
+    //@Scheduled(fixedRate=5000)
     public void deserialiseProjects() throws IOException {
 
 	TypeReference<List<Project>> refProject = new TypeReference<List<Project>>() {

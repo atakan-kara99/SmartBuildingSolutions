@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
@@ -45,7 +44,6 @@ public class BillingUnit {
     @ManyToOne
     @JoinColumn(name = "contract_id")
     private Contract contract;
-    @Size(min = 1)
     @OneToMany(mappedBy = "billingUnit", orphanRemoval = true)
     @JsonProperty("billingItems")
     @JsonUnwrapped

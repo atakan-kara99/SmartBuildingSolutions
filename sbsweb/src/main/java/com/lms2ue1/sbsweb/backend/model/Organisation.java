@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -27,13 +26,10 @@ public class Organisation {
     private String name;
 
     // ---- Associations ----//
-    @Size(min = 1)
     @OneToMany(mappedBy = "organisation")
     private List<Project> projects;
-    @Size(min = 2)
     @OneToMany(mappedBy = "organisation") // Mapping is necessary!
     private List<Role> roles;
-    @Size(min = 1)
     @ManyToMany(mappedBy = "organisations")
     private List<Contract> contracts;
 

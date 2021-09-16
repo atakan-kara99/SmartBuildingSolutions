@@ -10,7 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
@@ -27,7 +26,6 @@ public class Project {
     @JsonProperty("id")
     private long adessoID;
     @JsonProperty("name")
-    @Column(unique = true)
     private String name;
     @JsonProperty("description")
     private String description;
@@ -56,7 +54,6 @@ public class Project {
     @Embedded
     private Address address;
     @JsonUnwrapped
-    @Size(min = 1)
     @OneToMany(mappedBy = "project", orphanRemoval = true)
     private List<Contract> contracts;
     @JsonUnwrapped
@@ -64,7 +61,6 @@ public class Project {
     @JoinColumn(name = "organisation_id")
     private Organisation organisation;
     @JsonUnwrapped
-    @Size(min = 2)
     @ManyToMany(mappedBy = "projects")
     private List<Role> roles;
     @ManyToOne
