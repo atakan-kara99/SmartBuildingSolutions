@@ -4,8 +4,9 @@ body {
     font-family: 'Raleway', sans-serif;
     color:black;
 }
+
 .banner {
-    height: 100vh;
+    height: 150vh;
     width: 100%;
     background:url("../images/banner.jpg");
     background-position: top;
@@ -13,8 +14,8 @@ body {
     background-repeat: no-repeat;
 }
 .nav-link {
-    margin-right: 50px;
-    padding: .25rem 50px;
+    margin-right: 10px;
+    padding: .25rem 10px;
     font-size: 17px;
     font-weight: 800;
     color: white;
@@ -53,7 +54,8 @@ html {
 
 .column {
     float: left;
-    width: 33.3%;
+    width: 35%;
+    margin-left: 10%;
     margin-bottom: 16px;
     padding: 0 8px;
 }
@@ -61,6 +63,8 @@ html {
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     margin: 8px;
+    display: flex;
+    flex: 1;
 }
 
 .about-section {

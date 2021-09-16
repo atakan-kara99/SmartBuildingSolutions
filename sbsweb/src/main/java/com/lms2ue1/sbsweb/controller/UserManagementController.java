@@ -43,13 +43,6 @@ public class UserManagementController {
     @Autowired
     BackendAccessProvider backendAccessProvider;
 
-    // This redirect will not work as of now. We will need the backend for this to
-    // work properly
-    @GetMapping("/")
-    public String showUserManagementRedirect(Model model) {
-        return "redirect:/organisation/1/user_management";
-    }
-
     /**
      * Shows all accessible users of the Organisation specified by oID.
      * For each user the username and the role is shown.
