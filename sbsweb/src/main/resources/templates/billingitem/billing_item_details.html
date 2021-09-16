@@ -20,7 +20,7 @@
                 <p th:text="${billingItem.shortDescription}"></p>
                 <p>
                     Status:
-                    <b th:text="${billingItem.status}"></b>
+                    <b th:text="${billingItem.statusObj}"></b>
                 </p>
                 <div style="padding-top: 20px"></div>
                 <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/show'}">
