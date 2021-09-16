@@ -14,7 +14,8 @@ public class RESTDataRetriever {
     /**
      * URL to connect to the adesso API.
      */
-    private final String API_URL = "http://localhost:3000/api/v1";
+    private final String API_URL =  "http://BIM-MOCK/api/v1";
+    //private final String API_URL = "http://localhost:3000/api/v1";
 
     /**
      * Retrieve the wanted data from the REST API.
