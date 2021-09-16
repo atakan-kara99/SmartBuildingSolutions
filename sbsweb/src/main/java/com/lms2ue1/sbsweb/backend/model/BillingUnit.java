@@ -10,9 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 @Entity
 public class BillingUnit {
@@ -20,13 +20,23 @@ public class BillingUnit {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, unique = true)
-    private long id;
+    private long internID;
+
+    @JsonProperty("id")
+    private String adessoID;
+    @JsonProperty("shortDescription")
     private String shortDescription;
+    @JsonProperty("longDescription")
     private String longDescription;
+    @JsonProperty("unit")
     private String unit;
+    @JsonProperty("completionDate")
     private String completionDate;
+    @JsonProperty("ownContractDefined")
     private String ownContractDefined;
+    @JsonProperty("totalQuantity")
     private double totalQuantity;
+    @JsonProperty("totalPrice")
     private double totalPrice;
 
     // ---- Associations ----//
@@ -34,8 +44,9 @@ public class BillingUnit {
     @ManyToOne
     @JoinColumn(name = "contract_id")
     private Contract contract;
-    @Size(min = 1)
     @OneToMany(mappedBy = "billingUnit", orphanRemoval = true)
+    @JsonProperty("billingItems")
+    @JsonUnwrapped
     private List<BillingItem> billingItems;
 
     // ----------------------------------//
@@ -73,8 +84,8 @@ public class BillingUnit {
     // ----------------------------//
     // ---------- Getter ----------//
     // ----------------------------//
-    public long getId() {
-	return this.id;
+    public long getInternID() {
+	return this.internID;
     }
 
     public String getShortDescription() {
@@ -113,11 +124,23 @@ public class BillingUnit {
 	return this.billingItems;
     }
 
+    public String getAdessoID() {
+	return adessoID;
+    }
+
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    public void setId(long id) {
-	this.id = id;
+    public void setInternID(long id) {
+	this.internID = id;
+    }
+
+    public void setAdessoID(String adessoID) {
+	this.adessoID = adessoID;
+    }
+
+    public void setOwnContractDefined(String ownContractDefined) {
+	this.ownContractDefined = ownContractDefined;
     }
 
     public void setShortDescription(String sDesc) {
@@ -134,10 +157,6 @@ public class BillingUnit {
 
     public void setCompletionDate(String cD) {
 	this.completionDate = cD;
-    }
-
-    public void setownContractDefined(String oCD) {
-	this.ownContractDefined = oCD;
     }
 
     public void setTotalQuantity(double tQ) {
@@ -164,7 +183,7 @@ public class BillingUnit {
     public boolean equals(Object obj) {
 	if (obj instanceof BillingUnit) {
 	    BillingUnit tmpBillUnit = (BillingUnit) obj;
-	    return tmpBillUnit.getId() == this.id;
+	    return tmpBillUnit.getInternID() == this.internID;
 	}
 	return false;
     }

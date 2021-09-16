@@ -17,13 +17,14 @@ import com.lms2ue1.sbsweb.service.DBUserDetailsService;
 @EnableWebSecurity
 @Order(2)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-	@Autowired
-	DBUserDetailsService userDetailsService;
+    @Autowired
+    DBUserDetailsService userDetailsService;
 
     @Bean
     protected PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+	return new BCryptPasswordEncoder();
     }
+
 
 	// TODO: Sysadmin und Orgadmin abgrenzen
 	@Override
@@ -31,11 +32,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 			.antMatchers("/h2-console/**").permitAll() // We can't get locked out.
+			.antMatchers("/images/**", "/css/**", "/index", "/").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			//.antMatchers("/organisation_*/**")
 			.formLogin().loginPage("/login").permitAll()
-			.defaultSuccessUrl("/organisations", true)
+			.defaultSuccessUrl("/index", true)
 			.and().logout().permitAll();
 		
 		// Comment in to enable H2 console on test server (not recommended for release version!)
@@ -43,8 +45,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.headers().frameOptions().disable();
 	}
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder());
-	}
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+	auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder());
+    }
 }

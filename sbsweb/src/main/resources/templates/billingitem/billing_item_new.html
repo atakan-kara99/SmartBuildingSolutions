@@ -2,86 +2,95 @@
 <html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
 
 <head>
-<title>Neue Leistungsposition</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link th:href="@{/css/main.css}" rel="stylesheet" />
+    <title>Neue Leistungsposition</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
 </head>
 
 <body>
     <th:block th:fragment="content">
         <div class="container">
             <div class="text-center">
-                <h1>Neue Leistungsposition</h1>
+                <div class="row justify-content-center text-center">
+                    <div class="col col-md-auto rounded shadow bg-primary text-light">
+                        <h1>Neue Leistungsposition</h1>
+                    </div>
+                </div>
                 <div class="padding-50"></div>
                 <div class="container">
                     <div class="row btn-row justify-content-end align-items-center">
                         <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/show'}">
-                            <button type="button" class="btn btn-outline-success" th:text="'Zurück zum Vertrag: ' + ${contract.name}">Zurück zum
+                            <button type="button" class="btn btn-success shadow" th:text="'Zurück zum Vertrag: ' + ${contract.name}">Zurück zum
                                 Vertrag</button>
                         </a>
                     </div>
                 </div>
                 <div class="padding-50"></div>
-                <form action="#" th:action="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item_save'}" th:object="${billingItem}" method="post">
-                    <div th:if="${#fields.hasAnyErrors()}">
-                        <p class="alert alert-danger" role="alert" th:each="error : ${#fields.detailedErrors()}"
-                            th:text="${error.fieldName + ': ' + err.message}"></p>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" required="required" class="form-control" id="name" th:field="*{name}" th:errorclass="is-invalid" />
+                <div class="row justify-content-center">
+                    <div class="col-8 rounded shadow">
+                        <div class="padding-20"></div>
+                        <form action="#" th:action="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item_save'}" th:object="${billingItem}" method="post">
+                            <div th:if="${#fields.hasAnyErrors()}">
+                                <p class="alert alert-danger" role="alert" th:each="error : ${#fields.detailedErrors()}" th:text="${error.fieldName + ': ' + err.message}"></p>
                             </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="shortDescription">Kurzbeschreibung</label>
-                                <input type="text" class="form-control" id="shortDescription" th:field="*{shortDescription}" th:errorclass="is-invalid" />
+                            <div class="row justify-content-center">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" required="required" class="form-control" id="name" th:field="*{name}" th:errorclass="is-invalid" />
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="shortDescription">Kurzbeschreibung</label>
+                                        <input type="text" class="form-control" id="shortDescription" th:field="*{shortDescription}" th:errorclass="is-invalid" />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="price">Preis</label>
-                                <input type="number" step=".01" class="form-control" id="price" th:field="*{price}" th:errorclass="is-invalid" />
+                            <div class="row justify-content-center">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="price">Preis</label>
+                                        <input type="number" step=".01" class="form-control" id="price" th:field="*{price}" th:errorclass="is-invalid" />
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="quantities">Anzahl</label>
+                                        <input type="number" step="1" class="form-control" id="quantities" th:field="*{quantities}" th:errorclass="is-invalid" />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="quantities">Anzahl</label>
-                                <input type="number" step="1" class="form-control" id="quantities" th:field="*{quantities}" th:errorclass="is-invalid" />
+                            <div class="row justify-content-center">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="unit">Einheit</label>
+                                        <input type="text" class="form-control" id="unit" th:field="*{unit}" th:errorclass="is-invalid" />
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="unitPrice">Einheitspreis</label>
+                                        <input type="number" step=".01" class="form-control" id="unitPrice" th:field="*{unitPrice}" th:errorclass="is-invalid" />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="unit">Einheit</label>
-                                <input type="text" class="form-control" id="unit" th:field="*{unit}" th:errorclass="is-invalid" />
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="unitPrice">Einheitspreis</label>
-                                <input type="number" step=".01" class="form-control" id="unitPrice" th:field="*{unitPrice}" th:errorclass="is-invalid" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="billingUnit">Leistungseinheit</label>
-                                <select class="form-control" id="billingUnit" th:field="*{billingUnit}" th:errorclass="is-invalid">
-                                    <option th:each="billingUnit : ${billingUnits}" th:text="${billingUnit.shortDescription}" th:value="${billingUnit.id}"></option>
+                            <div class="row justify-content-center">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="billingUnit">Leistungseinheit</label>
+                                        <select class="form-control" id="billingUnit" th:field="*{billingUnit}" th:errorclass="is-invalid">
+                                    <option th:each="billingUnit : ${billingUnits}" th:text="${billingUnit.shortDescription}" th:value="${billingUnit.internID}">a</option>
                                 </select>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="padding-50"></div>
+                            <button type="submit" class="btn btn-success">Leistungsposition erstellen</button>
+                        </form>
+                        <div class="padding-20"></div>
                     </div>
-                    <div class="padding-50"></div>
-                    <button type="submit" class="btn btn-success">Leistungsposition erstellen</button>
-                </form>
+                </div>
             </div>
         </div>
     </th:block>

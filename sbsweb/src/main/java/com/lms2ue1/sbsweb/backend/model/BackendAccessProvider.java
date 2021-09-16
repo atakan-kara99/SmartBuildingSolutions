@@ -16,8 +16,7 @@ import com.lms2ue1.sbsweb.backend.security.AuthorisationCheck;
 /** Provides communication between Frontend and Backend. */
 public class BackendAccessProvider {
 
-    //////////////////////// Repositories ////////////////////////
-
+    // ---- Repositories ----//
     @Autowired
     private ProjectRepository projects;
     @Autowired
@@ -35,8 +34,7 @@ public class BackendAccessProvider {
     @Autowired
     private StatusRepository stati;
 
-    //////////////////////// Singleton using @Autowired ////////////////////////
-
+    // ---- Authorization check singleton ----//
     @Autowired
     private AuthorisationCheck auth;
 
@@ -113,11 +111,11 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void addUser(String username, User newUser) throws AuthenticationException {
-	if (newUser == null) {
-	    throw new IllegalArgumentException();
-	} else if (users.findByUsernameIgnoreCase(username) == null) {
-	    throw new IllegalArgumentException("username is already taken!");
-	}
+        if (newUser == null) {
+            throw new IllegalArgumentException();
+        } else if (users.findByUsernameIgnoreCase(username) != null) {
+            throw new IllegalArgumentException("username is already taken!");
+        }
 
 	if (auth.canManageUser(username, newUser.getId())) {
 	    users.save(newUser);
@@ -168,7 +166,7 @@ public class BackendAccessProvider {
 	    oldUser.setUsername(updatedUser.getUsername());
 	    oldUser.setPassword(updatedUser.getPassword());
 	    oldUser.setRole(updatedUser.getRole());
-	    users.save(updatedUser);
+        users.save(oldUser);
 	} else {
 	    throw new AuthenticationException();
 	}
@@ -389,13 +387,18 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public User getUserById(String username, Long userId) throws AuthenticationException {
-	User user = users.findById(userId).orElseThrow(IllegalArgumentException::new);
+	User userToGet = users.findById(userId).orElseThrow(IllegalArgumentException::new);
+	User userRequesting = users.findByUsernameIgnoreCase(username);
+	if (userRequesting == null) {
+	    throw new IllegalArgumentException();
+	}
+	
 	if (auth.canManageUser(username, userId)) {
 	    // Sys- or OrgAdmin
-	    return user;
-	} else if (userId != null && user.getId() == userId.longValue()) {
+	    return userToGet;
+	} else if (userId != null && userRequesting.getId() == userId.longValue()) {
 	    // User
-	    return user;
+	    return userToGet;
 	} else {
 	    throw new AuthenticationException();
 	}
@@ -411,21 +414,26 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public Role getRoleById(String username, Long roleId) throws AuthenticationException {
-	if (auth.isSysAdmin(username)) {
-	    // Allmighty SysAdmin
-	    return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
-	} else if (users.findByUsername(username).getRole().getId() == roleId) {
-	    // View own role
-	    return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
+	User userRequesting = users.findByUsernameIgnoreCase(username);
+	if (userRequesting == null) {
+	    throw new IllegalArgumentException();
 	}
-	// OrgAdmin
-	Long oID = auth.getOrgAdminID(username);
-	Role role = roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
-	if (oID != null && role.getId() == oID.longValue()) {
-	    return role;
-	} else {
-	    throw new AuthenticationException();
-	}
+	
+        if (auth.isSysAdmin(username)) {
+            // Allmighty SysAdmin
+            return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
+        } else if (userRequesting.getRole().getId() == roleId) {
+            // View own role
+            return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
+        }
+        // OrgAdmin
+        Long oID = auth.getOrgAdminID(username);
+        Role role = roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
+        if (oID != null && role.getId() == oID.longValue()) {
+            return role;
+        } else {
+            throw new AuthenticationException();
+        }
     }
 
     //////////////////////// Getters for lists ////////////////////////
@@ -470,9 +478,9 @@ public class BackendAccessProvider {
 	    if (auth.isSysAdmin(username)) {
 		return StreamSupport.stream(projects.findAll().spliterator(), false).collect(Collectors.toList());
 	    } else if (auth.getOrgAdminID(username) != null) {
-		return users.findByUsername(username).getRole().getOrganisation().getProjects();
+		return users.findByUsernameIgnoreCase(username).getRole().getOrganisation().getProjects();
 	    }
-	    return users.findByUsername(username).getRole().getProjects();
+	    return users.findByUsernameIgnoreCase(username).getRole().getProjects();
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -581,7 +589,7 @@ public class BackendAccessProvider {
 		return StreamSupport.stream(organisations.findAll().spliterator(), false).collect(Collectors.toList());
 	    }
 	    // Own organisation
-	    return List.of(users.findByUsername(username).getRole().getOrganisation());
+	    return List.of(users.findByUsernameIgnoreCase(username).getRole().getOrganisation());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -602,11 +610,11 @@ public class BackendAccessProvider {
 		return StreamSupport.stream(users.findAll().spliterator(), false).collect(Collectors.toList());
 	    } else if (auth.getOrgAdminID(username) != null) {
 		// Users in organisation
-		return users.findByUsername(username).getRole().getOrganisation().getRoles().stream()
+		return users.findByUsernameIgnoreCase(username).getRole().getOrganisation().getRoles().stream()
 			.map(r -> r.getUsers()).flatMap(List::stream).collect(Collectors.toList());
 	    }
 	    // Just the user
-	    return List.of(users.findByUsername(username));
+	    return List.of(users.findByUsernameIgnoreCase(username));
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -627,10 +635,10 @@ public class BackendAccessProvider {
 		return StreamSupport.stream(roles.findAll().spliterator(), false).collect(Collectors.toList());
 	    } else if (auth.getOrgAdminID(username) != null) {
 		// Roles in organisation
-		return users.findByUsername(username).getRole().getOrganisation().getRoles();
+		return users.findByUsernameIgnoreCase(username).getRole().getOrganisation().getRoles();
 	    }
 	    // Own role
-	    return List.of(users.findByUsername(username).getRole());
+	    return List.of(users.findByUsernameIgnoreCase(username).getRole());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -730,6 +738,28 @@ public class BackendAccessProvider {
     }
 
     /**
+     * Updates a status.
+     * 
+     * @param username      the username of the user requesting this operation.
+     * @param oldStatusId   the status' old id.
+     * @param updatedStatus the updated status.
+     * @throws AuthenticationException  if the user has insufficient rights.
+     * @throws IllegalArgumentException if the operation failed.
+     */
+    public void updateStatus(String username, Long oldStatusId, Status updatedStatus) throws AuthenticationException {
+	if (oldStatusId == null || updatedStatus == null) {
+	    throw new IllegalArgumentException();
+	}
+	if (auth.isSysAdmin(username)) {
+	    Status oldStatus = stati.findById(oldStatusId).orElseThrow(IllegalArgumentException::new);
+	    oldStatus.setNextStati(updatedStatus.getNextStati());
+	    stati.save(oldStatus);
+	} else {
+	    throw new AuthenticationException();
+	}
+    }
+
+    /**
      * Updates a billing item's status.
      * 
      * @param username      the username of the user requesting this operation.
@@ -746,10 +776,10 @@ public class BackendAccessProvider {
 	    throw new IllegalArgumentException();
 	}
 	BillingItem billingItem = billingItems.findById(billingItemId).orElseThrow(IllegalArgumentException::new);
-	if (!billingItem.getStatus().getNextStati().contains(newStatus)) {
+	if (!billingItem.getStatusObj().getNextStati().contains(newStatus)) {
 	    throw new IllegalArgumentException("Transition not possible: " + newStatus + " not in nextStati!");
 	}
-	billingItem.setStatus(newStatus);
+	billingItem.setStatusObj(newStatus);
 	billingItems.save(billingItem);
     }
 
@@ -783,7 +813,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public Status getStatusByName(String statusName) {
-	Status status = stati.findByName(statusName);
+	Status status = stati.findByNameIgnoreCase(statusName);
 	if (status == null) {
 	    throw new IllegalArgumentException();
 	}
@@ -820,7 +850,7 @@ public class BackendAccessProvider {
     }
 
     /**
-     * Returns a list of all accessible stati in the contract with the given id.
+     * Returns a list of all accessible billing units' stati in the contract with the given id.
      * 
      * @param username   the username of the user requesting this operation.
      * @param contractId the contract's id.
@@ -833,12 +863,12 @@ public class BackendAccessProvider {
 	    throw new IllegalArgumentException();
 	}
 	return getAllBillingItems(username).stream()
-		.filter(bi -> bi.getBillingUnit().getContract().getId() == contractId.longValue())
-		.map(bi -> bi.getStatus()).collect(Collectors.toList());
+		.filter(bi -> bi.getBillingUnit().getContract().getInternID() == contractId.longValue())
+		.map(bi -> bi.getStatusObj()).collect(Collectors.toList());
     }
 
     /**
-     * Returns a list of all accessible stati in the project with the given id.
+     * Returns a list of all accessible billing units' stati in the project with the given id.
      * 
      * @param username  the username of the user requesting this operation.
      * @param projectId the project's id.
@@ -851,12 +881,12 @@ public class BackendAccessProvider {
 	    throw new IllegalArgumentException();
 	}
 	return getAllBillingItems(username).stream()
-		.filter(bi -> bi.getBillingUnit().getContract().getProject().getId() == projectId.longValue())
-		.map(bi -> bi.getStatus()).collect(Collectors.toList());
+		.filter(bi -> bi.getBillingUnit().getContract().getProject().getInternID() == projectId.longValue())
+		.map(bi -> bi.getStatusObj()).collect(Collectors.toList());
     }
 
     /**
-     * Returns a list of all accessible stati (only stati in accessible projects).
+     * Returns a list of all accessible billing units' stati (only stati in accessible projects).
      * To get <b> ALL </b> stati, see {@link #getAllStati()}.
      * 
      * @param username the username of the user requesting this operation.
@@ -865,6 +895,18 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<Status> getAllStatiForAllProjects(String username) throws AuthenticationException {
-	return getAllBillingItems(username).stream().map(bi -> bi.getStatus()).collect(Collectors.toList());
+	return getAllBillingItems(username).stream().map(bi -> bi.getStatusObj()).collect(Collectors.toList());
+    }
+
+    /**
+     * Checks whether the status with the given id is a pre-defined status.
+     * 
+     * @param statusId the status' id.
+     * @return true for standard status, false otherwise.
+     */
+    public boolean isStandardStatusById(Long statusId) {
+	String name = stati.findById(statusId).orElseThrow(IllegalArgumentException::new).getName();
+	return name.equalsIgnoreCase("NO_STATUS") || name.equalsIgnoreCase("OPEN") || name.equalsIgnoreCase("OK")
+		|| name.equalsIgnoreCase("DENY");
     }
 }

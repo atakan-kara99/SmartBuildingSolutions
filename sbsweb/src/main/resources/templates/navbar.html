@@ -12,17 +12,13 @@
         <div class="navbar-collapse collapse">
             <div class="navbar-nav">
                 <th:block sec:authorize="isAuthenticated()">
+                    <a class="nav-item nav-link" th:href="@{/index}">Startseite</a>
                     <a class="nav-item nav-link" th:href="@{/project_overview}">Projekte</a>
                     <a class="nav-item nav-link" th:href="@{/organisations}">Organisation</a>
-                    <!-- Logout must be performed as a POST request, i. e., via a form button.
-			     For visual consistency, we use a hidden form submitted by a link here. -->
-                    <a class="nav-item nav-link" href="javascript:document.logoutForm.submit()">Logout</a>
-                    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
-                        <input type="submit" value="Logout" />
-                    </form>
+                    <a class="nav-item nav-link" th:href="@{/status_overview}">Status</a>
                 </th:block>
                 <th:block sec:authorize="!isAuthenticated()">
-                    <a class="nav-item nav-link" th:href="@{/login}">Login</a>
+                    <a class="nav-item nav-link" th:href="@{/index}">Startseite</a>
                 </th:block>
             </div>
         </div>

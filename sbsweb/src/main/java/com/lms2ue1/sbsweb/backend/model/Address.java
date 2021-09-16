@@ -2,19 +2,27 @@ package com.lms2ue1.sbsweb.backend.model;
 
 import javax.persistence.Embeddable;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Embeddable
 public class Address {
     // ---- Attributes ----//
+    @JsonProperty("id")
+    private long adessoAddressID;
+    @JsonProperty("street")
     private String street;
+    @JsonProperty("houseNumber")
     private int houseNumber;
+    @JsonProperty("zipCode")
     private int zipCode;
+    @JsonProperty("city")
     private String city;
+    @JsonProperty("country")
     private String country;
 
     // ----------------------------------//
     // ---------- Constructors ----------//
     // ----------------------------------//
-    // TODO: Do we really want to allow this? Good for testing. (nka)
     public Address() {
     }
 
@@ -39,6 +47,7 @@ public class Address {
     // ----------------------------//
     // ---------- Getter ----------//
     // ----------------------------//
+
     public String getStreet() {
 	return this.street;
     }
@@ -62,6 +71,7 @@ public class Address {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
+
     public void setStreet(String s) {
 	this.street = s;
     }
@@ -81,17 +91,4 @@ public class Address {
     public void setCountry(String cntry) {
 	this.country = cntry;
     }
-
-    // ----------------------------//
-    // ---------- Misc ------------//
-    // ----------------------------//
-
-    /*@Override
-    public boolean equals(Object obj) {
-	if (obj instanceof Address) {
-	    Address tmpAddress = (Address) obj;
-	    return tmpAddress.getId() == this.id;
-	}
-	return false;
-    }*/
 }
