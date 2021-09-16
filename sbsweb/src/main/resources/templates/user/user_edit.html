@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
 
 <head>
-    <title>Nutzerverwaltung</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
@@ -10,54 +9,61 @@
     <th:block th:fragment="content">
         <div class="container">
             <div class="text-center">
-                <h1>Benutzer bearbeiten</h1>
+                <div class="row justify-content-center">
+                    <div class="col col-md-auto rounded shadow bg-primary text-light">
+                        <h1> Benutzer anpassen </h1>
+                    </div>
+                </div>
                 <div class="padding-50"></div>
-                <form action="#" th:action="@{'/user_management/user/' + *{id} + '/edit'}" th:object="${user}" method="post">
-                    <div class="row justify-content-center">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="surname"> Vorname </label>
-                                <input type="text" class="form-control" id="surname" th:field="*{surname}" th:errorclass="is-invalid" />
+                <div class="row justify-content-center">
+                    <div class="col-8 shadow">
+                        <form action="#" th:action="@{'/organisation/' + ${organisation.id} + '/user_management/user/' + ${user.id} + '/user_update'}" th:object="${user}" method="post">
+                            <div class="padding-20"></div>
+                            <div class="row justify-content-center">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="firstname"> Vorname </label>
+                                        <input type="text" class="form-control" id="firstname" th:field="*{forename}" th:errorclass="is-invalid" />
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="lastname"> Nachname </label>
+                                        <input type="text" class="form-control" id="lastname" th:field="*{lastname}" th:errorclass="is-invalid" />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="lastname"> Nachname </label>
-                                <input type="text" class="form-control" id="lastname" th:field="*{lastname}" th:errorclass="is-invalid" />
+                            <div class="row justify-content-center">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="username"> Benutzername </label>
+                                        <input type="text" class="form-control" id="username" th:field="*{username}" th:errorclass="is-invalid" />
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="password"> Passwort </label>
+                                        <input type="password" class="form-control" id="password" th:field="*{password}" th:errorclass="is-invalid" />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="row justify-content-center">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="role"> Rolle </label>
+                                        <select th:field="*{role}" class="form-control" id="role" th:errorclass="is-invalid">
+                                    <option th:each="role : ${organisation.roles}" th:text="${role.name}" th:value="${role.id}"></option>
+                                </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" th:field="*{id}" />
+                            <div class="padding-50"></div>
+                            <button type="submit" class="btn btn-primary shadow"> Änderungen speichern </button>
+                            <div class="padding-20"></div>
+                        </form>
                     </div>
-                    <div class="row justify-content-center">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="organization"> Organisation </label>
-                                <input type="text" class="form-control" id="organization" th:field="*{organization}" th:errorclass="is-invalid" />
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="role"> Rolle </label>
-                                <input type="text" class="form-control" id="role" th:field="*{role}" th:errorclass="is-invalid" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="username"> Benutzername </label>
-                                <input type="text" class="form-control" id="username" th:field="*{username}" th:errorclass="is-invalid" />
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label for="password"> Passwort </label>
-                                <input type="password" class="form-control" id="password" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="padding-50"></div>
-                    <button type="submit" class="btn btn-success"> Änderungen speichern </button>
-                </form>
+                </div>
             </div>
         </div>
     </th:block>
