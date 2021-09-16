@@ -742,7 +742,6 @@ public class BackendAccessProvider {
 	}
 	if (auth.isSysAdmin(username)) {
 	    Status oldStatus = stati.findById(oldStatusId).orElseThrow(IllegalArgumentException::new);
-	    oldStatus.setDescription(updatedStatus.getDescription());
 	    oldStatus.setNextStati(updatedStatus.getNextStati());
 	    stati.save(oldStatus);
 	} else {

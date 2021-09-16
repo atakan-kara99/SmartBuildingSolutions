@@ -72,7 +72,7 @@ public class BillingItemController {
 	    return "billingitem/billing_item_new";
 	}
 	// Initial status
-	billingItem.setStatus(BAP.getStatusByName("NO_STATUS"));
+	billingItem.setStatusObj(BAP.getStatusByName("NO_STATUS"));
 
 	try {
 	    String username = principal.getName();

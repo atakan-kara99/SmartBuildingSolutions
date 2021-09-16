@@ -118,7 +118,6 @@ public class StatusTransitionController {
 
 	StatusCreationDto form = new StatusCreationDto();
 	form.setName(status.getName());
-	form.setDescription(status.getDescription());
 	form.setNextStati(status.getNextStati());
 	model.addAttribute("form", form);
 
@@ -159,7 +158,7 @@ public class StatusTransitionController {
 	    return "status/status_edit";
 	}
 
-	Status status = new Status(form.getName(), form.getDescription(), form.getNextStati());
+	Status status = new Status(form.getName(), form.getNextStati());
 	BAP.updateStatus(username, sID, status);
 	return "redirect:/status/{sID}/show";
     }
