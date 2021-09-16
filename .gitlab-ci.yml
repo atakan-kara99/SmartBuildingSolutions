@@ -61,4 +61,4 @@ deploy:
     - docker-compose build
     - docker-compose stop || true
     - docker-compose rm || true
-    - docker-compose up
+    - docker-compose up || true
