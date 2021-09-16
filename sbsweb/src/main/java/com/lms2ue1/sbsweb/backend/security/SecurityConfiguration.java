@@ -28,7 +28,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     // TODO: Sysadmin und Orgadmin abgrenzen
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-	http.authorizeRequests().antMatchers("/h2-console/**").permitAll() // We can't get locked out.
+	http.authorizeRequests()
+		.antMatchers("/h2-console/**").permitAll() // We can't get locked out.
 		.anyRequest().authenticated().and()
 		// .antMatchers("/organisation_*/**")
 		.formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/organisations", true).and().logout()
