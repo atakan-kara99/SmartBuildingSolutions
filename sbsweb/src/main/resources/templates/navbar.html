@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>Navigation Bar</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Navigation Bar</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light" th:fragment="navbar">
+    <nav class="navbar navbar-expand" th:fragment="navbar">
         <div class="navbar-collapse collapse">
             <div class="navbar-nav">
                 <th:block sec:authorize="isAuthenticated()">
@@ -26,9 +26,21 @@
                 </th:block>
             </div>
         </div>
-        <a class="navbar-brand" href="/organisations">
-            <img th:src="@{/images/Logo.png}" height="40" alt="Logo">
-        </a>
+        <div class="navbar navbar-expand navbar-nav">
+            <div th:switch="${session.darkmodeEnabled}">
+                <div th:case="false" class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="darkmode-toggle">
+                    <label class="form-check-label" for="darkmode-toggle" style="display: block; padding-right: 30px"> Darkmode </label>
+                </div>
+                <div th:case="true" class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="darkmode-toggle" checked>
+                    <label class="form-check-label" for="darkmode-toggle" style="display: block; padding-right: 30px"> Darkmode </label>
+                </div>
+            </div>
+            <a class="navbar-brand" href="/organisations" padding-left="50px" padding-right="50px">
+                <img th:src="@{/images/Logo.png}" height="40" alt="Logo">
+            </a>
+        </div>
     </nav>
 </body>
 

@@ -22,8 +22,6 @@ public class ControllerTest {
     @Autowired
     private MockMvc mvc;
     @Autowired
-    private AddressRepository addresses;
-    @Autowired
     private ProjectRepository projects;
     @Autowired
     private ContractRepository contracts;

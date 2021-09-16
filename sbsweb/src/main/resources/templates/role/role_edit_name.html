@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <th:block th:fragment="content">
+        <div class="container">
+            <div class="text-center">
+                <div class="row justify-content-center">
+                    <div class="col col-md-auto rounded shadow bg-primary text-light">
+                        <h1> Rollennamen bearbeiten </h1>
+                    </div>
+                </div>
+                <div class="padding-50"></div>
+                <div class="container">
+                    <div class="row btn-row justify-content-end align-items-center">
+                        <div class="col-4 text-center">
+                            <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management'}">
+                                <button type="button" class="btn btn-secondary"> Zurück zur Rollenverwaltung </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="padding-50"></div>
+                <div class="row justify-content-center">
+                    <div class="col-6 shadow">
+                        <form action="#" th:action="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/role_update_name'}" th:object="${role}" method="post">
+                            <div class="padding-20"></div>
+                            <div class="row justify-content-center">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="name"> Rollenname </label>
+                                        <input type="text" class="form-control" id="name" th:field="*{name}" th:errorclass="is-invalid" />
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" th:field="*{id}" />
+                            <input type="hidden" th:field="*{manageUser}" />
+                            <input type="hidden" th:field="*{organisation.id}" />
+                            <input type="hidden" th:field="*{users}" />
+                            <input type="hidden" th:field="*{projects}" />
+                            <input type="hidden" th:field="*{contracts}" />
+                            <input type="hidden" th:field="*{billingItems}" />
+                            <div class="padding-50"></div>
+                            <button type="submit" class="btn btn-success"> Änderungen speichern </button>
+                            <div class="padding-20"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</body>
+
+</html>

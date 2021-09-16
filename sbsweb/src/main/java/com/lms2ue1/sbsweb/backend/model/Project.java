@@ -1,6 +1,7 @@
 package com.lms2ue1.sbsweb.backend.model;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,8 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
@@ -26,7 +28,6 @@ public class Project {
     private String description;
     private String creationDate;
     private String completionDate;
-    private Status status;
     private double overallCosts;
     private String creator;
     // -- These attributes are not important for our use. --//
@@ -35,7 +36,7 @@ public class Project {
     private String imageFileName;
 
     // ------ Associations ------//
-    @OneToOne // (cascade = {CascadeType.ALL}) try w/ cascading
+    @Embedded
     private Address address;
     @Size(min = 1)
     @OneToMany(mappedBy = "project", orphanRemoval = true)
@@ -46,6 +47,8 @@ public class Project {
     @Size(min = 2)
     @ManyToMany(mappedBy = "projects")
     private List<Role> roles;
+    @ManyToOne
+    private Status status;
 
     // ----------------------------------//
     // ---------- Constructors ----------//
@@ -225,5 +228,4 @@ public class Project {
 	}
 	return false;
     }
-
 }

@@ -28,9 +28,9 @@ public class DiagramController {
 
 	//TODO: Delete later
 	
-	List<String> labels = List.of("TEST", "NO_STATUS","OPEN","OK","DENY");
+	List<String> labels = List.of("NO_STATUS","OPEN","OK","DENY");
 	
-	List<String> listOfStatus = List.of("OK","OK","NO_STATUS","OPEN","OPEN","NO_STATUS","DENY","OPEN","OK","OK","OK","NO_STATUS","OK","OK","OK","OPEN","OK","OK","DENY","DENY");
+	List<String> listOfStatus = List.of("OK","OK","NO_STATUS","OPEN","OPEN","DENY","OPEN","OK","OK","OK","NO_STATUS","OK","OK","OK","OPEN","OK","OK","DENY");
 	
 	
 

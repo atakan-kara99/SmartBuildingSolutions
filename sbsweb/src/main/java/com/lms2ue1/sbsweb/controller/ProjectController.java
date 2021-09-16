@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.lms2ue1.sbsweb.backend.model.*;
+import com.lms2ue1.sbsweb.backend.repository.*;
 
 @Controller
 public class ProjectController {
@@ -25,7 +26,21 @@ public class ProjectController {
     // 5. Success: billing_item_details
 
     @Autowired
+    ProjectRepository projects;
+    @Autowired
+    ContractRepository contracts;
+    @Autowired
+    RoleRepository roleRepo;
+
+    @Autowired
     private BackendAccessProvider BAP;
+
+    // List of temp stati
+    List<String> listOfStatus = List.of("OK", "OK", "NO_STATUS", "OPEN", "OPEN", "DENY", "OPEN", "OK", "OK", "OK",
+	    "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK", "OK", "DENY");
+    
+    //List of list of status
+    List<List<String>> listOfListOfStatus = List.of(listOfStatus,listOfStatus,listOfStatus,listOfStatus,listOfStatus,listOfStatus);
 
     /** Shows an overview of all projects. */
     @GetMapping("/project_overview")
@@ -33,6 +48,7 @@ public class ProjectController {
 	try {
 	    String username = principal.getName();
 	    model.addAttribute("projects", BAP.getAllProjects(username));
+	    model.addAttribute("listOfListOfStatus", listOfListOfStatus);
 	    return "project/project_overview";
 	} catch (IllegalArgumentException e) {
 	    return "error";
@@ -49,6 +65,7 @@ public class ProjectController {
 	    List<Contract> contracts = BAP.getAllContracts(username);
 	    model.addAttribute("contracts", contracts.stream().filter(contract -> contract.getProject().getId() == pID)
 		    .collect(Collectors.toList()));
+	    model.addAttribute("listOfListOfStatus", listOfListOfStatus);
 	    return "project/project_details";
 	} catch (AuthenticationException | IllegalArgumentException e) {
 	    return "error";

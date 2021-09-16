@@ -33,8 +33,6 @@ public class AuthorisationCheck {
     private BillingItemRepository billItemRepo;
     @Autowired
     private BillingUnitRepository billUnitRepo;
-    @Autowired
-    private AddressRepository addRepo;
 
     // ---------- Misc ------------- //
 
@@ -59,8 +57,10 @@ public class AuthorisationCheck {
     public List<BillingItem> flattenBillingItemsList(List<BillingItem> hugeList, BillingItem currentElement) {
 	// Using a dfs:
 	hugeList.add(currentElement);
-	for (BillingItem nextElement : currentElement.getBillingItems()) {
-	    flattenBillingItemsList(hugeList, nextElement);
+	if (currentElement.getBillingItems() != null) {
+	    for (BillingItem nextElement : currentElement.getBillingItems()) {
+		flattenBillingItemsList(hugeList, nextElement);
+	    }
 	}
 	return hugeList;
     }
@@ -129,23 +129,16 @@ public class AuthorisationCheck {
 	// First: Get the the allowed "root" billing items of the role.
 	// Second: Get the other leafs and flatten them to get one huge list.
 	// Third: Check, whether the given billing item is part of that list.
+	/*
+	 * return getRole(username).getBillingItems().stream() .map(bi ->
+	 * flattenBillingItemsList(new ArrayList<BillingItem>(),
+	 * bi)).flatMap(List::stream) .collect(Collectors.toList())
+	 * .contains(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::
+	 * new));
+	 */
 	return isSysAdmin(username) || getRole(username).getBillingItems().stream()
 		.map(bi -> flattenBillingItemsList(new ArrayList<BillingItem>(), bi)).flatMap(List::stream)
-		.collect(Collectors.toList())
-		.contains(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::new));
-    }
-
-    /**
-     * Is the given user allowed to do anything with the address?
-     * 
-     * @param username = the user, who wants to work with it.
-     * @param aID      = the given address.
-     * @return true = yes, the user is. false = no, the user isn't.
-     */
-    public boolean checkAddress(String username, long aID) {
-	// Has the user the permission to see the project?
-	Project project = addRepo.findById(aID).orElseThrow(IllegalArgumentException::new).getProject();
-	return checkProject(username, project.getId());
+		.anyMatch(bi -> bi.equals(billItemRepo.findById(bID).orElseThrow(IllegalArgumentException::new)));
     }
 
     // ---------- User management ------------- //
@@ -157,7 +150,7 @@ public class AuthorisationCheck {
      * @param uID      = the other user to manage.
      * @return true = yes, the user is. false = no, the user isn't.
      */
-    public boolean manageUser(String username, long uID) {
+    public boolean canManageUser(String username, long uID) {
 	// The SysAdmin is allowed to manage every user.
 	// First: The given user has to have the permission to manage user per default.
 	// Second: Both user have to be in the same organisation.
@@ -174,6 +167,16 @@ public class AuthorisationCheck {
      */
     public boolean isSysAdmin(String username) {
 	return getRole(username).getName().equals("SysAdmin");
+    }
+
+    /**
+     * Is the given user a SysAdmin?
+     * 
+     * @param username = the user in question.
+     * @return true = yes, the user is. false = no, the user isn't.
+     */
+    public boolean isAdmin(String username) {
+	return isSysAdmin(username) || getRole(username).getName().equals("OrgAdmin");
     }
 
     /**
