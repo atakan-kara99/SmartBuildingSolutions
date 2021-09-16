@@ -47,7 +47,7 @@ public class ContractController {
 		    .collect(Collectors.toCollection(ArrayList::new));
 	    model.addAttribute("listOfListOfStatus", listOfListOfStatus);
 	    // Flattened list, keep only high level billing items
-	    List<Integer> removes = new ArrayList<>(billingItems.size());
+	    List<Integer> removes = new ArrayList<>();//billingItems.size());
 	    for (int i = 0; i < billingItems.size(); i++) {
 		BillingItem bill = billingItems.get(i);
 		for (int j = 0; j < billingItems.size(); j++) {
@@ -59,6 +59,7 @@ public class ContractController {
 		    }
 		}
 	    }
+	    removes.sort((i1, i2)->i2.compareTo(i1));
 	    for (int i = 0; i < removes.size(); i++) {
 		billingItems.remove((int) removes.get(i));
 	    }
