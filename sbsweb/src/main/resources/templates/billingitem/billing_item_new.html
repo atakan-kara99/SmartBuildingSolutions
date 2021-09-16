@@ -80,7 +80,7 @@
                                     <div class="form-group">
                                         <label for="billingUnit">Leistungseinheit</label>
                                         <select class="form-control" id="billingUnit" th:field="*{billingUnit}" th:errorclass="is-invalid">
-                                    <option th:each="billingUnit : ${billingUnits}" th:text="${billingUnit.shortDescription}" th:value="${billingUnit.id}">a</option>
+                                    <option th:each="billingUnit : ${billingUnits}" th:text="${billingUnit.shortDescription}" th:value="${billingUnit.internID}">a</option>
                                 </select>
                                     </div>
                                 </div>

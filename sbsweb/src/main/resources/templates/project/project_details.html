@@ -36,7 +36,7 @@
                         <p th:text="${project.creationDate} + ' - ' + ${project.completionDate}"></p>
                         <p>
                             Status:
-                            <b th:text="${project.status}"></b>
+                            <b th:text="${project.statusObj}"></b>
                         </p>
                     </td>
                     <div th:if="${not contracts?.empty}">
@@ -66,7 +66,7 @@
                                 <!-- Full row -->
                                 <td th:if="${row.count % cols == 0}" style="width: 25%; background-color: rgba(0, 0, 0, 0);">
                                     <div class="card shadow">
-                                        <a th:object="${contracts[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + *{id} + '/show'}" class="icon-link comp">
+                                        <a th:object="${contracts[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + *{internID} + '/show'}" class="icon-link comp">
                                             <i class="bi bi-book comp" style="font-size: 300%;" th:title="*{name}"></i>
                                             <span th:text="*{name}" style="font-size: 175%; display: block;"></span>
                                         </a>
@@ -80,7 +80,7 @@
                                 <!-- Last row might not be full -->
                                 <td th:if="${row.last and x < row.count % cols}" style="width: 25%; background-color: rgba(0, 0, 0, 0);">
                                     <div class="card shadow">
-                                        <a th:object="${contracts[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + *{id} + '/show'}" class="icon-link comp">
+                                        <a th:object="${contracts[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + *{internID} + '/show'}" class="icon-link comp">
                                             <i class="bi bi-book comp" style="font-size: 300%;" th:title="*{name}"></i>
                                             <span th:text="*{name}" style="font-size: 175%; display: block;"></span>
                                         </a>
