@@ -84,7 +84,7 @@ public class BillingUnit {
     // ----------------------------//
     // ---------- Getter ----------//
     // ----------------------------//
-    public long getInternId() {
+    public long getInternID() {
 	return this.internID;
     }
 
@@ -131,7 +131,7 @@ public class BillingUnit {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    public void setInternId(long id) {
+    public void setInternID(long id) {
 	this.internID = id;
     }
 
@@ -183,7 +183,7 @@ public class BillingUnit {
     public boolean equals(Object obj) {
 	if (obj instanceof BillingUnit) {
 	    BillingUnit tmpBillUnit = (BillingUnit) obj;
-	    return tmpBillUnit.getInternId() == this.internID;
+	    return tmpBillUnit.getInternID() == this.internID;
 	}
 	return false;
     }

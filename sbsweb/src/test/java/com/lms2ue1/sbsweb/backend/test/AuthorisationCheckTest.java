@@ -140,22 +140,22 @@ class AuthorisationCheckTest {
     @Test
     @DisplayName("testCheckContract")
     public void testCheckContract() {
-	when(conMock.findById(contract0.getInternId())).thenReturn(Optional.of(contract0));
-	assertTrue(authCheck.checkContract(user0.getUsername(), contract0.getInternId()));
+	when(conMock.findById(contract0.getInternID())).thenReturn(Optional.of(contract0));
+	assertTrue(authCheck.checkContract(user0.getUsername(), contract0.getInternID()));
     }
 
     @Test
     @DisplayName("testCheckBillingUnit")
     public void testCheckBillingUnit() {
-	when(billUnitMock.findById(billingUnit0.getInternId())).thenReturn(Optional.of(billingUnit0));
-	assertTrue(authCheck.checkBillingUnit(user0.getUsername(), billingUnit0.getInternId()));
+	when(billUnitMock.findById(billingUnit0.getInternID())).thenReturn(Optional.of(billingUnit0));
+	assertTrue(authCheck.checkBillingUnit(user0.getUsername(), billingUnit0.getInternID()));
     }
 
     @Test
     @DisplayName("testCheckRootBillingItem")
     public void testCheckRootBillingItem() {
-	when(billItemMock.findById(billingItem0.getInternId())).thenReturn(Optional.of(billingItem0));
-	assertTrue(authCheck.checkBillingItem(user0.getUsername(), billingItem0.getInternId()));
+	when(billItemMock.findById(billingItem0.getInternID())).thenReturn(Optional.of(billingItem0));
+	assertTrue(authCheck.checkBillingItem(user0.getUsername(), billingItem0.getInternID()));
     }
 
     @Test

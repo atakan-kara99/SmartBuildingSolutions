@@ -23,7 +23,7 @@ public class Contract {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, unique = true)
-    private long id;
+    private long internID;
     @JsonProperty("id")
     private long adessoID;
     @JsonProperty("name")
@@ -90,7 +90,7 @@ public class Contract {
     public Contract(long id, String name, String description, String consignee, String contractor, String adessoStatus,
 	    long projectId) {
 	super();
-	this.id = id;
+	this.internID = id;
 	this.name = name;
 	this.description = description;
 	this.consignee = consignee;
@@ -115,8 +115,8 @@ public class Contract {
 	return statusObj;
     }
 
-    public Long getInternId() {
-	return this.id;
+    public Long getInternID() {
+	return this.internID;
     }
 
     public String getName() {
@@ -170,8 +170,8 @@ public class Contract {
 	this.adessoProjectId = projectId;
     }
 
-    public void setInternId(Long id) {
-	this.id = id;
+    public void setInternID(Long id) {
+	this.internID = id;
     }
 
     public void setName(String n) {
@@ -218,7 +218,7 @@ public class Contract {
     public boolean equals(Object obj) {
 	if (obj instanceof Contract) {
 	    Contract tmpContract = (Contract) obj;
-	    return tmpContract.getInternId() == this.id;
+	    return tmpContract.getInternID() == this.internID;
 	}
 	return false;
     }

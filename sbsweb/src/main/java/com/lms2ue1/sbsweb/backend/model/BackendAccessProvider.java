@@ -828,7 +828,7 @@ public class BackendAccessProvider {
 	    throw new IllegalArgumentException();
 	}
 	return getAllBillingItems(username).stream()
-		.filter(bi -> bi.getBillingUnit().getContract().getInternId() == contractId.longValue())
+		.filter(bi -> bi.getBillingUnit().getContract().getInternID() == contractId.longValue())
 		.map(bi -> bi.getStatusObj()).collect(Collectors.toList());
     }
 

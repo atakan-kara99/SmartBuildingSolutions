@@ -22,7 +22,7 @@ public class BillingItem {
     @Id
     @Column(updatable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long internId;
+    private long internID;
     @JsonProperty("id")
     private String adessoID;
     @JsonProperty("price")
@@ -106,8 +106,8 @@ public class BillingItem {
 	return name;
     }
 
-    public long getInternId() {
-	return this.internId;
+    public long getInternID() {
+	return this.internID;
     }
 
     public double getPrice() {
@@ -169,8 +169,8 @@ public class BillingItem {
 	this.name = name;
     }
 
-    public void setInternId(long id) {
-	this.internId = id;
+    public void setInternID(long id) {
+	this.internID = id;
     }
 
     public void setPrice(double p) {
@@ -233,7 +233,7 @@ public class BillingItem {
     public boolean equals(Object obj) {
 	if (obj instanceof BillingItem) {
 	    BillingItem tmpBillItem = (BillingItem) obj;
-	    return tmpBillItem.getInternId() == this.internId;
+	    return tmpBillItem.getInternID() == this.internID;
 	}
 	return false;
     }
