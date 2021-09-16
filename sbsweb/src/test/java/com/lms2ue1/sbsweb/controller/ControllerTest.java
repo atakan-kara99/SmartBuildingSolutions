@@ -78,19 +78,13 @@ public class ControllerTest {
 	}
     }
 
-    // Random person, no roles
+    // App API
 
-//    @Test
-//    @WithMockUser(username = "hans")
-//    public void testProjectOverviewRandom() throws Exception {
-//	mvc.perform(get("/project_overview")).andExpect(view().name("project/project_overview"));
-//    }
-//
-//    @Test
-//    @WithMockUser(username = "hans")
-//    public void testOrganisationOverviewRandom() throws Exception {
-//	mvc.perform(get("/organisations")).andExpect(view().name("error"));
-//    }
+    @Test
+    @WithMockUser(username = "root", roles = { "SysAdmin" })
+    public void testJWTToken() throws Exception {
+	mvc.perform(post("/api/auth")); // TODO
+    }
 
     // Anonymous
 
