@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Contract {
     // A few adaptations to make the data model actually work (nka).
@@ -26,7 +28,6 @@ public class Contract {
     @Column(unique = true)
     private String name;
     private String description;
-    private Status status;
     private String consignee;
     private String contractor;
 
@@ -45,6 +46,8 @@ public class Contract {
     @Size(min = 1)
     @OneToMany(mappedBy = "contract", orphanRemoval = true)
     private List<BillingUnit> billingUnits;
+    @ManyToOne
+    private Status status;
 
     // ----------------------------------//
     // ---------- Constructors ----------//
@@ -175,5 +178,4 @@ public class Contract {
 	}
 	return false;
     }
-
 }

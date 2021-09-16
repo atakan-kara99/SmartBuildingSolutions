@@ -1,16 +1,21 @@
-$primary: #2b39ff;
-$secondary: #7696ff;
+$primary: #2a5cff;
+$secondary: #535353;
 $success: #2a5cff;
-$info: #ffce47;
-$warning: #ffb157;
-$danger: #ff4b3e;
-$light: #d3ebff;
-$dark: #5d758d;
-$crystal-white: #e7fdffd2;
+$info: #008dff;
+$warning: #ff8467;
+$danger: #ff3e7e;
+$light: #ffffff;
+$dark: #000000;
 $theme-colors: (primary: $primary, secondary: $secondary, success: $success, info: $info, warning: $warning, danger: $danger, light: $light, dark: $dark);
+$comp: #000000;
 $table-border-color: #474747;
-$table-bg: #e4e4e4;
+$table-bg: #ffffff;
 $border-radius: 8px;
 $body-color: #3a3a3a;
 $nav-link-color: $body-color;
+$card-bg: #ffffff;
+.comp {
+    color: $comp;
+}
+
 @import "../bootstrap/bootstrap";

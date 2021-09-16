@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class BillingUnit {
     // ---- Attributes ----//
@@ -29,7 +31,7 @@ public class BillingUnit {
 
     // ---- Associations ----//
     /* Got problems with merging with contracts */
-    @ManyToOne // (cascade = { CascadeType.MERGE }) // try to run w/
+    @ManyToOne
     @JoinColumn(name = "contract_id")
     private Contract contract;
     @Size(min = 1)

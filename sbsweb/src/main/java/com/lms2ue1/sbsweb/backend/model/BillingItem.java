@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class BillingItem {
     // ---- Attributes ----//
@@ -21,11 +23,9 @@ public class BillingItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private double price;
-    // @Column(unique = true) TODO sollte nicht sein
-    // Beispiel Schrauben kaufen für Heizung und für Herd. Oder in unterschiedlichen Verträgen
+    @Column(unique = true)
     private String name;
     private String shortDescription;
-    private Status status;
     private double quantities;
     private String unit;
     private double unitPrice;
@@ -42,6 +42,8 @@ public class BillingItem {
     @OneToMany
     @JoinColumn(name = "sub_billing_item")
     private List<BillingItem> billingItems;
+    @ManyToOne
+    private Status status;
 
     // ----------------------------------//
     // ---------- Constructors ----------//
@@ -201,13 +203,5 @@ public class BillingItem {
 	    return tmpBillItem.getId() == this.id;
 	}
 	return false;
-    }
-
-    @Override
-    public String toString() {
-	return "BillingItem [id=" + id + ", price=" + price + ", name=" + name + ", shortDescription="
-		+ shortDescription + ", status=" + status + ", quantities=" + quantities + ", unit=" + unit
-		+ ", unitPrice=" + unitPrice + ", qtySplit=" + qtySplit + ", shortDesLinkedIFC=" + shortDesLinkedIFC
-		+ ", billingUnit=" + billingUnit + ", roles=" + roles + ", billingItems=" + billingItems + "]";
     }
 }

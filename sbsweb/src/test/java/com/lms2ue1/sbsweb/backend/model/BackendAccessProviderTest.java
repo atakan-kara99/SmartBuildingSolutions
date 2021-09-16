@@ -26,8 +26,6 @@ public class BackendAccessProviderTest {
     //// Mocks
 
     @MockBean
-    private AddressRepository addresses;
-    @MockBean
     private ProjectRepository projects;
     @MockBean
     private ContractRepository contracts;
@@ -41,6 +39,8 @@ public class BackendAccessProviderTest {
     private UserRepository users;
     @MockBean
     private RoleRepository roles;
+    @MockBean
+    private StatusRepository stati;
     @Mock
     private AuthorisationCheck auth;
     @InjectMocks
@@ -49,6 +49,10 @@ public class BackendAccessProviderTest {
     private AutoCloseable closeable;
 
     //// Fields to use per test
+    private Status noStatus;
+    private Status open;
+    private Status ok;
+    private Status deny;
     private Address address1;
     private Address address2;
     private Project project1;
@@ -73,22 +77,23 @@ public class BackendAccessProviderTest {
 	closeable = MockitoAnnotations.openMocks(this);
 
 	// Initialize fields
+	ok = new Status("OK", "Client has approved", null);
+	deny = new Status("DENY", "Client has denied", null);
+	open = new Status("OPEN", "Ready to be reviewed", List.of(ok, deny));
+	noStatus = new Status("NO_STATUS", "No status assigned yet", List.of(open));
 	organisation1 = new Organisation("Fritz M�ller GmbH");
 	organisation1.setId(1L);
 	organisation2 = new Organisation("Fritz M�ller-Schulz GmbH");
 	organisation2.setId(2L);
 	address1 = new Address("Main Street", 1337, 14, "NY City", "Deutschland");
-	address1.setAddressId(1L);
 	address2 = new Address("2nd Street", 42, 15, "GBR City", "France");
-	address1.setAddressId(2L);
-	project1 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01", Status.OK,
-		234578900, "Die den anderen Turm auch gemacht haben", null, null, null, address1, organisation1);
+	project1 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01", ok, 234578900,
+		"Die den anderen Turm auch gemacht haben", null, null, null, address1, organisation1);
 	project1.setId(1L);
-	project2 = new Project("Berliner Flughafen xD", "Morgen ist es soweit", "2010-12-28", "2015-01-01", Status.OPEN,
+	project2 = new Project("Berliner Flughafen xD", "Morgen ist es soweit", "2010-12-28", "2015-01-01", open,
 		1300500000, "Nicht die vom Burj Khalifa", null, null, null, address2, organisation2);
 	project2.setId(2L);
-	contract1 = new Contract("Baby beruhigen", "Es schreit.", Status.NO_STATUS, "Nanny", "Mutter", List.of(),
-		project1);
+	contract1 = new Contract("Baby beruhigen", "Es schreit.", noStatus, "Nanny", "Mutter", List.of(), project1);
 	contract1.setId(1L);
 	contract2 = new Contract("Kosten klein halten", "Teuer", null, null, null, List.of(organisation2), project2);
 	contract2.setId(2L);
@@ -96,10 +101,10 @@ public class BackendAccessProviderTest {
 	billingUnit1.setId(1L);
 	billingUnit2 = new BillingUnit("sssdad", null, "�", "15999", "2201", 1, 0, contract2);
 	billingUnit2.setId(2L);
-	billingItem1 = new BillingItem("Heizung montieren", 2, "Heizko B7-2 fensternah einbauen.", Status.OPEN, 0, null,
-		7, null, null, billingUnit1, null);
+	billingItem1 = new BillingItem("Heizung montieren", 2, "Heizko B7-2 fensternah einbauen.", open, 0, null, 7,
+		null, null, billingUnit1, null);
 	billingItem1.setId(1L);
-	billingItem2 = new BillingItem("Fenster einbauen", 0, null, null, 99, null, 0, null, null, billingUnit2, null);
+	billingItem2 = new BillingItem("Fenster einbauen", 0, null, deny, 99, null, 0, null, null, billingUnit2, null);
 	billingItem2.setId(2L);
 	role1 = new Role("Bauherr", List.of(), List.of(), List.of(), organisation1, false);
 	role1.setId(1L);
@@ -120,8 +125,6 @@ public class BackendAccessProviderTest {
 	when(auth.canManageUser(rootUsername, user2.getId())).thenReturn(true);
 	when(auth.checkOrganisation(rootUsername, organisation1.getId())).thenReturn(true);
 	when(auth.checkOrganisation(rootUsername, organisation2.getId())).thenReturn(true);
-	when(auth.checkAddress(rootUsername, address1.getId())).thenReturn(true);
-	when(auth.checkAddress(rootUsername, address2.getId())).thenReturn(true);
 	when(auth.checkProject(rootUsername, project1.getId())).thenReturn(true);
 	when(auth.checkProject(rootUsername, project2.getId())).thenReturn(true);
 	when(auth.checkContract(rootUsername, contract1.getId())).thenReturn(true);
@@ -133,8 +136,6 @@ public class BackendAccessProviderTest {
 	// Repositories
 	when(organisations.findById(organisation1.getId())).thenReturn(Optional.of(organisation1));
 	when(organisations.findById(organisation2.getId())).thenReturn(Optional.of(organisation2));
-	when(addresses.findById(address1.getId())).thenReturn(Optional.of(address1));
-	when(addresses.findById(address2.getId())).thenReturn(Optional.of(address2));
 	when(projects.findById(project1.getId())).thenReturn(Optional.of(project1));
 	when(projects.findById(project2.getId())).thenReturn(Optional.of(project2));
 	when(contracts.findById(contract1.getId())).thenReturn(Optional.of(contract1));
@@ -177,30 +178,31 @@ public class BackendAccessProviderTest {
 	verify(organisations, never()).deleteById(id2);
     }
 
-	@Test
-	public void testUpdateOrganisation() {
-		doAnswer(new Answer<Void>() {
-			@Override
-			public Void answer(InvocationOnMock invocation) throws Throwable {
-				Object[] args = invocation.getArguments();
-				if (args != null && args.length > 1 && args[0] != null && args[1] != null) {
-					organisation1 = (Organisation) args[0];
-					organisation1.setName(organisation2.getName());
-				}
-				return null;
-			}
-		}).when(organisations).save(organisation1);
-		assertDoesNotThrow(() -> BAP.updateOrganisation(rootUsername, organisation1.getId(), organisation2),
-				"Root couldn't update the organisation!");
-		verify(organisations).save(organisation1);
-	}
+    @Test
+    public void testUpdateOrganisation() {
+	doAnswer(new Answer<Void>() {
+	    @Override
+	    public Void answer(InvocationOnMock invocation) throws Throwable {
+		Object[] args = invocation.getArguments();
+		if (args != null && args.length > 1 && args[0] != null && args[1] != null) {
+		    organisation1 = (Organisation) args[0];
+		    organisation1.setName(organisation2.getName());
+		}
+		return null;
+	    }
+	}).when(organisations).save(organisation1);
+	assertDoesNotThrow(() -> BAP.updateOrganisation(rootUsername, organisation1.getId(), organisation2),
+		"Root couldn't update the organisation!");
+	verify(organisations).save(organisation1);
+    }
 
-	@Test
-	public void testFailUpdateOrganisation() {
-		assertThrows(AuthenticationException.class, () -> BAP.updateOrganisation(failUsername, organisation1.getId(), organisation2),
-				"Fail updated the organisation!");
-		verify(organisations, never()).save(organisation1);
-	}
+    @Test
+    public void testFailUpdateOrganisation() {
+	assertThrows(AuthenticationException.class,
+		() -> BAP.updateOrganisation(failUsername, organisation1.getId(), organisation2),
+		"Fail updated the organisation!");
+	verify(organisations, never()).save(organisation1);
+    }
 
     //// User
 
@@ -222,34 +224,34 @@ public class BackendAccessProviderTest {
 	verify(users, never()).deleteById(id2);
     }
 
-	@Test
-	public void testUpdateUser() {
-		doAnswer(new Answer<Void>() {
-			@Override
-			public Void answer(InvocationOnMock invocation) throws Throwable {
-				Object [] args = invocation.getArguments();
-				if(args != null && args.length > 1 && args[0] != null && args[1] != null) {
-					user1 = (User) args[0];
-					user1.setForename(user2.getForename());
-					user1.setLastname(user2.getLastname());
-					user1.setUsername(user2.getUsername());
-					user1.setPassword(user2.getPassword());
-					user1.setRole(user2.getRole());
+    @Test
+    public void testUpdateUser() {
+	doAnswer(new Answer<Void>() {
+	    @Override
+	    public Void answer(InvocationOnMock invocation) throws Throwable {
+		Object[] args = invocation.getArguments();
+		if (args != null && args.length > 1 && args[0] != null && args[1] != null) {
+		    user1 = (User) args[0];
+		    user1.setForename(user2.getForename());
+		    user1.setLastname(user2.getLastname());
+		    user1.setUsername(user2.getUsername());
+		    user1.setPassword(user2.getPassword());
+		    user1.setRole(user2.getRole());
 
-				}
-				return null;
-			}
-		}).when(users).save(user1);
-		assertDoesNotThrow(() -> BAP.updateUser(rootUsername, user1.getId(), user2),
-				"Root couldn't update the user!");
-		verify(users).save(user1);
-	}
-	@Test
-	public void testFailUpdateUser() {
-		assertThrows(AuthenticationException.class, () -> BAP.updateUser(failUsername, user1.getId(), user2),
-				"Fail updated the user!");
-		verify(users, never()).save(user1);
-	}
+		}
+		return null;
+	    }
+	}).when(users).save(user1);
+	assertDoesNotThrow(() -> BAP.updateUser(rootUsername, user1.getId(), user2), "Root couldn't update the user!");
+	verify(users).save(user1);
+    }
+
+    @Test
+    public void testFailUpdateUser() {
+	assertThrows(AuthenticationException.class, () -> BAP.updateUser(failUsername, user1.getId(), user2),
+		"Fail updated the user!");
+	verify(users, never()).save(user1);
+    }
 
     //// Role
 
@@ -273,34 +275,33 @@ public class BackendAccessProviderTest {
 
     @Test
     public void testUpdateRole() {
-		doAnswer(new Answer<Void>() {
-			@Override
-			public Void answer(InvocationOnMock invocation) throws Throwable {
-				Object [] args = invocation.getArguments();
-				if(args != null && args.length > 1 && args[0] != null && args[1] != null) {
-					role1 = (Role) args[0];
-					role1.setName(role2.getName());
-					role1.setManageUser(role2.isManageUser());
-					role1.setName(role2.getName());
-					role1.setProjects(role2.getProjects());
-					role1.setContracts(role2.getContracts());
-					role1.setBillingItems(role2.getBillingItems());
+	doAnswer(new Answer<Void>() {
+	    @Override
+	    public Void answer(InvocationOnMock invocation) throws Throwable {
+		Object[] args = invocation.getArguments();
+		if (args != null && args.length > 1 && args[0] != null && args[1] != null) {
+		    role1 = (Role) args[0];
+		    role1.setName(role2.getName());
+		    role1.setManageUser(role2.isManageUser());
+		    role1.setName(role2.getName());
+		    role1.setProjects(role2.getProjects());
+		    role1.setContracts(role2.getContracts());
+		    role1.setBillingItems(role2.getBillingItems());
 
-				}
-				return null;
-			}
-		}).when(roles).save(role1);
-		assertDoesNotThrow(() -> BAP.updateRole(rootUsername, role1.getId(), role2),
-				"Root couldn't update the role!");
-		verify(roles).save(role1);
+		}
+		return null;
+	    }
+	}).when(roles).save(role1);
+	assertDoesNotThrow(() -> BAP.updateRole(rootUsername, role1.getId(), role2), "Root couldn't update the role!");
+	verify(roles).save(role1);
     }
 
-	@Test
-	public void testFailUpdateRole() {
-		assertThrows(AuthenticationException.class, () -> BAP.updateRole(failUsername, role1.getId(), role2),
-				"Fail updated the role!");
-		verify(roles, never()).save(role1);
-	}
+    @Test
+    public void testFailUpdateRole() {
+	assertThrows(AuthenticationException.class, () -> BAP.updateRole(failUsername, role1.getId(), role2),
+		"Fail updated the role!");
+	verify(roles, never()).save(role1);
+    }
 
     //// Get by ID
 

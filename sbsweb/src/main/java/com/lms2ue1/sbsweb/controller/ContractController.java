@@ -27,6 +27,9 @@ public class ContractController {
     // List of temp stati for details
     List<String> listOfStatus = List.of("OK", "OK", "NO_STATUS", "OPEN", "OPEN", "DENY", "OPEN", "OK", "OK", "OK",
 	    "NO_STATUS", "OK", "OK", "OK", "OPEN", "OK", "OK", "DENY");
+    
+    //List of list of status
+    List<List<String>> listOfListOfStatus = List.of(listOfStatus,listOfStatus,listOfStatus,listOfStatus,listOfStatus,listOfStatus);
 
     /** Shows the specified contract's details, e.g. its billing items. */
     @GetMapping("/project/{pID}/contract/{cID}/show")
@@ -42,7 +45,7 @@ public class ContractController {
 	    List<BillingItem> billingItems = BAP.getAllBillingItems(username).stream()
 		    .filter(b -> b.getBillingUnit().getContract().getId() == cID)
 		    .collect(Collectors.toCollection(ArrayList::new));
-	    model.addAttribute("listOfStatus", listOfStatus);
+	    model.addAttribute("listOfListOfStatus", listOfListOfStatus);
 	    // Flattened list, keep only high level billing items
 	    List<Integer> removes = new ArrayList<>(billingItems.size());
 	    for (int i = 0; i < billingItems.size(); i++) {
