@@ -3,65 +3,104 @@
 
 <head>
     <meta charset="utf-8">
-<!--    viewport varies with the device-->
+    <!--    viewport varies with the device-->
     <meta name="viewport" content="width=device-width">
     <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"/>
     <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap"
-          rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+          rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
 </head>
 
 <body>
-<!--<th:block th:fragment="content">-->
-    <div class="container-fluid">
-        <div class="banner">
-<!--        <div class="row">-->
-<!--            <div class="col-md-12">-->
-<!--                navbar navbar-light bg-light-->
-                <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbar">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="#">Smart Building Solutions</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                            <ul class="navbar-nav">
-                                <th:block sec:authorize="isAuthenticated()">
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">Startseite</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Über uns</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Kontakt</a>
-                                </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" th:href="@{/project_overview}">Projekte</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-item nav-link" href="javascript:document.logoutForm.submit()">Logout</a>
-                                        <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
-                                            <input type="submit" value="Logout" />
-                                        </form>
-                                    </li>
-                                </th:block>
-                                <th:block sec:authorize="!isAuthenticated()">
-                                    <a class="nav-item nav-link" th:href="@{/index}">Startseite</a>
-                                    <li class="nav-item">
-                                        <a class="nav-link" th:href="@{#}">Kontakt</a>
-                                    </li>
-                                    <a class="nav-item nav-link" th:href="@{/login}">Login</a>
-                                </th:block>
-                                </ul>
-                            </div>
-                        </div>
-                </nav>
-<!--            </div>-->
-<!--        </div>-->
+<div class="container-fluid">
+    <div class="banner">
+        <nav class="navbar navbar-expand-lg navbar-dark justify-content-center" th:fragment="navbar">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+               Smart Building Solutions</a>
+                <div class="collapse navbar-collapse justify-content-sm-center" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <th:block sec:authorize="isAuthenticated()">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Startseite</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Über uns</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Kontakt</a>
+<!--                            </li>-->
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link" th:href="@{/project_overview}">Projekte</a>-->
+<!--                            </li>-->
+                            <li class="nav-item">
+                                <a class="nav-item nav-link" href="javascript:document.logoutForm.submit()">Logout</a>
+                                <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                                    <input type="submit" value="Logout"/>
+                                </form>
+                            </li>
+                        </th:block>
+                        <th:block sec:authorize="!isAuthenticated()">
+                            <a class="nav-item nav-link" th:href="@{/index}">Startseite</a>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{#}">Kontakt</a>
+                            </li>
+                            <a class="nav-item nav-link" th:href="@{/login}">Login</a>
+                        </th:block>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <th:block sec:authorize="isAuthenticated()">
+            <div class container>
+                <div class="padding-50"></div>
+        <div class="row">
+            <div class="column">
+                <div class="card">
+                    <img src="/images/haus-bauen.jpg" alt="Jane" style="width:100%">
+                    <div class="container">
+                        <h2>Aktuelle Projekte</h2>
+                        <p class="title">Die Verwaltung von Projekten ist jetzt einfacher als je zuvor.</p>
+                        <p>Zugriff auf die aktuellen Projekte deiner Organisation, damit du alles auf einen Blick hast.</p>
+                        <a th:href="@{/project_overview}">
+                            <button type="button" class="button" > Zu den Projekten</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="card">
+                    <img src="/images/papierstapel.jpeg" alt="Mike" style="width:100%">
+                    <div class="container">
+                        <h2>Verträge</h2>
+                        <p class="title">Was ist noch zu tun?</p>
+                        <p>Übersicht aller Verträge einzelner Projekte mit Fortschrittsansicht.</p>
+                        <a th:href="@{#}">
+                            <button type="button" class="button" >Zu den Verträgen</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <div class="column">
+            <div class="card">
+                <img src="/images/stock-buero.jpg" alt="John" style="width:100%">
+                <div class="container">
+                    <h2>Organisations- und Accountmanagement</h2>
+                    <p class="title"></p>
+                    <p>Besuche die Benutzerverwaltung um eigene Daten einzusehen und zu verändern. Behalte den Überblick über deine Organisation.</p>
+                    <a th:href="@{/organisations}">
+                        <button type="button" class="button" > Zu den Organisationen</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        </div>
+            </div>
+      </th:block>
+        </div>
     </div>
-</div>
-<!--</th:block>-->
 </body>
 </html>
