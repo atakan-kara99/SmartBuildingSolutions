@@ -97,6 +97,7 @@ public class RoleManagementController {
             model.addAttribute("organisation", organisation);
             return "role/role_new";
         }
+
         Role roleToAdd = new Role(role.getName(), role.getProjects(), role.getContracts(), role.getBillingItems(), organisation, true);
         try {
             backendAccessProvider.addRole(principal.getName(), roleToAdd);

@@ -56,14 +56,14 @@
                                                     <div class="col-4">
                                                         <div th:if="${adminPrivileges == true}">
                                                             <div th:if="${#lists.contains(accessibleProjects, project) && #lists.contains(role.users, user) == false}">
-                                                                <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/role_remove_project/project/' + ${project.id}}"
+                                                                <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/role_remove_project/project/' + ${project.internID}}"
                                                                     class="icon-link">
                                                                     <i class="bi bi-dash-circle" style="font-size: large; color: rgb(255, 60, 60);"
                                                                         title="Zugriff entziehen"></i>
                                                                 </a>
                                                             </div>
                                                             <div th:if="${#lists.contains(accessibleProjects, project) == false}">
-                                                                <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/role_add_project/project/' + ${project.id}}"
+                                                                <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/role_add_project/project/' + ${project.internID}}"
                                                                     class="icon-link">
                                                                     <i class="bi bi-plus-circle comp" style="font-size: large;"
                                                                         title="Zugriff geben"></i>
@@ -72,13 +72,13 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-4">
-                                                        <a th:href="@{'/project/' + ${project.id} + '/show'}" class="icon-link">
+                                                        <a th:href="@{'/project/' + ${project.internID} + '/show'}" class="icon-link">
                                                             <i class="bi bi-info-circle comp" style="font-size: large;"
                                                                 title="Informationen zum Projekt"></i>
                                                         </a>
                                                     </div>
                                                     <div class="col-4">
-                                                        <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/project/' + ${project.id} + '/role_edit_access_contracts'}"
+                                                        <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/project/' + ${project.internID} + '/role_edit_access_contracts'}"
                                                             class="icon-link">
                                                             <i class="bi bi-box-arrow-in-right comp" style="font-size: large;"
                                                                 title="Zu untergeordneten Verträgen"></i>
