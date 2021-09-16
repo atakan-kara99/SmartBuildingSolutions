@@ -53,6 +53,8 @@ public class BackendAccessProviderTest {
     private Status open;
     private Status ok;
     private Status deny;
+    private Status status1;
+    private Status status2;
     private Address address1;
     private Address address2;
     private Project project1;
@@ -78,9 +80,17 @@ public class BackendAccessProviderTest {
 
 	// Initialize fields
 	ok = new Status("OK", "Client has approved", null);
+	ok.setId(-1L);
 	deny = new Status("DENY", "Client has denied", null);
+	deny.setId(-2L);
 	open = new Status("OPEN", "Ready to be reviewed", List.of(ok, deny));
+	open.setId(-3L);
 	noStatus = new Status("NO_STATUS", "No status assigned yet", List.of(open));
+	noStatus.setId(-4L);
+	status1 = new Status("Status1", null, null);
+	status1.setId(1L);
+	status2 = new Status("Status2", null, null);
+	status2.setId(2L);
 	organisation1 = new Organisation("Fritz M�ller GmbH");
 	organisation1.setId(1L);
 	organisation2 = new Organisation("Fritz M�ller-Schulz GmbH");
@@ -134,6 +144,8 @@ public class BackendAccessProviderTest {
 	when(auth.checkBillingItem(rootUsername, billingItem1.getId())).thenReturn(true);
 	when(auth.checkBillingItem(rootUsername, billingItem2.getId())).thenReturn(true);
 	// Repositories
+	when(stati.findById(status1.getId())).thenReturn(Optional.of(status1));
+	when(stati.findById(status2.getId())).thenReturn(Optional.of(status2));
 	when(organisations.findById(organisation1.getId())).thenReturn(Optional.of(organisation1));
 	when(organisations.findById(organisation2.getId())).thenReturn(Optional.of(organisation2));
 	when(projects.findById(project1.getId())).thenReturn(Optional.of(project1));
@@ -351,5 +363,33 @@ public class BackendAccessProviderTest {
 		"Fail found an organisation by ID!");
     }
 
-    //// Get all accessible
+    //// Miscellaneous
+
+    @Test
+    public void testAddBillingItem() {
+	assertDoesNotThrow(() -> BAP.addBillingItem(rootUsername, billingItem1), "Root couldn't add the billing item!");
+	verify(billingItems).save(billingItem1);
+	assertThrows(AuthenticationException.class, () -> BAP.addBillingItem(failUsername, billingItem2),
+		"Fail added the billing item!");
+	verify(billingItems, never()).save(billingItem2);
+    }
+
+    @Test
+    public void testAddStatus() {
+	assertDoesNotThrow(() -> BAP.addStatus(rootUsername, status1), "Root couldn't add the status!");
+	verify(stati).save(status1);
+	assertThrows(AuthenticationException.class, () -> BAP.addStatus(failUsername, status2),
+		"Fail added the status!");
+	verify(stati, never()).save(status2);
+    }
+    
+    @Test
+    public void testRemoveStatus() {
+	Long id1 = status1.getId();
+	assertDoesNotThrow(() -> BAP.removeStatus(rootUsername, id1), "Root couldn't remove the status!");
+	verify(stati).deleteById(id1);
+	Long id2 = status2.getId();
+	assertThrows(AuthenticationException.class, () -> BAP.removeStatus(failUsername, id2), "Fail removed the status!");
+	verify(stati, never()).deleteById(id2);
+    }
 }
