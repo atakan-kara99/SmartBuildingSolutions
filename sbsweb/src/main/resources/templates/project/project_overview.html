@@ -46,7 +46,7 @@
                             <!-- Full row -->
                             <td th:if="${row.count % cols == 0}" style="width: 25%; background-color: rgba(0, 0, 0, 0);">
                                 <div class="card shadow">
-                                    <a th:object="${projects[row.index - x]}" th:href="@{'/project/' + *{id} + '/show'}" class="icon-link comp">
+                                    <a th:object="${projects[row.index - x]}" th:href="@{'/project/' + *{internID} + '/show'}" class="icon-link comp">
                                         <i class="bi bi-archive comp" style="font-size: 300%;" th:title="*{name}"></i>
                                         <span th:text="*{name}" style="font-size: 175%; display: block;"></span> </a>
                                     <div class="container" style="height: 40px; width: 70%">
@@ -59,7 +59,7 @@
                             <!-- Last row might not be full -->
                             <td th:if="${row.last and x < row.count % cols}" style="width: 25%; background-color: rgba(0, 0, 0, 0);">
                                 <div class="card shadow">
-                                    <a th:object="${projects[row.index - x]}" th:href="@{'/project/' + *{id} + '/show'}" class="icon-link comp">
+                                    <a th:object="${projects[row.index - x]}" th:href="@{'/project/' + *{internID} + '/show'}" class="icon-link comp">
                                         <i class="bi bi-archive comp" style="font-size: 300%;" th:title="*{name}"></i>
                                         <span th:text="*{name}" style="font-size: 175%; display: block;"></span>
                                     </a>

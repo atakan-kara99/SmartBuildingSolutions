@@ -19,12 +19,12 @@
                 <div class="row justify-content-center">
                     <div class="col-8 rounded shadow">
                         <div class="padding-20"></div>
-                        <form action="#" th:action="@{'/organisation/' + ${organisation.id} + '/edit'}" th:object="${organisation}" method="post">
+                        <form action="#" th:action="@{'/organisation/' + ${organisation.internId} + '/edit'}" th:object="${organisation}" method="post">
                             <div class="row justify-content-center">
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="id">ID</label>
-                                        <input type="text" class="form-control" id="id" th:field="${organisation.id}" disabled="disabled" />
+                                        <input type="text" class="form-control" id="id" th:field="${organisation.internID}" disabled="disabled" />
                                     </div>
                                 </div>
                                 <div class="col-4">
