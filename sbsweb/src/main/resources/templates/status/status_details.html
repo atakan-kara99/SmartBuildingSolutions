@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+    <title th:text="${billingItem.name}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <th:block th:fragment="content">
+        <div class="container">
+            <div class="text-center">
+                <h1 th:text="${status.name}"></h1>
+                <div style="padding-top: 30px"></div>
+                <p th:text="${status.description}">Keine Beschreibung angegeben</p>
+                <div style="padding-top: 50px"></div>
+                <a th:href="@{'/status_overview'}">
+                    <button type="button" class="btn btn-outline-success">Zurück zu den Status</button>
+                </a>
+                <div style="padding-top: 50px"></div>
+            </div>
+        </div>
+        <div class="text-center">
+            <div class="container">
+                <table class="table table-borderless" th:with="cols=2" style="table-layout: fixed;">
+                    <td style="width: 50%; background-color: rgba(0, 0, 0, 0);">
+                        <a th:href="@{'/status/' + ${sID} + '/status_edit'}">
+                            <button type="button" class="btn btn-outline-success">Status bearbeiten</button>
+                        </a>
+                    </td>
+                    <td style="width: 50%; background-color: rgba(0, 0, 0, 0);" th:unless="${standardStatus}">
+                        <a th:href="@{'/status/' + ${sID} + '/status_delete'}">
+                            <button type="button" class="btn btn-outline-danger">Status löschen</button>
+                        </a>
+                    </td>
+                </table>
+            </div>
+        </div>
+        <div class="padding-50"></div>
+        <div class="text-center">
+            <div class="container" th:unless="${nextStati?.empty}">
+                <h3>Nächste Status</h3>
+                <div style="padding-top: 30px"></div>
+                <table class="table table-borderless" th:with="cols=8">
+                    <tr th:each="_, row : ${nextStati}" th:if="${row.count % cols == 0 or row.last}">
+                        <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
+                            <!-- Full row -->
+                            <td th:if="${row.count % cols == 0}" style="width: 16%; background-color: rgba(0, 0, 0, 0);">
+                                <a th:object="${nextStati[row.index - x]}" th:href="@{'/status/' + *{id} + '/show'}">
+                                    <span th:text="*{name}" style="font-size: 125%; color: black; display: block;"></span>
+                                </a>
+                            </td>
+                            <!-- Last row might not be full -->
+                            <td th:if="${row.last and x < row.count % cols}" style="width: 16%; background-color: rgba(0, 0, 0, 0);">
+                                <a th:object="${nextStati[row.index - x]}" th:href="@{'/status/' + *{id} + '/show'}">
+                                    <span th:text="*{name}" style="font-size: 125%; color: black; display: block;"></span>
+                                </a>
+                            </td>
+                        </th:block>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </th:block>
+</body>
+
+</html>

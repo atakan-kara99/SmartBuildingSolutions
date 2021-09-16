@@ -1,0 +1,25 @@
+$primary: #2a5cff;
+$secondary: #ebebeb;
+$success: #2a5cff;
+$info: #008dff;
+$warning: #ff8467;
+$danger: #ff3e7e;
+$light: #ffffff;
+$dark: #000000;
+$theme-colors: (primary: $primary, secondary: $secondary, success: $success, info: $info, warning: $warning, danger: $danger, light: $light, dark: $dark);
+$comp: #ffffff;
+$table-color: #ffffff;
+$table-border-color: #000000;
+$table-bg: #353535;
+$table-striped-bg-factor: 0.2;
+$border-radius: 8px;
+$body-color: #ffffff;
+$body-bg: #353535;
+$nav-link-color: $body-color;
+$card-color: #ffffff;
+$card-bg: #353535;
+.comp {
+    color: $comp;
+}
+
+@import "../bootstrap/bootstrap";

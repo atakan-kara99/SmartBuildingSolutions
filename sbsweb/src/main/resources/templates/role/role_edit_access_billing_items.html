@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <th:block th:fragment="content">
+        <div class="container">
+            <div class="text-center">
+                <div class="row justify-content-center">
+                    <div class="col col-md-auto rounded shadow bg-primary text-light">
+                        <h1> Leistungspositionen </h1>
+                    </div>
+                </div>
+                <div class="padding-50"></div>
+                <div class="container">
+                    <div class="row btn-row justify-content-end align-items-center">
+                        <div class="col-4 text-center">
+                            <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management'}">
+                                <button type="button" class="btn btn-secondary shadow"> Zurück zur Rollenverwaltung </button>
+                            </a>
+                        </div>
+                        <div class="col-4 text-center">
+                            <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/project/' + ${project.internID} + '/role_edit_access_contracts'}">
+                                <button type="button" class="btn btn-primary shadow"> Zurück zur Vertragszugriffsübersicht </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="padding-50"></div>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-8 rounded shadow">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="width: 75%" scope="col"> Leistungspositionen </th>
+                                        <th class="text-center" style="width: 10%" scope="col"> Zugriffsstatus </th>
+                                        <th class="text-center" style="width: 15%" scope="col"> Optionen </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:if="${availableBillingItems.empty}" class="text-center">
+                                        <td colspan="3"> Keine Leistungsposition verfügbar </td>
+                                    </tr>
+                                    <tr th:each="billingItem : ${availableBillingItems}">
+                                        <td class="text-center"><span th:text="${billingItem.name}"> Leistungsposition </span></td>
+                                        <td class="text-center">
+                                            <span>
+                                                <i th:if="${#lists.contains(accessibleBillingItems, billingItem)}" class="bi bi-eye"
+                                                    style="font-size: large; color: rgb(21, 255, 0);" title="Vollständiger Zugriff"></i>
+                                                <i th:if="${#lists.contains(accessibleBillingItems, billingItem) == false}" class="bi bi-eye"
+                                                    style="font-size: large; color: rgb(255, 60, 60);" title="Kein Zugriff"></i>
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-6"
+                                                        th:if="${adminPrivileges == true}">
+                                                        <div th:if="${accessibleBillingItems != null && #lists.contains(accessibleBillingItems, billingItem) && #lists.contains(role.users, user) == false}">
+                                                            <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/project/' + ${project.internID} + '/contract/' + ${contract.internID} + '/role_remove_billing_item/billing_item/' + ${billingItem.internID}}"
+                                                                class="icon-link">
+                                                                <i class="bi bi-dash-circle" style="font-size: large; color: rgb(255, 60, 60);"
+                                                                    title="Zugriff entziehen"></i>
+                                                            </a>
+                                                        </div>
+                                                        <div th:if="${#lists.contains(accessibleBillingItems, billingItem) == false}">
+                                                            <a th:href="@{'/organisation/' + ${organisation.id} + '/role_management/role/' + ${role.id} + '/project/' + ${project.internID} + '/contract/' + ${contract.internID} + '/role_add_billing_item/billing_item/' + ${billingItem.internID}}"
+                                                                class="icon-link">
+                                                                <i class="bi bi-plus-circle comp" style="font-size: large;" title="Zugriff geben"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <a th:href="@{'/project/' + ${project.internID} + '/contract/' + ${contract.internID} + '/billing_item/' + ${billingItem.internID} + '/show'}"
+                                                            class="icon-link">
+                                                            <i class="bi bi-info-circle comp" style="font-size: large;"
+                                                                title="Informationen zur Leistungsposition"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</body>
+
+</html>

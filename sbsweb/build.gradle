@@ -1,0 +1,51 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.lms2ue1'
+version = '0.0.1'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	// necessary for using the okhttp lib
+	// define a BOM and its version
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.9.0"))
+    // define any required OkHttp artifacts without version
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor")
+    // 1. Use Guava in your implementation only: // for using the string to map
+    implementation("com.google.guava:guava:30.1.1-jre")
+	
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.springframework.session:spring-session-core'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    implementation group: 'org.json', name: 'json', version: '20210307'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.h2database:h2'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.security:spring-security-test'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+task compileSASS(type:Exec) {
+   commandLine 'python', 'compileSass.py'
+}

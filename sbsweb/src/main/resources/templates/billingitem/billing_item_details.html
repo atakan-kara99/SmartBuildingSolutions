@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+    <title th:text="${billingItem.name}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <th:block th:fragment="content">
+        <div class="container">
+            <div class="text-center">
+                <div class="row justify-content-center text-center">
+                    <div class="col col-md-auto rounded shadow bg-primary text-light">
+                        <h1 th:text="${billingItem.name}"></h1>
+                    </div>
+                </div>
+                <div style="padding-top: 30px"></div>
+                <p th:text="${billingItem.shortDescription}"></p>
+                <p>
+                    Status:
+                    <b th:text="${billingItem.statusObj}"></b>
+                </p>
+                <div class="padding-50"></div>
+                <div class="container-sm" style="width: 20%">
+                    <form action="#" th:action="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + ${bID} + '/update_status'}" th:object="${billingItem}" method="post" th:if="${!billingItem?.status?.nextStati?.empty && admin}">
+                        <div th:if="${#fields.hasAnyErrors()}">
+                            <p class="alert alert-danger" role="alert" th:each="error : ${#fields.detailedErrors()}"
+                                th:text="${error.fieldName + ': ' + err.message}"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="Status">Statustransition:</label>
+                                <div class="padding-20"></div>
+                                <select class="form-control" id="status" th:field="*{status}" th:errorclass="is-invalid">
+                                    <option th:each="status : ${billingItem.status?.nextStati}" th:text="${status.name}" th:value="${status.id}"></option>
+                                </select>
+                            </div>
+                            <div class="padding-50"></div>
+                        <button type="submit" class="btn btn-success">Status ändern</button>
+                    </form>
+                </div>
+                <div class="padding-20"></div>
+                <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/show'}">
+                    <button type="button" class="btn btn-success shadow" th:text="'Zurück zum Vertrag: ' + ${contract.name}">Zurück zum Vertrag</button>
+                </a>
+            </div>
+        </div>
+        <div class="padding-50"></div>
+        <div class="text-center" th:object="${billingItem}">
+            <div class="container" th:unless="*{billingItems?.empty}">
+                <table class="table table-borderless" th:with="cols=4">
+                    <tr th:each="_, row : *{billingItems}" th:if="${row.count % cols == 0 or row.last}">
+                        <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
+                            <!-- Full row -->
+                            <td th:if="${row.count % cols == 0}" style="width: 25%; background-color: rgba(0, 0, 0, 0);">
+                                <a th:object="${billingItem.billingItems[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{internID} + '/show'}" class="icon-link">
+                                    <i class="bi bi-exclamation-circle" style="font-size: 300%;" th:title="*{name}"></i>
+                                    <span th:text="*{name}" style="font-size: 175%; display: block;"></span>
+                                </a>
+                            </td>
+                            <!-- Last row might not be full -->
+                            <td th:if="${row.last and x < row.count % cols}" style="width: 25%; background-color: rgba(0, 0, 0, 0);">
+                                <a th:object="${billingItem.billingItems[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{internID} + '/show'}" class="icon-link">
+                                    <i class="bi bi-exclamation-circle" style="font-size: 300%;" th:title="*{name}"></i>
+                                    <span th:text="*{name}" style="font-size: 175%; display: block;"></span>
+                                </a>
+                            </td>
+                        </th:block>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- not working with session and no time-->
+        <script th:inline="javascript">
+            var setStatus = /*[[${setStatus}]]*/"setStatus";
+            if(setStatus){
+                alert("Neuer Status gesetzt");
+            };
+        </script>
+    </th:block>
+</body>
+
+</html>

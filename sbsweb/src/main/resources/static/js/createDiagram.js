@@ -1,0 +1,145 @@
+//dark mode color
+var color;
+var borderColorDM;
+if (darkMode) {
+  borderColorDM = Chart.defaults.color;
+  color = "#ffffff";
+} else {
+  color = Chart.defaults.color;
+    borderColorDM = "#ffffff";
+}
+
+//Configs for diffrent chart types
+var bar = {
+  type: "bar",
+  options: {
+    plugins: {
+      legend: {
+        labels: {
+          color: color
+        }
+      }
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        grid:{
+          color
+        },
+        ticks: {
+          color
+        },
+        beginAtZero: true
+      },
+      x: {
+        grid:{
+          color
+        },
+        ticks: {
+          color
+        },
+        beginAtZero: true
+      }
+    }
+  }
+};
+
+var doughnut = {
+  type: "doughnut",
+  options: {
+    responsive: true,
+    maintainAspectRatio: false
+  }
+};
+
+var pie = {
+  type: "pie",
+  options: {
+    responsive: true,
+    maintainAspectRatio: false
+  }
+};
+
+//array of all chart type configs
+var configs = [bar, doughnut, pie];
+
+//calculate diffrent datasets
+function createData() {
+
+  var data = [];
+  var counter = {};
+
+  //init the counter values
+  for (i = 0; i < labels.length; i++) {
+    counter[labels[i]] = 0;
+  }
+
+  //counting the frequency of stati
+  for (i = 0; i < listOfStatus.length; i++) {
+    counter[listOfStatus[i]] += 1;
+  }
+
+  //push to the data
+  for (i = 0; i < labels.length; i++) {
+    data.push(counter[labels[i]]);
+  }
+
+  //create datasets
+  var datasets = [{
+    label: name,
+    data,
+    backgroundColor: [
+      "#f38b4a",
+      "#6970d5",
+      "#00c384",
+      "#fc6d6d"
+    ],
+    borderColor: borderColorDM,
+    borderWidth: 1
+  }];
+
+  //data object
+  return {
+    labels,
+    datasets
+  };
+}
+
+var data;
+
+//create only, if we have the data
+if (listOfStatus.length > 0) {
+  //calculate the data
+  data = createData();
+
+  //reference canvas element
+  var ctx = document.getElementById("diagram").getContext('2d');
+  ctx.fillStyle = color;
+
+  //create first instance
+  var myChart = new Chart(ctx, {
+    type: configs[0].type,
+    data,
+    options: configs[0].options
+  });
+}
+
+//change chart type
+//get id from drop selectBox
+const chartType = document.getElementById('chartType');
+//eventlistener
+chartType.addEventListener('change', changeChartType);
+//function to change the type
+
+function changeChartType() {
+  //to change the chart type, you have to delete it first, because
+  //the presettings for the current diagram won't disappear, then
+  //create it anew
+  myChart.destroy();
+  myChart = new Chart(ctx, {
+    type: configs[chartType.value].type,
+    data,
+    options: configs[chartType.value].options
+  });
+}

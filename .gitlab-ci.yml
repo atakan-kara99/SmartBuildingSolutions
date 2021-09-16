@@ -1,0 +1,64 @@
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+
+cache:
+    paths:
+      - .gradle/wrapper/
+      - .gradle/caches/
+
+stages:
+  - assemble
+  - test
+  - deploy
+
+assemble:
+  stage: assemble
+  image: openjdk:11.0-jdk
+
+  only:
+    - merge_requests
+    - web-dev
+    - main
+    - web
+     
+  script:
+    - cd sbsweb
+    - chmod +x gradlew
+    - ./gradlew assemble
+    - mkdir -p target
+    - mv build/libs/sbsweb-0.0.1.jar target/sbsweb.jar
+
+  artifacts:
+    paths:
+      - sbsweb/target/sbsweb.jar
+      
+test:
+  stage: test
+  image: openjdk:11.0-jdk
+
+  only:
+    - merge_requests
+    - web
+  
+  script:
+    - cd sbsweb
+    - chmod +x gradlew
+    - ./gradlew test
+
+deploy:
+  stage: deploy
+  image: tmaier/docker-compose:latest
+  
+  services:
+    - docker:dind
+
+  only:
+    - web-dev
+    - main
+    - web
+  
+  script:
+    - docker-compose build
+    - docker-compose stop || true
+    - docker-compose rm || true
+    - docker-compose up -d

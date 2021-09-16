@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="page">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <div th:switch="${session.darkmodeEnabled}">
+        <link th:case="false" th:rel="stylesheet" href="/css/sbs_bootstrap_light.css " />
+        <link th:case="true" th:rel="stylesheet" href="/css/sbs_bootstrap_dark.css " />
+    </div>
+    <link th:rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet " href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css ">
+</head>
+
+<body>
+    <th:block th:replace="navbar :: navbar "></th:block>
+    <th:block th:include="this :: content "></th:block>
+    <th:block th:replace="footer :: div "></th:block>
+
+    <script type="text/javascript " th:src="@{/js/bootstrap.min.js} "></script>
+    <script type="text/javascript " defer th:src="@{/js/darkmode_toggle.js} "></script>
+</body>
+
+</html>
