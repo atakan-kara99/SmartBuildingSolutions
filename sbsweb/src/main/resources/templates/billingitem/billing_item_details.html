@@ -22,7 +22,25 @@
                     Status:
                     <b th:text="${billingItem.statusObj}"></b>
                 </p>
-                <div style="padding-top: 20px"></div>
+                <div class="padding-50"></div>
+                <div class="container-sm" style="width: 20%">
+                    <form action="#" th:action="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + ${bID} + '/update_status'}" th:object="${billingItem}" method="post" th:if="${!billingItem?.status?.nextStati?.empty && admin}">
+                        <div th:if="${#fields.hasAnyErrors()}">
+                            <p class="alert alert-danger" role="alert" th:each="error : ${#fields.detailedErrors()}"
+                                th:text="${error.fieldName + ': ' + err.message}"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="Status">Statustransition:</label>
+                                <div class="padding-20"></div>
+                                <select class="form-control" id="status" th:field="*{status}" th:errorclass="is-invalid">
+                                    <option th:each="status : ${billingItem.status?.nextStati}" th:text="${status.name}" th:value="${status.id}"></option>
+                                </select>
+                            </div>
+                            <div class="padding-50"></div>
+                        <button type="submit" class="btn btn-success">Status ändern</button>
+                    </form>
+                </div>
+                <div class="padding-20"></div>
                 <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/show'}">
                     <button type="button" class="btn btn-success shadow" th:text="'Zurück zum Vertrag: ' + ${contract.name}">Zurück zum Vertrag</button>
                 </a>
@@ -53,6 +71,13 @@
                 </table>
             </div>
         </div>
+        <!-- not working with session and no time-->
+        <script th:inline="javascript">
+            var setStatus = /*[[${setStatus}]]*/"setStatus";
+            if(setStatus){
+                alert("Neuer Status gesetzt");
+            };
+        </script>
     </th:block>
 </body>
 
