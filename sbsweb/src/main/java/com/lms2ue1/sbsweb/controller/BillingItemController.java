@@ -4,8 +4,11 @@ import java.security.Principal;
 import java.util.stream.Collectors;
 
 import javax.naming.AuthenticationException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.lms2ue1.sbsweb.backend.model.*;
 import com.lms2ue1.sbsweb.backend.repository.BillingItemRepository;
@@ -32,8 +36,8 @@ public class BillingItemController {
      * Shows the specified billing item's details and potential nested billing
      * items.
      */
-    @GetMapping("/project/{pID}/contract/{cID}/billing_item/{bID}/show")
-    public String showBillingItemDetails(@PathVariable long pID, @PathVariable long cID, @PathVariable long bID,
+    @GetMapping("/project/{pID}/contract/{cID}/billing_item/{bID}/show/{setStatus}")
+    public String showBillingItemDetails(@PathVariable boolean setStatus, @PathVariable long pID, @PathVariable long cID, @PathVariable long bID,
 	    Principal principal, Model model) {
 	try {
 	    String username = principal.getName();
@@ -44,6 +48,7 @@ public class BillingItemController {
 	    model.addAttribute("contract", BAP.getContractById(username, cID));
 	    model.addAttribute("billingItem", BAP.getBillingItemById(username, bID));
 	    model.addAttribute("admin", auth.isAdmin(username));
+	    model.addAttribute("setStatus", setStatus);
 	    return "billingitem/billing_item_details";
 	} catch (AuthenticationException | IllegalArgumentException e) {
 	    return "error";
@@ -105,7 +110,8 @@ public class BillingItemController {
 	}
 	String username = principal.getName();
 	BAP.updateBillingItemStatus(username, bID, status);
+    //not working: session.setAttribute("setStatus", true);
 
-	return "redirect:/project/{pID}/contract/{cID}/billing_item/{bID}/show";
+	return "redirect:/project/{pID}/contract/{cID}/billing_item/{bID}/show/true";
     }
 }
