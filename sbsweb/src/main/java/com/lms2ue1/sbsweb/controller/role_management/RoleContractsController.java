@@ -13,7 +13,7 @@ import com.lms2ue1.sbsweb.backend.model.Contract;
 import com.lms2ue1.sbsweb.backend.model.Organisation;
 import com.lms2ue1.sbsweb.backend.model.Project;
 import com.lms2ue1.sbsweb.backend.model.Role;
-import com.lms2ue1.sbsweb.backend.repository.UserRepository;
+import com.lms2ue1.sbsweb.backend.model.User;
 import com.lms2ue1.sbsweb.backend.security.AuthorisationCheck;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +29,6 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 @Controller
 public class RoleContractsController {
-    @Autowired
-    private UserRepository userRepository;
-
     @Autowired
     private BackendAccessProvider backendAccessProvider;
 
@@ -54,30 +51,36 @@ public class RoleContractsController {
         Organisation organisation = null;
         Role role = null;
         Project project = null;
-        List<Contract> availableContracts = backendAccessProvider.getAllContracts(principal.getName());
+        List<Contract> availableContracts = new ArrayList<Contract>(); backendAccessProvider.getAllContracts(principal.getName());
+        List<Contract> accessbileContracts = new ArrayList<Contract>(); backendAccessProvider.getAllContracts(principal.getName());
+
         try {
             organisation = backendAccessProvider.getOrganisationById(principal.getName(), oID);
-        } catch (AuthenticationException authException) {
-            authException.printStackTrace();
-        }
-        try {
             role = backendAccessProvider.getRoleById(principal.getName(), rID);
-        } catch (AuthenticationException authException) {
-            authException.printStackTrace();
-        }
-        try {
             project = backendAccessProvider.getProjectById(principal.getName(), pID);
         } catch (AuthenticationException authException) {
             authException.printStackTrace();
         }
-        // TODO Get user by name form BAP
-        model.addAttribute("user", userRepository.findByUsername(principal.getName()));
+
+        for(Contract availableContract : backendAccessProvider.getAllContracts(principal.getName())) {
+            if(availableContract.getProject().getInternID() == pID) {
+                availableContracts.add(availableContract);
+            }
+        }
+
+        for(Contract accessbileContract : role.getContracts()) {
+            if(accessbileContract.getProject().getInternID() == pID) {
+                accessbileContracts.add(accessbileContract);
+            }
+        }
+
+        model.addAttribute("user", getUserByPrincipal(principal));
         model.addAttribute("adminPrivileges", auth.isSysAdmin(principal.getName()) || auth.getOrgAdminID(principal.getName()) != null);
         model.addAttribute("organisation", organisation);
         model.addAttribute("role", role);
         model.addAttribute("project", project);
         model.addAttribute("availableContracts", availableContracts);
-        model.addAttribute("accessibleContracts", role.getContracts());
+        model.addAttribute("accessibleContracts", accessbileContracts);
         return "role/role_edit_access_contracts";
     }
 
@@ -163,5 +166,22 @@ public class RoleContractsController {
             authException.printStackTrace();
         }
         return "redirect:/organisation/{oID}/role_management/role/{rID}/project/{pID}/role_edit_access_contracts";
+    }
+
+    /**
+     * Method to get the User model object by using the principal.
+     * 
+     * @param  principal Security principal used to access the user model object
+     * @return           The user model object when a corresponding user exists. Else null
+     */
+    private User getUserByPrincipal(Principal principal) {
+        List<User> users = null;
+        users = backendAccessProvider.getAllUsers(principal.getName());
+        for (User user : users) {
+            if (user.getUsername().equals(principal.getName())) {
+                return user;
+            }
+        }
+        return null;
     }
 }

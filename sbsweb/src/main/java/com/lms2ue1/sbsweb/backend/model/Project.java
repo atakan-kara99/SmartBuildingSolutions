@@ -10,9 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 import java.util.List;
 
@@ -22,37 +22,53 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, unique = true)
-    private long id;
-    @Column(unique = true)
+    private long internID;
+    @JsonProperty("id")
+    private long adessoID;
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("description")
     private String description;
+    @JsonProperty("creationDate")
     private String creationDate;
+    @JsonProperty("completionDate")
     private String completionDate;
+    @JsonProperty("overallCost")
     private double overallCosts;
+    @JsonProperty("creator")
     private String creator;
+    // -- will represent the organisation --//
+    @JsonProperty("ownerGroupIdentifier")
+    private String ownerGroupIdentifier;
+    @JsonProperty("status")
+    private String adessoStatus;
     // -- These attributes are not important for our use. --//
+    @JsonProperty("image")
     private String image;
+    @JsonProperty("imageType")
     private String imageType;
+    @JsonProperty("imageFileName")
     private String imageFileName;
 
     // ------ Associations ------//
     @Embedded
     private Address address;
-    @Size(min = 1)
+    @JsonUnwrapped
     @OneToMany(mappedBy = "project", orphanRemoval = true)
     private List<Contract> contracts;
+    @JsonUnwrapped
     @ManyToOne
     @JoinColumn(name = "organisation_id")
     private Organisation organisation;
-    @Size(min = 2)
+    @JsonUnwrapped
     @ManyToMany(mappedBy = "projects")
     private List<Role> roles;
     @ManyToOne
-    private Status status;
+    private Status statusObj;
 
     // ----------------------------------//
     // ---------- Constructors ----------//
-
+    // ----------------------------------//
     public Project() {
     }
 
@@ -73,14 +89,12 @@ public class Project {
      * @param address        address of the project.
      * @param organisation   associated organisation.
      */
-    public Project(String name, String desc, String creationDate, String completionDate, Status status, double costs,
-	    String creator, String img, String imgType, String imgFileName, Address address,
-	    Organisation organisation) {
+    public Project(String name, String desc, String creationDate, String completionDate, double costs, String creator,
+	    String img, String imgType, String imgFileName, Address address, Organisation organisation) {
 	this.name = name;
 	this.description = desc;
 	this.creationDate = creationDate;
 	this.completionDate = completionDate;
-	this.status = status;
 	this.overallCosts = costs;
 	this.creator = creator;
 	this.image = img;
@@ -90,11 +104,55 @@ public class Project {
 	this.organisation = organisation;
     }
 
+    /**
+     * Constructor to insert the data of the rest api json request.
+     * 
+     * @param adessoID
+     * @param name
+     * @param description
+     * @param creationDate
+     * @param completionDate
+     * @param overallCosts
+     * @param creator
+     * @param ownerGroupIdentifier
+     * @param adessoStatus
+     * @param image
+     * @param imageType
+     * @param imageFileName
+     */
+    public Project(long adessoID, String name, String description, String creationDate, String completionDate,
+	    double overallCosts, String creator, String ownerGroupIdentifier, String adessoStatus, String image,
+	    String imageType, String imageFileName) {
+	this.name = name;
+	this.description = description;
+	this.creationDate = creationDate;
+	this.completionDate = completionDate;
+	this.overallCosts = overallCosts;
+	this.creator = creator;
+	this.ownerGroupIdentifier = ownerGroupIdentifier;
+	this.adessoStatus = adessoStatus;
+	this.image = image;
+	this.imageType = imageType;
+	this.imageFileName = imageFileName;
+    }
+
     // ----------------------------//
     // ---------- Getter ----------//
     // ----------------------------//
-    public long getId() {
-	return this.id;
+    public long getInternID() {
+	return this.internID;
+    }
+
+    public long getAdessoID() {
+	return adessoID;
+    }
+
+    public String getOwnerGroupIdentifier() {
+	return ownerGroupIdentifier;
+    }
+
+    public String getAdessoStatus() {
+	return adessoStatus;
     }
 
     public String getName() {
@@ -113,8 +171,8 @@ public class Project {
 	return this.completionDate;
     }
 
-    public Status getStatus() {
-	return this.status;
+    public Status getStatusObj() {
+	return this.statusObj;
     }
 
     public double getOverallCosts() {
@@ -156,8 +214,20 @@ public class Project {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    public void setId(long pId) {
-	this.id = pId;
+    public void setInternID(long pId) {
+	this.internID = pId;
+    }
+
+    public void setAdessoID(long adessoID) {
+	this.adessoID = adessoID;
+    }
+
+    public void setOwnerGroupIdentifier(String ownerGroupIdentifier) {
+	this.ownerGroupIdentifier = ownerGroupIdentifier;
+    }
+
+    public void setAdessoStatus(String adessoStatus) {
+	this.adessoStatus = adessoStatus;
     }
 
     public void setName(String n) {
@@ -176,8 +246,8 @@ public class Project {
 	this.completionDate = completionDate;
     }
 
-    public void setStatus(Status s) {
-	this.status = s;
+    public void setStatusObj(Status s) {
+	this.statusObj = s;
     }
 
     public void setOverallCosts(double oC) {
@@ -224,8 +294,9 @@ public class Project {
     public boolean equals(Object obj) {
 	if (obj instanceof Project) {
 	    Project tmpProject = (Project) obj;
-	    return tmpProject.getId() == this.id;
+	    return tmpProject.getInternID() == this.internID;
 	}
 	return false;
     }
+
 }

@@ -75,18 +75,16 @@ class AuthorisationCheckTest {
 	org1 = new Organisation("Tiefbau");
 	address0 = new Address("Main Street", 1337, 14, "NY City", "Deutschland");
 	address1 = new Address("2nd Street", 42, 15, "GBR City", "France");
-	project0 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01", null,
-		234578900, "Die den anderen Turm auch gemacht haben", null, null, null, address0, org0);
-	project1 = new Project("Berliner Flughafen xD", "Morgen ist es soweit", "2010-12-28", "2015-01-01", null,
-		1300500000, "Nicht die vom Burj Khalifa", null, null, null, address1, org1);
-	contract0 = new Contract("Baby beruhigen", "Es schreit.", null, "Nanny", "Mutter", List.of(),
-		project0);
-	contract1 = new Contract("Kosten klein halten", "Teuer", null, null, null, List.of(org1), project1);
+	project0 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01", 234578900,
+		"Die den anderen Turm auch gemacht haben", null, null, null, address0, org0);
+	project1 = new Project("Berliner Flughafen xD", "Morgen ist es soweit", "2010-12-28", "2015-01-01", 1300500000, "Nicht die vom Burj Khalifa", null, null, null, address1, org1);
+	contract0 = new Contract("Baby beruhigen", "Es schreit.", "Nanny", "Mutter", List.of(), project0);
+	contract1 = new Contract("Kosten klein halten", "Teuer", null, null, List.of(org1), project1);
 	billingUnit0 = new BillingUnit("sd", null, "kg", "1973", "2001", 2.1, 7, contract0);
 	billingUnit1 = new BillingUnit("sssdad", null, "�", "15999", "2201", 1, 0, contract1);
 	billingItem1 = new BillingItem("Fenster einbauen", 0, null, null, 99, null, 0, null, null, billingUnit1, null);
-	billingItem0 = new BillingItem("Heizung montieren", 2, "Heizko B7-2 fensternah einbauen.", null, 0, null,
-		7, null, null, billingUnit0, List.of(billingItem1));
+	billingItem0 = new BillingItem("Heizung montieren", 2, "Heizko B7-2 fensternah einbauen.", null, 0, null, 7,
+		null, null, billingUnit0, List.of(billingItem1));
 	role0 = new Role("SysAdmin", List.of(project0, project1), List.of(contract0, contract1),
 		List.of(billingItem0, billingItem1), org0, true);
 	role1 = new Role("OrgAdmin", org1.getProjects(), org1.getContracts(), null, org1, true);
@@ -95,7 +93,7 @@ class AuthorisationCheckTest {
 	user1 = new User("Hans", "Frans", role1, "orgadmin", passwordEncoder.encode("org"));
 	user2 = new User("Hasel", "Nuss", role2, "nut", passwordEncoder.encode("squirrel"));
 
-	when(userMock.findByUsername(user0.getUsername())).thenReturn(user0);
+	when(userMock.findByUsernameIgnoreCase(user0.getUsername())).thenReturn(user0);
     }
 
     @AfterEach
@@ -136,29 +134,29 @@ class AuthorisationCheckTest {
     @Test
     @DisplayName("testCheckProject")
     public void testCheckProject() {
-	when(proMock.findById(project0.getId())).thenReturn(Optional.of(project0));
-	assertTrue(authCheck.checkProject(user0.getUsername(), project0.getId()));
+	when(proMock.findById(project0.getInternID())).thenReturn(Optional.of(project0));
+	assertTrue(authCheck.checkProject(user0.getUsername(), project0.getInternID()));
     }
 
     @Test
     @DisplayName("testCheckContract")
     public void testCheckContract() {
-	when(conMock.findById(contract0.getId())).thenReturn(Optional.of(contract0));
-	assertTrue(authCheck.checkContract(user0.getUsername(), contract0.getId()));
+	when(conMock.findById(contract0.getInternID())).thenReturn(Optional.of(contract0));
+	assertTrue(authCheck.checkContract(user0.getUsername(), contract0.getInternID()));
     }
 
     @Test
     @DisplayName("testCheckBillingUnit")
     public void testCheckBillingUnit() {
-	when(billUnitMock.findById(billingUnit0.getId())).thenReturn(Optional.of(billingUnit0));
-	assertTrue(authCheck.checkBillingUnit(user0.getUsername(), billingUnit0.getId()));
+	when(billUnitMock.findById(billingUnit0.getInternID())).thenReturn(Optional.of(billingUnit0));
+	assertTrue(authCheck.checkBillingUnit(user0.getUsername(), billingUnit0.getInternID()));
     }
 
     @Test
     @DisplayName("testCheckRootBillingItem")
     public void testCheckRootBillingItem() {
-	when(billItemMock.findById(billingItem0.getId())).thenReturn(Optional.of(billingItem0));
-	assertTrue(authCheck.checkBillingItem(user0.getUsername(), billingItem0.getId()));
+	when(billItemMock.findById(billingItem0.getInternID())).thenReturn(Optional.of(billingItem0));
+	assertTrue(authCheck.checkBillingItem(user0.getUsername(), billingItem0.getInternID()));
     }
 
     @Test
@@ -179,20 +177,20 @@ class AuthorisationCheckTest {
 
     @Test
     public void testIsAdmin() {
-	when(userMock.findByUsername(user1.getUsername())).thenReturn(user1);
+	when(userMock.findByUsernameIgnoreCase(user1.getUsername())).thenReturn(user1);
 	assertTrue(authCheck.isAdmin(user0.getUsername()));
 	assertTrue(authCheck.isAdmin(user1.getUsername()));
     }
-    
+
     @Test
     public void testGetOrgAdminTrue() {
-	when(userMock.findByUsername(user1.getUsername())).thenReturn(user1);
+	when(userMock.findByUsernameIgnoreCase(user1.getUsername())).thenReturn(user1);
 	assertTrue(authCheck.getOrgAdminID(user1.getUsername()) == user1.getId());
     }
-    
+
     @Test
     public void testGetOrgAdminFalse() {
-	when(userMock.findByUsername(user2.getUsername())).thenReturn(user2);
+	when(userMock.findByUsernameIgnoreCase(user2.getUsername())).thenReturn(user2);
 	assertFalse(authCheck.getOrgAdminID(user2.getUsername()) == user1.getId());
     }
 
@@ -201,25 +199,22 @@ class AuthorisationCheckTest {
 	when(userMock.findById(user1.getId())).thenReturn(Optional.of(user1));
 	assertTrue(authCheck.canManageUser(user0.getUsername(), user1.getId()));
     }
-    
-    
+
     @Test
     public void testManageUserOrgAdminID() {
-	when(userMock.findByUsername(user1.getUsername())).thenReturn(user1);
-	when(userMock.findByUsername(user2.getUsername())).thenReturn(user2);
+	when(userMock.findByUsernameIgnoreCase(user1.getUsername())).thenReturn(user1);
+	when(userMock.findByUsernameIgnoreCase(user2.getUsername())).thenReturn(user2);
 	when(userMock.findById(user2.getId())).thenReturn(Optional.of(user2));
 	assertTrue(authCheck.canManageUser(user1.getUsername(), user1.getId()));
     }
-    
+
     @Test
     public void testManageUserNo() {
 	when(userMock.findById(1l)).thenReturn(Optional.of(user1));
 	when(userMock.findById(2l)).thenReturn(Optional.of(user2));
-	when(userMock.findByUsername(user1.getUsername())).thenReturn(user1);
-	when(userMock.findByUsername(user2.getUsername())).thenReturn(user2);
+	when(userMock.findByUsernameIgnoreCase(user1.getUsername())).thenReturn(user1);
+	when(userMock.findByUsernameIgnoreCase(user2.getUsername())).thenReturn(user2);
 	assertFalse(authCheck.canManageUser(user2.getUsername(), user1.getId()));
     }
 
-    // TODO: Tests für den Status => Eigener Issue
-*/
 }

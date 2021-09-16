@@ -12,47 +12,55 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 @Entity
 public class Contract {
-    // A few adaptations to make the data model actually work (nka).
 
     // ---- Attributes ----//
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, unique = true)
-    private long id;
-    @Column(unique = true)
+    private long internID;
+    @JsonProperty("id")
+    private long adessoID;
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("description")
     private String description;
+    @JsonProperty("consignee")
     private String consignee;
+    @JsonProperty("contractor")
     private String contractor;
+    @JsonProperty("status")
+    private String adessoStatus;
+    @JsonProperty("projectId")
+    private long adessoProjectId;
 
     // ---- Associations ----//
-    @Size(min = 2, max = 2)
+    @JsonUnwrapped
     @ManyToMany
     @JoinTable(name = "CONTRACT_ORGANISATIONS", joinColumns = {
 	    @JoinColumn(name = "CONTRACT_ID") }, inverseJoinColumns = { @JoinColumn(name = "ORGANISATIONS_ID") })
     private List<Organisation> organisations;
-    @Size(min = 2)
+    @JsonUnwrapped
     @ManyToMany(mappedBy = "contracts")
     private List<Role> roles;
-    @ManyToOne // (cascade = { CascadeType.ALL }) try to remove
+    @JsonUnwrapped
+    @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
-    @Size(min = 1)
+    @JsonUnwrapped
     @OneToMany(mappedBy = "contract", orphanRemoval = true)
     private List<BillingUnit> billingUnits;
     @ManyToOne
-    private Status status;
+    private Status statusObj;
 
     // ----------------------------------//
     // ---------- Constructors ----------//
     // ----------------------------------//
-    // TODO: Do we actually want to allow this?
     public Contract() {
     }
 
@@ -69,22 +77,46 @@ public class Contract {
      * @param project       = projects
      * @param billunits     = billing units
      */
-    public Contract(String name, String description, Status status, String consignee, String contructor,
+    public Contract(String name, String description, String consignee, String contructor,
 	    List<Organisation> organisations, Project project) {
 	this.name = name;
 	this.description = description;
-	this.status = status;
 	this.consignee = consignee;
 	this.contractor = contructor;
 	this.organisations = organisations;
 	this.project = project;
     }
 
+    public Contract(long id, String name, String description, String consignee, String contractor, String adessoStatus,
+	    long projectId) {
+	super();
+	this.internID = id;
+	this.name = name;
+	this.description = description;
+	this.consignee = consignee;
+	this.contractor = contractor;
+	this.adessoStatus = adessoStatus;
+	this.adessoProjectId = projectId;
+    }
+
     // ----------------------------//
     // ---------- Getter ----------//
     // ----------------------------//
-    public Long getId() {
-	return this.id;
+
+    public long getAdessoID() {
+	return adessoID;
+    }
+
+    public long getAdessoProjectId() {
+	return adessoProjectId;
+    }
+
+    public Status getStatusObj() {
+	return statusObj;
+    }
+
+    public Long getInternID() {
+	return this.internID;
     }
 
     public String getName() {
@@ -95,8 +127,8 @@ public class Contract {
 	return this.description;
     }
 
-    public Status getStatus() {
-	return this.status;
+    public String getAdessoStatus() {
+	return adessoStatus;
     }
 
     public String getConsignee() {
@@ -126,8 +158,20 @@ public class Contract {
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    public void setId(Long id) {
-	this.id = id;
+    public void setAdessoID(long adessoID) {
+	this.adessoID = adessoID;
+    }
+
+    public void setAdessoStatus(String adessoStatus) {
+	this.adessoStatus = adessoStatus;
+    }
+
+    public void setAdessoProjectId(long projectId) {
+	this.adessoProjectId = projectId;
+    }
+
+    public void setInternID(Long id) {
+	this.internID = id;
     }
 
     public void setName(String n) {
@@ -136,10 +180,6 @@ public class Contract {
 
     public void setDescription(String desc) {
 	this.description = desc;
-    }
-
-    public void setStatus(Status s) {
-	this.status = s;
     }
 
     public void setConsignee(String cnsgn) {
@@ -166,6 +206,10 @@ public class Contract {
 	this.billingUnits = bus;
     }
 
+    public void setStatusObj(Status statusObj) {
+	this.statusObj = statusObj;
+    }
+
     // ----------------------------//
     // ---------- Misc ------------//
     // ----------------------------//
@@ -174,8 +218,9 @@ public class Contract {
     public boolean equals(Object obj) {
 	if (obj instanceof Contract) {
 	    Contract tmpContract = (Contract) obj;
-	    return tmpContract.getId() == this.id;
+	    return tmpContract.getInternID() == this.internID;
 	}
 	return false;
     }
+
 }

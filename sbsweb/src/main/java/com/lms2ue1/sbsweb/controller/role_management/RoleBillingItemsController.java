@@ -13,7 +13,7 @@ import com.lms2ue1.sbsweb.backend.model.Contract;
 import com.lms2ue1.sbsweb.backend.model.Organisation;
 import com.lms2ue1.sbsweb.backend.model.Project;
 import com.lms2ue1.sbsweb.backend.model.Role;
-import com.lms2ue1.sbsweb.backend.repository.UserRepository;
+import com.lms2ue1.sbsweb.backend.model.User;
 import com.lms2ue1.sbsweb.backend.security.AuthorisationCheck;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +29,6 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 @Controller
 public class RoleBillingItemsController {
-    @Autowired
-    private UserRepository userRepository;
-
     @Autowired
     private BackendAccessProvider backendAccessProvider;
 
@@ -57,36 +54,38 @@ public class RoleBillingItemsController {
         Role role = null;
         Project project = null;
         Contract contract = null;
-        List<BillingItem> availablebBillingItems = backendAccessProvider.getAllBillingItems(principal.getName());
+        List<BillingItem> availablebBillingItems = new ArrayList<BillingItem>();
+        List<BillingItem> accessibleBillingItems = new ArrayList<BillingItem>();
+
         try {
             organisation = backendAccessProvider.getOrganisationById(principal.getName(), oID);
-        } catch (AuthenticationException authException) {
-            authException.printStackTrace();
-        }
-        try {
             role = backendAccessProvider.getRoleById(principal.getName(), rID);
-        } catch (AuthenticationException authException) {
-            authException.printStackTrace();
-        }
-        try {
             project = backendAccessProvider.getProjectById(principal.getName(), pID);
-        } catch (AuthenticationException authException) {
-            authException.printStackTrace();
-        }
-        try {
             contract = backendAccessProvider.getContractById(principal.getName(), cID);
         } catch (AuthenticationException authException) {
             authException.printStackTrace();
         }
-        // TODO Get user by name form BAP
-        model.addAttribute("user", userRepository.findByUsername(principal.getName()));
+
+        for(BillingItem availableBillingItem : backendAccessProvider.getAllBillingItems(principal.getName())) {
+            if(availableBillingItem.getBillingUnit().getContract().getInternID() == cID) {
+                availablebBillingItems.add(availableBillingItem);
+            }
+        }
+
+        for(BillingItem roleBillingItem : role.getBillingItems()) {
+            if(roleBillingItem.getBillingUnit().getContract().getInternID() == cID) {
+                accessibleBillingItems.add(roleBillingItem);
+            }
+        }
+
+        model.addAttribute("user", getUserByPrincipal(principal));
         model.addAttribute("adminPrivileges", auth.isSysAdmin(principal.getName()) || auth.getOrgAdminID(principal.getName()) != null);
         model.addAttribute("organisation", organisation);
         model.addAttribute("role", role);
         model.addAttribute("project", project);
         model.addAttribute("contract", contract);
         model.addAttribute("availableBillingItems", availablebBillingItems);
-        model.addAttribute("accessibleBillingItems", role.getBillingItems());
+        model.addAttribute("accessibleBillingItems", accessibleBillingItems);
         return "role/role_edit_access_billing_items";
     }
 
@@ -172,5 +171,22 @@ public class RoleBillingItemsController {
             authException.printStackTrace();
         }
         return "redirect:/organisation/{oID}/role_management/role/{rID}/project/{pID}/contract/{cID}/role_edit_access_billing_items";
+    }
+
+    /**
+     * Method to get the User model object by using the principal.
+     * 
+     * @param  principal Security principal used to access the user model object
+     * @return           The user model object when a corresponding user exists. Else null
+     */
+    private User getUserByPrincipal(Principal principal) {
+        List<User> users = null;
+        users = backendAccessProvider.getAllUsers(principal.getName());
+        for (User user : users) {
+            if (user.getUsername().equals(principal.getName())) {
+                return user;
+            }
+        }
+        return null;
     }
 }

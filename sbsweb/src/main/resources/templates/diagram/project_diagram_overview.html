@@ -12,39 +12,47 @@
 
         <div class="container">
             <div class="text-center">
-                <h1 th:text="${project.name}"></h1>
+                <div class="row justify-content-center text-center">
+                    <div class="col col-md-auto rounded shadow bg-primary text-light">
+                        <h1 th:text="${project.name}"></h1>
+                    </div>
+                </div>
                 <div class="padding-50"></div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center text-center">
+            <div class="col-8 rounded shadow">
                 <p th:text="${project.description}"></p>
                 <p>
                     Status:
-                    <b th:text="${project.status}"></b>
+                    <b th:text="${project.statusObj}"></b>
                 </p>
-
-            </div>
-        </div>
-        <div th:if="${not listOfStatus.empty}">
-            <div class="container">
-                <div class="padding-50"></div>
-                <div class="row">
-                    <div class="col">
-                        <a th:href="@{'/project/' + ${pID} + '/show'}">
-                            <button type="button" class="btn btn-outline-success">Zurück zu den Projektdetails</button>
-                        </a>
-                    </div>
-                    <div class="col-auto">
-                        <div class="selectBox">
-                            <select id="chartType" style="font-size:16px;">
+                <div th:if="${not listOfStatus.empty}">
+                    <div class="container">
+                        <div class="padding-50"></div>
+                        <div class="row justify-content-between">
+                            <div class="col-3">
+                                <a th:href="@{'/project/' + ${pID} + '/show'}">
+                                    <button type="button" class="btn btn-success shadow">Zurück zu den Projektdetails</button>
+                                </a>
+                            </div>
+                            <div class="col-auto">
+                                <div class="selectBox shadow">
+                                    <select id="chartType" style="font-size:16px;">
                                 <option value=0>Bar</option>
                                 <option value=1>Doughnut</option>
                                 <option value=2>Pie</option>
                             </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="padding-50"></div>
+                    <div class="chartBox" style="height: 300px">
+                        <canvas id="diagram"></canvas>
+                    </div>
                 </div>
-            </div>
-            <div class="padding-50"></div>
-            <div class="chartBox" style="height: 300px">
-                <canvas id="diagram"></canvas>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

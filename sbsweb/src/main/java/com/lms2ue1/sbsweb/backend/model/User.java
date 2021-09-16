@@ -9,14 +9,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-/**
- * User will be created at the frontend side of the application.
- */
+@JsonIgnoreProperties
 @Entity
 public class User {
-    // A few adaptations to make the data model actually work.
 
     // ---- Attributes ----//
     @Id
@@ -35,9 +33,7 @@ public class User {
     private String password;
 
     // ---- Associations ----//
-    // It is only ONE role allowed. Otherwise we have a problem with authorisation.
-    // The SysAdmin will get an exception in authorisation.
-    @ManyToOne // (cascade = {CascadeType.MERGE})
+    @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
 
