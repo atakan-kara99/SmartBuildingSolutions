@@ -75,7 +75,7 @@ public class RoleManagementController {
             model.addAttribute("organisation", organisation);
             return "role/role_new";
         }
-        // TODO: Expand me!
+
         Role roleToAdd = new Role(role.getName(), role.getProjects(), role.getContracts(), role.getBillingItems(), organisation, true);
         roleRepository.save(roleToAdd);
         return "redirect:/organisation/{oID}/role_management";
