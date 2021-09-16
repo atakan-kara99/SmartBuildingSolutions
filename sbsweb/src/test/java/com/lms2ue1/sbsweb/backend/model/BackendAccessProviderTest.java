@@ -79,17 +79,17 @@ public class BackendAccessProviderTest {
 	closeable = MockitoAnnotations.openMocks(this);
 
 	// Initialize fields
-	ok = new Status("OK", "Client has approved", null);
+	ok = new Status("OK", null);
 	ok.setId(-1L);
-	deny = new Status("DENY", "Client has denied", null);
+	deny = new Status("DENY", null);
 	deny.setId(-2L);
-	open = new Status("OPEN", "Ready to be reviewed", List.of(ok, deny));
+	open = new Status("OPEN", List.of(ok, deny));
 	open.setId(-3L);
-	noStatus = new Status("NO_STATUS", "No status assigned yet", List.of(open));
+	noStatus = new Status("NO_STATUS", List.of(open));
 	noStatus.setId(-4L);
-	status1 = new Status("Status1", null, null);
+	status1 = new Status("Status1", null);
 	status1.setId(1L);
-	status2 = new Status("Status2", null, null);
+	status2 = new Status("Status2", null);
 	status2.setId(2L);
 	organisation1 = new Organisation("Fritz M�ller GmbH");
 	organisation1.setId(1L);
@@ -97,26 +97,26 @@ public class BackendAccessProviderTest {
 	organisation2.setId(2L);
 	address1 = new Address("Main Street", 1337, 14, "NY City", "Deutschland");
 	address2 = new Address("2nd Street", 42, 15, "GBR City", "France");
-	project1 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01", ok, 234578900,
+	project1 = new Project("Burj Khalifa2", "steht direkt daneben", "2010-02-07", "2021-06-01", 234578900,
 		"Die den anderen Turm auch gemacht haben", null, null, null, address1, organisation1);
-	project1.setId(1L);
-	project2 = new Project("Berliner Flughafen xD", "Morgen ist es soweit", "2010-12-28", "2015-01-01", open,
-		1300500000, "Nicht die vom Burj Khalifa", null, null, null, address2, organisation2);
-	project2.setId(2L);
-	contract1 = new Contract("Baby beruhigen", "Es schreit.", noStatus, "Nanny", "Mutter", List.of(), project1);
-	contract1.setId(1L);
-	contract2 = new Contract("Kosten klein halten", "Teuer", null, null, null, List.of(organisation2), project2);
-	contract2.setId(2L);
+	project1.setInternID(1L);
+	project2 = new Project("Berliner Flughafen xD", "Morgen ist es soweit", "2010-12-28", "2015-01-01", 1300500000,
+		"Nicht die vom Burj Khalifa", null, null, null, address2, organisation2);
+	project2.setInternID(2L);
+	contract1 = new Contract("Baby beruhigen", "Es schreit.", "Nanny", "Mutter", List.of(), project1);
+	contract1.setInternID(1L);
+	contract2 = new Contract("Kosten klein halten", "Teuer", null, null, List.of(organisation2), project2);
+	contract2.setInternID(2L);
 	billingUnit1 = new BillingUnit("sd", null, "kg", "1973", "2001", 2.1, 7, contract1);
-	billingUnit1.setId(1L);
+	billingUnit1.setInternID(1L);
 	billingUnit2 = new BillingUnit("sssdad", null, "�", "15999", "2201", 1, 0, contract2);
-	billingUnit2.setId(2L);
+	billingUnit2.setInternID(2L);
 	billingItem1 = new BillingItem("Heizung montieren", 2, "Heizko B7-2 fensternah einbauen.", noStatus, 0, null, 7,
 		null, null, billingUnit1, null);
-	billingItem1.setId(1L);
+	billingItem1.setInternID(1L);
 	billingItem2 = new BillingItem("Fenster einbauen", 0, null, noStatus, 99, null, 0, null, null, billingUnit2,
 		null);
-	billingItem2.setId(2L);
+	billingItem2.setInternID(2L);
 	role1 = new Role("Bauherr", List.of(), List.of(), List.of(), organisation1, false);
 	role1.setId(1L);
 	role2 = new Role("Handwerker", null, null, null, organisation2, false);
@@ -136,29 +136,29 @@ public class BackendAccessProviderTest {
 	when(auth.canManageUser(rootUsername, user2.getId())).thenReturn(true);
 	when(auth.checkOrganisation(rootUsername, organisation1.getId())).thenReturn(true);
 	when(auth.checkOrganisation(rootUsername, organisation2.getId())).thenReturn(true);
-	when(auth.checkProject(rootUsername, project1.getId())).thenReturn(true);
-	when(auth.checkProject(rootUsername, project2.getId())).thenReturn(true);
-	when(auth.checkContract(rootUsername, contract1.getId())).thenReturn(true);
-	when(auth.checkContract(rootUsername, contract2.getId())).thenReturn(true);
-	when(auth.checkBillingUnit(rootUsername, billingUnit1.getId())).thenReturn(true);
-	when(auth.checkBillingUnit(rootUsername, billingUnit2.getId())).thenReturn(true);
-	when(auth.checkBillingItem(rootUsername, billingItem1.getId())).thenReturn(true);
-	when(auth.checkBillingItem(rootUsername, billingItem2.getId())).thenReturn(true);
+	when(auth.checkProject(rootUsername, project1.getInternID())).thenReturn(true);
+	when(auth.checkProject(rootUsername, project2.getInternID())).thenReturn(true);
+	when(auth.checkContract(rootUsername, contract1.getInternID())).thenReturn(true);
+	when(auth.checkContract(rootUsername, contract2.getInternID())).thenReturn(true);
+	when(auth.checkBillingUnit(rootUsername, billingUnit1.getInternID())).thenReturn(true);
+	when(auth.checkBillingUnit(rootUsername, billingUnit2.getInternID())).thenReturn(true);
+	when(auth.checkBillingItem(rootUsername, billingItem1.getInternID())).thenReturn(true);
+	when(auth.checkBillingItem(rootUsername, billingItem2.getInternID())).thenReturn(true);
 	// Repositories
 	when(stati.findById(status1.getId())).thenReturn(Optional.of(status1));
 	when(stati.findById(status2.getId())).thenReturn(Optional.of(status2));
-	when(stati.findByName(status1.getName())).thenReturn(status1);
-	when(stati.findByName(status2.getName())).thenReturn(status2);
+	when(stati.findByNameIgnoreCase(status1.getName())).thenReturn(status1);
+	when(stati.findByNameIgnoreCase(status2.getName())).thenReturn(status2);
 	when(organisations.findById(organisation1.getId())).thenReturn(Optional.of(organisation1));
 	when(organisations.findById(organisation2.getId())).thenReturn(Optional.of(organisation2));
-	when(projects.findById(project1.getId())).thenReturn(Optional.of(project1));
-	when(projects.findById(project2.getId())).thenReturn(Optional.of(project2));
-	when(contracts.findById(contract1.getId())).thenReturn(Optional.of(contract1));
-	when(contracts.findById(contract2.getId())).thenReturn(Optional.of(contract2));
-	when(billingUnits.findById(billingUnit1.getId())).thenReturn(Optional.of(billingUnit1));
-	when(billingUnits.findById(billingUnit2.getId())).thenReturn(Optional.of(billingUnit2));
-	when(billingItems.findById(billingItem1.getId())).thenReturn(Optional.of(billingItem1));
-	when(billingItems.findById(billingItem2.getId())).thenReturn(Optional.of(billingItem2));
+	when(projects.findById(project1.getInternID())).thenReturn(Optional.of(project1));
+	when(projects.findById(project2.getInternID())).thenReturn(Optional.of(project2));
+	when(contracts.findById(contract1.getInternID())).thenReturn(Optional.of(contract1));
+	when(contracts.findById(contract2.getInternID())).thenReturn(Optional.of(contract2));
+	when(billingUnits.findById(billingUnit1.getInternID())).thenReturn(Optional.of(billingUnit1));
+	when(billingUnits.findById(billingUnit2.getInternID())).thenReturn(Optional.of(billingUnit2));
+	when(billingItems.findById(billingItem1.getInternID())).thenReturn(Optional.of(billingItem1));
+	when(billingItems.findById(billingItem2.getInternID())).thenReturn(Optional.of(billingItem2));
 	when(roles.findById(role1.getId())).thenReturn(Optional.of(role1));
 	when(roles.findById(role2.getId())).thenReturn(Optional.of(role2));
 	when(users.findById(user1.getId())).thenReturn(Optional.of(user1));
@@ -326,7 +326,7 @@ public class BackendAccessProviderTest {
 
     @Test
     public void testGetProjectById() throws AuthenticationException {
-	Long id = project1.getId();
+	Long id = project1.getInternID();
 	assertDoesNotThrow(() -> BAP.getProjectById(rootUsername, id), "Root couldn't find a project by ID!");
 	assertEquals(project1, BAP.getProjectById(rootUsername, id), "A different project was found!");
 	assertThrows(AuthenticationException.class, () -> BAP.getProjectById(failUsername, id),
@@ -335,7 +335,7 @@ public class BackendAccessProviderTest {
 
     @Test
     public void testGetContractById() throws AuthenticationException {
-	Long id = contract1.getId();
+	Long id = contract1.getInternID();
 	assertDoesNotThrow(() -> BAP.getContractById(rootUsername, id), "Root couldn't find a contract by ID!");
 	assertEquals(contract1, BAP.getContractById(rootUsername, id), "A different contract was found!");
 	assertThrows(AuthenticationException.class, () -> BAP.getContractById(failUsername, id),
@@ -344,7 +344,7 @@ public class BackendAccessProviderTest {
 
     @Test
     public void testGetBillingUnitById() throws AuthenticationException {
-	Long id = billingUnit1.getId();
+	Long id = billingUnit1.getInternID();
 	assertDoesNotThrow(() -> BAP.getBillingUnitById(rootUsername, id), "Root couldn't find a billing unit by ID!");
 	assertEquals(billingUnit1, BAP.getBillingUnitById(rootUsername, id), "A different billing unit was found!");
 	assertThrows(AuthenticationException.class, () -> BAP.getBillingUnitById(failUsername, id),
@@ -353,7 +353,7 @@ public class BackendAccessProviderTest {
 
     @Test
     public void testGetBillingItemById() throws AuthenticationException {
-	Long id = billingItem1.getId();
+	Long id = billingItem1.getInternID();
 	assertDoesNotThrow(() -> BAP.getBillingItemById(rootUsername, id), "Root couldn't find a billing item by ID!");
 	assertEquals(billingItem1, BAP.getBillingItemById(rootUsername, id), "A different billing item was found!");
 	assertThrows(AuthenticationException.class, () -> BAP.getBillingItemById(failUsername, id),
@@ -404,9 +404,9 @@ public class BackendAccessProviderTest {
     @Test
     public void testUpdateBillingItemStatus() {
 	when(users.findByUsernameIgnoreCase(rootUsername)).thenReturn(new User()); // Don't return null
-	assertDoesNotThrow(() -> BAP.updateBillingItemStatus(rootUsername, billingItem1.getId(), open),
+	assertDoesNotThrow(() -> BAP.updateBillingItemStatus(rootUsername, billingItem1.getInternID(), open),
 		"Billing item's status couldn't be updated!");
-	billingItem1.setStatus(open);
+	billingItem1.setStatusObj(open);
 	verify(billingItems).save(billingItem1);
     }
 
