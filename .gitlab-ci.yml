@@ -47,7 +47,10 @@ test:
 
 deploy:
   stage: deploy
-  image: docker:19.03.1
+  image: tmaier/docker-compose:latest
+  
+  services:
+    - docker:dind
 
   only:
     - web-dev
@@ -55,7 +58,7 @@ deploy:
     - web
   
   script:
-    - docker build -t sbsweb-image -f docker/Dockerfile.sbsweb .
-    - docker stop sbsweb-container || true
-    - docker rm sbsweb-container || true
-    - docker run -d -p 8080:8080 --name sbsweb-container sbsweb-image
+    - docker-compose build
+    - docker-compose stop || true
+    - docker-compose rm || true
+    - docker-compose up -d
