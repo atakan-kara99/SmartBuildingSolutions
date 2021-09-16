@@ -1,0 +1,14 @@
+version: "3"
+services:
+  bim-mock:
+    image: sapza/bimcontracts-kiel-mock:latest
+    ports:
+      - "3000:3000"
+  web:
+    build:
+      dockerfile: docker/Dockerfile.sbsweb
+      context: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - bim-mock

@@ -11,16 +11,20 @@
     <th:block th:fragment="content">
         <div class="container">
             <div class="text-center">
-                <h1 th:text="${billingItem.name}"></h1>
+                <div class="row justify-content-center text-center">
+                    <div class="col col-md-auto rounded shadow bg-primary text-light">
+                        <h1 th:text="${billingItem.name}"></h1>
+                    </div>
+                </div>
                 <div style="padding-top: 30px"></div>
                 <p th:text="${billingItem.shortDescription}"></p>
                 <p>
                     Status:
-                    <b th:text="${billingItem.status}"></b>
+                    <b th:text="${billingItem.statusObj}"></b>
                 </p>
                 <div style="padding-top: 20px"></div>
                 <a th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/show'}">
-                    <button type="button" class="btn btn-outline-success" th:text="'Zurück zum Vertrag: ' + ${contract.name}">Zurück zum Vertrag</button>
+                    <button type="button" class="btn btn-success shadow" th:text="'Zurück zum Vertrag: ' + ${contract.name}">Zurück zum Vertrag</button>
                 </a>
             </div>
         </div>
@@ -32,16 +36,14 @@
                         <th:block th:each="x : ${#numbers.sequence(cols-1, 0, -1)}">
                             <!-- Full row -->
                             <td th:if="${row.count % cols == 0}" style="width: 25%; background-color: rgba(0, 0, 0, 0);">
-                                <a th:object="${billingItem.billingItems[row.index - x]}"
-                                    th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{id} + '/show'}" class="icon-link">
+                                <a th:object="${billingItem.billingItems[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{internID} + '/show'}" class="icon-link">
                                     <i class="bi bi-exclamation-circle" style="font-size: 300%;" th:title="*{name}"></i>
                                     <span th:text="*{name}" style="font-size: 175%; display: block;"></span>
                                 </a>
                             </td>
                             <!-- Last row might not be full -->
                             <td th:if="${row.last and x < row.count % cols}" style="width: 25%; background-color: rgba(0, 0, 0, 0);">
-                                <a th:object="${billingItem.billingItems[row.index - x]}"
-                                    th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{id} + '/show'}" class="icon-link">
+                                <a th:object="${billingItem.billingItems[row.index - x]}" th:href="@{'/project/' + ${pID} + '/contract/' + ${cID} + '/billing_item/' + *{internID} + '/show'}" class="icon-link">
                                     <i class="bi bi-exclamation-circle" style="font-size: 300%;" th:title="*{name}"></i>
                                     <span th:text="*{name}" style="font-size: 175%; display: block;"></span>
                                 </a>

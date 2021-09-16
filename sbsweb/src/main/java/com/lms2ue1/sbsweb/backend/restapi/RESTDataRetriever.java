@@ -1,46 +1,51 @@
 package com.lms2ue1.sbsweb.backend.restapi;
 
-import org.apache.catalina.connector.Request;
-import org.apache.catalina.connector.Response;
+import java.io.IOException;
+
+import org.springframework.stereotype.Component;
 
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
+@Component
 public class RESTDataRetriever {
 
-	// ---- Methods for accessing the data from REST-API ----//
-	public String fetchProjects() {
-		/*OkHttpClient client = new OkHttpClient().newBuilder()
-				  .build();
-		okhttp3.Request request = new Request.Builder()
-				  .url("localhost:3001/api/v1/project/list")
-				  .method("GET", null)
-				  .build();
-		okhttp3.Response response = client.newCall(request).execute();*/
-	    // TODO: Implement me!
-		return null;
-	}
+    /**
+     * URL to connect to the adesso API.
+     */
+    private final String API_URL =  "http://bim-mock:3000/api/v1";
+    //private final String API_URL = "http://localhost:3000/api/v1";
 
-	public String fetchContracts() {
-		/*OkHttpClient client = new OkHttpClient().newBuilder()
-				  .build();
-				Request request = new Request.Builder()
-				  .url("localhost:3001/api/v1/contracts/:projectId")
-				  .method("GET", null)
-				  *
-				  .build();
-				Response response = client.newCall(request).execute();*/
-	 // TODO: Implement me!
-	    return null;
-	}
+    /**
+     * Retrieve the wanted data from the REST API.
+     * 
+     * @param url = The URL for the wanted data
+     * @return the JSON String (Response body)
+     * @throws IOException
+     */
+    private String retrieveData(String url) throws IOException {
+	OkHttpClient client = new OkHttpClient().newBuilder().build();
+	Request request = new Request.Builder().url(url).method("GET", null).header("Authorization", "Bearer 123")
+		.build();
+	Response response = client.newCall(request).execute();
+	return response.body().string();
+    }
 
-	public String fetchBillingUnits() {
-		// TODO: implement me!
-		return null;
-	}
-	
-	public String fetchBillingItems() {
-		// TODO: implement me!
-		return null;
-	}
-	
+    // ------------------------------------------------------//
+    // ---- Methods for accessing the data from REST-API ----//
+    // ------------------------------------------------------//
+
+    public String fetchProjects() throws IOException {
+	return retrieveData(API_URL + "/project/list");
+    }
+
+    public String fetchContracts(long projectID) throws IOException {
+	return retrieveData(API_URL + "/contracts/" + projectID);
+    }
+
+    public String fetchBillingModel(long contractID) throws IOException {
+	return retrieveData(API_URL + "/billingmodel/loadAndParseForContractConfiguration?contractId=" + contractID);
+    }
+
 }

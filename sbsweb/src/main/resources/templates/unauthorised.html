@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <th:block th:fragment="content">
+        <div class="container">
+            <div class="text-center">
+                <h1> Zugriff verweigert </h1>
+                <div class="padding-50"></div>
+                <p class="alert alert-danger"> Ihre Zugriffsrechte reichen für diese Operation nicht aus. Möglicherweise ist der Zugriff nur als Admin ihrer Organisation möglich. </p>
+                <div class="padding-50"></div>
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-4 text-center">
+                        <a class="btn btn-primary" href="javascript:history.back()"> Zurück zur letzten Seite </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</body>
+
+</html>
