@@ -111,11 +111,11 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public void addUser(String username, User newUser) throws AuthenticationException {
-	if (newUser == null) {
-	    throw new IllegalArgumentException();
-	} else if (users.findByUsernameIgnoreCase(username) == null) {
-	    throw new IllegalArgumentException("username is already taken!");
-	}
+        if (newUser == null) {
+            throw new IllegalArgumentException();
+        } else if (users.findByUsernameIgnoreCase(username) != null) {
+            throw new IllegalArgumentException("username is already taken!");
+        }
 
 	if (auth.canManageUser(username, newUser.getId())) {
 	    users.save(newUser);
@@ -387,13 +387,18 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public User getUserById(String username, Long userId) throws AuthenticationException {
-	User user = users.findById(userId).orElseThrow(IllegalArgumentException::new);
+	User userToGet = users.findById(userId).orElseThrow(IllegalArgumentException::new);
+	User userRequesting = users.findByUsernameIgnoreCase(username);
+	if (userRequesting == null) {
+	    throw new IllegalArgumentException();
+	}
+	
 	if (auth.canManageUser(username, userId)) {
 	    // Sys- or OrgAdmin
-	    return user;
-	} else if (userId != null && user.getId() == userId.longValue()) {
+	    return userToGet;
+	} else if (userId != null && userRequesting.getId() == userId.longValue()) {
 	    // User
-	    return user;
+	    return userToGet;
 	} else {
 	    throw new AuthenticationException();
 	}
@@ -409,21 +414,26 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public Role getRoleById(String username, Long roleId) throws AuthenticationException {
-	if (auth.isSysAdmin(username)) {
-	    // Allmighty SysAdmin
-	    return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
-	} else if (users.findByUsernameIgnoreCase(username).getRole().getId() == roleId) {
-	    // View own role
-	    return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
+	User userRequesting = users.findByUsernameIgnoreCase(username);
+	if (userRequesting == null) {
+	    throw new IllegalArgumentException();
 	}
-	// OrgAdmin
-	Long oID = auth.getOrgAdminID(username);
-	Role role = roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
-	if (oID != null && role.getId() == oID.longValue()) {
-	    return role;
-	} else {
-	    throw new AuthenticationException();
-	}
+	
+        if (auth.isSysAdmin(username)) {
+            // Allmighty SysAdmin
+            return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
+        } else if (userRequesting.getRole().getId() == roleId) {
+            // View own role
+            return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
+        }
+        // OrgAdmin
+        Long oID = auth.getOrgAdminID(username);
+        Role role = roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
+        if (oID != null && role.getId() == oID.longValue()) {
+            return role;
+        } else {
+            throw new AuthenticationException();
+        }
     }
 
     //////////////////////// Getters for lists ////////////////////////
@@ -837,7 +847,7 @@ public class BackendAccessProvider {
     }
 
     /**
-     * Returns a list of all accessible stati in the contract with the given id.
+     * Returns a list of all accessible billing units' stati in the contract with the given id.
      * 
      * @param username   the username of the user requesting this operation.
      * @param contractId the contract's id.
@@ -855,7 +865,7 @@ public class BackendAccessProvider {
     }
 
     /**
-     * Returns a list of all accessible stati in the project with the given id.
+     * Returns a list of all accessible billing units' stati in the project with the given id.
      * 
      * @param username  the username of the user requesting this operation.
      * @param projectId the project's id.
@@ -873,7 +883,7 @@ public class BackendAccessProvider {
     }
 
     /**
-     * Returns a list of all accessible stati (only stati in accessible projects).
+     * Returns a list of all accessible billing units' stati (only stati in accessible projects).
      * To get <b> ALL </b> stati, see {@link #getAllStati()}.
      * 
      * @param username the username of the user requesting this operation.

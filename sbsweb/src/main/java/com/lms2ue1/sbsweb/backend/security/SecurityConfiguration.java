@@ -25,21 +25,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	return new BCryptPasswordEncoder();
     }
 
-    // TODO: Sysadmin und Orgadmin abgrenzen
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-	http.authorizeRequests()
-		.antMatchers("/h2-console/**").permitAll() // We can't get locked out.
-		.anyRequest().authenticated().and()
-		// .antMatchers("/organisation_*/**")
-		.formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/organisations", true).and().logout()
-		.permitAll();
 
-	// Comment in to enable H2 console on test server (not recommended for release
-	// version!)
-	http.csrf().disable();
-	http.headers().frameOptions().disable();
-    }
+	// TODO: Sysadmin und Orgadmin abgrenzen
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+			.authorizeRequests()
+			.antMatchers("/h2-console/**").permitAll() // We can't get locked out.
+			.antMatchers("/images/**", "/css/**", "/index", "/").permitAll()
+			.anyRequest().authenticated()
+			.and()
+			//.antMatchers("/organisation_*/**")
+			.formLogin().loginPage("/login").permitAll()
+			.defaultSuccessUrl("/index", true)
+			.and().logout().permitAll();
+		
+		// Comment in to enable H2 console on test server (not recommended for release version!)
+		http.csrf().disable();
+		http.headers().frameOptions().disable();
+	}
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
