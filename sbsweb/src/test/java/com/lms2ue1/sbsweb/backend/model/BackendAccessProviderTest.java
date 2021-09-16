@@ -147,6 +147,8 @@ public class BackendAccessProviderTest {
 	// Repositories
 	when(stati.findById(status1.getId())).thenReturn(Optional.of(status1));
 	when(stati.findById(status2.getId())).thenReturn(Optional.of(status2));
+	when(stati.findByName(status1.getName())).thenReturn(status1);
+	when(stati.findByName(status2.getName())).thenReturn(status2);
 	when(organisations.findById(organisation1.getId())).thenReturn(Optional.of(organisation1));
 	when(organisations.findById(organisation2.getId())).thenReturn(Optional.of(organisation2));
 	when(projects.findById(project1.getId())).thenReturn(Optional.of(project1));
@@ -176,7 +178,7 @@ public class BackendAccessProviderTest {
 		"Root couldn't add the organisation!");
 	verify(organisations).save(organisation1);
 	assertThrows(AuthenticationException.class, () -> BAP.addOrganisation(failUsername, organisation2),
-		"Fail added the organisation!");
+		"An unauthorized user added the organisation!");
 	verify(organisations, never()).save(organisation2);
     }
 
@@ -187,7 +189,7 @@ public class BackendAccessProviderTest {
 	verify(organisations).deleteById(id1);
 	Long id2 = organisation2.getId();
 	assertThrows(AuthenticationException.class, () -> BAP.removeOrganisation(failUsername, id2),
-		"Fail removed the organisation!");
+		"An unauthorized user removed the organisation!");
 	verify(organisations, never()).deleteById(id2);
     }
 
@@ -213,7 +215,7 @@ public class BackendAccessProviderTest {
     public void testFailUpdateOrganisation() {
 	assertThrows(AuthenticationException.class,
 		() -> BAP.updateOrganisation(failUsername, organisation1.getId(), organisation2),
-		"Fail updated the organisation!");
+		"An unauthorized user updated the organisation!");
 	verify(organisations, never()).save(organisation1);
     }
 
@@ -223,7 +225,8 @@ public class BackendAccessProviderTest {
     public void testAddUser() {
 	assertDoesNotThrow(() -> BAP.addUser(rootUsername, user1), "Root couldn't add the user!");
 	verify(users).save(user1);
-	assertThrows(AuthenticationException.class, () -> BAP.addUser(failUsername, user2), "Fail added the user!");
+	assertThrows(AuthenticationException.class, () -> BAP.addUser(failUsername, user2),
+		"An unauthorized user added the user!");
 	verify(users, never()).save(user2);
     }
 
@@ -233,7 +236,8 @@ public class BackendAccessProviderTest {
 	assertDoesNotThrow(() -> BAP.removeUser(rootUsername, id1), "Root couldn't remove the user!");
 	verify(users).deleteById(id1);
 	Long id2 = user2.getId();
-	assertThrows(AuthenticationException.class, () -> BAP.removeUser(failUsername, id2), "Fail removed the user!");
+	assertThrows(AuthenticationException.class, () -> BAP.removeUser(failUsername, id2),
+		"An unauthorized user removed the user!");
 	verify(users, never()).deleteById(id2);
     }
 
@@ -262,7 +266,7 @@ public class BackendAccessProviderTest {
     @Test
     public void testFailUpdateUser() {
 	assertThrows(AuthenticationException.class, () -> BAP.updateUser(failUsername, user1.getId(), user2),
-		"Fail updated the user!");
+		"An unauthorized user updated the user!");
 	verify(users, never()).save(user1);
     }
 
@@ -272,7 +276,8 @@ public class BackendAccessProviderTest {
     public void testAddRole() {
 	assertDoesNotThrow(() -> BAP.addRole(rootUsername, role1), "Root couldn't add the role!");
 	verify(roles).save(role1);
-	assertThrows(AuthenticationException.class, () -> BAP.addRole(failUsername, role2), "Fail added the role!");
+	assertThrows(AuthenticationException.class, () -> BAP.addRole(failUsername, role2),
+		"An unauthorized user added the role!");
 	verify(roles, never()).save(role2);
     }
 
@@ -282,7 +287,8 @@ public class BackendAccessProviderTest {
 	assertDoesNotThrow(() -> BAP.removeRole(rootUsername, id1), "Root couldn't remove the role!");
 	verify(roles).deleteById(id1);
 	Long id2 = role2.getId();
-	assertThrows(AuthenticationException.class, () -> BAP.removeRole(failUsername, id2), "Fail removed the role!");
+	assertThrows(AuthenticationException.class, () -> BAP.removeRole(failUsername, id2),
+		"An unauthorized user removed the role!");
 	verify(roles, never()).deleteById(id2);
     }
 
@@ -312,7 +318,7 @@ public class BackendAccessProviderTest {
     @Test
     public void testFailUpdateRole() {
 	assertThrows(AuthenticationException.class, () -> BAP.updateRole(failUsername, role1.getId(), role2),
-		"Fail updated the role!");
+		"An unauthorized user updated the role!");
 	verify(roles, never()).save(role1);
     }
 
@@ -324,7 +330,7 @@ public class BackendAccessProviderTest {
 	assertDoesNotThrow(() -> BAP.getProjectById(rootUsername, id), "Root couldn't find a project by ID!");
 	assertEquals(project1, BAP.getProjectById(rootUsername, id), "A different project was found!");
 	assertThrows(AuthenticationException.class, () -> BAP.getProjectById(failUsername, id),
-		"Fail found a project by ID!");
+		"An unauthorized user found a project by ID!");
     }
 
     @Test
@@ -333,7 +339,7 @@ public class BackendAccessProviderTest {
 	assertDoesNotThrow(() -> BAP.getContractById(rootUsername, id), "Root couldn't find a contract by ID!");
 	assertEquals(contract1, BAP.getContractById(rootUsername, id), "A different contract was found!");
 	assertThrows(AuthenticationException.class, () -> BAP.getContractById(failUsername, id),
-		"Fail found a contract by ID!");
+		"An unauthorized user found a contract by ID!");
     }
 
     @Test
@@ -342,7 +348,7 @@ public class BackendAccessProviderTest {
 	assertDoesNotThrow(() -> BAP.getBillingUnitById(rootUsername, id), "Root couldn't find a billing unit by ID!");
 	assertEquals(billingUnit1, BAP.getBillingUnitById(rootUsername, id), "A different billing unit was found!");
 	assertThrows(AuthenticationException.class, () -> BAP.getBillingUnitById(failUsername, id),
-		"Fail found a billing unit by ID!");
+		"An unauthorized user found a billing unit by ID!");
     }
 
     @Test
@@ -351,7 +357,7 @@ public class BackendAccessProviderTest {
 	assertDoesNotThrow(() -> BAP.getBillingItemById(rootUsername, id), "Root couldn't find a billing item by ID!");
 	assertEquals(billingItem1, BAP.getBillingItemById(rootUsername, id), "A different billing item was found!");
 	assertThrows(AuthenticationException.class, () -> BAP.getBillingItemById(failUsername, id),
-		"Fail found a billing item by ID!");
+		"An unauthorized user found a billing item by ID!");
     }
 
     @Test
@@ -361,7 +367,7 @@ public class BackendAccessProviderTest {
 		"Root couldn't find an organisation by ID!");
 	assertEquals(organisation1, BAP.getOrganisationById(rootUsername, id), "A different organisation was found!");
 	assertThrows(AuthenticationException.class, () -> BAP.getOrganisationById(failUsername, id),
-		"Fail found an organisation by ID!");
+		"An unauthorized user found an organisation by ID!");
     }
 
     //// Miscellaneous
@@ -371,7 +377,7 @@ public class BackendAccessProviderTest {
 	assertDoesNotThrow(() -> BAP.addBillingItem(rootUsername, billingItem1), "Root couldn't add the billing item!");
 	verify(billingItems).save(billingItem1);
 	assertThrows(AuthenticationException.class, () -> BAP.addBillingItem(failUsername, billingItem2),
-		"Fail added the billing item!");
+		"An unauthorized user added the billing item!");
 	verify(billingItems, never()).save(billingItem2);
     }
 
@@ -380,7 +386,7 @@ public class BackendAccessProviderTest {
 	assertDoesNotThrow(() -> BAP.addStatus(rootUsername, status1), "Root couldn't add the status!");
 	verify(stati).save(status1);
 	assertThrows(AuthenticationException.class, () -> BAP.addStatus(failUsername, status2),
-		"Fail added the status!");
+		"An unauthorized user added the status!");
 	verify(stati, never()).save(status2);
     }
 
@@ -391,7 +397,7 @@ public class BackendAccessProviderTest {
 	verify(stati).deleteById(id1);
 	Long id2 = status2.getId();
 	assertThrows(AuthenticationException.class, () -> BAP.removeStatus(failUsername, id2),
-		"Fail removed the status!");
+		"An unauthorized user removed the status!");
 	verify(stati, never()).deleteById(id2);
     }
 
@@ -403,11 +409,18 @@ public class BackendAccessProviderTest {
 	billingItem1.setStatus(open);
 	verify(billingItems).save(billingItem1);
     }
-    
+
     @Test
     public void testGetStatusById() {
 	Long id = status1.getId();
 	assertDoesNotThrow(() -> BAP.getStatusById(id), "Couldn't find a status by ID!");
 	assertEquals(status1, BAP.getStatusById(id), "A different status was found!");
+    }
+
+    @Test
+    public void testGetStatusByName() {
+	String name = status1.getName();
+	assertDoesNotThrow(() -> BAP.getStatusByName(name), "Couldn't find a status by name!");
+	assertEquals(status1, BAP.getStatusByName(name), "A different status was found!");
     }
 }
