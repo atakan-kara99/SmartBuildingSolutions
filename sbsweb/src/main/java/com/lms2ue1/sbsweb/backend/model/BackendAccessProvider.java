@@ -16,8 +16,7 @@ import com.lms2ue1.sbsweb.backend.security.AuthorisationCheck;
 /** Provides communication between Frontend and Backend. */
 public class BackendAccessProvider {
 
-    //////////////////////// Repositories ////////////////////////
-
+    // ---- Repositories ----//
     @Autowired
     private ProjectRepository projects;
     @Autowired
@@ -35,8 +34,7 @@ public class BackendAccessProvider {
     @Autowired
     private StatusRepository stati;
 
-    //////////////////////// Singleton using @Autowired ////////////////////////
-
+    // ---- Authorization check singleton ----//
     @Autowired
     private AuthorisationCheck auth;
 
@@ -414,7 +412,7 @@ public class BackendAccessProvider {
 	if (auth.isSysAdmin(username)) {
 	    // Allmighty SysAdmin
 	    return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
-	} else if (users.findByUsername(username).getRole().getId() == roleId) {
+	} else if (users.findByUsernameIgnoreCase(username).getRole().getId() == roleId) {
 	    // View own role
 	    return roles.findById(roleId).orElseThrow(IllegalArgumentException::new);
 	}
@@ -470,9 +468,9 @@ public class BackendAccessProvider {
 	    if (auth.isSysAdmin(username)) {
 		return StreamSupport.stream(projects.findAll().spliterator(), false).collect(Collectors.toList());
 	    } else if (auth.getOrgAdminID(username) != null) {
-		return users.findByUsername(username).getRole().getOrganisation().getProjects();
+		return users.findByUsernameIgnoreCase(username).getRole().getOrganisation().getProjects();
 	    }
-	    return users.findByUsername(username).getRole().getProjects();
+	    return users.findByUsernameIgnoreCase(username).getRole().getProjects();
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -581,7 +579,7 @@ public class BackendAccessProvider {
 		return StreamSupport.stream(organisations.findAll().spliterator(), false).collect(Collectors.toList());
 	    }
 	    // Own organisation
-	    return List.of(users.findByUsername(username).getRole().getOrganisation());
+	    return List.of(users.findByUsernameIgnoreCase(username).getRole().getOrganisation());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -602,11 +600,11 @@ public class BackendAccessProvider {
 		return StreamSupport.stream(users.findAll().spliterator(), false).collect(Collectors.toList());
 	    } else if (auth.getOrgAdminID(username) != null) {
 		// Users in organisation
-		return users.findByUsername(username).getRole().getOrganisation().getRoles().stream()
+		return users.findByUsernameIgnoreCase(username).getRole().getOrganisation().getRoles().stream()
 			.map(r -> r.getUsers()).flatMap(List::stream).collect(Collectors.toList());
 	    }
 	    // Just the user
-	    return List.of(users.findByUsername(username));
+	    return List.of(users.findByUsernameIgnoreCase(username));
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -627,10 +625,10 @@ public class BackendAccessProvider {
 		return StreamSupport.stream(roles.findAll().spliterator(), false).collect(Collectors.toList());
 	    } else if (auth.getOrgAdminID(username) != null) {
 		// Roles in organisation
-		return users.findByUsername(username).getRole().getOrganisation().getRoles();
+		return users.findByUsernameIgnoreCase(username).getRole().getOrganisation().getRoles();
 	    }
 	    // Own role
-	    return List.of(users.findByUsername(username).getRole());
+	    return List.of(users.findByUsernameIgnoreCase(username).getRole());
 	} catch (NullPointerException e) {
 	    throw new IllegalArgumentException();
 	}
@@ -746,7 +744,7 @@ public class BackendAccessProvider {
 	    throw new IllegalArgumentException();
 	}
 	BillingItem billingItem = billingItems.findById(billingItemId).orElseThrow(IllegalArgumentException::new);
-	billingItem.setStatus(newStatus);
+	billingItem.setStatusObj(newStatus);
 	billingItems.save(billingItem);
     }
 
@@ -780,7 +778,7 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public Status getStatusByName(String statusName) {
-	Status status = stati.findByName(statusName);
+	Status status = stati.findByNameIgnoreCase(statusName);
 	if (status == null) {
 	    throw new IllegalArgumentException();
 	}
@@ -830,8 +828,8 @@ public class BackendAccessProvider {
 	    throw new IllegalArgumentException();
 	}
 	return getAllBillingItems(username).stream()
-		.filter(bi -> bi.getBillingUnit().getContract().getId() == contractId.longValue())
-		.map(bi -> bi.getStatus()).collect(Collectors.toList());
+		.filter(bi -> bi.getBillingUnit().getContract().getInternId() == contractId.longValue())
+		.map(bi -> bi.getStatusObj()).collect(Collectors.toList());
     }
 
     /**
@@ -848,8 +846,8 @@ public class BackendAccessProvider {
 	    throw new IllegalArgumentException();
 	}
 	return getAllBillingItems(username).stream()
-		.filter(bi -> bi.getBillingUnit().getContract().getProject().getId() == projectId.longValue())
-		.map(bi -> bi.getStatus()).collect(Collectors.toList());
+		.filter(bi -> bi.getBillingUnit().getContract().getProject().getInternID() == projectId.longValue())
+		.map(bi -> bi.getStatusObj()).collect(Collectors.toList());
     }
 
     /**
@@ -862,6 +860,6 @@ public class BackendAccessProvider {
      * @throws IllegalArgumentException if the operation failed.
      */
     public List<Status> getAllStatiForAllProjects(String username) throws AuthenticationException {
-	return getAllBillingItems(username).stream().map(bi -> bi.getStatus()).collect(Collectors.toList());
+	return getAllBillingItems(username).stream().map(bi -> bi.getStatusObj()).collect(Collectors.toList());
     }
 }
