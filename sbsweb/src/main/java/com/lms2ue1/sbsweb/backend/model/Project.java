@@ -84,10 +84,7 @@ public class Project {
      * @param desc           description.
      * @param creationDate   date where the project started.
      * @param completionDate date where the project should be finished.
-<<<<<<< HEAD
-=======
      * @param status         current status of the project.
->>>>>>> web-dev
      * @param costs          overall costs.
      * @param creator        name of the creator.
      * @param img            path of the image.
