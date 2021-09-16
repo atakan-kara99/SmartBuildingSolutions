@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 import com.lms2ue1.sbsweb.backend.model.*;
 import com.lms2ue1.sbsweb.backend.repository.*;
 
-@Component
 /**
  * This class provides predicates to say, whether a user is allowed to do
  * something.
  */
+@Component
 public class AuthorisationCheck {
 
     private AuthorisationCheck() {
@@ -43,7 +43,7 @@ public class AuthorisationCheck {
      * @return the associated role.
      */
     public Role getRole(String username) {
-	return userRepo.findByUsername(username).getRole();
+	return userRepo.findByUsernameIgnoreCase(username).getRole();
     }
 
     // TODO: Effizienter direkt nach dem bID zu suchen.
@@ -113,7 +113,8 @@ public class AuthorisationCheck {
      */
     public boolean checkBillingUnit(String username, long buID) {
 	// Every billing item in another billing item are part of the same billing unit.
-	return isSysAdmin(username) || getRole(username).getBillingItems().stream().map(bi -> bi.getBillingUnit()).collect(Collectors.toList())
+	return isSysAdmin(username) || getRole(username).getBillingItems().stream().map(bi -> bi.getBillingUnit())
+		.collect(Collectors.toList())
 		.contains(billUnitRepo.findById(buID).orElseThrow(IllegalArgumentException::new));
     }
 
@@ -170,7 +171,7 @@ public class AuthorisationCheck {
     }
 
     /**
-     * Is the given user a SysAdmin?
+     * Is the given user a SysAdmin or a OrgAdmin?
      * 
      * @param username = the user in question.
      * @return true = yes, the user is. false = no, the user isn't.

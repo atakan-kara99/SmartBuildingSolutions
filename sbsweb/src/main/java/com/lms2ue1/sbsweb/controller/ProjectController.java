@@ -63,7 +63,7 @@ public class ProjectController {
 	    model.addAttribute("pID", pID);
 	    model.addAttribute("project", BAP.getProjectById(username, pID));
 	    List<Contract> contracts = BAP.getAllContracts(username);
-	    model.addAttribute("contracts", contracts.stream().filter(contract -> contract.getProject().getId() == pID)
+	    model.addAttribute("contracts", contracts.stream().filter(contract -> contract.getProject().getInternID() == pID)
 		    .collect(Collectors.toList()));
 	    model.addAttribute("listOfListOfStatus", listOfListOfStatus);
 	    return "project/project_details";
