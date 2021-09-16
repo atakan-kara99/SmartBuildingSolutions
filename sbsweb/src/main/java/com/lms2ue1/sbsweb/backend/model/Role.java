@@ -10,15 +10,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
+@JsonIgnoreProperties
 @Entity
-@Table(name = "ROLE")
 public class Role {
 
     // ---- Attributes ----//

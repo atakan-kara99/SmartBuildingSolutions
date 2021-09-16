@@ -2,7 +2,6 @@ package com.lms2ue1.sbsweb.backend.model;
 
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties
 @Entity
 public class Status {
     // ---- Attributes ----//
@@ -18,18 +20,15 @@ public class Status {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotEmpty
-    @Column(unique = true)
     private String name;
-    private String description;
 
     // ---- Associations ---- //
-    @OneToMany(mappedBy = "status")
+    @OneToMany(mappedBy = "statusObj")
     private List<Project> projects;
-    @OneToMany(mappedBy = "status")
+    @OneToMany(mappedBy = "statusObj")
     private List<Contract> contracts;
-    @OneToMany(mappedBy = "status")
+    @OneToMany(mappedBy = "statusObj")
     private List<BillingItem> billingItems;
-
     @OneToMany
     @JoinColumn(name = "next_stati")
     private List<Status> nextStati;
@@ -41,13 +40,13 @@ public class Status {
     }
 
     /**
+     * The status of a project, contract or billing item
      * 
      * @param name
      * @param description
      */
-    public Status(String name, String description, List<Status> nextStati) {
+    public Status(String name, List<Status> nextStati) {
 	this.name = name;
-	this.description = description;
 	this.nextStati = nextStati;
     }
 
@@ -60,10 +59,6 @@ public class Status {
 
     public String getName() {
 	return this.name;
-    }
-
-    public String getDescription() {
-	return this.description;
     }
 
     public List<Project> getProject() {
@@ -93,10 +88,6 @@ public class Status {
 	this.name = n;
     }
 
-    public void setDescription(String desc) {
-	this.description = desc;
-    }
-
     public void setProject(List<Project> ps) {
 	this.projects = ps;
     }
@@ -112,7 +103,7 @@ public class Status {
     public void setBillingItem(List<BillingItem> bis) {
 	this.billingItems = bis;
     }
-
+    
     @Override
     public String toString() {
 	return name;

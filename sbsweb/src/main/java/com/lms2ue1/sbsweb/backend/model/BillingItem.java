@@ -11,39 +11,56 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 @Entity
 public class BillingItem {
+
     // ---- Attributes ----//
     @Id
     @Column(updatable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long internId;
+    @JsonProperty("id")
+    private String adessoID;
+    @JsonProperty("price")
     private double price;
+    @JsonProperty("name")
     @Column(unique = true)
     private String name;
+    @JsonProperty("shortDescription")
     private String shortDescription;
+    @JsonProperty("quantities")
     private double quantities;
+    @JsonProperty("unit")
     private String unit;
+    @JsonProperty("unitPrice")
     private double unitPrice;
+    @JsonProperty("qtySplit")
     private String qtySplit;
+    @JsonProperty("shortDesLinkedIFC")
     private String shortDesLinkedIFC;
+    @JsonProperty("status")
+    private String adessoStatus;
 
     // ---- Associations ----//
-    @ManyToOne // (cascade = { CascadeType.ALL }) tried w/ cascading
+    @JsonUnwrapped
+    @ManyToOne
     @JoinColumn(name = "billing_unit_id")
     private BillingUnit billingUnit;
-    @Size(min = 2)
+    @JsonUnwrapped
     @ManyToMany(mappedBy = "billingItems")
     private List<Role> roles;
+    @JsonUnwrapped
     @OneToMany
     @JoinColumn(name = "sub_billing_item")
     private List<BillingItem> billingItems;
+    // TODO: adessoStatus?
+    @JsonUnwrapped
     @ManyToOne
-    private Status status;
+    private Status statusObj;
 
     // ----------------------------------//
     // ---------- Constructors ----------//
@@ -72,7 +89,7 @@ public class BillingItem {
 	this.name = name;
 	this.price = price;
 	this.shortDescription = sDesc;
-	this.status = status;
+	this.statusObj = status;
 	this.quantities = quantities;
 	this.unit = unit;
 	this.unitPrice = uPrice;
@@ -82,19 +99,15 @@ public class BillingItem {
 	this.billingItems = billingItems;
     }
 
+    // ----------------------------//
+    // ---------- Getter ----------//
+    // ----------------------------//
     public String getName() {
 	return name;
     }
 
-    public void setName(String name) {
-	this.name = name;
-    }
-
-    // ----------------------------//
-    // ---------- Getter ----------//
-    // ----------------------------//
-    public long getId() {
-	return this.id;
+    public long getInternId() {
+	return this.internId;
     }
 
     public double getPrice() {
@@ -105,8 +118,8 @@ public class BillingItem {
 	return this.shortDescription;
     }
 
-    public Status getStatus() {
-	return this.status;
+    public Status getStatusObj() {
+	return this.statusObj;
     }
 
     public double getQuantities() {
@@ -141,11 +154,23 @@ public class BillingItem {
 	return this.roles;
     }
 
+    public String getAdessoStatus() {
+	return adessoStatus;
+    }
+
+    public String getAdessoID() {
+	return adessoID;
+    }
+
     // ----------------------------//
     // ---------- Setter ----------//
     // ----------------------------//
-    public void setId(long id) {
-	this.id = id;
+    public void setName(String name) {
+	this.name = name;
+    }
+
+    public void setInternId(long id) {
+	this.internId = id;
     }
 
     public void setPrice(double p) {
@@ -156,8 +181,8 @@ public class BillingItem {
 	this.shortDescription = sDesc;
     }
 
-    public void setStatus(Status s) {
-	this.status = s;
+    public void setStatusObj(Status s) {
+	this.statusObj = s;
     }
 
     public void setQuantities(double qs) {
@@ -192,6 +217,14 @@ public class BillingItem {
 	this.roles = rs;
     }
 
+    public void setAdessoID(String adessoID) {
+	this.adessoID = adessoID;
+    }
+
+    public void setAdessoStatus(String adessoStatus) {
+	this.adessoStatus = adessoStatus;
+    }
+    
     // ----------------------------//
     // ---------- Misc ------------//
     // ----------------------------//
@@ -200,8 +233,9 @@ public class BillingItem {
     public boolean equals(Object obj) {
 	if (obj instanceof BillingItem) {
 	    BillingItem tmpBillItem = (BillingItem) obj;
-	    return tmpBillItem.getId() == this.id;
+	    return tmpBillItem.getInternId() == this.internId;
 	}
 	return false;
     }
+
 }
