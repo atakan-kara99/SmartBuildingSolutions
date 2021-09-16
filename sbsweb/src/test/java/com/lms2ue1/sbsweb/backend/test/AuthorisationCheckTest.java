@@ -22,6 +22,7 @@ import com.lms2ue1.sbsweb.backend.security.AuthorisationCheck;
 
 @SpringBootTest
 class AuthorisationCheckTest {
+    /*
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -124,7 +125,7 @@ class AuthorisationCheckTest {
      * System.out.println(address0.getProject());
      * assertTrue(authCheck.checkAddress("root", address0.getId())); }
      */
-
+/*
     @Test
     @DisplayName("testCheckOrganisation")
     public void testCheckOrganisation() {
@@ -220,5 +221,5 @@ class AuthorisationCheckTest {
     }
 
     // TODO: Tests für den Status => Eigener Issue
-
+*/
 }
