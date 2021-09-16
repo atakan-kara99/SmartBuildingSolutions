@@ -51,30 +51,36 @@ public class RoleContractsController {
         Organisation organisation = null;
         Role role = null;
         Project project = null;
-        List<Contract> availableContracts = backendAccessProvider.getAllContracts(principal.getName());
+        List<Contract> availableContracts = new ArrayList<Contract>(); backendAccessProvider.getAllContracts(principal.getName());
+        List<Contract> accessbileContracts = new ArrayList<Contract>(); backendAccessProvider.getAllContracts(principal.getName());
+
         try {
             organisation = backendAccessProvider.getOrganisationById(principal.getName(), oID);
-        } catch (AuthenticationException authException) {
-            authException.printStackTrace();
-        }
-        try {
             role = backendAccessProvider.getRoleById(principal.getName(), rID);
-        } catch (AuthenticationException authException) {
-            authException.printStackTrace();
-        }
-        try {
             project = backendAccessProvider.getProjectById(principal.getName(), pID);
         } catch (AuthenticationException authException) {
             authException.printStackTrace();
         }
-        // TODO Get user by name form BAP
+
+        for(Contract availableContract : backendAccessProvider.getAllContracts(principal.getName())) {
+            if(availableContract.getProject().getInternID() == pID) {
+                availableContracts.add(availableContract);
+            }
+        }
+
+        for(Contract accessbileContract : role.getContracts()) {
+            if(accessbileContract.getProject().getInternID() == pID) {
+                accessbileContracts.add(accessbileContract);
+            }
+        }
+
         model.addAttribute("user", getUserByPrincipal(principal));
         model.addAttribute("adminPrivileges", auth.isSysAdmin(principal.getName()) || auth.getOrgAdminID(principal.getName()) != null);
         model.addAttribute("organisation", organisation);
         model.addAttribute("role", role);
         model.addAttribute("project", project);
         model.addAttribute("availableContracts", availableContracts);
-        model.addAttribute("accessibleContracts", role.getContracts());
+        model.addAttribute("accessibleContracts", accessbileContracts);
         return "role/role_edit_access_contracts";
     }
 

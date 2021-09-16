@@ -54,28 +54,30 @@ public class RoleBillingItemsController {
         Role role = null;
         Project project = null;
         Contract contract = null;
-        List<BillingItem> availablebBillingItems = backendAccessProvider.getAllBillingItems(principal.getName());
+        List<BillingItem> availablebBillingItems = new ArrayList<BillingItem>();
+        List<BillingItem> accessibleBillingItems = new ArrayList<BillingItem>();
+
         try {
             organisation = backendAccessProvider.getOrganisationById(principal.getName(), oID);
-        } catch (AuthenticationException authException) {
-            authException.printStackTrace();
-        }
-        try {
             role = backendAccessProvider.getRoleById(principal.getName(), rID);
-        } catch (AuthenticationException authException) {
-            authException.printStackTrace();
-        }
-        try {
             project = backendAccessProvider.getProjectById(principal.getName(), pID);
-        } catch (AuthenticationException authException) {
-            authException.printStackTrace();
-        }
-        try {
             contract = backendAccessProvider.getContractById(principal.getName(), cID);
         } catch (AuthenticationException authException) {
             authException.printStackTrace();
         }
-        // TODO Get user by name form BAP
+
+        for(BillingItem availableBillingItem : backendAccessProvider.getAllBillingItems(principal.getName())) {
+            if(availableBillingItem.getBillingUnit().getContract().getInternID() == cID) {
+                availablebBillingItems.add(availableBillingItem);
+            }
+        }
+
+        for(BillingItem roleBillingItem : role.getBillingItems()) {
+            if(roleBillingItem.getBillingUnit().getContract().getInternID() == cID) {
+                accessibleBillingItems.add(roleBillingItem);
+            }
+        }
+
         model.addAttribute("user", getUserByPrincipal(principal));
         model.addAttribute("adminPrivileges", auth.isSysAdmin(principal.getName()) || auth.getOrgAdminID(principal.getName()) != null);
         model.addAttribute("organisation", organisation);
@@ -83,7 +85,7 @@ public class RoleBillingItemsController {
         model.addAttribute("project", project);
         model.addAttribute("contract", contract);
         model.addAttribute("availableBillingItems", availablebBillingItems);
-        model.addAttribute("accessibleBillingItems", role.getBillingItems());
+        model.addAttribute("accessibleBillingItems", accessibleBillingItems);
         return "role/role_edit_access_billing_items";
     }
 
