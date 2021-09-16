@@ -63,13 +63,13 @@ public class RoleContractsController {
         }
 
         for(Contract availableContract : backendAccessProvider.getAllContracts(principal.getName())) {
-            if(availableContract.getProject().getId() == pID) {
+            if(availableContract.getProject().getInternID() == pID) {
                 availableContracts.add(availableContract);
             }
         }
 
         for(Contract accessbileContract : role.getContracts()) {
-            if(accessbileContract.getProject().getId() == pID) {
+            if(accessbileContract.getProject().getInternID() == pID) {
                 accessbileContracts.add(accessbileContract);
             }
         }

@@ -67,13 +67,13 @@ public class RoleBillingItemsController {
         }
 
         for(BillingItem availableBillingItem : backendAccessProvider.getAllBillingItems(principal.getName())) {
-            if(availableBillingItem.getBillingUnit().getContract().getId() == cID) {
+            if(availableBillingItem.getBillingUnit().getContract().getInternID() == cID) {
                 availablebBillingItems.add(availableBillingItem);
             }
         }
 
         for(BillingItem roleBillingItem : role.getBillingItems()) {
-            if(roleBillingItem.getBillingUnit().getContract().getId() == cID) {
+            if(roleBillingItem.getBillingUnit().getContract().getInternID() == cID) {
                 accessibleBillingItems.add(roleBillingItem);
             }
         }
