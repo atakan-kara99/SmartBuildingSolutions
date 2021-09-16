@@ -84,7 +84,7 @@ public class DBSynchronisationService {
 
 	    // --------------------- Actually store everything!
 	    // Only save it, if it doesn't already exist:
-	    if (proRepo.findByAdessoID(currentProject.getAdessoID()) == null) {
+	    if (proRepo.findByAdessoID(currentProject.getAdessoID()).isEmpty()) {
 		proRepo.save(currentProject);
 	    }
 	    // TODO: What, if it already exists?
