@@ -827,7 +827,7 @@ public class BackendAccessProvider {
     }
 
     /**
-     * Returns a list of all accessible stati in the contract with the given id.
+     * Returns a list of all accessible billing units' stati in the contract with the given id.
      * 
      * @param username   the username of the user requesting this operation.
      * @param contractId the contract's id.
@@ -845,7 +845,7 @@ public class BackendAccessProvider {
     }
 
     /**
-     * Returns a list of all accessible stati in the project with the given id.
+     * Returns a list of all accessible billing units' stati in the project with the given id.
      * 
      * @param username  the username of the user requesting this operation.
      * @param projectId the project's id.
@@ -863,7 +863,7 @@ public class BackendAccessProvider {
     }
 
     /**
-     * Returns a list of all accessible stati (only stati in accessible projects).
+     * Returns a list of all accessible billing units' stati (only stati in accessible projects).
      * To get <b> ALL </b> stati, see {@link #getAllStati()}.
      * 
      * @param username the username of the user requesting this operation.

@@ -111,10 +111,11 @@ public class BackendAccessProviderTest {
 	billingUnit1.setId(1L);
 	billingUnit2 = new BillingUnit("sssdad", null, "�", "15999", "2201", 1, 0, contract2);
 	billingUnit2.setId(2L);
-	billingItem1 = new BillingItem("Heizung montieren", 2, "Heizko B7-2 fensternah einbauen.", open, 0, null, 7,
+	billingItem1 = new BillingItem("Heizung montieren", 2, "Heizko B7-2 fensternah einbauen.", noStatus, 0, null, 7,
 		null, null, billingUnit1, null);
 	billingItem1.setId(1L);
-	billingItem2 = new BillingItem("Fenster einbauen", 0, null, deny, 99, null, 0, null, null, billingUnit2, null);
+	billingItem2 = new BillingItem("Fenster einbauen", 0, null, noStatus, 99, null, 0, null, null, billingUnit2,
+		null);
 	billingItem2.setId(2L);
 	role1 = new Role("Bauherr", List.of(), List.of(), List.of(), organisation1, false);
 	role1.setId(1L);
@@ -382,14 +383,31 @@ public class BackendAccessProviderTest {
 		"Fail added the status!");
 	verify(stati, never()).save(status2);
     }
-    
+
     @Test
     public void testRemoveStatus() {
 	Long id1 = status1.getId();
 	assertDoesNotThrow(() -> BAP.removeStatus(rootUsername, id1), "Root couldn't remove the status!");
 	verify(stati).deleteById(id1);
 	Long id2 = status2.getId();
-	assertThrows(AuthenticationException.class, () -> BAP.removeStatus(failUsername, id2), "Fail removed the status!");
+	assertThrows(AuthenticationException.class, () -> BAP.removeStatus(failUsername, id2),
+		"Fail removed the status!");
 	verify(stati, never()).deleteById(id2);
+    }
+
+    @Test
+    public void testUpdateBillingItemStatus() {
+	when(users.findByUsernameIgnoreCase(rootUsername)).thenReturn(new User()); // Don't return null
+	assertDoesNotThrow(() -> BAP.updateBillingItemStatus(rootUsername, billingItem1.getId(), open),
+		"Billing item's status couldn't be updated!");
+	billingItem1.setStatus(open);
+	verify(billingItems).save(billingItem1);
+    }
+    
+    @Test
+    public void testGetStatusById() {
+	Long id = status1.getId();
+	assertDoesNotThrow(() -> BAP.getStatusById(id), "Couldn't find a status by ID!");
+	assertEquals(status1, BAP.getStatusById(id), "A different status was found!");
     }
 }
