@@ -47,7 +47,7 @@ public class ProjectController {
     public String showProjectOverview(Principal principal, Model model) {
 	String username = principal.getName();
 	model.addAttribute("projects", BAP.getAllProjects(username));
-	model.addAttribute("listOfStatus", listOfStatus1);
+	model.addAttribute("listOfStatus", listOfStatus);
 	return "project/project_overview";
     }
 
