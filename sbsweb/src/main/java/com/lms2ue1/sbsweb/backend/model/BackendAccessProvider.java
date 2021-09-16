@@ -738,6 +738,28 @@ public class BackendAccessProvider {
     }
 
     /**
+     * Updates a status.
+     * 
+     * @param username      the username of the user requesting this operation.
+     * @param oldStatusId   the status' old id.
+     * @param updatedStatus the updated status.
+     * @throws AuthenticationException  if the user has insufficient rights.
+     * @throws IllegalArgumentException if the operation failed.
+     */
+    public void updateStatus(String username, Long oldStatusId, Status updatedStatus) throws AuthenticationException {
+	if (oldStatusId == null || updatedStatus == null) {
+	    throw new IllegalArgumentException();
+	}
+	if (auth.isSysAdmin(username)) {
+	    Status oldStatus = stati.findById(oldStatusId).orElseThrow(IllegalArgumentException::new);
+	    oldStatus.setNextStati(updatedStatus.getNextStati());
+	    stati.save(oldStatus);
+	} else {
+	    throw new AuthenticationException();
+	}
+    }
+
+    /**
      * Updates a billing item's status.
      * 
      * @param username      the username of the user requesting this operation.
@@ -871,5 +893,17 @@ public class BackendAccessProvider {
      */
     public List<Status> getAllStatiForAllProjects(String username) throws AuthenticationException {
 	return getAllBillingItems(username).stream().map(bi -> bi.getStatusObj()).collect(Collectors.toList());
+    }
+
+    /**
+     * Checks whether the status with the given id is a pre-defined status.
+     * 
+     * @param statusId the status' id.
+     * @return true for standard status, false otherwise.
+     */
+    public boolean isStandardStatusById(Long statusId) {
+	String name = stati.findById(statusId).orElseThrow(IllegalArgumentException::new).getName();
+	return name.equalsIgnoreCase("NO_STATUS") || name.equalsIgnoreCase("OPEN") || name.equalsIgnoreCase("OK")
+		|| name.equalsIgnoreCase("DENY");
     }
 }
