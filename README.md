@@ -3,7 +3,7 @@
 Smart Building Solutions is a software system designed to support construction companies in managing contracts, projects, and performance items digitally. The platform provides a **web interface** for administrators and project stakeholders, as well as a **backend service** that synchronizes project data and provides secure data access.
 
 > **Note:** This repository contains the **web application** and **backend services only**.
-> The Android mobile application is **not included**.
+> The [Android mobile application](https://github.com/atakan-kara99/SmartBuildingSolutions-AndroidApp) is **not included**.
 
 ---
 
